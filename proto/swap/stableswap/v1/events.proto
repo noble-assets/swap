@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package swap.stableswap.v1;
+
+import "amino/amino.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "swap.noble.xyz/types/stableswap";
+
+message PoolCreated {
+  uint64 pool_id = 1; // ID of the newly created pool
+  string algorithm = 2; // Algorithm of the pool
+  string pair = 3; // Pair of assets in the pool
+  int64 protocol_fee_percentage = 4; // Protocol fee percentage for the pool
+  int64 rewards_fee = 5; // Rewards fee for the pool
+  int64 max_fee = 6; // Maximum fee allowed for the pool
+  int64 initial_a = 7; // Initial amplification coefficient
+  int64 initial_a_time = 8; // Initial amplification coefficient
+  int64 future_a = 9; // Future amplification coefficient
+  int64 future_a_time = 10; // Time when the amplification change will take effect
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 11 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+
+message PoolUpdated {
+  uint64 pool_id = 1; // ID of the pool being updated
+  int64 protocol_fee_percentage = 2; // Updated protocol fee percentage
+  int64 rewards_fee = 3; // Updated rewards fee
+  int64 max_fee = 4; // Updated maximum fee
+  int64 future_a = 5; // Updated future amplification coefficient
+  int64 future_a_time = 6; // Updated future amplification change time
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 7 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+
+message LiquidityAdded {
+  string provider = 1; // Provider address of the liquidity
+  uint64 pool_id = 2; // Pool identifier
+  repeated cosmos.base.v1beta1.Coin amount = 7 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ]; // Amount of liquidity being added
+  string shares = 4 [
+    (amino.dont_omitempty) = true,
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ]; // Number of shares corresponding to the added liquidity
+}
+
+message LiquidityRemoved {
+  string provider = 1; // Provider address of the liquidity
+  uint64 pool_id = 2; // Pool identifier
+  repeated cosmos.base.v1beta1.Coin amount = 7 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ]; // Amount of liquidity being removed
+  string shares = 4 [
+    (amino.dont_omitempty) = true,
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ]; // Number of shares corresponding to the removed liquidity
+  google.protobuf.Timestamp unlock_time = 3 [
+    (gogoproto.nullable) = false,
+    (gogoproto.stdtime) = true
+  ];
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package swap.stableswap.v1;
+
+import "amino/amino.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "swap.noble.xyz/types/stableswap";
+
+message Pool {
+  option (cosmos_proto.implements_interface) = "swap.v1.Pool";
+
+  int64 protocol_fee_percentage = 1;
+  int64 rewards_fee = 2;
+  int64 max_fee = 3;
+  int64 initial_a = 4;
+  int64 future_a = 5;
+  int64 initial_a_time = 6;
+  int64 future_a_time = 7;
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 8 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+  string total_shares = 9 [
+    (amino.dont_omitempty) = true,
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}

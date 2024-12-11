@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package swap.v1;
+
+import "amino/amino.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "swap/v1/algorithm.proto";
+
+option go_package = "swap.noble.xyz/types";
+
+message Rate {
+  string denom = 1;
+  string vs = 2;
+  string price = 3 [
+    (amino.dont_omitempty) = true,
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  swap.v1.Algorithm algorithm = 4;
+}

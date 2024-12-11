@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package swap.v1;
+
+import "amino/amino.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+import "swap/v1/swap.proto";
+
+option go_package = "swap.noble.xyz/types";
+
+message PoolsPaused {
+  repeated uint64 pool_ids = 1; // IDs of the pools paused
+}
+
+message PoolsUnpaused {
+  repeated uint64 pool_ids = 1; // IDs of the pools unpaused
+}
+
+message Swapped {
+  string signer = 1; // The address of the user initiating the swap
+  cosmos.base.v1beta1.Coin input = 2 [(gogoproto.nullable) = false]; // Coin input by the user
+  cosmos.base.v1beta1.Coin output = 3 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ]; // Final output coin from the swap
+  repeated swap.v1.Route routes = 4 [(gogoproto.nullable) = false]; // pools routing of the swap
+  repeated cosmos.base.v1beta1.Coin fees = 5 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ]; // Fees incurred during the swap
+}
+
+message WithdrawnProtocolFees {
+  string to = 2; // Address to which the fees are transferred
+  repeated cosmos.base.v1beta1.Coin rewards = 3 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ]; // List of reward coins withdrawn
+}
+
+message WithdrawnRewards {
+  string signer = 1; // The address of the user withdrawing rewards
+  repeated cosmos.base.v1beta1.Coin rewards = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ]; // List of reward coins withdrawn
+}

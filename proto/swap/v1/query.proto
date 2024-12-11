@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package swap.v1;
+
+import "cosmos/query/v1/query.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "swap/v1/algorithm.proto";
+import "swap/v1/pool.proto";
+import "swap/v1/rate.proto";
+import "swap/v1/tx.proto";
+
+option go_package = "swap.noble.xyz/types";
+
+service Query {
+  rpc Paused(QueryPaused) returns (QueryPausedResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/v1/paused";
+  }
+
+  rpc Pools(QueryPools) returns (QueryPoolsResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/v1/pools";
+  }
+
+  rpc Pool(QueryPool) returns (QueryPoolResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/v1/pools/{pool_id}";
+  }
+
+  rpc SimulateSwap(MsgSwap) returns (MsgSwapResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/v1/simulate_swap";
+  }
+
+  rpc Rates(QueryRates) returns (QueryRatesResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/v1/rates";
+  }
+
+  rpc Rate(QueryRate) returns (QueryRateResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/v1/rates/{denom}";
+  }
+}
+
+message QueryRates {
+  swap.v1.Algorithm algorithm = 1;
+}
+message QueryRatesResponse {
+  repeated Rate rates = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryRate {
+  string denom = 1;
+  swap.v1.Algorithm algorithm = 2;
+}
+message QueryRateResponse {
+  repeated Rate rates = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryPaused {}
+
+message QueryPausedResponse {
+  repeated uint64 paused_pools = 1;
+}
+
+message QueryPools {}
+
+message QueryPoolsResponse {
+  repeated PoolDetails pools = 1;
+}
+
+message QueryPool {
+  uint64 pool_id = 1;
+}
+
+message QueryPoolResponse {
+  PoolDetails pool = 1;
+}

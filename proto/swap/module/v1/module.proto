@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package swap.module.v1;
+
+import "cosmos/app/v1alpha1/module.proto";
+
+// Module is the config object of the Noble Swap module.
+message Module {
+  option (cosmos.app.v1alpha1.module) = {go_import: "swap.noble.xyz"};
+
+  // authority defines the custom module authority.
+  string authority = 1;
+
+  // base_denom defines the base denom that is used as the standard pairing denomination for all liquidity pools.
+  string base_denom = 2;
+
+  StableSwap stableswap = 3;
+}
+
+message StableSwap {
+  // unbonding_block_delta represents the delta number of blocks between unbondings executions.
+  int64 unbonding_block_delta = 1;
+}
