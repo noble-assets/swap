@@ -3,6 +3,7 @@ package keeper_test
 import (
 	"fmt"
 	"math/rand/v2"
+	stableswap2 "swap.noble.xyz/keeper/stableswap"
 	"testing"
 	"time"
 
@@ -15,6 +16,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"swap.noble.xyz/keeper"
 	stableswapkeeper "swap.noble.xyz/keeper"
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
@@ -379,11 +381,10 @@ func TestCreateStableSwapPool(t *testing.T) {
 
 	// ASSERT: Expect matching values in the state.
 	assert.Equal(t, pool, types.Pool{
-		Id:           0,
-		Address:      pool0Account.Address,
-		Algorithm:    types.STABLESWAP,
-		Pair:         "uusdc",
-		CreationTime: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+		Id:        0,
+		Address:   pool0Account.Address,
+		Algorithm: types.STABLESWAP,
+		Pair:      "uusdc",
 	})
 
 	// ARRANGE: Retrieve the StableSwap Pool from state.
@@ -435,18 +436,16 @@ func TestCreateStableSwapPool(t *testing.T) {
 	pools := k.GetPools(ctx)
 	assert.Equal(t, map[uint64]types.Pool{
 		0: {
-			Id:           0,
-			Address:      pool0Account.Address,
-			Algorithm:    types.STABLESWAP,
-			Pair:         "uusdc",
-			CreationTime: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+			Id:        0,
+			Address:   pool0Account.Address,
+			Algorithm: types.STABLESWAP,
+			Pair:      "uusdc",
 		},
 		1: {
-			Id:           1,
-			Address:      pool1Account.Address,
-			Algorithm:    types.STABLESWAP,
-			Pair:         "ueure",
-			CreationTime: time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC),
+			Id:        1,
+			Address:   pool1Account.Address,
+			Algorithm: types.STABLESWAP,
+			Pair:      "ueure",
 		},
 	}, pools)
 
@@ -853,9 +852,11 @@ func TestAddLiquidity(t *testing.T) {
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 	stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+	server := keeper.NewMsgServer(k)
 
-	user := utils.TestAccount()
+	user, bob := utils.TestAccount(), utils.TestAccount()
 
+	// ARRANGE: Create a Pool
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -869,34 +870,39 @@ func TestAddLiquidity(t *testing.T) {
 	})
 	assert.Nil(t, err)
 
+	// ACT: Attempt to add liquidity to an invalid Pool.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(),
 	})
-	assert.Error(t, err, types.ErrInvalidPool)
+	assert.ErrorIs(t, err, types.ErrInvalidPool)
 
+	// ACT: Attempt to add liquidity with an invalid address.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Invalid,
+		PoolId: 0,
+		Amount: sdk.NewCoins(),
+	})
+	assert.Error(t, err)
+
+	// ACT: Attempt to add liquidity with missing amount.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(),
 	})
-	assert.Error(t, err, types.ErrInvalidDenom)
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
 
-	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
-		Signer: user.Address,
-		PoolId: 0,
-		Amount: sdk.NewCoins(),
-	})
-	assert.Error(t, err, types.ErrInvalidDenom)
-
+	// ACT: Attempt to add liquidity with a single amount.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(sdk.NewCoin("uusdc", math.NewInt(1000000000000000000))),
 	})
-	assert.Error(t, err, types.ErrInvalidDenom)
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
 
+	// ACT: Attempt to add liquidity with a second invalid denom.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -905,18 +911,73 @@ func TestAddLiquidity(t *testing.T) {
 			sdk.NewCoin("invalid_denom", math.NewInt(10)),
 		),
 	})
-	assert.Error(t, err, types.ErrInvalidDenom)
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
 
-	pool, err := k.Pools.Get(ctx, 0)
-	assert.Nil(t, err)
-	poolAddress, err := sdk.AccAddressFromBech32(pool.Address)
-	assert.Nil(t, err)
-	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
-	assert.Equal(t, len(poolLiquidity), 0)
+	// ACT: Attempt to add liquidity with a 0 pair amount.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(0)),
+			sdk.NewCoin("uusdn", math.NewInt(10)),
+		),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
 
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
-	response, err := stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+	// ACT: Attempt to add liquidity with a 0 base pair amount.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(0)),
+		),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
+
+	// ACT: Attempt to add liquidity with 3 amounts.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusde", math.NewInt(10)),
+		),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
+
+	// ACT: Attempt to add liquidity with an unbalanced amount.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(11)),
+		),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
+
+	// ACT: Attempt to add liquidity with an unbalanced amount.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(11)),
+		),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
+
+	// ARRANGE: Update the Pool state with an invalid pool address.
+	tmpPool, _ := k.GetPool(ctx, 0)
+	tmpAddress := tmpPool.Address
+	tmpPool.Address = "invalid"
+	err = k.Pools.Set(ctx, 0, tmpPool)
+	assert.NoError(t, err)
+
+	// ACT: Attempt to add liquidity with an invalid pool address.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
@@ -924,47 +985,231 @@ func TestAddLiquidity(t *testing.T) {
 			sdk.NewCoin("uusdn", math.NewInt(10)),
 		),
 	})
-	assert.Nil(t, err)
-	assert.Equal(t, response.MintedShares, int64(20))
-	pool, err = k.Pools.Get(ctx, 0)
-	assert.Nil(t, err)
-	assert.Equal(t, bank.Balances[user.Address].AmountOf("uusdc"), math.NewInt(90))
-	assert.Equal(t, bank.Balances[user.Address].AmountOf("uusdn"), math.NewInt(90))
-	poolLiquidity = bank.GetAllBalances(ctx, poolAddress)
-	assert.Equal(t, poolLiquidity.AmountOf("uusdn").Int64(), int64(10))
-	assert.Equal(t, poolLiquidity.AmountOf("uusdc").Int64(), int64(10))
+	assert.Equal(t, "unable to decode pool address, got invalid: decoding bech32 failed: invalid bech32 string length 7", err.Error())
 
-	key := collections.Join3(uint64(0), user.Address, int64(-62135596800))
+	// ARRANGE: Restore the Pool state with the original address.
+	tmpPool.Address = tmpAddress
+	err = k.Pools.Set(ctx, 0, tmpPool)
+	assert.NoError(t, err)
+
+	// ARRANGE: Give the user 100usdc/usdn.
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
+
+	// ACT: Add liquidity for 10usdc/10usdn.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 0, 0, 0, time.UTC)})
+	response, err := stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+		),
+	})
+	// ASSERT: Expect matching values in state.
+	assert.NoError(t, err)
+	assert.Equal(t, 20*ONE, response.MintedShares)
+	pool, err := k.Pools.Get(ctx, 0)
+	assert.Nil(t, err)
+	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
+	poolAddress, err := sdk.AccAddressFromBech32(pool.Address)
+	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
+	assert.Equal(t, 10*ONE, poolLiquidity.AmountOf("uusdn").Int64())
+	assert.Equal(t, 10*ONE, poolLiquidity.AmountOf("uusdc").Int64())
+	key := collections.Join3(uint64(0), user.Address, time.Date(2020, 1, 1, 1, 0, 0, 0, time.UTC).Unix())
 	position, err := k.Stableswap.BondedPositions.Get(ctx, key)
 	assert.Nil(t, err)
-	assert.Equal(t, position.Balance, math.LegacyNewDec(20))
+	assert.Equal(t, math.LegacyNewDec(20*ONE), position.Balance)
 
+	// ACT: Add other liquidity for 10usdc/10usdn.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
 	response, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
-	assert.Equal(t, int64(20), response.MintedShares)
+	// ASSERT: Expect matching values in state.
+	assert.Equal(t, 20*ONE, response.MintedShares)
 
+	// ACT: Add other liquidity for 10usdc/10usdn.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 2, 1, 1, time.UTC)})
 	response, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+		),
+	})
+	// ASSERT: Expect matching values in state.
+	assert.NoError(t, err)
+	assert.Equal(t, 20*ONE, response.MintedShares)
+	stableswapPool, _ := k.Stableswap.Pools.Get(ctx, 0)
+	assert.Equal(t, math.LegacyNewDec(60*ONE), stableswapPool.TotalShares)
+
+	// ACT: Attempt to add liquidity within the same time.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10000*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10000*ONE)),
+		),
+	})
+	assert.Equal(t, "cannot create multiple user positions in the same block", err.Error())
+
+	// ACT: Attempt to add liquidity without enough balance.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 3, 1, 1, time.UTC)})
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10000*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10000*ONE)),
+		),
+	})
+	assert.Equal(t, "unable to transfer from provider to pool: 70000000uusdc,70000000uusdn is smaller than 10000000000uusdc,10000000000uusdn: insufficient funds", err.Error())
+
+	// ARRANGE: Unbalance the Pool.
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10*ONE)))
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+		Routes: []types.Route{
+			{
+				PoolId:  0,
+				DenomTo: "uusdn",
+			},
+		},
+		Min: sdk.NewCoin("uusdn", math.NewInt(1*ONE)),
+	})
+	assert.NoError(t, err)
+
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(1*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(1*ONE)),
+		),
+	})
+	assert.Error(t, err)
+	assert.ErrorIs(t, types.ErrInvalidAmount, err)
+
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 4, 1, 1, time.UTC)})
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(1999999)),
+			sdk.NewCoin("uusdn", math.NewInt(1000000)),
 		),
 	})
 	assert.NoError(t, err)
-	assert.Equal(t, int64(20), response.MintedShares)
+}
 
-	stableswapPool, _ := k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyNewDec(60), stableswapPool.TotalShares)
+func TestAddLiquidityFailingCollections(t *testing.T) {
+	// ARRANGE: Test cases validating each message attribute.
+	tests := []struct {
+		name        string
+		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+		error       string
+	}{
+		{
+			"Failing BondedPositions",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
+				k.Stableswap.BondedPositions = collections.NewIndexedMap(
+					builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
+					collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
+					codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
+					stableswap2.NewBondedPositionIndexes(builder),
+				)
+			},
+			"unable to set updated user pool position: error accessing store",
+		},
+		{
+			"Failing UsersTotalBondedShares",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.UsersTotalBondedShares = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_users_total_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
+				)
+			},
+			"unable to set stableswap user pool total bonded shares: error accessing store",
+		},
+		{
+			"Failing Pool",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.Pools = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswap.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
+				)
+			},
+			"unable to set stableswap pool total bonded shares: error accessing store",
+		},
+	}
+	bob := utils.TestAccount()
+	fakeTime := time.Now()
+
+	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
+		account := mocks.AccountKeeper{
+			Accounts: make(map[string]sdk.AccountI),
+		}
+		bank := mocks.BankKeeper{
+			Balances:    make(map[string]sdk.Coins),
+			Restriction: mocks.NoOpSendRestrictionFn,
+		}
+		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+		server := keeper.NewMsgServer(k)
+		stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+
+		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+			Signer:                "authority",
+			Pair:                  "uusdc",
+			RewardsFee:            10 * ONE,
+			ProtocolFeePercentage: 1,
+			MaxFee:                1000 * ONE,
+			InitialA:              100,
+			FutureA:               100,
+			FutureATime:           100,
+			RateMultipliers: sdk.NewCoins(
+				sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
+				sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
+			),
+		})
+		assert.Nil(t, err)
+
+		bank.Balances[bob.Address] = sdk.Coins{}
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(101*ONE)))
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(101*ONE)))
+
+		return account, bank, k, ctx, &server, &stableswapServer
+	}
+
+	for _, test := range tests {
+		_, _, k, ctx, _, stableswapServer := initState()
+
+		// ARRANGE: Mock the state collections.
+		test.mockStateFn(k, ctx)
+
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(101 * time.Hour), Height: 20})
+		_, err := (*stableswapServer).AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+			Signer: bob.Address,
+			PoolId: 0,
+			Amount: sdk.NewCoins(
+				sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+				sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+			),
+		})
+		assert.Error(t, err)
+		assert.Equal(t, test.error, err.Error())
+	}
 }
 
 func TestRemoveLiquiditySingleUser(t *testing.T) {
@@ -976,10 +1221,11 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-
+	server := keeper.NewMsgServer(k)
 	stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
 	user := utils.TestAccount()
 
+	// ARRANGE: Create a Pool.
 	_, _ = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -997,6 +1243,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
 	assert.Equal(t, len(poolLiquidity), 0)
 
+	// ACT: Attempt to remove liquidity without any.
 	_, err := stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
 		PoolId:     0,
@@ -1004,87 +1251,14 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	})
 	assert.Error(t, err)
 
+	// ARRANGE: Give the user 100usdc/100usdn.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
-
-	// 1.
-
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
-	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
-		Signer: user.Address,
-		PoolId: 0,
-		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-		),
-	})
-	assert.NoError(t, err)
-	userTotalShares, _ := k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
-	stableswapPool, _ := k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyNewDec(20), stableswapPool.TotalShares)
-	assert.Equal(t, userTotalShares, userTotalShares)
-	assert.Equal(t, math.NewInt(90), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(90), bank.Balances[user.Address].AmountOf("uusdn"))
 
-	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 2, 1, 1, 1, 1, 1, time.UTC)})
-	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
-		Signer: user.Address,
-		PoolId: 0,
-		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(20)),
-			sdk.NewCoin("uusdn", math.NewInt(20)),
-		),
-	})
-	assert.NoError(t, err)
-	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
-	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyNewDec(60), stableswapPool.TotalShares)
-	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+	// 1) Test  liquidity remove with single bonded position.
 
-	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
-		Signer:     user.Address,
-		PoolId:     0,
-		Percentage: math.LegacyNewDec(120),
-	})
-	assert.ErrorIs(t, err, types.ErrInvalidUnbondPercentage)
-
-	res, err := stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
-		Signer:     user.Address,
-		PoolId:     0,
-		Percentage: math.LegacyNewDec(100),
-	})
-	assert.NoError(t, err)
-
-	totalUnbondingShares, err := k.Stableswap.PoolsTotalUnbondingShares.Get(ctx, pool.Id)
-	assert.NoError(t, err)
-	assert.Equal(t, res.UnbondingShares, totalUnbondingShares)
-
-	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
-	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
-	err = k.BeginBlocker(ctx)
-	assert.NoError(t, err)
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
-
-	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 2, 10, 1, 1, 1, 1, time.UTC)})
-	err = k.BeginBlocker(ctx)
-	assert.NoError(t, err)
-	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdn"))
-	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyZeroDec(), stableswapPool.TotalShares)
-
-	totalUnbondingShares, err = k.Stableswap.PoolsTotalUnbondingShares.Get(ctx, pool.Id)
-	assert.NoError(t, err)
-	assert.Equal(t, math.LegacyZeroDec(), totalUnbondingShares)
-
-	// 2.
-
+	// ARRANGE: Add liquidity for 20usdc/usdn.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 1, 1, 1, 1, 1, time.UTC)})
 	resAdd, err := stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
@@ -1095,39 +1269,186 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
-	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
-	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
+
+	// ASSERT: Expect matching values in state.
+	userTotalShares, _ := k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
+	stableswapPool, _ := k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec(resAdd.MintedShares), stableswapPool.TotalShares)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
 
+	// ARRANGE: Setup up failing collections on Pools
+	tmpPools := k.Pools
+	k.Pools = collections.NewMap(
+		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
+		types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
+	)
+
+	// ACT: Attempt to remove liquidity with failing collections.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     0,
+		Percentage: math.LegacyNewDec(100),
+	})
+	assert.Equal(t, "error accessing store", err.Error())
+	// ARRANGE: restore collection
+	k.Pools = tmpPools
+
+	// ARRANGE: Pause Pool.
+	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
+		Signer:    "authority",
+		Algorithm: types.STABLESWAP,
+	})
+	assert.NoError(t, err)
+
+	// ACT: Attempt to remove liquidity with paused pool.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     0,
+		Percentage: math.LegacyNewDec(100),
+	})
+	assert.ErrorIs(t, types.ErrPoolActivityPaused, err)
+
+	// ARRANGE: Unpause Pool.
+	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
+		Signer:    "authority",
+		Algorithm: types.STABLESWAP,
+	})
+	assert.NoError(t, err)
+
+	// ACT: Attempt to remove liquidity from an unsupported pool.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     1,
+		Percentage: math.LegacyNewDec(100),
+	})
+	assert.ErrorIs(t, types.ErrInvalidPool, err)
+
+	// ACT: Remove 100% of the provided liquidity
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
 		PoolId:     0,
 		Percentage: math.LegacyNewDec(100),
 	})
 	assert.NoError(t, err)
+
+	// ASSERT: Expect matching values in state.
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+
+	// ACT: Execute the BeginBlocker before the expected unbonding time.
 	err = k.BeginBlocker(ctx)
+	// ASSERT: Expect no changes in state.
 	assert.NoError(t, err)
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
 
+	// ACT: Execute the BeginBlocker after the expected unbonding time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 10, 1, 1, 1, 1, time.UTC)})
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
+	// ASSERT: User received back all the tokens.
 	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdn"))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyZeroDec(), stableswapPool.TotalShares)
 
-	// 3.
+	// 2) Test liquidity remove with multiple bonded positions.
 
+	// ARRANGE: Add liquidity for 10usdc/10usdn.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10)),
+		),
+	})
+
+	// ASSERT: Expect matching values in state.
+	assert.NoError(t, err)
+	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
+	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
+	assert.Equal(t, math.LegacyNewDec(20), stableswapPool.TotalShares)
+	assert.Equal(t, userTotalShares, userTotalShares)
+	assert.Equal(t, math.NewInt(90), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(90), bank.Balances[user.Address].AmountOf("uusdn"))
+
+	// ARRANGE: Add other liquidity for 20usdc/20usdn with a new position.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 2, 1, 1, 1, 1, 1, time.UTC)})
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(20)),
+			sdk.NewCoin("uusdn", math.NewInt(20)),
+		),
+	})
+	// ASSERT: Expect matching values in state.
+	assert.NoError(t, err)
+	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
+	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
+	assert.Equal(t, math.LegacyNewDec(60), stableswapPool.TotalShares)
+	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
+	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+
+	// ACT: Attempt to remove liquidity with an invalid percentage.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     0,
+		Percentage: math.LegacyNewDec(120),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidUnbondPercentage)
+
+	// ACT: Remove 100% of the provided liquidity.
+	res, err := stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     0,
+		Percentage: math.LegacyNewDec(100),
+	})
+	assert.NoError(t, err)
+
+	// ASSERT: Expect matching values in state.
+	totalUnbondingShares, err := k.Stableswap.PoolsTotalUnbondingShares.Get(ctx, pool.Id)
+	assert.NoError(t, err)
+	assert.Equal(t, res.UnbondingShares, totalUnbondingShares)
+	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
+	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
+	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
+	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+
+	// ACT: Execute the BeginBlocker before the expected unbonding time.
+	err = k.BeginBlocker(ctx)
+	assert.NoError(t, err)
+	// ASSERT: No changes in state.
+	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+
+	// ARRANGE: Increase time.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 2, 10, 1, 1, 1, 1, time.UTC)})
+
+	// ACT: Execute the BeginBlocker after the expected unbonding time.
+	err = k.BeginBlocker(ctx)
+	assert.NoError(t, err)
+
+	// ASSERT: User received back all the tokens.
+	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdn"))
+	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
+	assert.Equal(t, math.LegacyZeroDec(), stableswapPool.TotalShares)
+	totalUnbondingShares, err = k.Stableswap.PoolsTotalUnbondingShares.Get(ctx, pool.Id)
+	assert.NoError(t, err)
+	assert.Equal(t, math.LegacyZeroDec(), totalUnbondingShares)
+
+	// 3) Test partial liquidity remove.
+
+	// ARRANGE: Add liquidity for 20usdc/usdn.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 4, 1, 1, 1, 1, 1, time.UTC)})
 	resAdd, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
@@ -1138,6 +1459,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
+
+	// ASSERT: Expect matching values in state.
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec(resAdd.MintedShares), stableswapPool.TotalShares)
@@ -1145,6 +1468,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
 
+	// ACT: remove 40% liquidity.
 	expectedRemovedAmount := resAdd.MintedShares * 40 / 100
 	expectedRemovedTokens := int64(20 * 40 / 100)
 	resRemove, err := stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
@@ -1153,6 +1477,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Percentage: math.LegacyNewDec(40),
 	})
 	assert.NoError(t, err)
+
+	// ASSERT: Expect matching values in state.
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec(expectedRemovedAmount), resRemove.UnbondingShares)
@@ -1160,14 +1486,29 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+
+	// ACT: Attempt to remove multiple positions within the same block.
+	resRemove, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     0,
+		Percentage: math.LegacyNewDec(40),
+	})
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "unbonding key already exists:")
+
+	// ACT: Execute the BeginBlocker before the expected unbonding time.
 	err = k.BeginBlocker(ctx)
+	// ASSERT: No changes in state.
 	assert.NoError(t, err)
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
 
+	// ACT: Execute the BeginBlocker after the expected unbonding time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 4, 10, 1, 1, 1, 1, time.UTC)})
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
+
+	// ASSERT: User received back 40% of all the tokens.
 	assert.Equal(t, math.NewInt(80+expectedRemovedTokens), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80+expectedRemovedTokens), bank.Balances[user.Address].AmountOf("uusdn"))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
@@ -1244,6 +1585,112 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 
 	assert.Equal(t, sdk.NewCoins(sdk.NewCoin("uusdc", math.NewInt(bobLiquidity)), sdk.NewCoin("uusdn", math.NewInt(bobLiquidity))), bank.Balances[bob.Address])
 	assert.Equal(t, sdk.NewCoins(sdk.NewCoin("uusdc", math.NewInt(aliceLiquidity)), sdk.NewCoin("uusdn", math.NewInt(aliceLiquidity))), bank.Balances[alice.Address])
+}
+
+func TestRemoveLiquidityFailingCollections(t *testing.T) {
+	// ARRANGE: Test cases validating each message attribute.
+	tests := []struct {
+		name        string
+		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+	}{
+		{
+			"Failing UnbondingPositions",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
+				k.Stableswap.UnbondingPositions = collections.NewIndexedMap(
+					builder, types.StableSwapUnbondingPositionsPrefix, "stableswap_unbonding_positions",
+					collections.TripleKeyCodec(collections.Int64Key, collections.StringKey, collections.Uint64Key),
+					codec.CollValue[stableswap.UnbondingPosition](mocks.MakeTestEncodingConfig("noble").Codec),
+					stableswap2.NewUnbondingPositionIndexes(builder),
+				)
+			},
+		},
+		{
+			"Failing PoolsTotalUnbondingShares",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.PoolsTotalUnbondingShares = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_pools_total_unbonding_shares", collections.Uint64Key, sdk.LegacyDecValue,
+				)
+			},
+		},
+		{
+			"Failing UsersTotalUnbondingShares",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.UsersTotalUnbondingShares = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapUsersTotalUnbondingSharesPrefix, "stableswap_users_total_unbonding_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
+				)
+			},
+		},
+	}
+	bob := utils.TestAccount()
+	fakeTime := time.Now()
+
+	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
+		account := mocks.AccountKeeper{
+			Accounts: make(map[string]sdk.AccountI),
+		}
+		bank := mocks.BankKeeper{
+			Balances:    make(map[string]sdk.Coins),
+			Restriction: mocks.NoOpSendRestrictionFn,
+		}
+		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+		server := keeper.NewMsgServer(k)
+		stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+
+		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+			Signer:                "authority",
+			Pair:                  "uusdc",
+			RewardsFee:            10 * ONE,
+			ProtocolFeePercentage: 1,
+			MaxFee:                1000 * ONE,
+			InitialA:              100,
+			FutureA:               100,
+			FutureATime:           100,
+			RateMultipliers: sdk.NewCoins(
+				sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
+				sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
+			),
+		})
+		assert.Nil(t, err)
+
+		bank.Balances[bob.Address] = sdk.Coins{}
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(101*ONE)))
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(101*ONE)))
+
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(100 * time.Hour), Height: 20})
+		_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+			Signer: bob.Address,
+			PoolId: 0,
+			Amount: sdk.NewCoins(
+				sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+				sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+			),
+		})
+		assert.NoError(t, err)
+
+		// ARRANGE: Increase time until the expiring time.
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(200 * time.Hour), Height: 20})
+
+		return account, bank, k, ctx, &server, &stableswapServer
+	}
+
+	for _, test := range tests {
+		_, _, k, ctx, _, stableswapServer := initState()
+
+		// ARRANGE: Mock the state collections.
+		test.mockStateFn(k, ctx)
+
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(101 * time.Hour), Height: 20})
+		_, err := (*stableswapServer).RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+			Signer:     bob.Address,
+			PoolId:     0,
+			Percentage: math.LegacyNewDec(100),
+		})
+		assert.Error(t, err)
+		assert.Equal(t, "error accessing store", err.Error())
+	}
 }
 
 func TestUnbondings(t *testing.T) {
@@ -1388,7 +1835,7 @@ func TestUnbondings(t *testing.T) {
 	}
 
 	// ARRANGE: execute the BeginBlocker
-	ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(72 * time.Hour)})
+	ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(72 * time.Hour), Height: 10})
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
 
@@ -1400,4 +1847,162 @@ func TestUnbondings(t *testing.T) {
 		assert.LessOrEqual(t, diff1, delta)
 		assert.LessOrEqual(t, diff2, delta)
 	}
+}
+
+func TestUnbondingPositionsFailingCollections(t *testing.T) {
+	// ARRANGE: Test cases validating each message attribute.
+	tests := []struct {
+		name        string
+		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+	}{
+		{
+			"Failing UnbondingPositions",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Delete, utils.GetKVStore(ctx, types.ModuleName)))
+				k.Stableswap.UnbondingPositions = collections.NewIndexedMap(
+					builder, types.StableSwapUnbondingPositionsPrefix, "stableswap_unbonding_positions",
+					collections.TripleKeyCodec(collections.Int64Key, collections.StringKey, collections.Uint64Key),
+					codec.CollValue[stableswap.UnbondingPosition](mocks.MakeTestEncodingConfig("noble").Codec),
+					stableswap2.NewUnbondingPositionIndexes(builder),
+				)
+			},
+		},
+		{
+			"Failing Pool",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.Pools = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswap.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
+				)
+			},
+		},
+		{
+			"Failing PoolsTotalUnbondingShares",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.PoolsTotalUnbondingShares = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_pools_total_unbonding_shares", collections.Uint64Key, sdk.LegacyDecValue,
+				)
+			},
+		},
+		{
+			"Failing UsersTotalUnbondingShares",
+			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+				k.Stableswap.UsersTotalUnbondingShares = collections.NewMap(
+					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
+					types.StableSwapUsersTotalUnbondingSharesPrefix, "stableswap_users_total_unbonding_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
+				)
+			},
+		},
+	}
+	bob, alice := utils.TestAccount(), utils.TestAccount()
+
+	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
+		account := mocks.AccountKeeper{
+			Accounts: make(map[string]sdk.AccountI),
+		}
+		bank := mocks.BankKeeper{
+			Balances:    make(map[string]sdk.Coins),
+			Restriction: mocks.NoOpSendRestrictionFn,
+		}
+		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+		server := keeper.NewMsgServer(k)
+		stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+
+		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+			Signer:                "authority",
+			Pair:                  "uusdc",
+			RewardsFee:            10 * ONE,
+			ProtocolFeePercentage: 1,
+			MaxFee:                1000 * ONE,
+			InitialA:              100,
+			FutureA:               100,
+			FutureATime:           100,
+			RateMultipliers: sdk.NewCoins(
+				sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
+				sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
+			),
+		})
+		assert.Nil(t, err)
+
+		fakeTime := time.Now()
+
+		bank.Balances[bob.Address] = sdk.Coins{}
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(101*ONE)))
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(101*ONE)))
+		bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(10_000*ONE)))
+
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(100 * time.Hour), Height: 20})
+		_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+			Signer: bob.Address,
+			PoolId: 0,
+			Amount: sdk.NewCoins(
+				sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+				sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+			),
+		})
+		assert.NoError(t, err)
+
+		_, err = server.Swap(ctx, &types.MsgSwap{
+			Signer: alice.Address,
+			Amount: sdk.NewCoin("uusdc", math.NewInt(10_000*ONE)),
+			Routes: []types.Route{{PoolId: 0, DenomTo: "uusdn"}},
+			Min:    sdk.NewCoin("uusdn", math.NewInt(90*ONE)),
+		})
+		assert.NoError(t, err)
+
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(101 * time.Hour), Height: 20})
+		_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+			Signer:     bob.Address,
+			PoolId:     0,
+			Percentage: math.LegacyNewDec(100),
+		})
+		assert.NoError(t, err)
+
+		// ARRANGE: Increase time until the expiring time.
+		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(200 * time.Hour), Height: 20})
+
+		return account, bank, k, ctx, &server, &stableswapServer
+	}
+
+	for _, test := range tests {
+		_, _, k, ctx, _, _ := initState()
+
+		// ARRANGE: Mock the state collections.
+		test.mockStateFn(k, ctx)
+
+		// ACT: Attempt to execute the beginBlocker.
+		err := k.BeginBlocker(ctx)
+		assert.NoError(t, err)
+	}
+
+	_, _, k, ctx, _, stableswapServer := initState()
+
+	// ARRANGE: Set failing collections for BondingPositions.
+	tmpBondedPositions := k.Stableswap.BondedPositions
+	builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
+	k.Stableswap.BondedPositions = collections.NewIndexedMap(
+		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
+		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
+		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
+		stableswap2.NewBondedPositionIndexes(builder),
+	)
+
+	// ACT: Attempt to execute the beginBlocker.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Now().Add(150 * time.Hour), Height: 20})
+	err := k.BeginBlocker(ctx)
+	assert.NoError(t, err)
+
+	// ARRANGE: restore BondingPositions collection.
+	k.Stableswap.BondedPositions = tmpBondedPositions
+
+	_, err = (*stableswapServer).AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: bob.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(1*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(1*ONE)),
+		),
+	})
+	assert.NoError(t, err)
 }

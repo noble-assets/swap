@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	sdkerrors "cosmossdk.io/errors"
 	"swap.noble.xyz/keeper/stableswap"
@@ -33,4 +34,21 @@ func GetStableSwapController(ctx context.Context, keeper *Keeper, poolId uint64)
 	// Create and return the `StableSwap` StableswapController.
 	stableswapController := stableswap.NewController(&keeper.bankKeeper, keeper.baseDenom, &pool, paused, &stableswapPool, keeper.Stableswap)
 	return &stableswapController, nil
+}
+
+// GetStableSwapControllers initializes and returns all the `StableSwap` Controller for the Pools.
+func GetStableSwapControllers(ctx context.Context, keeper *Keeper) map[uint64]*stableswap.Controller {
+	controllers := map[uint64]*stableswap.Controller{}
+
+	for _, pool := range keeper.GetPools(ctx) {
+		controller, err := GetStableSwapController(ctx, keeper, pool.Id)
+		if err != nil {
+			keeper.Stableswap.Logger().Error(fmt.Sprintf("failed to access Pool %d: %s", pool.Id, err.Error()))
+			continue
+		}
+
+		controllers[pool.GetId()] = controller
+	}
+
+	return controllers
 }

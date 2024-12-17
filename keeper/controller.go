@@ -27,9 +27,6 @@ type Controller interface {
 	// GetPair returns the Pool pair denom.
 	GetPair() string
 
-	// GetCreationTime returns the time of Pool creation.
-	GetCreationTime() time.Time
-
 	// PoolDetails returns the underlying detailed information or metadata about the Pool.
 	PoolDetails() *anyproto.Any
 

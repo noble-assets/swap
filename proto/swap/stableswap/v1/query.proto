@@ -3,6 +3,7 @@ syntax = "proto3";
 package swap.stableswap.v1;
 
 import "amino/amino.proto";
+import "cosmos/base/v1beta1/coin.proto";
 import "cosmos/query/v1/query.proto";
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
@@ -17,9 +18,19 @@ service Query {
     option (google.api.http).get = "/swap/stableswap/v1/positions/{provider}";
   }
 
+  rpc BondedPositionsByProvider(QueryBondedPositionsByProvider) returns (QueryBondedPositionsByProviderResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/stableswap/v1/bonded-positions/{provider}";
+  }
+
   rpc UnbondingPositionsByProvider(QueryUnbondingPositionsByProvider) returns (QueryUnbondingPositionsByProviderResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/swap/stableswap/v1/unbonding-positions/{provider}";
+  }
+
+  rpc RewardsByProvider(QueryRewardsByProvider) returns (QueryRewardsByProviderResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/swap/stableswap/v1/rewards/{provider}";
   }
 }
 
@@ -28,21 +39,17 @@ message QueryPositionsByProvider {
 }
 
 message QueryPositionsByProviderResponse {
-  message Position {
-    uint64 pool_id = 1;
-    string shares = 2 [
-      (amino.dont_omitempty) = true,
-      (cosmos_proto.scalar) = "cosmos.Dec",
-      (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-      (gogoproto.nullable) = false
-    ];
-    google.protobuf.Timestamp timestamp = 3 [
-      (gogoproto.nullable) = false,
-      (gogoproto.stdtime) = true
-    ];
-  }
+  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
+  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 2 [(gogoproto.nullable) = false];
+  repeated QueryRewardsResponseEntry rewards = 3 [(gogoproto.nullable) = false];
+}
 
-  repeated Position positions = 1 [(gogoproto.nullable) = false];
+message QueryBondedPositionsByProvider {
+  string provider = 1;
+}
+
+message QueryBondedPositionsByProviderResponse {
+  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryUnbondingPositionsByProvider {
@@ -50,19 +57,51 @@ message QueryUnbondingPositionsByProvider {
 }
 
 message QueryUnbondingPositionsByProviderResponse {
-  message UnbondingPosition {
-    uint64 pool_id = 1;
-    string unbonding_shares = 2 [
-      (amino.dont_omitempty) = true,
-      (cosmos_proto.scalar) = "cosmos.Dec",
-      (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-      (gogoproto.nullable) = false
-    ];
-    google.protobuf.Timestamp end_time = 4 [
-      (gogoproto.nullable) = false,
-      (gogoproto.stdtime) = true
-    ];
-  }
+  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 1 [(gogoproto.nullable) = false];
+}
 
-  repeated UnbondingPosition unbonding_positions = 1 [(gogoproto.nullable) = false];
+message QueryRewardsByProvider {
+  string provider = 1;
+}
+
+message QueryRewardsByProviderResponse {
+  repeated QueryRewardsResponseEntry rewards = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryBondedPositionResponseEntry {
+  uint64 pool_id = 1;
+  string shares = 2 [
+    (amino.dont_omitempty) = true,
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  google.protobuf.Timestamp timestamp = 3 [
+    (gogoproto.nullable) = false,
+    (gogoproto.stdtime) = true
+  ];
+}
+
+message QueryUnbondingPositionResponseEntry {
+  uint64 pool_id = 1;
+  string unbonding_shares = 2 [
+    (amino.dont_omitempty) = true,
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  google.protobuf.Timestamp end_time = 4 [
+    (gogoproto.nullable) = false,
+    (gogoproto.stdtime) = true
+  ];
+}
+
+message QueryRewardsResponseEntry {
+  uint64 pool_id = 1;
+  repeated cosmos.base.v1beta1.Coin amount = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (amino.encoding) = "legacy_coins",
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
 }

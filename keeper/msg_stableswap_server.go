@@ -113,11 +113,10 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 
 	// Set the new Pool on state.
 	if err = s.SetPool(ctx, poolId, types.Pool{
-		Id:           poolId,
-		Address:      account.GetAddress().String(),
-		Algorithm:    algorithm,
-		Pair:         msg.Pair,
-		CreationTime: s.headerService.GetHeaderInfo(ctx).Time,
+		Id:        poolId,
+		Address:   account.GetAddress().String(),
+		Algorithm: algorithm,
+		Pair:      msg.Pair,
 	}); err != nil {
 		return nil, sdkerrors.Wrapf(err, "unable to set pool")
 	}
@@ -252,11 +251,6 @@ func (s stableswapMsgServer) RemoveLiquidity(ctx context.Context, msg *stableswa
 		return nil, sdkerrors.Wrapf(types.ErrPoolActivityPaused, "pool %d is paused", msg.PoolId)
 	}
 
-	// Ensure the Pool is supported.
-	if stableswapController.GetAlgorithm() != types.STABLESWAP {
-		return nil, types.ErrInvalidPool
-	}
-
 	// Calculate the new user Unbonding BondedPosition to apply.
 	unbondingCommitment, err := stableswapController.RemoveLiquidity(ctx, s.headerService.GetHeaderInfo(ctx).Time, msg)
 	if err != nil {
@@ -293,44 +287,50 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 		return nil, sdkerrors.Wrapf(types.ErrPoolActivityPaused, "pool %d is paused", msg.PoolId)
 	}
 
-	// Ensure is a supported Pool.
-	if stableswapController.GetAlgorithm() != types.STABLESWAP {
-		return nil, types.ErrInvalidPool
-	}
-
-	// Check if the input coins to add are valid coins.
-	if msg.Amount.Len() != 2 {
-		return nil, fmt.Errorf("coins should be 2 got %d", msg.Amount.Len())
-	}
-
-	// Check if the amount of the pairs are positive.
+	// Sort and validate the amount.
 	amount := msg.Amount.Sort()
+
+	// Check if the pairs are provided correctly.
 	if !amount.AmountOf(s.baseDenom).IsPositive() {
-		return nil, fmt.Errorf("must provide positive amount of %s", s.baseDenom)
+		return nil, sdkerrors.Wrapf(types.ErrInvalidAmount, "must provide positive amount of %s", s.baseDenom)
 	}
 	if !amount.AmountOf(stableswapController.GetPair()).IsPositive() {
-		return nil, fmt.Errorf("must provide positive amount of %s", s.baseDenom)
+		return nil, sdkerrors.Wrapf(types.ErrInvalidAmount, "must provide positive amount of %s", stableswapController.GetPair())
 	}
-
-	if !amount.AmountOf(s.baseDenom).Equal(amount.AmountOf(stableswapController.GetPair())) {
-		return nil, fmt.Errorf("must provide same amount of %s and %s", s.baseDenom, stableswapController.GetPair())
+	// Check if the input coins to add are valid coins.
+	if msg.Amount.Len() != 2 {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidAmount, "coins should be 2, got %d", msg.Amount.Len())
 	}
 
 	// Get the Pool Address.
 	poolAddress, err := s.addressCodec.StringToBytes(stableswapController.GetAddress())
 	if err != nil {
-		return nil, sdkerrors.Wrapf(err, "unable to decode provider address %s", msg.Signer)
+		return nil, sdkerrors.Wrapf(err, "unable to decode pool address, got %s", stableswapController.GetAddress())
 	}
 
-	// Calculate the new user BondedPosition to apply.
+	// Validate the liquidity amount.
+	baseRate := stableswapController.GetRate(ctx)
+	baseAmount := amount.AmountOf(s.baseDenom).ToLegacyDec()
+	pairAmount := amount.AmountOf(stableswapController.GetPair()).ToLegacyDec()
+	if !pairAmount.TruncateInt().Equal(baseAmount.Mul(baseRate).TruncateInt()) {
+		return nil, sdkerrors.Wrapf(
+			types.ErrInvalidAmount,
+			"must provide balanced amount of %s%s and %s%s",
+			baseAmount.TruncateInt().String(),
+			s.baseDenom,
+			baseRate.Mul(pairAmount).TruncateInt().String(),
+			stableswapController.GetPair(),
+		)
+	}
+
+	// Create the new user BondedPosition.
 	newPosition, err := stableswapController.AddLiquidity(ctx, s.headerService.GetHeaderInfo(ctx).Time, msg)
 	if err != nil {
 		return nil, err
 	}
 
 	// Transfer the tokens to the Pool.
-	err = s.bankKeeper.SendCoins(ctx, provider, poolAddress, amount)
-	if err != nil {
+	if err = s.bankKeeper.SendCoins(ctx, provider, poolAddress, amount); err != nil {
 		return nil, sdkerrors.Wrap(err, "unable to transfer from provider to pool")
 	}
 

@@ -49,15 +49,20 @@ func TestStableSwapBeginBlocker(t *testing.T) {
 		ProtocolFeePercentage: 0,
 	})
 	assert.NoError(t, err)
-	err = k.Pools.Set(ctx, 1, types.Pool{
-		Id:           1,
-		Address:      user.Address,
-		Algorithm:    types.STABLESWAP,
-		Pair:         "uusdc",
-		CreationTime: time.Time{},
+	err = k.Pools.Set(ctx, 0, types.Pool{
+		Id:        0,
+		Address:   user.Address,
+		Algorithm: types.STABLESWAP,
+		Pair:      "uusdc",
 	})
 	assert.NoError(t, err)
-	err = k.Paused.Set(ctx, 1, true)
+	err = k.Paused.Set(ctx, 0, true)
+	assert.NoError(t, err)
+	err = k.Stableswap.UnbondingPositions.Set(ctx, collections.Join3(time.Time{}.Unix(), user.Address, uint64(0)), stableswap.UnbondingPosition{
+		Shares:  math.LegacyDec{},
+		Amount:  nil,
+		EndTime: time.Time{},
+	})
 	assert.NoError(t, err)
 
 	executed = k.StableSwapBeginBlocker(ctx)
@@ -72,15 +77,26 @@ func TestStableSwapBeginBlocker(t *testing.T) {
 		EndTime: time.Time{},
 	})
 	assert.NoError(t, err)
-	err = k.Pools.Remove(ctx, 0)
+	err = k.Pools.Remove(ctx, 1)
 	assert.NoError(t, err)
-	err = k.Paused.Set(ctx, 1, false)
+	err = k.Paused.Set(ctx, 0, false)
 	assert.NoError(t, err)
+
+	// ARRANGE: Setup up failing collections on UsersTotalBondedShares
+	tmpUsersTotalBondedShares := k.Stableswap.UsersTotalBondedShares
 	k.Stableswap.UsersTotalBondedShares = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 		types.StableSwapUsersTotalBondedSharesPrefix, "stableswap_users_total_bonded_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
 	)
 	executed = k.StableSwapBeginBlocker(ctx)
 	// ASSERT: The BeginBlocker should still succeed but logging the error.
+	assert.True(t, executed)
+	k.Stableswap.UsersTotalBondedShares = tmpUsersTotalBondedShares
+
+	// ARRANGE: Remove the StableSwap Pool in order to test a "failed to access Pool".
+	_ = k.Stableswap.Pools.Remove(ctx, 0)
+
+	// ACT: Execute the BeginBlocker.
+	executed = k.StableSwapBeginBlocker(ctx)
 	assert.True(t, executed)
 }

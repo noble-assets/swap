@@ -93,5 +93,3 @@ The StableSwap algorithm balances liquidity by combining characteristics of both
 - **Low Slippage**: The algorithm is designed to minimize price impact, particularly for stable assets where small deviations in price are undesirable.
 - **Stable Pricing**: The combination of constant sum and constant product behaviors ensures predictable and stable pricing, even for larger transactions.
 - **Liquidity Balance**: By dynamically adjusting the curve based on token balances, the pool maintains proportional liquidity and avoids imbalances.
-
-This discursive approach captures the algorithm's design and its benefits while using intuitive examples and variable names to make it accessible. Let me know if you'd like further refinements!

@@ -36,7 +36,7 @@ func (s queryServer) Pool(ctx context.Context, req *types.QueryPool) (*types.Que
 		Id:           controller.GetId(),
 		Address:      controller.GetAddress(),
 		Algorithm:    controller.GetAlgorithm(),
-		Pairs:        []string{s.baseDenom, controller.GetPair()},
+		Pair:         controller.GetPair(),
 		Details:      controller.PoolDetails(),
 		Liquidity:    s.bankKeeper.GetAllBalances(ctx, sdk.MustAccAddressFromBech32(controller.GetAddress())),
 		ProtocolFees: s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/protocol_fees", types.ModuleName, controller.GetId()))),
@@ -60,17 +60,22 @@ func (s queryServer) Pools(ctx context.Context, req *types.QueryPools) (*types.Q
 			Id:           pool.Id,
 			Address:      pool.Address,
 			Algorithm:    pool.Algorithm,
-			Pairs:        []string{s.baseDenom, pool.Pair},
+			Pair:         pool.Pair,
 			Details:      controller.PoolDetails(),
 			Liquidity:    s.bankKeeper.GetAllBalances(ctx, sdk.MustAccAddressFromBech32(pool.Address)),
 			ProtocolFees: s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/protocol_fees", types.ModuleName, pool.Id))),
 			RewardFees:   s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/rewards_fees", types.ModuleName, pool.Id))),
 		})
 	}
+
+	// Sort Pools by id.
+	sort.Slice(pools, func(i, j int) bool {
+		return pools[i].Id < pools[j].Id
+	})
 	return &types.QueryPoolsResponse{Pools: pools}, nil
 }
 
-func (s queryServer) SimulateSwap(ctx context.Context, req *types.MsgSwap) (*types.MsgSwapResponse, error) {
+func (s queryServer) SimulateSwap(ctx context.Context, req *types.QuerySimulateSwap) (*types.MsgSwapResponse, error) {
 	if req == nil {
 		return nil, errors.ErrInvalidRequest
 	}
@@ -80,7 +85,12 @@ func (s queryServer) SimulateSwap(ctx context.Context, req *types.MsgSwap) (*typ
 	// store. By doing so, we can observe the potential effects of the swap without
 	// permanently altering the real state.
 	cacheCtx, _ := sdk.UnwrapSDKContext(ctx).CacheContext()
-	return s.Keeper.Swap(cacheCtx, req)
+	return s.Keeper.Swap(cacheCtx, &types.MsgSwap{
+		Signer: req.Signer,
+		Amount: req.Amount,
+		Routes: req.Routes,
+		Min:    req.Min,
+	})
 }
 
 func (s queryServer) Paused(ctx context.Context, req *types.QueryPaused) (*types.QueryPausedResponse, error) {

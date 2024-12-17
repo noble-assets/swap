@@ -2,12 +2,15 @@ syntax = "proto3";
 
 package swap.v1;
 
+import "cosmos_proto/cosmos.proto";
+import "cosmos/base/v1beta1/coin.proto";
 import "cosmos/query/v1/query.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "swap/v1/algorithm.proto";
 import "swap/v1/pool.proto";
 import "swap/v1/rate.proto";
+import "swap/v1/swap.proto";
 import "swap/v1/tx.proto";
 
 option go_package = "swap.noble.xyz/types";
@@ -28,7 +31,7 @@ service Query {
     option (google.api.http).get = "/swap/v1/pools/{pool_id}";
   }
 
-  rpc SimulateSwap(MsgSwap) returns (MsgSwapResponse) {
+  rpc SimulateSwap(QuerySimulateSwap) returns (MsgSwapResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/swap/v1/simulate_swap";
   }
@@ -77,4 +80,11 @@ message QueryPool {
 
 message QueryPoolResponse {
   PoolDetails pool = 1;
+}
+
+message QuerySimulateSwap {
+  string signer = 1;
+  cosmos.base.v1beta1.Coin amount = 2 [(gogoproto.nullable) = false];
+  repeated swap.v1.Route routes = 3 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin min = 4 [(gogoproto.nullable) = false];
 }

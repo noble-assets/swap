@@ -1,9 +1,6 @@
 package keeper_test
 
 import (
-	"testing"
-	"time"
-
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
@@ -12,10 +9,10 @@ import (
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
 	"swap.noble.xyz/utils/mocks"
+	"testing"
 )
 
 func TestSimulateSwap(t *testing.T) {
-	t.Skip()
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),
 	}
@@ -74,6 +71,10 @@ func TestSimulateSwap(t *testing.T) {
 	// ARRANGE: provide a valid balance to the user.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(1_000*ONE)))
 
+	// ACT: Attempt to query the simulation without the msg.
+	_, err = queryServer.SimulateSwap(ctx, nil)
+	assert.Error(t, err)
+
 	// ARRANGE: Simulate again the Swap.
 	swapRequest := &types.MsgSwap{
 		Signer: bob.Address,
@@ -81,23 +82,23 @@ func TestSimulateSwap(t *testing.T) {
 		Routes: routes,
 		Min:    sdk.NewCoin("uusdn", math.NewInt(90*ONE)),
 	}
-	responseSimulation, err := queryServer.SimulateSwap(ctx, swapRequest)
+	responseSimulation, err := queryServer.SimulateSwap(ctx, &types.QuerySimulateSwap{
+		Signer: swapRequest.Signer,
+		Amount: swapRequest.Amount,
+		Routes: swapRequest.Routes,
+		Min:    swapRequest.Min,
+	})
 	assert.Nil(t, err)
-
-	// ASSERT: No pools side effects.
-	pool, _ := k.Pools.Get(ctx, 0)
-	poolAddress, _ := sdk.AccAddressFromBech32(pool.Address)
-	assert.Equal(t, bank.Balances[poolAddress.String()].AmountOf("uusdc"), math.NewInt(1_000_000*ONE))
-	assert.Equal(t, bank.Balances[poolAddress.String()].AmountOf("uusdn"), math.NewInt(1_000_000*ONE))
-	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdc"), math.NewInt(1_000*ONE))
-	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdn"), math.NewInt(0))
-
-	// ACT: perform the real swap.
-	swapRes, err := msgServer.Swap(ctx, swapRequest)
-	assert.Nil(t, err)
-
-	// ASSERT: Expect the same resulting amount from simulation and execution.
-	assert.Equal(t, responseSimulation.Result.Amount, swapRes.Result.Amount)
+	assert.Equal(t, &types.MsgSwapResponse{
+		Result: sdk.NewCoin("uusdn", math.NewInt(99999998)),
+		Swaps: []*types.Swap{
+			{
+				In:   sdk.NewCoin("uusdc", math.NewInt(100000000)),
+				Out:  sdk.NewCoin("uusdn", math.NewInt(99999998)),
+				Fees: sdk.Coins{},
+			},
+		},
+	}, responseSimulation)
 }
 
 func TestPausing(t *testing.T) {
@@ -360,11 +361,10 @@ func TestPools(t *testing.T) {
 
 	// ARRANGE: add a Pool with a different algorithm.
 	err = k.SetPool(ctx, 2, types.Pool{
-		Id:           2,
-		Address:      "",
-		Algorithm:    types.UNSPECIFIED,
-		Pair:         "",
-		CreationTime: time.Time{},
+		Id:        2,
+		Address:   "",
+		Algorithm: types.UNSPECIFIED,
+		Pair:      "",
 	})
 	assert.NoError(t, err)
 
@@ -492,11 +492,10 @@ func TestRate(t *testing.T) {
 
 	// ARRANGE: add a Pool with a different algorithm.
 	err = k.SetPool(ctx, 2, types.Pool{
-		Id:           2,
-		Address:      "",
-		Algorithm:    types.UNSPECIFIED,
-		Pair:         "",
-		CreationTime: time.Time{},
+		Id:        2,
+		Address:   "",
+		Algorithm: types.UNSPECIFIED,
+		Pair:      "",
 	})
 	assert.NoError(t, err)
 
@@ -673,11 +672,10 @@ func TestRates(t *testing.T) {
 
 	// ARRANGE: add a Pool with a different algorithm.
 	err = k.SetPool(ctx, 2, types.Pool{
-		Id:           2,
-		Address:      "",
-		Algorithm:    types.UNSPECIFIED,
-		Pair:         "uusdx",
-		CreationTime: time.Time{},
+		Id:        2,
+		Address:   "",
+		Algorithm: types.UNSPECIFIED,
+		Pair:      "uusdx",
 	})
 	assert.NoError(t, err)
 

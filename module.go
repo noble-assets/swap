@@ -119,7 +119,7 @@ func (m AppModule) RegisterServices(cfg module.Configurator) {
 	types.RegisterQueryServer(cfg.QueryServer(), keeper.NewQueryServer(m.keeper))
 
 	stableswap.RegisterMsgServer(cfg.MsgServer(), keeper.NewStableSwapMsgServer(m.keeper))
-	stableswap.RegisterQueryServer(cfg.QueryServer(), keeper.NewStableSwapQueryServer(m.keeper.Stableswap))
+	stableswap.RegisterQueryServer(cfg.QueryServer(), keeper.NewStableSwapQueryServer(m.keeper))
 }
 
 func (m AppModule) BeginBlock(ctx context.Context) error {
@@ -261,6 +261,18 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 		Query: &autocliv1.ServiceCommandDescriptor{
 			Service: swapv1.Query_ServiceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
+				{
+					RpcMethod: "SimulateSwap",
+					Use:       "simulate",
+					Short:     "Simulate a token swap transaction",
+					Long:      "Simulate the expected output of a token swap without broadcasting. Provide a signer's address, an amount to swap, routes to traverse, and a minimum expected amount to estimate fees, slippage, and final tokens.",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "signer"},
+						{ProtoField: "amount"},
+						{ProtoField: "routes"},
+						{ProtoField: "min"},
+					},
+				},
 				{
 					RpcMethod: "Paused",
 					Use:       "paused",

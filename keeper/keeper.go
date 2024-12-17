@@ -104,16 +104,20 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	// Check if the user has a balance >= than the requested swap amount
 	userBalance := k.bankKeeper.GetBalance(ctx, userAddress, msg.Amount.Denom)
 	if userBalance.Amount.LT(msg.Amount.Amount) {
-		return nil, sdkerrors.Wrapf(types.ErrInsufficientBalance, "%s balance of %s is smaller then %s, available: %s", msg.Amount.Denom, msg.Signer, msg.Amount.Amount.String(), userBalance.Amount.String())
+		return nil, sdkerrors.Wrapf(
+			types.ErrInsufficientBalance,
+			"%s balance of %s is smaller then %s, available: %s",
+			msg.Amount.Denom, msg.Signer, msg.Amount.Amount.String(), userBalance.Amount.String(),
+		)
 	}
 
 	// Prepare the swap plan in order to be executed, ensuring that the requested route pools are not paused
 	swapRoutesPlan, err := k.PrepareSwapPlan(ctx, msg, k.headerService.GetHeaderInfo(ctx).Time.Unix(), k)
 	if err != nil {
-		return nil, fmt.Errorf("error computing swap routes plan: %e", err)
+		return nil, fmt.Errorf("error computing swap routes plan: %s", err.Error())
 	}
 
-	// Check for slippage
+	// Verify slippage.
 	out := swapRoutesPlan.Swaps[len(swapRoutesPlan.Swaps)-1].Commitment.Out
 	if out.IsLT(msg.Min) {
 		return nil, fmt.Errorf("%s is less then min amount %s", out.String(), msg.Min.String())
@@ -122,10 +126,7 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	// Commit the plan
 	var executedSwaps []*types.Swap
 	for _, swap := range swapRoutesPlan.Swaps {
-		poolAddr, err := k.addressCodec.StringToBytes(swap.PoolAddress)
-		if err != nil {
-			return nil, fmt.Errorf("unable to decode pool address: %s", swap.PoolAddress)
-		}
+		poolAddr := sdk.MustAccAddressFromBech32(swap.PoolAddress).Bytes()
 		if err := k.bankKeeper.SendCoins(ctx, userAddress, poolAddr, sdk.NewCoins(swap.Commitment.In)); err != nil {
 			return nil, sdkerrors.Wrap(err, "unable to transfer from provider to pool")
 		}

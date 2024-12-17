@@ -167,32 +167,41 @@ func (s msgServer) UnpauseByPoolIds(ctx context.Context, msg *types.MsgUnpauseBy
 
 // WithdrawProtocolFees allows the protocol to withdraw accumulated fees and move them to another account.
 func (s msgServer) WithdrawProtocolFees(ctx context.Context, msg *types.MsgWithdrawProtocolFees) (*types.MsgWithdrawProtocolFeesResponse, error) {
+	// Ensure Authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
-	var senders []sdk.AccAddress
 
+	// Ensure that the receiver is a valid address.
+	receiver, err := s.addressCodec.StringToBytes(msg.To)
+	if err != nil {
+		return nil, fmt.Errorf("unable to decode receiver address: %s", msg.To)
+	}
+
+	// Collect all the Pools protocol fees addresses and amounts.
+	var poolsProtocolFeesAddresses []sdk.AccAddress
 	for poolId := range s.GetPools(ctx) {
 		controller, err := GetGenericController(ctx, s.Keeper, poolId)
 		if err != nil {
 			continue
 		}
 
+		// Skip processing if the pool is paused.
 		if controller.IsPaused() {
 			continue
 		}
 
-		senders = append(senders, controller.GetProtocolFeesAddresses()...)
+		poolsProtocolFeesAddresses = append(poolsProtocolFeesAddresses, controller.GetProtocolFeesAddresses()...)
 	}
 
+	// Send all the collected amounts to the provided address.
 	rewards := sdk.Coins{}
-	for _, sender := range senders {
-		balances := s.bankKeeper.GetAllBalances(ctx, sender)
-		rewards = append(rewards, balances...)
-		err := s.bankKeeper.SendCoins(ctx, sender, sdk.MustAccAddressFromBech32(msg.To), balances)
-		if err != nil {
+	for _, poolSender := range poolsProtocolFeesAddresses {
+		balances := s.bankKeeper.GetAllBalances(ctx, poolSender)
+		if err = s.bankKeeper.SendCoins(ctx, poolSender, receiver, balances); err != nil {
 			return nil, err
 		}
+		rewards = append(rewards, balances...)
 	}
 
 	return &types.MsgWithdrawProtocolFeesResponse{}, s.eventService.EventManager(ctx).Emit(ctx, &types.WithdrawnProtocolFees{
@@ -203,6 +212,7 @@ func (s msgServer) WithdrawProtocolFees(ctx context.Context, msg *types.MsgWithd
 
 // WithdrawRewards allows a user to claim their accumulated rewards.
 func (s msgServer) WithdrawRewards(ctx context.Context, msg *types.MsgWithdrawRewards) (*types.MsgWithdrawRewardsResponse, error) {
+	// Ensure valid signer.
 	_, err := s.addressCodec.StringToBytes(msg.Signer)
 	if err != nil {
 		return nil, fmt.Errorf("unable to decode user address: %s", msg.Signer)
@@ -216,18 +226,17 @@ func (s msgServer) WithdrawRewards(ctx context.Context, msg *types.MsgWithdrawRe
 			return nil, err
 		}
 
+		// Skip processing if the pool is paused.
 		if controller.IsPaused() {
 			continue
 		}
 
+		// Process the user rewards.
 		poolRewards, err := controller.ProcessUserRewards(ctx, msg.Signer, currentTime.Time)
 		if err != nil {
 			return nil, err
 		}
-
-		for _, reward := range poolRewards {
-			rewards = rewards.Add(reward)
-		}
+		rewards = rewards.Add(poolRewards...)
 	}
 
 	return &types.MsgWithdrawRewardsResponse{

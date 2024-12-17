@@ -15,5 +15,5 @@ var (
 	StableSwapUsersTotalUnbondingSharesPrefix = []byte("stableswap_users_total_unbonding_shares")
 	StableSwapPoolsTotalUnbondingSharesPrefix = []byte("stableswap_pools_total_unbonding_shares")
 	StableSwapUnbondingPositionsPrefix        = []byte("stableswap_unbonding_positions")
-	StableSwapBondedPositionPrefix            = []byte("stableswap_bonded_positions")
+	StableSwapBondedPositionsPrefix           = []byte("stableswap_bonded_positions")
 )

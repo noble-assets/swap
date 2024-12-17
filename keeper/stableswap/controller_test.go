@@ -63,7 +63,7 @@ func TestController(t *testing.T) {
 	_, err = keeper.GetStableSwapController(ctx, k, 0)
 	assert.Error(t, err)
 
-	// ARRANGE: Set up failing collections for the Generic Pool
+	// ARRANGE: Set up failing collections for the Generic Pool.
 	k.Pools = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
 		types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -74,7 +74,7 @@ func TestController(t *testing.T) {
 	assert.Error(t, err)
 }
 
-func TestWeightedPoolUnbondingPeriod(t *testing.T) {
+func TestComputeWeightedPoolUnbondingPeriod(t *testing.T) {
 	tests := []struct {
 		name           string
 		totalShares    math.LegacyDec
@@ -123,6 +123,27 @@ func TestWeightedPoolUnbondingPeriod(t *testing.T) {
 			sharesToUnbond: math.LegacyNewDec(0),
 			expectedTime:   1 * time.Minute,
 			expectError:    true,
+		},
+		{
+			name:           "Max values",
+			totalShares:    math.LegacyNewDec(1e18),
+			sharesToUnbond: math.LegacyNewDec(1),
+			expectedTime:   1 * time.Minute,
+			expectError:    false,
+		},
+		{
+			name:           "Max values",
+			totalShares:    math.LegacyNewDec(1),
+			sharesToUnbond: math.LegacyNewDec(1e18),
+			expectedTime:   24 * time.Hour,
+			expectError:    false,
+		},
+		{
+			name:           "Max values",
+			totalShares:    math.LegacyNewDec(1e18),
+			sharesToUnbond: math.LegacyNewDec(1e18),
+			expectedTime:   24 * time.Hour,
+			expectError:    false,
 		},
 	}
 

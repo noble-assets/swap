@@ -50,7 +50,7 @@ func NewKeeper(
 		PoolsTotalUnbondingShares: collections.NewMap(builder, types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_pools_total_unbonding_shares", collections.Uint64Key, sdk.LegacyDecValue),
 
 		BondedPositions: collections.NewIndexedMap(
-			builder, types.StableSwapBondedPositionPrefix, "stableswap_bonded_positions",
+			builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
 			collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
 			codec.CollValue[stableswaptypes.BondedPosition](cdc),
 			NewBondedPositionIndexes(builder),

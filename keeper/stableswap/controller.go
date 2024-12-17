@@ -45,10 +45,6 @@ func NewController(
 	}
 }
 
-func (c *Controller) Pool() *types.Pool {
-	return c.pool
-}
-
 func (c *Controller) GetId() uint64 {
 	return c.pool.Id
 }
@@ -63,10 +59,6 @@ func (c *Controller) GetPair() string {
 
 func (c *Controller) GetAddress() string {
 	return c.pool.Address
-}
-
-func (c *Controller) GetCreationTime() time.Time {
-	return c.pool.CreationTime
 }
 
 // PoolDetails returns the underlying detailed information about the `StableSwap` Pool as an `Any` object.
@@ -87,15 +79,10 @@ func (c *Controller) Swap(
 	coin sdk.Coin,
 	denomTo string,
 ) (*types.SwapCommitment, error) {
-	// Check if the provided amount by the user is valid.
-	if !coin.Amount.IsPositive() {
-		return nil, fmt.Errorf("amount must be greater than 0")
-	}
-
-	// Check if the Pool has liquidity.
+	// Ensure that the Pool has liquidity.
 	poolLiquidity := c.GetLiquidity(ctx)
 	if !poolLiquidity.IsAllPositive() {
-		return nil, fmt.Errorf("pool liquidity must be positive, got: %s", poolLiquidity.String())
+		return nil, fmt.Errorf("pool liquidity must be positive")
 	}
 
 	// Calculate the liquidity adjusted to the pool rates.
@@ -236,13 +223,16 @@ func (c *Controller) AddLiquidity(
 	}
 	newUserTotal = newUserTotal.Add(bondedPosition.Balance)
 	if err = c.stableswapKeeper.SetUserTotalBondedShares(ctx, c.GetId(), msg.Signer, newUserTotal); err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(err, "unable to set stableswap user pool total bonded shares")
 	}
 
 	// Update the Pool TotalShares on the State.
 	c.stableswapPool.TotalShares = c.stableswapPool.TotalShares.Add(bondedPosition.Balance)
+	if c.GetLiquidity(ctx).IsZero() {
+		c.stableswapPool.InitialRewardsTime = currentTime
+	}
 	if err = c.stableswapKeeper.SetPool(ctx, msg.PoolId, *c.stableswapPool); err != nil {
-		return nil, sdkerrors.Wrapf(err, "unable to set stableswap pool")
+		return nil, sdkerrors.Wrapf(err, "unable to set stableswap pool total bonded shares")
 	}
 
 	return &types.AddLiquidityCommitment{
@@ -356,7 +346,16 @@ func (c *Controller) RemoveLiquidity(
 
 // GetLiquidity returns the total liquidity of the `StableSwap` Pool.
 func (c *Controller) GetLiquidity(ctx context.Context) sdk.Coins {
-	return (*c.bankKeeper).GetAllBalances(ctx, sdk.MustAccAddressFromBech32(c.GetAddress()))
+	address, err := sdk.AccAddressFromBech32(c.GetAddress())
+	if err != nil {
+		return sdk.Coins{}
+	}
+
+	// Get the liquidity of only the wanted tokens.
+	liquidity := sdk.Coins{}
+	liquidity = liquidity.Add((*c.bankKeeper).GetBalance(ctx, address, c.baseDenom))
+	liquidity = liquidity.Add((*c.bankKeeper).GetBalance(ctx, address, c.GetPair()))
+	return liquidity
 }
 
 // GetRates computes the exchange rates of the tokens in the `StableSwap` Pool.
@@ -385,6 +384,20 @@ func (c *Controller) GetRates(ctx context.Context) []types.Rate {
 			Algorithm: c.GetAlgorithm(),
 		},
 	}
+}
+
+func (c *Controller) GetRate(ctx context.Context) math.LegacyDec {
+	liquidity := c.GetLiquidity(ctx)
+	if liquidity.IsZero() {
+		return math.LegacyOneDec()
+	}
+	vsAmount := liquidity.AmountOf(c.GetPair()).ToLegacyDec()
+	amount := liquidity.AmountOf(c.baseDenom).ToLegacyDec()
+
+	if vsAmount.LTE(math.LegacyZeroDec()) || amount.LTE(math.LegacyZeroDec()) {
+		return math.LegacyZeroDec()
+	}
+	return vsAmount.Quo(amount)
 }
 
 // UpdatePool updates the StableSwap Pool params.
@@ -507,15 +520,20 @@ func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Tim
 	return nil
 }
 
-func (c *Controller) GetUserRewards(ctx context.Context, address string, currentTime time.Time) ([]types.ReceiverMulti, error) {
-	var userRewards []types.ReceiverMulti
-	for _, entry := range c.stableswapKeeper.GetBondedPositionsByProvider(ctx, address) {
-		poolRewardsAddress := authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/rewards_fees", types.ModuleName, entry.PoolId))
-		poolRewards := (*c.bankKeeper).GetAllBalances(ctx, poolRewardsAddress)
+func (c *Controller) GetTotalPoolUserRewards(ctx context.Context, address string, currentTime time.Time) ([]types.ReceiverMulti, error) {
+	// Get the total Pool rewards.
+	poolRewardsAddress := authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/rewards_fees", types.ModuleName, c.GetId()))
+	poolRewards := (*c.bankKeeper).GetAllBalances(ctx, poolRewardsAddress)
 
-		rewards, err := CalculatePositionRewards(currentTime, poolRewards, entry.BondedPosition, c.stableswapPool.TotalShares, c.GetCreationTime())
+	var userRewards []types.ReceiverMulti
+	for _, entry := range c.stableswapKeeper.GetBondedPositionsByPoolAndProvider(ctx, c.GetId(), address) {
+		// Calculate the adjusted rewards for the given user bonded position.
+		rewards, err := CalculatePositionRewards(currentTime, poolRewards, entry.BondedPosition, c.stableswapPool.TotalShares, c.stableswapPool.InitialRewardsTime)
 		if err != nil {
 			return nil, err
+		}
+		if rewards.IsZero() {
+			continue
 		}
 
 		cumulativeRewards := sdk.Coins{}
@@ -526,7 +544,24 @@ func (c *Controller) GetUserRewards(ctx context.Context, address string, current
 			Address: poolRewardsAddress,
 			PoolId:  entry.PoolId,
 		})
+	}
+	return userRewards, nil
+}
 
+func (c *Controller) ProcessUserRewards(ctx context.Context, address string, currentTime time.Time) (sdk.Coins, error) {
+	// Get the expected amount of user rewards.
+	userRewards, err := c.GetTotalPoolUserRewards(ctx, address, currentTime)
+	if err != nil {
+		return sdk.Coins{}, err
+	}
+
+	// If the user does not have any reward exit.
+	if len(userRewards) <= 0 {
+		return sdk.Coins{}, nil
+	}
+
+	// Update the user rewards periods.
+	for _, entry := range c.stableswapKeeper.GetBondedPositionsByPoolAndProvider(ctx, c.GetId(), address) {
 		// update the entry of the rewards period with the current time
 		entry.BondedPosition.RewardsPeriodStart = currentTime
 		err = c.stableswapKeeper.SetBondedPosition(ctx, entry.PoolId, entry.Address, entry.Timestamp, entry.BondedPosition)
@@ -534,25 +569,19 @@ func (c *Controller) GetUserRewards(ctx context.Context, address string, current
 			return nil, err
 		}
 	}
-	return userRewards, nil
-}
 
-func (c *Controller) ProcessUserRewards(ctx context.Context, address string, currentTime time.Time) (sdk.Coins, error) {
-	userRewards, err := c.GetUserRewards(ctx, address, currentTime)
-	if err != nil {
-		return sdk.Coins{}, err
-	}
-
+	// Send the rewards to the user.
 	finalRewards := sdk.Coins{}
 	for _, poolRewards := range userRewards {
 		for _, coin := range poolRewards.Amount {
 			finalRewards = finalRewards.Add(coin)
 		}
-		err := (*c.bankKeeper).SendCoins(ctx, poolRewards.Address, sdk.MustAccAddressFromBech32(address), poolRewards.Amount)
+		err = (*c.bankKeeper).SendCoins(ctx, poolRewards.Address, sdk.MustAccAddressFromBech32(address), poolRewards.Amount)
 		if err != nil {
 			return nil, err
 		}
 	}
+
 	return finalRewards, nil
 }
 
@@ -578,10 +607,7 @@ func ComputeWeightedPoolUnbondingPeriod(totalShares math.LegacyDec, sharesToUnbo
 	}
 
 	// Calculate the percentage of total shares that the amount represents
-	percentage, err := sharesToUnbond.Quo(totalShares).MulInt64(100).Float64()
-	if err != nil {
-		return 0, err
-	}
+	percentage := sharesToUnbond.Quo(totalShares).MulInt64(100).MustFloat64()
 
 	// Determine the unbonding duration based on the percentage thresholds
 	switch {
@@ -601,15 +627,20 @@ func CalculatePositionRewards(
 	poolRewards sdk.Coins,
 	position stableswaptypes.BondedPosition,
 	totalShares math.LegacyDec,
-	poolCreation time.Time,
+	initialPoolRewardsTime time.Time,
 ) (sdk.Coins, error) {
 	duration := currentTime.Sub(position.RewardsPeriodStart)
-	poolDuration := currentTime.Sub(poolCreation)
+	poolDuration := currentTime.Sub(initialPoolRewardsTime)
+
+	// Ensure that the period is invalid
+	if poolDuration.Seconds() == 0 || duration.Seconds() == 0 {
+		return nil, fmt.Errorf("period is too short")
+	}
 
 	var positionRewards sdk.Coins
 	for _, coinRewards := range poolRewards {
-		numerator := position.Balance.MulInt64(int64(duration))  // User's shares * position period
-		denominator := totalShares.MulInt64(int64(poolDuration)) // Total shares * pool period
+		numerator := position.Balance.MulInt64(int64(duration.Seconds()))  // User's shares * position period
+		denominator := totalShares.MulInt64(int64(poolDuration.Seconds())) // Total shares * pool period
 		userReward := numerator.Quo(denominator).Mul(coinRewards.Amount.ToLegacyDec())
 		positionRewards = append(positionRewards, sdk.NewCoin(coinRewards.Denom, userReward.TruncateInt()))
 	}

@@ -172,6 +172,27 @@ func (k *Keeper) GetBondedPositionsByProvider(ctx context.Context, provider stri
 	return entries
 }
 
+// GetBondedPositionsByPoolAndProvider returns all bonded positions in the State by a provider in a given Pool.
+func (k *Keeper) GetBondedPositionsByPoolAndProvider(ctx context.Context, poolId uint64, provider string) []stableswap.BondedPositionEntry {
+	var entries []stableswap.BondedPositionEntry
+	itr, err := k.BondedPositions.Indexes.ByPoolAndProvider.MatchExact(ctx, collections.Join(poolId, provider))
+	if err != nil {
+		return nil
+	}
+
+	for ; itr.Valid(); itr.Next() {
+		key, _ := itr.PrimaryKey()
+		value, _ := k.BondedPositions.Get(ctx, key)
+		entries = append(entries, stableswap.BondedPositionEntry{
+			PoolId:         key.K1(),
+			Address:        key.K2(),
+			Timestamp:      key.K3(),
+			BondedPosition: value,
+		})
+	}
+	return entries
+}
+
 // SetBondedPosition sets a bonded position for a specific user in a pool.
 func (k *Keeper) SetBondedPosition(ctx context.Context, poolId uint64, address string, timestamp int64, value stableswap.BondedPosition) error {
 	return k.BondedPositions.Set(ctx, collections.Join3(poolId, address, timestamp), value)

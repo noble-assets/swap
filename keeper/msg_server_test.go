@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"fmt"
+	stableswap2 "swap.noble.xyz/keeper/stableswap"
 	"testing"
 	"time"
 
@@ -107,9 +109,32 @@ func TestRewardsSingleUser(t *testing.T) {
 		expectedRewards = append(expectedRewards, sdk.NewCoin(coin.Denom, coin.Amount.Sub(coin.Amount.Mul(math.NewInt(1)).Quo(math.NewInt(100)))))
 	}
 
-	// ACT: Withdraw rewards.
+	// ARRANGE: Increase time
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 1, 1, time.UTC)})
+
+	// ARRANGE: Set failing collections for BondingPositions.
+	tmpBondedPositions := k.Stableswap.BondedPositions
+	builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
+	k.Stableswap.BondedPositions = collections.NewIndexedMap(
+		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
+		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
+		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
+		stableswap2.NewBondedPositionIndexes(builder),
+	)
+
+	// ACT: Attempt to withdraw rewards.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 3, 1, 1, 1, 1, time.UTC)})
 	res, err := server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
+		Signer: bob.Address,
+	})
+	assert.Error(t, err)
+	assert.Equal(t, "error accessing store", err.Error())
+
+	// ARRANGE: Restore BondingPositions collection
+	k.Stableswap.BondedPositions = tmpBondedPositions
+
+	// ACT: Withdraw rewards.
+	res, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
 	assert.NoError(t, err)
@@ -122,6 +147,9 @@ func TestRewardsSingleUser(t *testing.T) {
 		assert.Equal(t, reward.Amount, bank.Balances[bob.Address].AmountOf(reward.Denom))
 	}
 	assert.Equal(t, expectedRewards, totalRewards)
+
+	// ARRANGE: Increase the time
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 2, 1, time.UTC)})
 
 	// ACT: Attempt to withdraw rewards again.
 	res, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
@@ -142,11 +170,11 @@ func TestRewardsMultiUser(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-
 	server := keeper.NewMsgServer(k)
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	bob, alice, tom := utils.TestAccount(), utils.TestAccount(), utils.TestAccount()
 
+	// ARRANGE: Create a Pool
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
 	_, _ = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
@@ -163,11 +191,7 @@ func TestRewardsMultiUser(t *testing.T) {
 		),
 	})
 
-	pool, _ := k.Pools.Get(ctx, 0)
-	poolAddress, _ := sdk.AccAddressFromBech32(pool.Address)
-	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
-	assert.Equal(t, len(poolLiquidity), 0)
-
+	// ACT: Attempt to remove liquidity without any.
 	_, err := stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     bob.Address,
 		PoolId:     0,
@@ -175,6 +199,7 @@ func TestRewardsMultiUser(t *testing.T) {
 	})
 	assert.Error(t, err)
 
+	// ARRANGE: Give users different amount of balances.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(500_000_000)))
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(500_000_000)))
 	bank.Balances[tom.Address] = append(bank.Balances[tom.Address], sdk.NewCoin("uusdc", math.NewInt(500_000_000)))
@@ -182,6 +207,7 @@ func TestRewardsMultiUser(t *testing.T) {
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(100_000_000)))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(100_000_000)))
 
+	// ARRANGE: Provide liquidity from bob & tom.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: bob.Address,
@@ -202,6 +228,7 @@ func TestRewardsMultiUser(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ARRANGE: Execute 100 swaps to create rewards.
 	cumulativeFees := sdk.Coins{}
 	for i := 0; i < 100; i++ {
 		res, err := server.Swap(ctx, &types.MsgSwap{
@@ -223,6 +250,7 @@ func TestRewardsMultiUser(t *testing.T) {
 		cumulativeFees = cumulativeFees.Add(res.Swaps[0].Fees[0])
 	}
 
+	// ACT: Withdraw Bob's rewards.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 1, 1, time.UTC)})
 	res, err := server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
@@ -233,6 +261,7 @@ func TestRewardsMultiUser(t *testing.T) {
 		assert.Equal(t, reward.Amount, bank.Balances[bob.Address].AmountOf(reward.Denom))
 	}
 
+	// ACT: Withdraw Tom's rewards.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 1, 1, time.UTC)})
 	res, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: tom.Address,
@@ -253,13 +282,13 @@ func TestWithdrawRewards(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-
 	server := keeper.NewMsgServer(k)
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	bob := utils.TestAccount()
 
+	// ARRANGE: Create a Pool.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
-	_, _ = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
 		ProtocolFeePercentage: 1,
@@ -273,19 +302,15 @@ func TestWithdrawRewards(t *testing.T) {
 			sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
 		),
 	})
-
-	pool, _ := k.Pools.Get(ctx, 0)
-	poolAddress, _ := sdk.AccAddressFromBech32(pool.Address)
-	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
-	assert.Equal(t, len(poolLiquidity), 0)
+	assert.NoError(t, err)
 
 	// ACT: Withdraw rewards with an invalid address.
-	_, err := server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
+	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Invalid,
 	})
 	assert.Error(t, err)
 
-	// ARRANGE: withdraw with failing Pools collections.
+	// ARRANGE: Setup up failing collections on Pools
 	tmpPools := k.Pools
 	k.Pools = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
@@ -299,11 +324,57 @@ func TestWithdrawRewards(t *testing.T) {
 	assert.Equal(t, mocks.ErrorStoreAccess.Error(), err.Error())
 	k.Pools = tmpPools
 
-	// ACT: Withdraw rewards.
+	// ARRANGE: Setup up failing collections on BondedPositions
+	tmpBondedPositions := k.Stableswap.BondedPositions
+	builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Iterator, utils.GetKVStore(ctx, types.ModuleName)))
+	k.Stableswap.BondedPositions = collections.NewIndexedMap(
+		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
+		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
+		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
+		stableswap2.NewBondedPositionIndexes(builder),
+	)
+
+	// ACT: Attempt to withdraw the rewards
 	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
+	k.Stableswap.BondedPositions = tmpBondedPositions
+
+	// ARRANGE: Add liquidity
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10_000_000)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(10_000_000)))
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: bob.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(9_000_000)),
+			sdk.NewCoin("uusdn", math.NewInt(9_000_000)),
+		),
+	})
 	assert.NoError(t, err)
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(1_000_000)),
+		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdn"}},
+		Min:    sdk.NewCoin("uusdn", math.NewInt(100)),
+	})
+	assert.NoError(t, err)
+
+	// ACT: Withdraw rewards with a too short period.
+	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
+		Signer: bob.Address,
+	})
+	assert.Equal(t, "period is too short", err.Error())
+
+	// ARRANGE: Increase the time.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 1, 1, time.UTC)})
+
+	// ACT: Withdraw rewards.
+	res, err := server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
+		Signer: bob.Address,
+	})
+	assert.NoError(t, err)
+	assert.Equal(t, 1, res.Rewards.Len())
 
 	// ARRANGE: Pause pools
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
@@ -317,6 +388,14 @@ func TestWithdrawRewards(t *testing.T) {
 		Signer: bob.Address,
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Unpause pools
+	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
+		Signer:    "authority",
+		Algorithm: types.STABLESWAP,
+	})
+	assert.NoError(t, err)
+
 }
 
 func TestWithdrawProtocolFees(t *testing.T) {
@@ -328,7 +407,6 @@ func TestWithdrawProtocolFees(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-	ONE := int64(1_000_000)
 	server := keeper.NewMsgServer(k)
 	queryServer := keeper.NewQueryServer(k)
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
@@ -376,11 +454,10 @@ func TestWithdrawProtocolFees(t *testing.T) {
 
 	// ARRANGE: Add an invalid Pool
 	err = k.SetPool(ctx, 2, types.Pool{
-		Id:           2,
-		Address:      "",
-		Algorithm:    10,
-		Pair:         "",
-		CreationTime: time.Time{},
+		Id:        2,
+		Address:   "",
+		Algorithm: 10,
+		Pair:      "",
 	})
 	assert.NoError(t, err)
 
@@ -417,6 +494,20 @@ func TestWithdrawProtocolFees(t *testing.T) {
 	// ARRANGE: Unpause the pools.
 	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{Signer: "authority", Algorithm: types.STABLESWAP})
 	assert.NoError(t, err)
+
+	// ACT: Withdraw rewards to an invalid address.
+	_, err = server.WithdrawProtocolFees(ctx, &types.MsgWithdrawProtocolFees{
+		Signer: "authority",
+		To:     receiver.Invalid,
+	})
+	assert.Equal(t, fmt.Sprintf("unable to decode receiver address: %s", receiver.Invalid), err.Error())
+
+	// ACT: Withdraw rewards to an invalid address.
+	_, err = server.WithdrawProtocolFees(ctx, &types.MsgWithdrawProtocolFees{
+		Signer: "authority",
+		To:     receiver.Invalid,
+	})
+	assert.Equal(t, fmt.Sprintf("unable to decode receiver address: %s", receiver.Invalid), err.Error())
 
 	// ACT: Withdraw rewards with a valid message.
 	_, err = server.WithdrawProtocolFees(ctx, &types.MsgWithdrawProtocolFees{
@@ -895,11 +986,11 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdn"}},
 		Min:    sdk.NewCoin("uusdn", math.NewInt(30)),
 	})
-	// ASSERT: The action should've failed due to bonded balance since unbonding time not yet elapsed.
+	// ASSERT: The action should've succeeded.
 	assert.NoError(t, err)
 }
 
-func TestStableSwap(t *testing.T) {
+func TestSwap(t *testing.T) {
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),
 	}
@@ -933,12 +1024,6 @@ func TestStableSwap(t *testing.T) {
 	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], nLiquidity)
-	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
-		Signer: alice.Address,
-		PoolId: 0,
-		Amount: sdk.NewCoins(usdcLiquidity, nLiquidity),
-	})
-	assert.NoError(t, err)
 
 	routes := []types.Route{
 		{
@@ -958,6 +1043,23 @@ func TestStableSwap(t *testing.T) {
 
 	// ARRANGE: Add funds to Bob.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(1_000*ONE)))
+
+	// ACT: Attempt to perform a Swap without Pool liquidity.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(10)),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(10)),
+	})
+	assert.Equal(t, "error computing swap routes plan: pool liquidity must be positive", err.Error())
+
+	// ARRANGE: Add liquidity to the Pool.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: alice.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(usdcLiquidity, nLiquidity),
+	})
+	assert.NoError(t, err)
 
 	// ACT: Attempt to perform a Swap with an invalid address.
 	_, err = server.Swap(ctx, &types.MsgSwap{
@@ -1041,6 +1143,40 @@ func TestStableSwap(t *testing.T) {
 	// ASSERT: Routing Plan validation failed.
 	assert.Error(t, err)
 
+	// ARRANGE: Set up failing collections for the StableSwap Pool
+	tmpPools := k.Pools
+	k.Pools = collections.NewMap(
+		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
+		types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
+	)
+
+	// ACT: Attempt to perform a Swap with a failing Pool collection.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+	})
+	// ASSERT: Routing Plan validation failed.
+	assert.Error(t, err)
+
+	// ARRANGE: Restore collection.
+	k.Pools = tmpPools
+
+	// ACT: Attempt to perform a Swap with an invalid DenomTo and Min,
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+		Routes: []types.Route{
+			{
+				PoolId:  0,
+				DenomTo: "uusdx",
+			},
+		},
+		Min: sdk.NewCoin("uusdx", math.NewInt(99*ONE)),
+	})
+	assert.Equal(t, "error computing swap routes plan: pool 0 doesn't contain denom uusdx: invalid swap routing plan", err.Error())
+
 	// ACT: Perform a valid Swap.
 	response, err := server.Swap(ctx, &types.MsgSwap{
 		Signer: bob.Address,
@@ -1085,7 +1221,7 @@ func TestStableSwap(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestStableSwapMultiPoolSwap(t *testing.T) {
+func TestMultiPoolSwap(t *testing.T) {
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),
 	}
@@ -1096,9 +1232,9 @@ func TestStableSwapMultiPoolSwap(t *testing.T) {
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 	server := keeper.NewMsgServer(k)
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
-
 	alice, tom, bob := utils.TestAccount(), utils.TestAccount(), utils.TestAccount()
 
+	// ARRANGE: Create 2 Pools.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1114,7 +1250,6 @@ func TestStableSwapMultiPoolSwap(t *testing.T) {
 		),
 	})
 	assert.Nil(t, err)
-
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusde",
@@ -1131,8 +1266,7 @@ func TestStableSwapMultiPoolSwap(t *testing.T) {
 	})
 	assert.Nil(t, err)
 
-	ONE := int64(1e6)
-
+	// ARRANGE: Provide liquidity in both Pools.
 	nLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
 	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
@@ -1143,7 +1277,6 @@ func TestStableSwapMultiPoolSwap(t *testing.T) {
 		Amount: sdk.NewCoins(usdcLiquidity, nLiquidity),
 	})
 	require.NoError(t, err)
-
 	nLiquidity2 := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
 	usdeLiquidity := sdk.NewCoin("uusde", math.NewInt(1_000_000*ONE))
 	bank.Balances[tom.Address] = append(bank.Balances[tom.Address], usdeLiquidity)
@@ -1155,6 +1288,7 @@ func TestStableSwapMultiPoolSwap(t *testing.T) {
 	})
 	require.NoError(t, err)
 
+	// ACT: Perform a multi-route swap.
 	routes := []types.Route{
 		{
 			PoolId:  0,
@@ -1173,6 +1307,8 @@ func TestStableSwapMultiPoolSwap(t *testing.T) {
 		Min:    sdk.NewCoin("uusde", math.NewInt(99999900)),
 	})
 	assert.Nil(t, err)
+
+	// ASSERT: Expect matching values in state.
 	assert.Equal(t, response.Result, sdk.NewCoin("uusde", math.NewInt(99999996)))
 	pool0, _ := k.Pools.Get(ctx, 0)
 	pool0Address, _ := sdk.AccAddressFromBech32(pool0.Address)
@@ -1197,6 +1333,7 @@ func BenchmarkSwap(b *testing.B) {
 
 	alice, bob := utils.TestAccount(), utils.TestAccount()
 
+	// ARRANGE: Create a Pool.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1213,8 +1350,7 @@ func BenchmarkSwap(b *testing.B) {
 	})
 	assert.Nil(b, err)
 
-	ONE := int64(1e6)
-
+	// ARRANGE: Provide liquidity.
 	nLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000_000*ONE))
 	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000_000*ONE))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
@@ -1226,6 +1362,7 @@ func BenchmarkSwap(b *testing.B) {
 	})
 	assert.NoError(b, err)
 
+	// ACT: Perform swaps.
 	routes := []types.Route{
 		{
 			PoolId:  0,
@@ -1259,6 +1396,7 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 
 	alice, tom, bob := utils.TestAccount(), utils.TestAccount(), utils.TestAccount()
 
+	// ARRANGE: Create 2 Pools.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1274,7 +1412,6 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 		),
 	})
 	assert.Nil(b, err)
-
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusde",
@@ -1291,8 +1428,7 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 	})
 	assert.Nil(b, err)
 
-	ONE := int64(1e6)
-
+	// ARRANGE: Provide liquidity in both Pools.
 	nLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
 	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
@@ -1303,7 +1439,6 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 		Amount: sdk.NewCoins(usdcLiquidity, nLiquidity),
 	})
 	require.NoError(b, err)
-
 	nLiquidity2 := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
 	usdeLiquidity := sdk.NewCoin("uusde", math.NewInt(1_000_000*ONE))
 	bank.Balances[tom.Address] = append(bank.Balances[tom.Address], usdeLiquidity)
@@ -1315,6 +1450,7 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 	})
 	require.NoError(b, err)
 
+	// ACT: Perform multi-pool swaps,
 	routes := []types.Route{
 		{
 			PoolId:  0,

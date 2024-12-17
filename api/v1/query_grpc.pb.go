@@ -34,7 +34,7 @@ type QueryClient interface {
 	Paused(ctx context.Context, in *QueryPaused, opts ...grpc.CallOption) (*QueryPausedResponse, error)
 	Pools(ctx context.Context, in *QueryPools, opts ...grpc.CallOption) (*QueryPoolsResponse, error)
 	Pool(ctx context.Context, in *QueryPool, opts ...grpc.CallOption) (*QueryPoolResponse, error)
-	SimulateSwap(ctx context.Context, in *MsgSwap, opts ...grpc.CallOption) (*MsgSwapResponse, error)
+	SimulateSwap(ctx context.Context, in *QuerySimulateSwap, opts ...grpc.CallOption) (*MsgSwapResponse, error)
 	Rates(ctx context.Context, in *QueryRates, opts ...grpc.CallOption) (*QueryRatesResponse, error)
 	Rate(ctx context.Context, in *QueryRate, opts ...grpc.CallOption) (*QueryRateResponse, error)
 }
@@ -77,7 +77,7 @@ func (c *queryClient) Pool(ctx context.Context, in *QueryPool, opts ...grpc.Call
 	return out, nil
 }
 
-func (c *queryClient) SimulateSwap(ctx context.Context, in *MsgSwap, opts ...grpc.CallOption) (*MsgSwapResponse, error) {
+func (c *queryClient) SimulateSwap(ctx context.Context, in *QuerySimulateSwap, opts ...grpc.CallOption) (*MsgSwapResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(MsgSwapResponse)
 	err := c.cc.Invoke(ctx, Query_SimulateSwap_FullMethodName, in, out, cOpts...)
@@ -114,7 +114,7 @@ type QueryServer interface {
 	Paused(context.Context, *QueryPaused) (*QueryPausedResponse, error)
 	Pools(context.Context, *QueryPools) (*QueryPoolsResponse, error)
 	Pool(context.Context, *QueryPool) (*QueryPoolResponse, error)
-	SimulateSwap(context.Context, *MsgSwap) (*MsgSwapResponse, error)
+	SimulateSwap(context.Context, *QuerySimulateSwap) (*MsgSwapResponse, error)
 	Rates(context.Context, *QueryRates) (*QueryRatesResponse, error)
 	Rate(context.Context, *QueryRate) (*QueryRateResponse, error)
 	mustEmbedUnimplementedQueryServer()
@@ -136,7 +136,7 @@ func (UnimplementedQueryServer) Pools(context.Context, *QueryPools) (*QueryPools
 func (UnimplementedQueryServer) Pool(context.Context, *QueryPool) (*QueryPoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Pool not implemented")
 }
-func (UnimplementedQueryServer) SimulateSwap(context.Context, *MsgSwap) (*MsgSwapResponse, error) {
+func (UnimplementedQueryServer) SimulateSwap(context.Context, *QuerySimulateSwap) (*MsgSwapResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SimulateSwap not implemented")
 }
 func (UnimplementedQueryServer) Rates(context.Context, *QueryRates) (*QueryRatesResponse, error) {
@@ -221,7 +221,7 @@ func _Query_Pool_Handler(srv interface{}, ctx context.Context, dec func(interfac
 }
 
 func _Query_SimulateSwap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgSwap)
+	in := new(QuerySimulateSwap)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -233,7 +233,7 @@ func _Query_SimulateSwap_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: Query_SimulateSwap_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).SimulateSwap(ctx, req.(*MsgSwap))
+		return srv.(QueryServer).SimulateSwap(ctx, req.(*QuerySimulateSwap))
 	}
 	return interceptor(ctx, in, info, handler)
 }

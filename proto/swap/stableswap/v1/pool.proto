@@ -5,6 +5,7 @@ package swap.stableswap.v1;
 import "amino/amino.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "cosmos_proto/cosmos.proto";
+import "google/protobuf/timestamp.proto";
 import "gogoproto/gogo.proto";
 
 option go_package = "swap.noble.xyz/types/stableswap";
@@ -30,5 +31,9 @@ message Pool {
     (cosmos_proto.scalar) = "cosmos.Dec",
     (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
     (gogoproto.nullable) = false
+  ];
+  google.protobuf.Timestamp initial_rewards_time = 10 [
+    (gogoproto.nullable) = false,
+    (gogoproto.stdtime) = true
   ];
 }

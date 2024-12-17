@@ -33,4 +33,4 @@ const Pools = []byte("pools_generic")
 ```
 
 It is updated by the following messages:
-- [`swap.stableswap.v1.MsgCreatePool`](./02_messages_stableswap.md#createpool)
+- [`swap.stableswap.v1.MsgCreatePool`](./02_messages_stableswap.md#create-pool)
