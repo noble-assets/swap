@@ -1,15 +1,15 @@
 package keeper_test
 
 import (
-	"cosmossdk.io/core/header"
-	"swap.noble.xyz/types"
 	"testing"
 	"time"
 
+	"cosmossdk.io/core/header"
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
 	"swap.noble.xyz/keeper"
+	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
 	"swap.noble.xyz/utils/mocks"
@@ -228,11 +228,11 @@ func TestRewardsByProvider(t *testing.T) {
 	assert.NoError(t, err)
 
 	// ACT: Query the rewards with an invalid request.
-	rewards, err := stableswapQueryServer.RewardsByProvider(ctx, nil)
+	_, err = stableswapQueryServer.RewardsByProvider(ctx, nil)
 	assert.Error(t, err)
 
 	// ACT: Attempt to query with a valid request but 0 positions.
-	rewards, err = stableswapQueryServer.RewardsByProvider(ctx, &stableswap.QueryRewardsByProvider{
+	rewards, err := stableswapQueryServer.RewardsByProvider(ctx, &stableswap.QueryRewardsByProvider{
 		Provider: user.Address,
 	})
 	assert.NoError(t, err)
@@ -342,14 +342,13 @@ func TestRewardsByProvider(t *testing.T) {
 	assert.Equal(t, 1, len(rewards.Rewards[0].Amount))
 
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC)})
-	rewards, err = stableswapQueryServer.RewardsByProvider(ctx, &stableswap.QueryRewardsByProvider{
+	_, err = stableswapQueryServer.RewardsByProvider(ctx, &stableswap.QueryRewardsByProvider{
 		Provider: user.Address,
 	})
 	assert.NoError(t, err)
 }
 
 func TestPositions(t *testing.T) {
-
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),
 	}

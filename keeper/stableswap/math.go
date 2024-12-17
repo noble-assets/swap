@@ -3,10 +3,9 @@ package stableswap
 import (
 	"fmt"
 
-	"swap.noble.xyz/types"
-
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"swap.noble.xyz/types"
 )
 
 const (

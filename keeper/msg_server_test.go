@@ -2,7 +2,6 @@ package keeper_test
 
 import (
 	"fmt"
-	stableswap2 "swap.noble.xyz/keeper/stableswap"
 	"testing"
 	"time"
 
@@ -15,6 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"swap.noble.xyz/keeper"
+	stableswapkeeper "swap.noble.xyz/keeper/stableswap"
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
@@ -119,12 +119,12 @@ func TestRewardsSingleUser(t *testing.T) {
 		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
 		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
 		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-		stableswap2.NewBondedPositionIndexes(builder),
+		stableswapkeeper.NewBondedPositionIndexes(builder),
 	)
 
 	// ACT: Attempt to withdraw rewards.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 3, 1, 1, 1, 1, time.UTC)})
-	res, err := server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
+	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
 	assert.Error(t, err)
@@ -134,7 +134,7 @@ func TestRewardsSingleUser(t *testing.T) {
 	k.Stableswap.BondedPositions = tmpBondedPositions
 
 	// ACT: Withdraw rewards.
-	res, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
+	res, err := server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
 	assert.NoError(t, err)
@@ -331,13 +331,14 @@ func TestWithdrawRewards(t *testing.T) {
 		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
 		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
 		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-		stableswap2.NewBondedPositionIndexes(builder),
+		stableswapkeeper.NewBondedPositionIndexes(builder),
 	)
 
-	// ACT: Attempt to withdraw the rewards
+	// ACT: Withdraw the rewards
 	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
+	assert.NoError(t, err)
 	k.Stableswap.BondedPositions = tmpBondedPositions
 
 	// ARRANGE: Add liquidity
@@ -395,7 +396,6 @@ func TestWithdrawRewards(t *testing.T) {
 		Algorithm: types.STABLESWAP,
 	})
 	assert.NoError(t, err)
-
 }
 
 func TestWithdrawProtocolFees(t *testing.T) {

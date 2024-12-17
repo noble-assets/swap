@@ -2,10 +2,10 @@ package keeper
 
 import (
 	"context"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"sort"
 	"time"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
 	"swap.noble.xyz/types/stableswap"
 )

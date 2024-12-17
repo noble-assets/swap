@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/runtime"
@@ -9,7 +11,6 @@ import (
 	"swap.noble.xyz/keeper"
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/utils/mocks"
-	"testing"
 )
 
 func TestNewKeeper(t *testing.T) {

@@ -1,6 +1,8 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
@@ -9,7 +11,6 @@ import (
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
 	"swap.noble.xyz/utils/mocks"
-	"testing"
 )
 
 func TestSimulateSwap(t *testing.T) {

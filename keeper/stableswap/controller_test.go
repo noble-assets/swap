@@ -5,18 +5,17 @@ import (
 	"time"
 
 	"cosmossdk.io/collections"
+	"cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"swap.noble.xyz/keeper"
+	"swap.noble.xyz/keeper/stableswap"
 	"swap.noble.xyz/types"
+	stableswaptypes "swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
 	"swap.noble.xyz/utils/mocks"
-
-	"cosmossdk.io/math"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
-	"swap.noble.xyz/keeper/stableswap"
-	stableswaptypes "swap.noble.xyz/types/stableswap"
 )
 
 func TestController(t *testing.T) {

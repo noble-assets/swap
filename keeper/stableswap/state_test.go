@@ -1,18 +1,19 @@
 package stableswap_test
 
 import (
+	"testing"
+	"time"
+
 	"cosmossdk.io/collections"
 	"cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
-	stableswap2 "swap.noble.xyz/keeper/stableswap"
+	stableswapkeeper "swap.noble.xyz/keeper/stableswap"
 	types2 "swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
 	"swap.noble.xyz/utils/mocks"
-	"testing"
-	"time"
 )
 
 func TestGetPoolsTotalUnbondingShares(t *testing.T) {
@@ -292,7 +293,7 @@ func TestGetBondedPositionsByProvider(t *testing.T) {
 		builder, types2.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
 		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
 		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-		stableswap2.NewBondedPositionIndexes(builder),
+		stableswapkeeper.NewBondedPositionIndexes(builder),
 	)
 
 	// ACT: Attempt to get the BondedPositions.
@@ -436,7 +437,7 @@ func TestGetUnbondingPositionsByProvider(t *testing.T) {
 		builder, types2.StableSwapUnbondingPositionsPrefix, "stableswap_unbonding_positions",
 		collections.TripleKeyCodec(collections.Int64Key, collections.StringKey, collections.Uint64Key),
 		codec.CollValue[stableswap.UnbondingPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-		stableswap2.NewUnbondingPositionIndexes(builder),
+		stableswapkeeper.NewUnbondingPositionIndexes(builder),
 	)
 
 	// ACT: Attempt to get the UnbondingPositions.

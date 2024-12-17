@@ -3,7 +3,6 @@ package keeper_test
 import (
 	"fmt"
 	"math/rand/v2"
-	stableswap2 "swap.noble.xyz/keeper/stableswap"
 	"testing"
 	"time"
 
@@ -17,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"swap.noble.xyz/keeper"
-	stableswapkeeper "swap.noble.xyz/keeper"
+	stableswapkeeper "swap.noble.xyz/keeper/stableswap"
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"
@@ -30,7 +29,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 		name        string
 		msg         *stableswap.MsgCreatePool
 		error       error
-		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+		mockStateFn func(k *keeper.Keeper, ctx sdk.Context)
 	}{
 		{
 			"Invalid authority",
@@ -253,7 +252,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 				),
 			},
 			sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to set next pool id"),
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.NextPoolID = collections.NewSequence(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.NextPoolIDPrefix, "next_pool_id",
@@ -273,7 +272,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 				),
 			},
 			sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to set pool"),
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Pools = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -293,7 +292,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 				),
 			},
 			sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to set stableswap pool"),
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.Pools = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswap.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -313,7 +312,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 				),
 			},
 			sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to create paused entry"),
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Paused = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.PausedPrefix, "paused", collections.Uint64Key, codec.BoolValue,
@@ -332,7 +331,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 			Restriction: mocks.NoOpSendRestrictionFn,
 		}
 		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-		server := stableswapkeeper.NewStableSwapMsgServer(k)
+		server := keeper.NewStableSwapMsgServer(k)
 
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.mockStateFn != nil {
@@ -352,7 +351,7 @@ func TestCreateStableSwapPool(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-	server := stableswapkeeper.NewStableSwapMsgServer(k)
+	server := keeper.NewStableSwapMsgServer(k)
 
 	// ARRANGE: Create a valid Pool.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)})
@@ -505,7 +504,7 @@ func TestUpdateStableSwapPool(t *testing.T) {
 		name        string
 		msg         *stableswap.MsgUpdatePool
 		error       error
-		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+		mockStateFn func(k *keeper.Keeper, ctx sdk.Context)
 	}{
 		{
 			"Invalid authority",
@@ -701,7 +700,7 @@ func TestUpdateStableSwapPool(t *testing.T) {
 				),
 			},
 			sdkerrors.Wrapf(types.ErrInvalidPool, "invalid pool algorithm"),
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				pool, _ := k.GetPool(ctx, 0)
 				pool.Algorithm = types.PERFECTPRICE
 				_ = k.Pools.Set(ctx, 0, pool)
@@ -720,7 +719,7 @@ func TestUpdateStableSwapPool(t *testing.T) {
 				),
 			},
 			sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to set stableswap pool"),
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.Pools = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswap.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -729,7 +728,7 @@ func TestUpdateStableSwapPool(t *testing.T) {
 		},
 	}
 
-	initBaseState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, stableswap.MsgServer) {
+	initBaseState := func() (mocks.AccountKeeper, mocks.BankKeeper, *keeper.Keeper, sdk.Context, stableswap.MsgServer) {
 		account := mocks.AccountKeeper{
 			Accounts: make(map[string]sdk.AccountI),
 		}
@@ -738,7 +737,7 @@ func TestUpdateStableSwapPool(t *testing.T) {
 			Restriction: mocks.NoOpSendRestrictionFn,
 		}
 		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-		server := stableswapkeeper.NewStableSwapMsgServer(k)
+		server := keeper.NewStableSwapMsgServer(k)
 
 		ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)})
 
@@ -851,7 +850,7 @@ func TestAddLiquidity(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-	stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	server := keeper.NewMsgServer(k)
 
 	user, bob := utils.TestAccount(), utils.TestAccount()
@@ -1014,6 +1013,7 @@ func TestAddLiquidity(t *testing.T) {
 	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 	poolAddress, err := sdk.AccAddressFromBech32(pool.Address)
+	assert.Nil(t, err)
 	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
 	assert.Equal(t, 10*ONE, poolLiquidity.AmountOf("uusdn").Int64())
 	assert.Equal(t, 10*ONE, poolLiquidity.AmountOf("uusdc").Int64())
@@ -1117,25 +1117,25 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 	// ARRANGE: Test cases validating each message attribute.
 	tests := []struct {
 		name        string
-		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+		mockStateFn func(k *keeper.Keeper, ctx sdk.Context)
 		error       string
 	}{
 		{
 			"Failing BondedPositions",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
 				k.Stableswap.BondedPositions = collections.NewIndexedMap(
 					builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
 					collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
 					codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-					stableswap2.NewBondedPositionIndexes(builder),
+					stableswapkeeper.NewBondedPositionIndexes(builder),
 				)
 			},
 			"unable to set updated user pool position: error accessing store",
 		},
 		{
 			"Failing UsersTotalBondedShares",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.UsersTotalBondedShares = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_users_total_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
@@ -1145,7 +1145,7 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 		},
 		{
 			"Failing Pool",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.Pools = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswap.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -1157,7 +1157,7 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 	bob := utils.TestAccount()
 	fakeTime := time.Now()
 
-	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
+	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *keeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
 		account := mocks.AccountKeeper{
 			Accounts: make(map[string]sdk.AccountI),
 		}
@@ -1167,7 +1167,7 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 		}
 		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 		server := keeper.NewMsgServer(k)
-		stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+		stableswapServer := keeper.NewStableSwapMsgServer(k)
 
 		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 			Signer:                "authority",
@@ -1222,7 +1222,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 	server := keeper.NewMsgServer(k)
-	stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	user := utils.TestAccount()
 
 	// ARRANGE: Create a Pool.
@@ -1488,7 +1488,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Attempt to remove multiple positions within the same block.
-	resRemove, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
 		PoolId:     0,
 		Percentage: math.LegacyNewDec(40),
@@ -1526,7 +1526,7 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 
-	stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 	bobLiquidity, aliceLiquidity := int64(1_000_000_000), int64(500_000_000)
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(bobLiquidity)))
@@ -1591,23 +1591,23 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 	// ARRANGE: Test cases validating each message attribute.
 	tests := []struct {
 		name        string
-		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+		mockStateFn func(k *keeper.Keeper, ctx sdk.Context)
 	}{
 		{
 			"Failing UnbondingPositions",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
 				k.Stableswap.UnbondingPositions = collections.NewIndexedMap(
 					builder, types.StableSwapUnbondingPositionsPrefix, "stableswap_unbonding_positions",
 					collections.TripleKeyCodec(collections.Int64Key, collections.StringKey, collections.Uint64Key),
 					codec.CollValue[stableswap.UnbondingPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-					stableswap2.NewUnbondingPositionIndexes(builder),
+					stableswapkeeper.NewUnbondingPositionIndexes(builder),
 				)
 			},
 		},
 		{
 			"Failing PoolsTotalUnbondingShares",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.PoolsTotalUnbondingShares = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_pools_total_unbonding_shares", collections.Uint64Key, sdk.LegacyDecValue,
@@ -1616,7 +1616,7 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 		},
 		{
 			"Failing UsersTotalUnbondingShares",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.UsersTotalUnbondingShares = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapUsersTotalUnbondingSharesPrefix, "stableswap_users_total_unbonding_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
@@ -1627,7 +1627,7 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 	bob := utils.TestAccount()
 	fakeTime := time.Now()
 
-	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
+	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *keeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
 		account := mocks.AccountKeeper{
 			Accounts: make(map[string]sdk.AccountI),
 		}
@@ -1637,7 +1637,7 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 		}
 		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 		server := keeper.NewMsgServer(k)
-		stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+		stableswapServer := keeper.NewStableSwapMsgServer(k)
 
 		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 			Signer:                "authority",
@@ -1702,7 +1702,7 @@ func TestUnbondings(t *testing.T) {
 		Restriction: mocks.NoOpSendRestrictionFn,
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-	stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
 
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
@@ -1853,23 +1853,23 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 	// ARRANGE: Test cases validating each message attribute.
 	tests := []struct {
 		name        string
-		mockStateFn func(k *stableswapkeeper.Keeper, ctx sdk.Context)
+		mockStateFn func(k *keeper.Keeper, ctx sdk.Context)
 	}{
 		{
 			"Failing UnbondingPositions",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Delete, utils.GetKVStore(ctx, types.ModuleName)))
 				k.Stableswap.UnbondingPositions = collections.NewIndexedMap(
 					builder, types.StableSwapUnbondingPositionsPrefix, "stableswap_unbonding_positions",
 					collections.TripleKeyCodec(collections.Int64Key, collections.StringKey, collections.Uint64Key),
 					codec.CollValue[stableswap.UnbondingPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-					stableswap2.NewUnbondingPositionIndexes(builder),
+					stableswapkeeper.NewUnbondingPositionIndexes(builder),
 				)
 			},
 		},
 		{
 			"Failing Pool",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.Pools = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswap.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -1878,7 +1878,7 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 		},
 		{
 			"Failing PoolsTotalUnbondingShares",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.PoolsTotalUnbondingShares = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_pools_total_unbonding_shares", collections.Uint64Key, sdk.LegacyDecValue,
@@ -1887,7 +1887,7 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 		},
 		{
 			"Failing UsersTotalUnbondingShares",
-			func(k *stableswapkeeper.Keeper, ctx sdk.Context) {
+			func(k *keeper.Keeper, ctx sdk.Context) {
 				k.Stableswap.UsersTotalUnbondingShares = collections.NewMap(
 					collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
 					types.StableSwapUsersTotalUnbondingSharesPrefix, "stableswap_users_total_unbonding_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue,
@@ -1897,7 +1897,7 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 	}
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 
-	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *stableswapkeeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
+	initState := func() (mocks.AccountKeeper, mocks.BankKeeper, *keeper.Keeper, sdk.Context, *types.MsgServer, *stableswap.MsgServer) {
 		account := mocks.AccountKeeper{
 			Accounts: make(map[string]sdk.AccountI),
 		}
@@ -1907,7 +1907,7 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 		}
 		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 		server := keeper.NewMsgServer(k)
-		stableswapServer := stableswapkeeper.NewStableSwapMsgServer(k)
+		stableswapServer := keeper.NewStableSwapMsgServer(k)
 
 		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 			Signer:                "authority",
@@ -1985,7 +1985,7 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
 		collections.TripleKeyCodec(collections.Uint64Key, collections.StringKey, collections.Int64Key),
 		codec.CollValue[stableswap.BondedPosition](mocks.MakeTestEncodingConfig("noble").Codec),
-		stableswap2.NewBondedPositionIndexes(builder),
+		stableswapkeeper.NewBondedPositionIndexes(builder),
 	)
 
 	// ACT: Attempt to execute the beginBlocker.

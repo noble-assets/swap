@@ -1,9 +1,10 @@
 package keeper_test
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/require"
 	"swap.noble.xyz/utils/mocks"
-	"testing"
 )
 
 func TestGetNextPoolId(t *testing.T) {
