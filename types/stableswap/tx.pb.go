@@ -34,17 +34,25 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// Message used to create a StableSwap pool.
 type MsgCreatePool struct {
-	Signer                string                                   `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
-	Pair                  string                                   `protobuf:"bytes,2,opt,name=pair,proto3" json:"pair,omitempty"`
-	ProtocolFeePercentage int64                                    `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
-	RewardsFee            int64                                    `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
-	MaxFee                int64                                    `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
-	InitialA              int64                                    `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
-	FutureA               int64                                    `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
-	FutureATime           int64                                    `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
-	RateMultipliers       github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rate_multipliers"`
+	// The address of the authority creating the pool.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// The asset pair that will be part of the pool.
+	Pair string `protobuf:"bytes,2,opt,name=pair,proto3" json:"pair,omitempty"`
+	// The protocol fee percentage.
+	ProtocolFeePercentage int64 `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// The rewards fee value.
+	RewardsFee int64 `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// The maximum allowed fee.
+	MaxFee int64 `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// The initial A parameter for the pool.
+	InitialA int64 `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	// The future A parameter for pool rebalancing.
+	FutureA int64 `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// The time to reach the future A parameter.
+	FutureATime int64 `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// The coins rate multipliers.
+	RateMultipliers github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rate_multipliers"`
 }
 
 func (m *MsgCreatePool) Reset()         { *m = MsgCreatePool{} }
@@ -116,17 +124,25 @@ func (m *MsgCreatePoolResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgCreatePoolResponse proto.InternalMessageInfo
 
-// Message used to update an existing StableSwap pool.
 type MsgUpdatePool struct {
-	Signer                string                                   `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
-	PoolId                uint64                                   `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
-	ProtocolFeePercentage int64                                    `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
-	RewardsFee            int64                                    `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
-	MaxFee                int64                                    `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
-	InitialA              int64                                    `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
-	FutureA               int64                                    `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
-	FutureATime           int64                                    `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
-	RateMultipliers       github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rate_multipliers"`
+	// Address of the authority updating the pool.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// ID of the pool being updated.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The new protocol fee percentage.
+	ProtocolFeePercentage int64 `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// The new rewards fee value.
+	RewardsFee int64 `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// The new maximum allowed fee.
+	MaxFee int64 `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// The new initial A parameter.
+	InitialA int64 `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	// The new future A parameter.
+	FutureA int64 `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// The time to reach the future A parameter.
+	FutureATime int64 `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// The coins rate multipliers.
+	RateMultipliers github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rate_multipliers"`
 }
 
 func (m *MsgUpdatePool) Reset()         { *m = MsgUpdatePool{} }
@@ -198,10 +214,12 @@ func (m *MsgUpdatePoolResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdatePoolResponse proto.InternalMessageInfo
 
-// Message used to add liquidity to a StableSwap pool.
 type MsgAddLiquidity struct {
-	Signer string                                   `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
-	PoolId uint64                                   `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The address of the user adding liquidity.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// The ID of the pool to which liquidity is being added.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The coins amount to add to the pool.
 	Amount github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,3,rep,name=amount,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"amount"`
 }
 
@@ -239,6 +257,7 @@ func (m *MsgAddLiquidity) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgAddLiquidity proto.InternalMessageInfo
 
 type MsgAddLiquidityResponse struct {
+	// The amount of liquidity pool shares minted for the user.
 	MintedShares int64 `protobuf:"varint,1,opt,name=minted_shares,json=mintedShares,proto3" json:"minted_shares,omitempty"`
 }
 
@@ -282,10 +301,12 @@ func (m *MsgAddLiquidityResponse) GetMintedShares() int64 {
 	return 0
 }
 
-// Message used to remove liquidity from a StableSwap pool.
 type MsgRemoveLiquidity struct {
-	Signer     string                      `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
-	PoolId     uint64                      `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The address of the user removing liquidity.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// The ID of the pool from which liquidity is being removed.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The percentage of liquidity to remove.
 	Percentage cosmossdk_io_math.LegacyDec `protobuf:"bytes,3,opt,name=percentage,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"percentage"`
 }
 
@@ -323,6 +344,7 @@ func (m *MsgRemoveLiquidity) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgRemoveLiquidity proto.InternalMessageInfo
 
 type MsgRemoveLiquidityResponse struct {
+	// The amount of shares that are unbonding.
 	UnbondingShares cosmossdk_io_math.LegacyDec `protobuf:"bytes,1,opt,name=unbonding_shares,json=unbondingShares,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"unbonding_shares"`
 }
 

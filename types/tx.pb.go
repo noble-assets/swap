@@ -33,7 +33,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// Message for withdrawing protocol fees from the protocol's fee pool.
 type MsgWithdrawProtocolFees struct {
 	// Address of the signer who is requesting the fee withdrawal.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -110,7 +109,6 @@ func (m *MsgWithdrawProtocolFeesResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgWithdrawProtocolFeesResponse proto.InternalMessageInfo
 
-// Message for withdrawing rewards accumulated by a user.
 type MsgWithdrawRewards struct {
 	// Address of the signer who is requesting the reward withdrawal.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -149,7 +147,6 @@ func (m *MsgWithdrawRewards) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgWithdrawRewards proto.InternalMessageInfo
 
-// Response message for MsgWithdrawRewards, which returns the withdrawn rewards.
 type MsgWithdrawRewardsResponse struct {
 	// List of rewards withdrawn by the user.
 	Rewards github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,1,rep,name=rewards,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rewards"`
@@ -195,7 +192,6 @@ func (m *MsgWithdrawRewardsResponse) GetRewards() github_com_cosmos_cosmos_sdk_t
 	return nil
 }
 
-// Message for swapping tokens from one type to another.
 type MsgSwap struct {
 	// Address of the signer who is initiating the swap.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -240,7 +236,6 @@ func (m *MsgSwap) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgSwap proto.InternalMessageInfo
 
-// Response message for MsgSwap, which includes the result of the swap and details of each individual swap.
 type MsgSwapResponse struct {
 	// The resulting amount of tokens after the swap.
 	Result types.Coin `protobuf:"bytes,1,opt,name=result,proto3" json:"result"`
@@ -295,7 +290,6 @@ func (m *MsgSwapResponse) GetSwaps() []*Swap {
 	return nil
 }
 
-// Message for pausing all pools that use a specific algorithm.
 type MsgPauseByAlgorithm struct {
 	// Address of the signer who is requesting to pause the pools.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -336,7 +330,6 @@ func (m *MsgPauseByAlgorithm) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgPauseByAlgorithm proto.InternalMessageInfo
 
-// Response message for MsgPauseByAlgorithm, containing the IDs of the paused pools.
 type MsgPauseByAlgorithmResponse struct {
 	// List of IDs of the paused pools.
 	PausedPools []uint64 `protobuf:"varint,1,rep,packed,name=paused_pools,json=pausedPools,proto3" json:"paused_pools,omitempty"`
@@ -382,7 +375,6 @@ func (m *MsgPauseByAlgorithmResponse) GetPausedPools() []uint64 {
 	return nil
 }
 
-// Message for pausing specific pools identified by their pool IDs.
 type MsgPauseByPoolIds struct {
 	// Address of the signer who is requesting to pause the pools.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -423,7 +415,6 @@ func (m *MsgPauseByPoolIds) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgPauseByPoolIds proto.InternalMessageInfo
 
-// Response message for MsgPauseByPoolIds, containing the IDs of the paused pools.
 type MsgPauseByPoolIdsResponse struct {
 	// List of IDs of the paused pools.
 	PausedPools []uint64 `protobuf:"varint,1,rep,packed,name=paused_pools,json=pausedPools,proto3" json:"paused_pools,omitempty"`
@@ -469,7 +460,6 @@ func (m *MsgPauseByPoolIdsResponse) GetPausedPools() []uint64 {
 	return nil
 }
 
-// Message for unpausing all pools that use a specific algorithm.
 type MsgUnpauseByAlgorithm struct {
 	// Address of the signer who is requesting to unpause the pools.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -510,7 +500,6 @@ func (m *MsgUnpauseByAlgorithm) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUnpauseByAlgorithm proto.InternalMessageInfo
 
-// Response message for MsgUnpauseByAlgorithm, containing the IDs of the unpaused pools.
 type MsgUnpauseByAlgorithmResponse struct {
 	// List of IDs of the unpaused pools.
 	UnpausedPools []uint64 `protobuf:"varint,1,rep,packed,name=unpaused_pools,json=unpausedPools,proto3" json:"unpaused_pools,omitempty"`
@@ -556,7 +545,6 @@ func (m *MsgUnpauseByAlgorithmResponse) GetUnpausedPools() []uint64 {
 	return nil
 }
 
-// Message for unpausing specific pools identified by their pool IDs.
 type MsgUnpauseByPoolIds struct {
 	// Address of the signer who is requesting to unpause the pools.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
@@ -597,7 +585,6 @@ func (m *MsgUnpauseByPoolIds) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUnpauseByPoolIds proto.InternalMessageInfo
 
-// Response message for MsgUnpauseByPoolIds, containing the IDs of the unpaused pools.
 type MsgUnpauseByPoolIdsResponse struct {
 	// List of IDs of the unpaused pools.
 	UnpausedPools []uint64 `protobuf:"varint,1,rep,packed,name=unpaused_pools,json=unpausedPools,proto3" json:"unpaused_pools,omitempty"`

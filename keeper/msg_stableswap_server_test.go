@@ -855,7 +855,7 @@ func TestAddLiquidity(t *testing.T) {
 
 	user, bob := utils.TestAccount(), utils.TestAccount()
 
-	// ARRANGE: Create a Pool
+	// ARRANGE: Create a Pool.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1090,6 +1090,7 @@ func TestAddLiquidity(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ACT: Attempt to add liquidity with an unbalanced amount.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -1101,6 +1102,7 @@ func TestAddLiquidity(t *testing.T) {
 	assert.Error(t, err)
 	assert.ErrorIs(t, types.ErrInvalidAmount, err)
 
+	// ACT: Add liquidity with a balanced amount.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 4, 1, 1, time.UTC)})
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
@@ -1169,6 +1171,7 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 		server := keeper.NewMsgServer(k)
 		stableswapServer := keeper.NewStableSwapMsgServer(k)
 
+		// ARRANGE: Create a Pool.
 		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 			Signer:                "authority",
 			Pair:                  "uusdc",
@@ -1198,6 +1201,7 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 		// ARRANGE: Mock the state collections.
 		test.mockStateFn(k, ctx)
 
+		// ACT: Attempt to add liquidity.
 		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(101 * time.Hour), Height: 20})
 		_, err := (*stableswapServer).AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 			Signer: bob.Address,
@@ -1278,7 +1282,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
 
-	// ARRANGE: Setup up failing collections on Pools
+	// ARRANGE: Setup up failing collections on Pools.
 	tmpPools := k.Pools
 	k.Pools = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
@@ -1292,7 +1296,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Percentage: math.LegacyNewDec(100),
 	})
 	assert.Equal(t, "error accessing store", err.Error())
-	// ARRANGE: restore collection
+	// ARRANGE: restore collection.
 	k.Pools = tmpPools
 
 	// ARRANGE: Pause Pool.
@@ -1333,7 +1337,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	})
 	assert.ErrorIs(t, types.ErrInvalidPool, err)
 
-	// ACT: Remove 100% of the provided liquidity
+	// ACT: Remove 100% of the provided liquidity.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
 		PoolId:     0,
@@ -1534,6 +1538,7 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 	}
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 
+	// ARRANGE: Create a Pool.
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 	bobLiquidity, aliceLiquidity := int64(1_000_000_000), int64(500_000_000)
@@ -1541,7 +1546,6 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(bobLiquidity)))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(aliceLiquidity)))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(aliceLiquidity)))
-
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1555,6 +1559,7 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ARRANGE: Add liquidity position for Bob.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 10, 1, 1, 1, 1, time.UTC)})
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: bob.Address,
@@ -1565,6 +1570,8 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Add a liquidity position for Alice.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: alice.Address,
 		PoolId: 0,
@@ -1575,12 +1582,15 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ACT: Remove 100% of Bob's liquidity.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     bob.Address,
 		PoolId:     0,
 		Percentage: math.LegacyNewDec(100),
 	})
 	assert.NoError(t, err)
+
+	// ACT: Remove 100% of Bob's liquidity.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     alice.Address,
 		PoolId:     0,
@@ -1588,9 +1598,12 @@ func TestRemoveLiquidityMultiUser(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 20, 1, 1, 1, 1, time.UTC)})
+
+	// ACT: Execute the BeginBlocker.
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
 
+	// ASSERT: Matching state.
 	assert.Equal(t, sdk.NewCoins(sdk.NewCoin("uusdc", math.NewInt(bobLiquidity)), sdk.NewCoin("uusdn", math.NewInt(bobLiquidity))), bank.Balances[bob.Address])
 	assert.Equal(t, sdk.NewCoins(sdk.NewCoin("uusdc", math.NewInt(aliceLiquidity)), sdk.NewCoin("uusdn", math.NewInt(aliceLiquidity))), bank.Balances[alice.Address])
 }
@@ -1647,6 +1660,7 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 		server := keeper.NewMsgServer(k)
 		stableswapServer := keeper.NewStableSwapMsgServer(k)
 
+		// ARRANGE: Create a Pool.
 		_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 			Signer:                "authority",
 			Pair:                  "uusdc",
@@ -1667,6 +1681,7 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(101*ONE)))
 		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(101*ONE)))
 
+		// ARRANGE: Add liquidity.
 		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(100 * time.Hour), Height: 20})
 		_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 			Signer: bob.Address,
@@ -1690,6 +1705,7 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 		// ARRANGE: Mock the state collections.
 		test.mockStateFn(k, ctx)
 
+		// ACT: Attempt to remove liquidity.
 		ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(101 * time.Hour), Height: 20})
 		_, err := (*stableswapServer).RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 			Signer:     bob.Address,
@@ -1712,6 +1728,7 @@ func TestUnbondings(t *testing.T) {
 	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
 
+	// ARRANGE: Create a Pool.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1728,6 +1745,7 @@ func TestUnbondings(t *testing.T) {
 	})
 	assert.Nil(t, err)
 
+	// ARRANGE: Set up N accounts.
 	accounts := map[string]utils.Account{}
 	N := 1_00
 	for i := 0; i < N; i++ {
@@ -1738,6 +1756,7 @@ func TestUnbondings(t *testing.T) {
 		bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", amount))
 	}
 
+	// ARRANGE: Provide a positive balance to all the accounts.
 	balancesClone := map[string]sdk.Coins{}
 	for key, value := range bank.Balances {
 		balancesClone[key] = value
@@ -1748,7 +1767,7 @@ func TestUnbondings(t *testing.T) {
 		totalSupply = totalSupply.Add(bank.Balances[address][0].Amount)
 	}
 
-	// ARRANGE: bond the total liquidity of all the users with multiple AddLiquidity transactions
+	// ARRANGE: Bond the total liquidity of all the users with multiple AddLiquidity transactions.
 	for _, user := range accounts {
 		x := rand.IntN(10-1) + 1
 		amount := bank.Balances[user.Address][0].Amount.QuoRaw(int64(x))
@@ -1770,16 +1789,16 @@ func TestUnbondings(t *testing.T) {
 		}
 	}
 
-	// ASSERT: All the users have bonded their full balances
+	// ASSERT: All the users have bonded their full balances.
 	for _, user := range accounts {
 		assert.True(t, bank.Balances[user.Address].IsZero())
 	}
-	// ASSERT: The bonded liquidity matches the total supply
+	// ASSERT: The bonded liquidity matches the total supply.
 	pool, err := k.Pools.Get(ctx, 0)
 	assert.Nil(t, err)
 	assert.Equal(t, totalSupply, bank.Balances[pool.Address][0].Amount)
 
-	// ARRANGE: unbond all the users liquidity with multiple RemoveLiquidity transactions using different percentages
+	// ARRANGE: Unbond all the users liquidity with multiple RemoveLiquidity transactions using different percentages.
 	percentages := []math.LegacyDec{
 		math.LegacyMustNewDecFromStr("0.1"),
 		math.LegacyMustNewDecFromStr("0.9"),
@@ -1803,7 +1822,7 @@ func TestUnbondings(t *testing.T) {
 		}
 	}
 
-	// ASSERT: matching total shares
+	// ASSERT: matching total shares.
 	cumulativeTotUnbondingShares := math.LegacyZeroDec()
 	itr, err := k.Stableswap.UnbondingPositions.Iterate(ctx, nil)
 	if err != nil {
@@ -1838,15 +1857,17 @@ func TestUnbondings(t *testing.T) {
 	}
 	assert.Equal(t, cumulativeTotUnbondingShares, cumulativeUsersTotUnbondingShares)
 
+	// ASSERT: Zero balance left.
 	for _, u := range accounts {
 		assert.True(t, bank.Balances[u.Address].IsZero())
 	}
 
-	// ARRANGE: execute the BeginBlocker
+	// ARRANGE: execute the BeginBlocker.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: fakeTime.Add(72 * time.Hour), Height: 10})
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
 
+	// ASSERT: Matching state.
 	for _, u := range accounts {
 		diff1 := balancesClone[u.Address].AmountOf("uusdc").Sub(bank.Balances[u.Address].AmountOf("uusdc")).Int64()
 		diff2 := balancesClone[u.Address].AmountOf("uusdn").Sub(bank.Balances[u.Address].AmountOf("uusdn")).Int64()
@@ -2001,7 +2022,7 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 	err := k.BeginBlocker(ctx)
 	assert.NoError(t, err)
 
-	// ARRANGE: restore BondingPositions collection.
+	// ARRANGE: Restore BondingPositions collection.
 	k.Stableswap.BondedPositions = tmpBondedPositions
 
 	_, err = (*stableswapServer).AddLiquidity(ctx, &stableswap.MsgAddLiquidity{

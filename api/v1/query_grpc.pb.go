@@ -31,11 +31,17 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QueryClient interface {
+	// Retrieves a list of the currently paused Pools.
 	Paused(ctx context.Context, in *QueryPaused, opts ...grpc.CallOption) (*QueryPausedResponse, error)
+	// Retrieves the details of all Pools.
 	Pools(ctx context.Context, in *QueryPools, opts ...grpc.CallOption) (*QueryPoolsResponse, error)
+	// Retrieves details of a specific Pool.
 	Pool(ctx context.Context, in *QueryPool, opts ...grpc.CallOption) (*QueryPoolResponse, error)
+	// Simulates a token swap simulation.
 	SimulateSwap(ctx context.Context, in *QuerySimulateSwap, opts ...grpc.CallOption) (*MsgSwapResponse, error)
+	// Retrieves exchange rates for all tokens, with the optionality of filtering by algorithm.
 	Rates(ctx context.Context, in *QueryRates, opts ...grpc.CallOption) (*QueryRatesResponse, error)
+	// Retrieves exchange rates for a specific token, with the optionality of filtering by algorithm.
 	Rate(ctx context.Context, in *QueryRate, opts ...grpc.CallOption) (*QueryRateResponse, error)
 }
 
@@ -111,11 +117,17 @@ func (c *queryClient) Rate(ctx context.Context, in *QueryRate, opts ...grpc.Call
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility.
 type QueryServer interface {
+	// Retrieves a list of the currently paused Pools.
 	Paused(context.Context, *QueryPaused) (*QueryPausedResponse, error)
+	// Retrieves the details of all Pools.
 	Pools(context.Context, *QueryPools) (*QueryPoolsResponse, error)
+	// Retrieves details of a specific Pool.
 	Pool(context.Context, *QueryPool) (*QueryPoolResponse, error)
+	// Simulates a token swap simulation.
 	SimulateSwap(context.Context, *QuerySimulateSwap) (*MsgSwapResponse, error)
+	// Retrieves exchange rates for all tokens, with the optionality of filtering by algorithm.
 	Rates(context.Context, *QueryRates) (*QueryRatesResponse, error)
+	// Retrieves exchange rates for a specific token, with the optionality of filtering by algorithm.
 	Rate(context.Context, *QueryRate) (*QueryRateResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }

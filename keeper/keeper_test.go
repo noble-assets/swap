@@ -14,10 +14,10 @@ import (
 )
 
 func TestNewKeeper(t *testing.T) {
-	// ARRANGE: Set the PoolsPrefix to an already existing key
+	// ARRANGE: Set the PoolsPrefix to an already existing key.
 	types.PoolsPrefix = types.NextPoolIDPrefix
 
-	// ACT: Attempt to create a new Keeper with overlapping prefixes
+	// ACT: Attempt to create a new Keeper with overlapping prefixes.
 	require.Panics(t, func() {
 		cfg := mocks.MakeTestEncodingConfig("noble")
 		keeper.NewKeeper(
@@ -36,10 +36,10 @@ func TestNewKeeper(t *testing.T) {
 	})
 	// ASSERT: The function should've panicked.
 
-	// ARRANGE: Restore the original PoolsPrefix
+	// ARRANGE: Restore the original PoolsPrefix.
 	types.PoolsPrefix = []byte("pools_generic")
 
-	// ACT: Test the logger
+	// ACT: Test the logger.
 	k, _ := mocks.SwapKeeper(t)
 	k.Logger()
 }

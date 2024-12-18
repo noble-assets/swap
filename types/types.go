@@ -6,6 +6,7 @@ import (
 	"swap.noble.xyz/types/stableswap"
 )
 
+// SwapResult represents the outputs of a swap.
 type SwapResult struct {
 	Dy          math.LegacyDec
 	ProtocolFee math.LegacyDec

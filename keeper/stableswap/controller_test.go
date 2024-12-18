@@ -52,7 +52,7 @@ func TestController(t *testing.T) {
 	_, err = keeper.GetStableSwapController(ctx, k, 1)
 	assert.Error(t, err)
 
-	// ARRANGE: Set up failing collections for the StableSwap Pool
+	// ARRANGE: Set up failing collections for the StableSwap Pool.
 	k.Stableswap.Pools = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
 		types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswaptypes.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
@@ -74,6 +74,7 @@ func TestController(t *testing.T) {
 }
 
 func TestComputeWeightedPoolUnbondingPeriod(t *testing.T) {
+	// Test cases.
 	tests := []struct {
 		name           string
 		totalShares    math.LegacyDec
@@ -146,8 +147,10 @@ func TestComputeWeightedPoolUnbondingPeriod(t *testing.T) {
 		},
 	}
 
+	// Execute each test case.
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// ACT: Compute the unbonding period.
 			result, err := stableswap.ComputeWeightedPoolUnbondingPeriod(tt.totalShares, tt.sharesToUnbond)
 			if tt.expectError {
 				require.Error(t, err)
@@ -219,9 +222,10 @@ func TestCalculatePositionRewards(t *testing.T) {
 		},
 	}
 
-	// Execute each test case
+	// Execute each test case.
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// ACT: Compute the position rewards.
 			reward, err := stableswap.CalculatePositionRewards(currentTime, tt.poolRewards, tt.position, totalShares, poolCreation)
 			require.NoError(t, err)
 			require.Equal(t, tt.expectedReward, reward)

@@ -29,7 +29,7 @@ func TestBondedPositionsByProvider(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
@@ -75,7 +75,7 @@ func TestBondedPositionsByProvider(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(res.BondedPositions))
 
-	// ARRANGE: Add a second pool
+	// ARRANGE: Create a second pool.
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusde",
@@ -121,7 +121,7 @@ func TestUnbondingBondedPositionsByProvider(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
@@ -207,7 +207,7 @@ func TestRewardsByProvider(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(10_000*ONE)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(10_000*ONE)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(10_000*ONE)))
@@ -287,7 +287,7 @@ func TestRewardsByProvider(t *testing.T) {
 	assert.Equal(t, 1, len(rewards.Rewards))
 	assert.Equal(t, 1, len(rewards.Rewards[0].Amount))
 
-	// ARRANGE: Add a second pool
+	// ARRANGE: Create a second pool.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 3, 0, 0, 0, time.UTC)})
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
@@ -363,7 +363,7 @@ func TestPositions(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(10_000*ONE)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(10_000*ONE)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(10_000*ONE)))

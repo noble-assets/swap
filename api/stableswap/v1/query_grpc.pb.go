@@ -29,9 +29,13 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QueryClient interface {
+	// Retrieves all the positions by a specific provider, including bonded/unbonded positions and rewards.
 	PositionsByProvider(ctx context.Context, in *QueryPositionsByProvider, opts ...grpc.CallOption) (*QueryPositionsByProviderResponse, error)
+	// Retrieves all the bonded positions by a specific provider.
 	BondedPositionsByProvider(ctx context.Context, in *QueryBondedPositionsByProvider, opts ...grpc.CallOption) (*QueryBondedPositionsByProviderResponse, error)
+	// Retrieves all the unbonding positions by a specific provider.
 	UnbondingPositionsByProvider(ctx context.Context, in *QueryUnbondingPositionsByProvider, opts ...grpc.CallOption) (*QueryUnbondingPositionsByProviderResponse, error)
+	// Retrieves all the rewards by a specific provider.
 	RewardsByProvider(ctx context.Context, in *QueryRewardsByProvider, opts ...grpc.CallOption) (*QueryRewardsByProviderResponse, error)
 }
 
@@ -87,9 +91,13 @@ func (c *queryClient) RewardsByProvider(ctx context.Context, in *QueryRewardsByP
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility.
 type QueryServer interface {
+	// Retrieves all the positions by a specific provider, including bonded/unbonded positions and rewards.
 	PositionsByProvider(context.Context, *QueryPositionsByProvider) (*QueryPositionsByProviderResponse, error)
+	// Retrieves all the bonded positions by a specific provider.
 	BondedPositionsByProvider(context.Context, *QueryBondedPositionsByProvider) (*QueryBondedPositionsByProviderResponse, error)
+	// Retrieves all the unbonding positions by a specific provider.
 	UnbondingPositionsByProvider(context.Context, *QueryUnbondingPositionsByProvider) (*QueryUnbondingPositionsByProviderResponse, error)
+	// Retrieves all the rewards by a specific provider.
 	RewardsByProvider(context.Context, *QueryRewardsByProvider) (*QueryRewardsByProviderResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }

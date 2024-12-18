@@ -10,47 +10,64 @@ import "swap/v1/swap.proto";
 option go_package = "swap.noble.xyz/types";
 
 message PoolsPaused {
-  repeated uint64 pool_ids = 1; // IDs of the pools paused
+  // IDs of the pools paused.
+  repeated uint64 pool_ids = 1;
 }
 
 message PoolsUnpaused {
-  repeated uint64 pool_ids = 1; // IDs of the pools unpaused
+  // IDs of the pools unpaused.
+  repeated uint64 pool_ids = 1;
 }
 
 message Swapped {
-  string signer = 1; // The address of the user initiating the swap
-  cosmos.base.v1beta1.Coin input = 2 [(gogoproto.nullable) = false]; // Coin input by the user
+  // Address of the user initiating the swap.
+  string signer = 1;
+
+  // Coin input by the user.
+  cosmos.base.v1beta1.Coin input = 2 [(gogoproto.nullable) = false];
+
+  // Final output coin from the swap.
   cosmos.base.v1beta1.Coin output = 3 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
-  ]; // Final output coin from the swap
-  repeated swap.v1.Route routes = 4 [(gogoproto.nullable) = false]; // pools routing of the swap
+  ];
+
+  // Routing outing of the swap.
+  repeated swap.v1.Route routes = 4 [(gogoproto.nullable) = false];
+
+  // Amount of fees incurred during the swap.
   repeated cosmos.base.v1beta1.Coin fees = 5 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
-  ]; // Fees incurred during the swap
+  ];
 }
 
 message WithdrawnProtocolFees {
-  string to = 2; // Address to which the fees are transferred
+  // Address to which the fees are transferred
+  string to = 2;
+
+  // Amount of rewards withdrawn.
   repeated cosmos.base.v1beta1.Coin rewards = 3 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
-  ]; // List of reward coins withdrawn
+  ];
 }
 
 message WithdrawnRewards {
-  string signer = 1; // The address of the user withdrawing rewards
+  // Address of the user withdrawing rewards.
+  string signer = 1;
+
+  // Amount of rewards withdrawn.
   repeated cosmos.base.v1beta1.Coin rewards = 2 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
-  ]; // List of reward coins withdrawn
+  ];
 }

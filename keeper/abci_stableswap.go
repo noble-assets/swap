@@ -11,7 +11,7 @@ import (
 //
 // This function checks whether the current block height aligns with the unbonding block
 // interval configured for StableSwap. If not, the function exits early. When the condition
-// is met, it processes all eligible unbonding positions across active pools.
+// is met, it processes all eligible unbonding positions across active stableswap pools.
 func (k *Keeper) StableSwapBeginBlocker(ctx context.Context) (executed bool) {
 	headerInfo := k.headerService.GetHeaderInfo(ctx)
 	if headerInfo.Height%k.stableswapConfig.UnbondingBlockDelta != 0 {

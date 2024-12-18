@@ -40,42 +40,43 @@ func getAmplificationCoefficient(currentTime int64, initialA math.LegacyDec, fut
 
 // calculateInvariant computes the invariant (D) using pool balances and the amplification coefficient (A).
 func calculateInvariant(xp sdk.DecCoins, amp math.LegacyDec) (math.LegacyDec, error) {
-	// Calculate S, the sum of all balances in xp
+	// Calculate S, the sum of all balances in xp.
 	S := math.LegacyZeroDec()
 	for _, x := range xp {
 		S = S.Add(x.Amount)
 	}
 
+	// Return zero if S is zero.
 	if S.IsZero() {
-		return math.LegacyZeroDec(), nil // Return zero if S is zero
+		return math.LegacyZeroDec(), nil
 	}
-	// D is the invariant we are trying to find
+	// D is the invariant we are trying to find.
 	D := S                 // Start with D = S
 	Ann := amp.MulInt64(2) // Ann = A * N
 
-	// Newton-Raphson iteration to find D
+	// Newton-Raphson iteration to find D.
 	for i := 0; i < 255; i++ {
 		// D_P = D
 		D_P := D
 
-		// Calculate D_P = D_P * D / (x * NCoins) for each x in xp
+		// Calculate D_P = D_P * D / (x * NCoins) for each x in xp.
 		for _, x := range xp {
 			D_P = D_P.Mul(D).Quo(x.Amount.Mul(math.LegacyNewDec(2)))
 		}
 
-		// Save the current D to Dprev
+		// Save the current D to Dprev.
 		Dprev := D
 
-		// Calculate numerator: (Ann * S + D_P * NCoins)
+		// Calculate numerator: (Ann * S + D_P * NCoins).
 		numerator := Ann.Mul(S).Add(D_P.MulInt64(2))
 
-		// Calculate denominator: (Ann - 1) * D + (NCoins + 1) * D_P
+		// Calculate denominator: (Ann - 1) * D + (NCoins + 1) * D_P.
 		denominator := Ann.Sub(math.LegacyOneDec()).Mul(D).Add(D_P.MulInt64(3))
 
-		// Update D: D = D * numerator / denominator
+		// Update D: D = D * numerator / denominator.
 		D = D.Mul(numerator).Quo(denominator)
 
-		// Check for convergence: |D - Dprev| <= 1 (LegacyDec doesn't directly support absolute values, so check with IsZero or comparing difference)
+		// Check for convergence: |D - Dprev| <= 1.
 		if D.Sub(Dprev).Abs().LTE(math.LegacyOneDec()) {
 			return D, nil
 		}
@@ -89,6 +90,7 @@ func calculateInvariant(xp sdk.DecCoins, amp math.LegacyDec) (math.LegacyDec, er
 func calculateAdjustedBalancesInRates(rates sdk.Coins, balances sdk.Coins) (sdk.DecCoins, error) {
 	balance := sdk.DecCoins{}
 
+	// Adjust all the balances with the given rates.
 	for _, rate := range rates {
 		// balance: (rate * balance) / prevision
 		adjustedAmount := rate.Amount.Mul(balances.AmountOf(rate.Denom)).QuoRaw(DecimalPrecision)
@@ -98,7 +100,7 @@ func calculateAdjustedBalancesInRates(rates sdk.Coins, balances sdk.Coins) (sdk.
 	return balance, nil
 }
 
-// GetY calculates the y value for the exchange (the amount of the output coin)
+// getY calculates the y value for the exchange (the amount of the output coin).
 func getY(x sdk.Coin, amp, D math.LegacyDec) (math.LegacyDec, error) {
 	Ann := amp.Mul(math.LegacyNewDec(2))
 	// Last portion of c calculation: c = c * D / (Ann * N_COINS)
@@ -132,40 +134,45 @@ func getY(x sdk.Coin, amp, D math.LegacyDec) (math.LegacyDec, error) {
 func performSwap(x sdk.Coin, xp sdk.DecCoins, amp math.LegacyDec, denomTo string,
 	rewardsFee int64, protocolFeePercentage int64, maxFee int64, rateMultipliers sdk.Coins,
 ) (types.SwapResult, error) {
-	// Calculate invariant D
+	// Calculate invariant D.
 	D, err := calculateInvariant(xp, amp)
 	if err != nil {
 		return types.SwapResult{}, err
 	}
 
-	// Calculate the new y value after the exchange
+	// Calculate the new y value after the exchange.
 	y, err := getY(x, amp, D)
 	if err != nil {
 		return types.SwapResult{}, err
 	}
 
-	// Calculate dy (amount to be received)
+	// Calculate dy (amount to be received).
 	dy := xp.AmountOf(denomTo).Sub(y)
 
-	// Calculate the fee
+	// Calculate the rewards from the swap (fee amount for the user).
 	rewards := dy.MulInt64(rewardsFee).Quo(math.LegacyNewDec(FeeDenominator))
 
+	// If the rewards amount succeed the maxFee value, use that instead.
 	if rewards.GT(math.LegacyNewDec(maxFee)) {
 		rewards = math.LegacyNewDec(maxFee)
 	}
-	protocol := rewards.MulInt64(protocolFeePercentage).Quo(math.LegacyNewDec(100))
-	rewards = rewards.Sub(protocol)
-	// Subtract the fee from dy
+
+	// Compute the protocol fee as a percentage of the total rewards.
+	protocolFeeAmount := rewards.MulInt64(protocolFeePercentage).Quo(math.LegacyNewDec(100))
+	// Update the rewards by subtracting the protocol fee amount.
+	rewardsFeeAmount := rewards.Sub(protocolFeeAmount)
+
+	// Subtract the fees (rewards+protocol) from dy.
 	dy = dy.Sub(rewards)
-	dy = dy.Sub(protocol)
+	dy = dy.Sub(protocolFeeAmount)
 
 	// Convert dy back to the original units
 	dy = dy.Mul(math.LegacyNewDec(DecimalPrecision)).Quo(rateMultipliers.AmountOf(denomTo).ToLegacyDec())
 
 	return types.SwapResult{
 		Dy:          dy,
-		ProtocolFee: protocol,
-		RewardsFee:  rewards,
+		ProtocolFee: protocolFeeAmount,
+		RewardsFee:  rewardsFeeAmount,
 	}, nil
 }
 

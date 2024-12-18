@@ -44,10 +44,10 @@ Represents a liquidity pool within the state.
 
 ---
 
-### Position
-`swap.v1.Position`
+### BondedPosition
+`swap.v1.BondedPosition`
 
-Represents a liquidity position in a pool.
+Represents a liquidity bonded position in a pool.
 
 ```json
 {

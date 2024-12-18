@@ -22,7 +22,7 @@ func NewMsgServer(keeper *Keeper) types.MsgServer {
 
 // Swap allows a user to swap one type of token for another, using multiple routes.
 func (s msgServer) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapResponse, error) {
-	// Compute the Swap.
+	// Compute the Swap (date validation is performed internally).
 	result, err := s.Keeper.Swap(ctx, msg)
 	if err != nil {
 		return nil, err
@@ -45,20 +45,20 @@ func (s msgServer) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwap
 
 // PauseByAlgorithm pauses all pools using a specific algorithm.
 func (s msgServer) PauseByAlgorithm(ctx context.Context, msg *types.MsgPauseByAlgorithm) (*types.MsgPauseByAlgorithmResponse, error) {
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
 
+	// Iterate through the pools and collect the pools to pause.
 	var poolsToPause []uint64 // store the pools to pause
-
-	// walk through the pools
 	for poolId, pool := range s.GetPools(ctx) {
 		if msg.Algorithm != types.UNSPECIFIED && pool.Algorithm == msg.Algorithm {
 			poolsToPause = append(poolsToPause, poolId)
 		}
 	}
 
-	// iterate and pause all the wanted pools
+	// Iterate and pause all the wanted pools
 	var pausedPools []uint64
 	for _, poolId := range poolsToPause {
 		if s.HasPool(ctx, poolId) {
@@ -80,11 +80,12 @@ func (s msgServer) PauseByAlgorithm(ctx context.Context, msg *types.MsgPauseByAl
 
 // PauseByPoolIds pauses specific pools identified by their pool IDs.
 func (s msgServer) PauseByPoolIds(ctx context.Context, msg *types.MsgPauseByPoolIds) (*types.MsgPauseByPoolIdsResponse, error) {
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
 
-	// iterate and pause all the wanted pools
+	// Iterate and pause all the wanted pools.
 	var pausedPools []uint64
 	for _, poolId := range msg.PoolIds {
 		if s.HasPool(ctx, poolId) {
@@ -106,20 +107,20 @@ func (s msgServer) PauseByPoolIds(ctx context.Context, msg *types.MsgPauseByPool
 
 // UnpauseByAlgorithm unpauses all pools using a specific algorithm.
 func (s msgServer) UnpauseByAlgorithm(ctx context.Context, msg *types.MsgUnpauseByAlgorithm) (*types.MsgUnpauseByAlgorithmResponse, error) {
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
 
+	// Iterate through the pools and collect the pools to unpause.
 	var poolsToUnpause []uint64 // store the pools to unpause
-
-	// walk through the pools
 	for poolId, pool := range s.GetPools(ctx) {
 		if msg.Algorithm != types.UNSPECIFIED && pool.Algorithm == msg.Algorithm {
 			poolsToUnpause = append(poolsToUnpause, poolId)
 		}
 	}
 
-	// iterate and unpause all the wanted pools
+	// Iterate and unpause all the wanted pools.
 	var unpausedPools []uint64
 	for _, poolId := range poolsToUnpause {
 		if s.HasPool(ctx, poolId) {
@@ -141,11 +142,12 @@ func (s msgServer) UnpauseByAlgorithm(ctx context.Context, msg *types.MsgUnpause
 
 // UnpauseByPoolIds unpauses specific pools identified by their pool IDs.
 func (s msgServer) UnpauseByPoolIds(ctx context.Context, msg *types.MsgUnpauseByPoolIds) (*types.MsgUnpauseByPoolIdsResponse, error) {
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
 
-	// iterate and unpause all the wanted pools
+	// Iterate and unpause all the wanted pools.
 	var unpausedPools []uint64
 	for _, poolId := range msg.PoolIds {
 		if s.HasPool(ctx, poolId) {
@@ -167,7 +169,7 @@ func (s msgServer) UnpauseByPoolIds(ctx context.Context, msg *types.MsgUnpauseBy
 
 // WithdrawProtocolFees allows the protocol to withdraw accumulated fees and move them to another account.
 func (s msgServer) WithdrawProtocolFees(ctx context.Context, msg *types.MsgWithdrawProtocolFees) (*types.MsgWithdrawProtocolFeesResponse, error) {
-	// Ensure Authority.
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
@@ -212,12 +214,13 @@ func (s msgServer) WithdrawProtocolFees(ctx context.Context, msg *types.MsgWithd
 
 // WithdrawRewards allows a user to claim their accumulated rewards.
 func (s msgServer) WithdrawRewards(ctx context.Context, msg *types.MsgWithdrawRewards) (*types.MsgWithdrawRewardsResponse, error) {
-	// Ensure valid signer.
+	// Ensure that the signer is a valid address.
 	_, err := s.addressCodec.StringToBytes(msg.Signer)
 	if err != nil {
 		return nil, fmt.Errorf("unable to decode user address: %s", msg.Signer)
 	}
 
+	// Iterate and collects the user rewards from all the pools.
 	rewards := sdk.Coins{}
 	currentTime := s.headerService.GetHeaderInfo(ctx)
 	for poolId := range s.GetPools(ctx) {

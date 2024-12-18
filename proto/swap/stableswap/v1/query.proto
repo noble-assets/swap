@@ -13,21 +13,25 @@ import "google/protobuf/timestamp.proto";
 option go_package = "swap.noble.xyz/types/stableswap";
 
 service Query {
+  // Retrieves all the positions by a specific provider, including bonded/unbonded positions and rewards.
   rpc PositionsByProvider(QueryPositionsByProvider) returns (QueryPositionsByProviderResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/swap/stableswap/v1/positions/{provider}";
   }
 
+  // Retrieves all the bonded positions by a specific provider.
   rpc BondedPositionsByProvider(QueryBondedPositionsByProvider) returns (QueryBondedPositionsByProviderResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/swap/stableswap/v1/bonded-positions/{provider}";
   }
 
+  // Retrieves all the unbonding positions by a specific provider.
   rpc UnbondingPositionsByProvider(QueryUnbondingPositionsByProvider) returns (QueryUnbondingPositionsByProviderResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/swap/stableswap/v1/unbonding-positions/{provider}";
   }
 
+  // Retrieves all the rewards by a specific provider.
   rpc RewardsByProvider(QueryRewardsByProvider) returns (QueryRewardsByProviderResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/swap/stableswap/v1/rewards/{provider}";
@@ -37,7 +41,6 @@ service Query {
 message QueryPositionsByProvider {
   string provider = 1;
 }
-
 message QueryPositionsByProviderResponse {
   repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
   repeated QueryUnbondingPositionResponseEntry unbonding_positions = 2 [(gogoproto.nullable) = false];
@@ -47,7 +50,6 @@ message QueryPositionsByProviderResponse {
 message QueryBondedPositionsByProvider {
   string provider = 1;
 }
-
 message QueryBondedPositionsByProviderResponse {
   repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
 }
@@ -55,7 +57,6 @@ message QueryBondedPositionsByProviderResponse {
 message QueryUnbondingPositionsByProvider {
   string provider = 1;
 }
-
 message QueryUnbondingPositionsByProviderResponse {
   repeated QueryUnbondingPositionResponseEntry unbonding_positions = 1 [(gogoproto.nullable) = false];
 }
@@ -63,10 +64,11 @@ message QueryUnbondingPositionsByProviderResponse {
 message QueryRewardsByProvider {
   string provider = 1;
 }
-
 message QueryRewardsByProviderResponse {
   repeated QueryRewardsResponseEntry rewards = 1 [(gogoproto.nullable) = false];
 }
+
+//
 
 message QueryBondedPositionResponseEntry {
   uint64 pool_id = 1;

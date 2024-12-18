@@ -5,6 +5,7 @@ import (
 	"time"
 
 	sdkerrors "cosmossdk.io/errors"
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	anyproto "github.com/cosmos/gogoproto/types/any"
 	"swap.noble.xyz/types"
@@ -15,34 +16,37 @@ import (
 // and handling algorithm-specific actions seamlessly across different pool implementations.
 // State changes are managed internally within the controller for consistency and atomicity.
 type Controller interface {
-	// GetId returns the Pool id.
+	// GetId retrieves the unique identifier of the pool.
 	GetId() uint64
 
-	// GetAddress returns as string the Pool address.
+	// GetAddress retrieves the address associated with the pool.
 	GetAddress() string
 
-	// GetAlgorithm returns the Pool algorithm.
+	// GetAlgorithm retrieves the algorithm type used by the pool.
 	GetAlgorithm() types.Algorithm
 
-	// GetPair returns the Pool pair denom.
+	// GetPair retrieves the token pair managed by the pool.
 	GetPair() string
 
-	// PoolDetails returns the underlying detailed information or metadata about the Pool.
+	// PoolDetails returns detailed information about the StableSwap pool as a serialized `Any` object.
 	PoolDetails() *anyproto.Any
 
-	// IsPaused returns true if the Pool is paused.
+	// IsPaused checks if the pool is currently paused.
 	IsPaused() bool
 
-	// GetRates retrieves current swap rates for all supported denominations within the Pool.
+	// GetRates computes exchange rates for tokens in the pool based on liquidity.
 	GetRates(ctx context.Context) []types.Rate
 
-	// GetLiquidity returns the total liquidity available in the pool as a collection of coins.
+	// GetRate computes the single exchange rate for the base token pair in the pool.
+	GetRate(ctx context.Context) math.LegacyDec
+
+	// GetLiquidity retrieves the total liquidity in the pool.
 	GetLiquidity(ctx context.Context) sdk.Coins
 
-	// GetProtocolFeesAddresses returns the array of addresses containing the protocol fees of the Pool.
+	// GetProtocolFeesAddresses retrieves the addresses where protocol fees are collected.
 	GetProtocolFeesAddresses() []sdk.AccAddress
 
-	// Swap performs a coin swap within a specified pool, exchanging one coin type for another.
+	// Swap performs a coin swap within a specified pool and its underlying algorithm.
 	Swap(
 		ctx context.Context,
 		currentTime int64,
@@ -50,7 +54,7 @@ type Controller interface {
 		denomTo string,
 	) (*types.SwapCommitment, error)
 
-	// ProcessUserRewards processes the rewards for the given user within the Pool.
+	// ProcessUserRewards distributes rewards to a user.
 	ProcessUserRewards(ctx context.Context, address string, currentTime time.Time) (sdk.Coins, error)
 }
 

@@ -1201,7 +1201,9 @@ type Route struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PoolId  uint64 `protobuf:"varint,1,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// ID of the Pool.
+	PoolId uint64 `protobuf:"varint,1,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// Destination denom after the Swap in the Pool.
 	DenomTo string `protobuf:"bytes,2,opt,name=denom_to,json=denomTo,proto3" json:"denom_to,omitempty"`
 }
 

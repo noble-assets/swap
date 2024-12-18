@@ -3242,17 +3242,28 @@ type PoolCreated struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PoolId                uint64          `protobuf:"varint,1,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`                                                // ID of the newly created pool
-	Algorithm             string          `protobuf:"bytes,2,opt,name=algorithm,proto3" json:"algorithm,omitempty"`                                                         // Algorithm of the pool
-	Pair                  string          `protobuf:"bytes,3,opt,name=pair,proto3" json:"pair,omitempty"`                                                                   // Pair of assets in the pool
-	ProtocolFeePercentage int64           `protobuf:"varint,4,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"` // Protocol fee percentage for the pool
-	RewardsFee            int64           `protobuf:"varint,5,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`                                    // Rewards fee for the pool
-	MaxFee                int64           `protobuf:"varint,6,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`                                                // Maximum fee allowed for the pool
-	InitialA              int64           `protobuf:"varint,7,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`                                          // Initial amplification coefficient
-	InitialATime          int64           `protobuf:"varint,8,opt,name=initial_a_time,json=initialATime,proto3" json:"initial_a_time,omitempty"`                            // Initial amplification coefficient
-	FutureA               int64           `protobuf:"varint,9,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`                                             // Future amplification coefficient
-	FutureATime           int64           `protobuf:"varint,10,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`                              // Time when the amplification change will take effect
-	RateMultipliers       []*v1beta1.Coin `protobuf:"bytes,11,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
+	// ID of the newly created pool.
+	PoolId uint64 `protobuf:"varint,1,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// Algorithm of the pool.
+	Algorithm string `protobuf:"bytes,2,opt,name=algorithm,proto3" json:"algorithm,omitempty"`
+	// Pair asset denom in the pool.
+	Pair string `protobuf:"bytes,3,opt,name=pair,proto3" json:"pair,omitempty"`
+	// Protocol fee percentage for the pool.
+	ProtocolFeePercentage int64 `protobuf:"varint,4,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// Rewards fee for the pool.
+	RewardsFee int64 `protobuf:"varint,5,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// Maximum fee allowed for the pool during a swap.
+	MaxFee int64 `protobuf:"varint,6,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// Initial amplification coefficient.
+	InitialA int64 `protobuf:"varint,7,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	// Initial amplification coefficient.
+	InitialATime int64 `protobuf:"varint,8,opt,name=initial_a_time,json=initialATime,proto3" json:"initial_a_time,omitempty"`
+	// Future amplification coefficient.
+	FutureA int64 `protobuf:"varint,9,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// Time when the amplification change will take full effect.
+	FutureATime int64 `protobuf:"varint,10,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// Rate multipliers applied to the coins.
+	RateMultipliers []*v1beta1.Coin `protobuf:"bytes,11,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
 }
 
 func (x *PoolCreated) Reset() {
@@ -3357,13 +3368,20 @@ type PoolUpdated struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PoolId                uint64          `protobuf:"varint,1,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`                                                // ID of the pool being updated
-	ProtocolFeePercentage int64           `protobuf:"varint,2,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"` // Updated protocol fee percentage
-	RewardsFee            int64           `protobuf:"varint,3,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`                                    // Updated rewards fee
-	MaxFee                int64           `protobuf:"varint,4,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`                                                // Updated maximum fee
-	FutureA               int64           `protobuf:"varint,5,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`                                             // Updated future amplification coefficient
-	FutureATime           int64           `protobuf:"varint,6,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`                               // Updated future amplification change time
-	RateMultipliers       []*v1beta1.Coin `protobuf:"bytes,7,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
+	// ID of the updated pool.
+	PoolId uint64 `protobuf:"varint,1,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// Protocol fee percentage for the pool.
+	ProtocolFeePercentage int64 `protobuf:"varint,2,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// Rewards fee for the pool.
+	RewardsFee int64 `protobuf:"varint,3,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// Maximum fee allowed for the pool during a swap.
+	MaxFee int64 `protobuf:"varint,4,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// Future amplification coefficient.
+	FutureA int64 `protobuf:"varint,5,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// Time when the amplification change will take full effect.
+	FutureATime int64 `protobuf:"varint,6,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// Rate multipliers applied to the coins.
+	RateMultipliers []*v1beta1.Coin `protobuf:"bytes,7,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
 }
 
 func (x *PoolUpdated) Reset() {
@@ -3440,10 +3458,14 @@ type LiquidityAdded struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Provider string          `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`            // Provider address of the liquidity
-	PoolId   uint64          `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"` // Pool identifier
-	Amount   []*v1beta1.Coin `protobuf:"bytes,7,rep,name=amount,proto3" json:"amount,omitempty"`                // Amount of liquidity being added
-	Shares   string          `protobuf:"bytes,4,opt,name=shares,proto3" json:"shares,omitempty"`                // Number of shares corresponding to the added liquidity
+	// Address of the liquidity provider.
+	Provider string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	// ID of the pool.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// Liquidity amount being added.
+	Amount []*v1beta1.Coin `protobuf:"bytes,7,rep,name=amount,proto3" json:"amount,omitempty"`
+	// Shares issued for the added liquidity.
+	Shares string `protobuf:"bytes,4,opt,name=shares,proto3" json:"shares,omitempty"`
 }
 
 func (x *LiquidityAdded) Reset() {
@@ -3499,10 +3521,15 @@ type LiquidityRemoved struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Provider   string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`            // Provider address of the liquidity
-	PoolId     uint64                 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"` // Pool identifier
-	Amount     []*v1beta1.Coin        `protobuf:"bytes,7,rep,name=amount,proto3" json:"amount,omitempty"`                // Amount of liquidity being removed
-	Shares     string                 `protobuf:"bytes,4,opt,name=shares,proto3" json:"shares,omitempty"`                // Number of shares corresponding to the removed liquidity
+	// Provider address of the liquidity
+	Provider string `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	// ID of the pool.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// Liquidity amount being removed.
+	Amount []*v1beta1.Coin `protobuf:"bytes,7,rep,name=amount,proto3" json:"amount,omitempty"`
+	// Shares burned for the removed liquidity.
+	Shares string `protobuf:"bytes,4,opt,name=shares,proto3" json:"shares,omitempty"`
+	// Time when the removed liquidity will be unlocked.
 	UnlockTime *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=unlock_time,json=unlockTime,proto3" json:"unlock_time,omitempty"`
 }
 

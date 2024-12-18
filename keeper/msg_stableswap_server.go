@@ -24,7 +24,7 @@ func NewStableSwapMsgServer(keeper *Keeper) stableswap.MsgServer {
 
 // CreatePool creates a new `StableSwap` Pool with the provided params.
 func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.MsgCreatePool) (*stableswap.MsgCreatePoolResponse, error) {
-	// Only the authority can create new Pools.
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
@@ -39,6 +39,7 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "pair denom must be different from %s", s.baseDenom)
 	}
 
+	// Check if the Pair denom exists on the bank module.
 	if !s.bankKeeper.GetSupply(ctx, msg.Pair).IsPositive() {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "%s does not exists on chain", msg.Pair)
 	}
@@ -156,7 +157,7 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 
 // UpdatePool updates the params of the `StableSwap` Pool.
 func (s stableswapMsgServer) UpdatePool(ctx context.Context, msg *stableswap.MsgUpdatePool) (*stableswap.MsgUpdatePoolResponse, error) {
-	// Only the authority can update Pools.
+	// Ensure that the signer has the required authority.
 	if msg.Signer != s.authority {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected %s, got %s", s.authority, msg.Signer)
 	}
@@ -167,6 +168,7 @@ func (s stableswapMsgServer) UpdatePool(ctx context.Context, msg *stableswap.Msg
 		return nil, err
 	}
 
+	// Ensure that the requested Pool is a StableSwap pool.
 	if controller.GetAlgorithm() != types.STABLESWAP {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPool, "invalid pool algorithm")
 	}

@@ -27,6 +27,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type PoolsPaused struct {
+	// IDs of the pools paused.
 	PoolIds []uint64 `protobuf:"varint,1,rep,packed,name=pool_ids,json=poolIds,proto3" json:"pool_ids,omitempty"`
 }
 
@@ -71,6 +72,7 @@ func (m *PoolsPaused) GetPoolIds() []uint64 {
 }
 
 type PoolsUnpaused struct {
+	// IDs of the pools unpaused.
 	PoolIds []uint64 `protobuf:"varint,1,rep,packed,name=pool_ids,json=poolIds,proto3" json:"pool_ids,omitempty"`
 }
 
@@ -115,11 +117,16 @@ func (m *PoolsUnpaused) GetPoolIds() []uint64 {
 }
 
 type Swapped struct {
-	Signer string                                   `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
-	Input  types.Coin                               `protobuf:"bytes,2,opt,name=input,proto3" json:"input"`
-	Output types.Coin                               `protobuf:"bytes,3,opt,name=output,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"output"`
-	Routes []Route                                  `protobuf:"bytes,4,rep,name=routes,proto3" json:"routes"`
-	Fees   github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,5,rep,name=fees,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"fees"`
+	// Address of the user initiating the swap.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// Coin input by the user.
+	Input types.Coin `protobuf:"bytes,2,opt,name=input,proto3" json:"input"`
+	// Final output coin from the swap.
+	Output types.Coin `protobuf:"bytes,3,opt,name=output,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"output"`
+	// Routing outing of the swap.
+	Routes []Route `protobuf:"bytes,4,rep,name=routes,proto3" json:"routes"`
+	// Amount of fees incurred during the swap.
+	Fees github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,5,rep,name=fees,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"fees"`
 }
 
 func (m *Swapped) Reset()         { *m = Swapped{} }
@@ -191,7 +198,9 @@ func (m *Swapped) GetFees() github_com_cosmos_cosmos_sdk_types.Coins {
 }
 
 type WithdrawnProtocolFees struct {
-	To      string                                   `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	// Address to which the fees are transferred
+	To string `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	// Amount of rewards withdrawn.
 	Rewards github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,3,rep,name=rewards,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rewards"`
 }
 
@@ -243,7 +252,9 @@ func (m *WithdrawnProtocolFees) GetRewards() github_com_cosmos_cosmos_sdk_types.
 }
 
 type WithdrawnRewards struct {
-	Signer  string                                   `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// Address of the user withdrawing rewards.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// Amount of rewards withdrawn.
 	Rewards github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,2,rep,name=rewards,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rewards"`
 }
 

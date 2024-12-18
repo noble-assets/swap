@@ -109,7 +109,7 @@ func TestRewardsSingleUser(t *testing.T) {
 		expectedRewards = append(expectedRewards, sdk.NewCoin(coin.Denom, coin.Amount.Sub(coin.Amount.Mul(math.NewInt(1)).Quo(math.NewInt(100)))))
 	}
 
-	// ARRANGE: Increase time
+	// ARRANGE: Increase time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 1, 1, time.UTC)})
 
 	// ARRANGE: Set failing collections for BondingPositions.
@@ -130,7 +130,7 @@ func TestRewardsSingleUser(t *testing.T) {
 	assert.Error(t, err)
 	assert.Equal(t, "error accessing store", err.Error())
 
-	// ARRANGE: Restore BondingPositions collection
+	// ARRANGE: Restore BondingPositions collection.
 	k.Stableswap.BondedPositions = tmpBondedPositions
 
 	// ACT: Withdraw rewards.
@@ -148,7 +148,7 @@ func TestRewardsSingleUser(t *testing.T) {
 	}
 	assert.Equal(t, expectedRewards, totalRewards)
 
-	// ARRANGE: Increase the time
+	// ARRANGE: Increase the time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 2, 1, 1, 2, 1, time.UTC)})
 
 	// ACT: Attempt to withdraw rewards again.
@@ -174,7 +174,7 @@ func TestRewardsMultiUser(t *testing.T) {
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	bob, alice, tom := utils.TestAccount(), utils.TestAccount(), utils.TestAccount()
 
-	// ARRANGE: Create a Pool
+	// ARRANGE: Create a Pool.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
 	_, _ = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
@@ -310,21 +310,21 @@ func TestWithdrawRewards(t *testing.T) {
 	})
 	assert.Error(t, err)
 
-	// ARRANGE: Setup up failing collections on Pools
+	// ARRANGE: Setup up failing collections on Pools.
 	tmpPools := k.Pools
 	k.Pools = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
 		types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](mocks.MakeTestEncodingConfig("noble").Codec),
 	)
 
-	// ACT: Attempt to withdraw the rewards
+	// ACT: Attempt to withdraw the rewards.
 	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
 	assert.Equal(t, mocks.ErrorStoreAccess.Error(), err.Error())
 	k.Pools = tmpPools
 
-	// ARRANGE: Setup up failing collections on BondedPositions
+	// ARRANGE: Setup up failing collections on BondedPositions.
 	tmpBondedPositions := k.Stableswap.BondedPositions
 	builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Iterator, utils.GetKVStore(ctx, types.ModuleName)))
 	k.Stableswap.BondedPositions = collections.NewIndexedMap(
@@ -334,14 +334,14 @@ func TestWithdrawRewards(t *testing.T) {
 		stableswapkeeper.NewBondedPositionIndexes(builder),
 	)
 
-	// ACT: Withdraw the rewards
+	// ACT: Withdraw the rewards.
 	_, err = server.WithdrawRewards(ctx, &types.MsgWithdrawRewards{
 		Signer: bob.Address,
 	})
 	assert.NoError(t, err)
 	k.Stableswap.BondedPositions = tmpBondedPositions
 
-	// ARRANGE: Add liquidity
+	// ARRANGE: Add liquidity.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10_000_000)))
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(10_000_000)))
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
@@ -377,7 +377,7 @@ func TestWithdrawRewards(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, 1, res.Rewards.Len())
 
-	// ARRANGE: Pause pools
+	// ARRANGE: Pause pools.
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
@@ -390,7 +390,7 @@ func TestWithdrawRewards(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: Unpause pools
+	// ARRANGE: Unpause pools.
 	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
@@ -414,6 +414,7 @@ func TestWithdrawProtocolFees(t *testing.T) {
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10_000*ONE)))
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(10_000*ONE)))
 
+	// ARRANGE: Create a Pool.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
@@ -430,6 +431,8 @@ func TestWithdrawProtocolFees(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: bob.Address,
 		PoolId: 0,
@@ -439,6 +442,8 @@ func TestWithdrawProtocolFees(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Generate fees with a swap.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: bob.Address,
 		Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
@@ -452,7 +457,7 @@ func TestWithdrawProtocolFees(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: Add an invalid Pool
+	// ARRANGE: Add an invalid Pool.
 	err = k.SetPool(ctx, 2, types.Pool{
 		Id:        2,
 		Address:   "",
@@ -461,7 +466,7 @@ func TestWithdrawProtocolFees(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: Correct ProtocolFees amount
+	// ASSERT: Correct ProtocolFees amount.
 	poolInfo, err := queryServer.Pool(ctx, &types.QueryPool{
 		PoolId: 0,
 	})
@@ -474,7 +479,7 @@ func TestWithdrawProtocolFees(t *testing.T) {
 	})
 	assert.Error(t, err)
 
-	// ACT: Withdraw rewards with paused pools
+	// ACT: Withdraw rewards with paused pools.
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{Signer: "authority", Algorithm: types.STABLESWAP})
 	assert.NoError(t, err)
 
@@ -516,7 +521,7 @@ func TestWithdrawProtocolFees(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: Correct ProtocolFees amount
+	// ASSERT: Correct ProtocolFees amount.
 	poolInfo, err = queryServer.Pool(ctx, &types.QueryPool{
 		PoolId: 0,
 	})
@@ -539,7 +544,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create the initial pools and provide to the user the necessary liquidity
+	// ARRANGE: Create the initial pools and provide to the user the necessary liquidity.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
@@ -568,14 +573,14 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: pause with invalid authority
+	// ARRANGE: Pause with invalid authority.
 	_, err = server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "user",
 		PoolIds: []uint64{0},
 	})
 	assert.Equal(t, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected authority, got user").Error(), err.Error())
 
-	// ARRANGE: simulate Paused failing collection.
+	// ARRANGE: Simulate Paused failing collection.
 	tmpPaused := k.Paused
 	k.Paused = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
@@ -588,7 +593,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.Equal(t, sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to pause pool").Error(), err.Error())
 	k.Paused = tmpPaused
 
-	// ARRANGE: pause non existing pool
+	// ARRANGE: Pause non existing pool.
 	res, err := server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{100},
@@ -596,7 +601,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, res.PausedPools, []uint64(nil))
 
-	// ARRANGE: pause pool by its id
+	// ARRANGE: Pause pool by its id.
 	res, err = server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{0},
@@ -604,7 +609,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, res.PausedPools, []uint64{0})
 
-	// ASSERT: it's impossible to operate on the pool
+	// ASSERT: It is impossible to operate on the pool.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -615,14 +620,14 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	})
 	assert.Error(t, err, types.ErrPoolActivityPaused)
 
-	// ARRANGE: pause multiple pools by their ids
+	// ARRANGE: pause multiple pools by their ids.
 	_, err = server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{0, 1},
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: it's impossible to operate on the pools
+	// ASSERT: It is impossible to operate on the pools.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -642,14 +647,14 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	})
 	assert.Error(t, err, types.ErrPoolActivityPaused)
 
-	// ARRANGE: unpause with invalid authority
+	// ARRANGE: Unpause with invalid authority.
 	_, err = server.UnpauseByPoolIds(ctx, &types.MsgUnpauseByPoolIds{
 		Signer:  "user",
 		PoolIds: []uint64{0},
 	})
 	assert.Equal(t, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected authority, got user").Error(), err.Error())
 
-	// ARRANGE: simulate Paused failing collection.
+	// ARRANGE: Simulate Paused failing collection.
 	tmpPaused = k.Paused
 	k.Paused = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
@@ -662,7 +667,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.Equal(t, sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to unpause pool").Error(), err.Error())
 	k.Paused = tmpPaused
 
-	// ARRANGE: unpause non existing pool
+	// ARRANGE: Unpause non-existing pool.
 	res2, err := server.UnpauseByPoolIds(ctx, &types.MsgUnpauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{100},
@@ -670,7 +675,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, res2.UnpausedPools, []uint64(nil))
 
-	// ARRANGE: unpause a pools by its id
+	// ARRANGE: Unpause a pools by its id.
 	resUnpause, err := server.UnpauseByPoolIds(ctx, &types.MsgUnpauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{0},
@@ -678,7 +683,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, resUnpause.UnpausedPools, []uint64{0})
 
-	// ASSERT: it's possible to operate on the unpaused pool
+	// ASSERT: It is possible to operate on the unpaused pool.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -698,13 +703,13 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	})
 	assert.Error(t, err, types.ErrPoolActivityPaused)
 
-	// ARRANGE: re-pause the pools
+	// ARRANGE: Re-pause the pools.
 	_, err = server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{0, 1},
 	})
 	assert.NoError(t, err)
-	// ARRANGE: unpause multiple pools by their ids
+	// ARRANGE: Unpause multiple pools by their ids.
 	resUnpause, err = server.UnpauseByPoolIds(ctx, &types.MsgUnpauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{0, 1},
@@ -713,7 +718,7 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	assert.Equal(t, resUnpause.UnpausedPools, []uint64{0, 1})
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 20, 1, 1, 1, 1, time.UTC)})
 
-	// ASSERT: is now possible to operate on both pools
+	// ASSERT: It is now possible to operate on both pools.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -748,7 +753,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create 2 Pools.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
@@ -777,14 +782,14 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: pause with invalid authority
+	// ARRANGE: Pause with invalid authority.
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
 		Signer:    "user",
 		Algorithm: types.STABLESWAP,
 	})
 	assert.Equal(t, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected authority, got user").Error(), err.Error())
 
-	// ARRANGE: simulate Paused failing collection.
+	// ARRANGE: Simulate Paused failing collection.
 	tmpPaused := k.Paused
 	k.Paused = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
@@ -797,7 +802,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	assert.Equal(t, sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to pause pool").Error(), err.Error())
 	k.Paused = tmpPaused
 
-	// ARRANGE: pause non-existing algorithm
+	// ARRANGE: Pause non-existing algorithm.
 	res, err := server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.UNSPECIFIED,
@@ -805,7 +810,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, res.PausedPools, []uint64(nil))
 
-	// ARRANGE: pause pools by algorithm type
+	// ARRANGE: Pause pools by algorithm type.
 	res, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
@@ -813,7 +818,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, res.PausedPools, []uint64{0, 1})
 
-	// ASSERT: pools are paused, activities are blocked
+	// ASSERT: pools are paused, activities are blocked.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -833,14 +838,14 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	})
 	assert.Error(t, err, types.ErrPoolActivityPaused)
 
-	// ARRANGE: unpause with invalid authority
+	// ARRANGE: Unpause with invalid authority.
 	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
 		Signer:    "user",
 		Algorithm: types.STABLESWAP,
 	})
 	assert.Equal(t, sdkerrors.Wrapf(types.ErrInvalidAuthority, "expected authority, got user").Error(), err.Error())
 
-	// ARRANGE: simulate Paused failing collection.
+	// ARRANGE: Simulate Paused failing collection.
 	tmpPaused = k.Paused
 	k.Paused = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName))),
@@ -853,7 +858,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	assert.Equal(t, sdkerrors.Wrapf(mocks.ErrorStoreAccess, "unable to unpause pool").Error(), err.Error())
 	k.Paused = tmpPaused
 
-	// ARRANGE: unpause non-existing algorithm
+	// ARRANGE: Unpause non-existing algorithm.
 	res2, err := server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.UNSPECIFIED,
@@ -861,7 +866,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, res2.UnpausedPools, []uint64(nil))
 
-	// ARRANGE: unpause pools by algorithm type
+	// ARRANGE: Unpause pools by algorithm type.
 	resUnpause, err := server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
@@ -869,7 +874,7 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, resUnpause.UnpausedPools, []uint64{0, 1})
 
-	// ASSERT: pools are unpaused, normal activity
+	// ASSERT: Pools are unpaused, normal activity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
@@ -904,7 +909,7 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 	stableswapServer := keeper.NewStableSwapMsgServer(k)
 	provider, user := utils.TestAccount(), utils.TestAccount()
 
-	// ARRANGE: Set up pool and initial liquidity
+	// ARRANGE: Create a Pool.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -922,6 +927,8 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
 	bank.Balances[provider.Address] = append(bank.Balances[provider.Address], sdk.NewCoin("uusdc", math.NewInt(1_000_000_000)))
 	bank.Balances[provider.Address] = append(bank.Balances[provider.Address], sdk.NewCoin("uusdn", math.NewInt(1_000_000_000)))
+
+	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: provider.Address,
 		PoolId: 0,
@@ -932,7 +939,7 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: Create a liquidity position for the user
+	// ARRANGE: Create a liquidity position for the user.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
@@ -1004,7 +1011,7 @@ func TestSwap(t *testing.T) {
 
 	alice, bob := utils.TestAccount(), utils.TestAccount()
 
-	// ARRANGE: Create the Pool and provide liquidity.
+	// ARRANGE: Create the Pool.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -1143,7 +1150,7 @@ func TestSwap(t *testing.T) {
 	// ASSERT: Routing Plan validation failed.
 	assert.Error(t, err)
 
-	// ARRANGE: Set up failing collections for the StableSwap Pool
+	// ARRANGE: Set up failing collections for the StableSwap Pool.
 	tmpPools := k.Pools
 	k.Pools = collections.NewMap(
 		collections.NewSchemaBuilder(mocks.FailingStore(mocks.Get, utils.GetKVStore(ctx, types.ModuleName))),
@@ -1163,7 +1170,7 @@ func TestSwap(t *testing.T) {
 	// ARRANGE: Restore collection.
 	k.Pools = tmpPools
 
-	// ACT: Attempt to perform a Swap with an invalid DenomTo and Min,
+	// ACT: Attempt to perform a Swap with an invalid DenomTo and Min.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: bob.Address,
 		Amount: sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
@@ -1211,7 +1218,7 @@ func TestSwap(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ACT: Perform a new Swap expecting higher fees
+	// ACT: Perform a new Swap expecting higher fees.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: bob.Address,
 		Amount: sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
@@ -1450,7 +1457,7 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 	})
 	require.NoError(b, err)
 
-	// ACT: Perform multi-pool swaps,
+	// ACT: Perform multi-pool swaps.
 	routes := []types.Route{
 		{
 			PoolId:  0,

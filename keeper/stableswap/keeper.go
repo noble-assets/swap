@@ -21,12 +21,27 @@ type Keeper struct {
 	headerService header.Service
 	logger        log.Logger
 
-	Pools                     collections.Map[uint64, stableswaptypes.Pool]
-	PoolsTotalUnbondingShares collections.Map[uint64, math.LegacyDec]
-	UsersTotalBondedShares    collections.Map[collections.Pair[uint64, string], math.LegacyDec]
+	// Pools stores the StableSwap pools in the state, mapped by their unique uint64 ID.
+	Pools collections.Map[uint64, stableswaptypes.Pool]
+
+	// UsersTotalBondedShares keeps track of the total bonded shares for each user in a pool,
+	// keyed by a pair of pool ID (uint64) and user address (string).
+	UsersTotalBondedShares collections.Map[collections.Pair[uint64, string], math.LegacyDec]
+
+	// UsersTotalUnbondingShares keeps track of the total unbonding shares for each user in a pool,
+	// keyed by a pair of pool ID (uint64) and user address (string).
 	UsersTotalUnbondingShares collections.Map[collections.Pair[uint64, string], math.LegacyDec]
-	BondedPositions           *collections.IndexedMap[collections.Triple[uint64, string, int64], stableswaptypes.BondedPosition, BondedPositionIndexes]
-	UnbondingPositions        *collections.IndexedMap[collections.Triple[int64, string, uint64], stableswaptypes.UnbondingPosition, UnbondingPositionIndexes]
+
+	// PoolsTotalUnbondingShares tracks the total unbonding shares for each pool, keyed by the pool ID (uint64).
+	PoolsTotalUnbondingShares collections.Map[uint64, math.LegacyDec]
+
+	// BondedPositions stores the bonded positions of users in a pool,
+	// keyed by a triple of pool ID (uint64), user address (string), and current_time (int64).
+	BondedPositions *collections.IndexedMap[collections.Triple[uint64, string, int64], stableswaptypes.BondedPosition, BondedPositionIndexes]
+
+	// UnbondingPositions stores the unbonding positions of users in a pool,
+	// keyed by a triple of unbonding_end_time (int64), user address (string), and pool ID (uint64).
+	UnbondingPositions *collections.IndexedMap[collections.Triple[int64, string, uint64], stableswaptypes.UnbondingPosition, UnbondingPositionIndexes]
 }
 
 func NewKeeper(

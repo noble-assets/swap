@@ -1002,7 +1002,8 @@ type Module struct {
 	// authority defines the custom module authority.
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
 	// base_denom defines the base denom that is used as the standard pairing denomination for all liquidity pools.
-	BaseDenom  string      `protobuf:"bytes,2,opt,name=base_denom,json=baseDenom,proto3" json:"base_denom,omitempty"`
+	BaseDenom string `protobuf:"bytes,2,opt,name=base_denom,json=baseDenom,proto3" json:"base_denom,omitempty"`
+	// stableswap contains the custom attributes and configurations required for the StableSwap module.
 	Stableswap *StableSwap `protobuf:"bytes,3,opt,name=stableswap,proto3" json:"stableswap,omitempty"`
 }
 
@@ -1052,7 +1053,7 @@ type StableSwap struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// unbonding_block_delta represents the delta number of blocks between unbondings executions.
+	// unbonding_block_delta defines the number of blocks between unbonding BeginBlocker executions.
 	UnbondingBlockDelta int64 `protobuf:"varint,1,opt,name=unbonding_block_delta,json=unbondingBlockDelta,proto3" json:"unbonding_block_delta,omitempty"`
 }
 

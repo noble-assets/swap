@@ -30,7 +30,7 @@ func TestSimulateSwap(t *testing.T) {
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE)))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE)))
 
-	// ARRANGE: Create a Pool and Provide liquidity.
+	// ARRANGE: Create a Pool.
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -45,6 +45,8 @@ func TestSimulateSwap(t *testing.T) {
 		),
 	})
 	assert.Nil(t, err)
+
+	// ARRANGE: Provide liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: alice.Address,
 		PoolId: 0,
@@ -117,7 +119,7 @@ func TestPausing(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
@@ -134,23 +136,23 @@ func TestPausing(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: pause pools by algorithm type
+	// ARRANGE: Pause pools by algorithm type.
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
 	})
 	assert.NoError(t, err)
 
-	// ACT: query with invalid request
+	// ACT: Query with invalid request.
 	_, err = queryServer.Paused(ctx, nil)
 	assert.Error(t, err)
 
-	// ASSERT: correct paused pools
+	// ASSERT: Correct paused pools.
 	res, err := queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64{0})
 
-	// ARRANGE: add a new pool with the same algorithm
+	// ARRANGE: Add a new pool with the same algorithm.
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusde",
@@ -164,7 +166,7 @@ func TestPausing(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: add a new pool with the same algorithm
+	// ARRANGE: Add a new pool with the same algorithm.
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "ueure",
@@ -178,81 +180,81 @@ func TestPausing(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: unpause by algorithm
+	// ARRANGE: Unpause by algorithm.
 	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: correct paused pools
+	// ASSERT: Correct paused pools.
 	res, err = queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64(nil))
 
-	// ARRANGE: pause pools by algorithm type
+	// ARRANGE: Pause pools by algorithm type.
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: all pool are paused
+	// ASSERT: All pool are paused.
 	res, err = queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64{0, 1, 2})
 
-	// ARRANGE: unpause all the pools
+	// ARRANGE: Unpause all the pools.
 	_, err = server.UnpauseByAlgorithm(ctx, &types.MsgUnpauseByAlgorithm{
 		Signer:    "authority",
 		Algorithm: types.STABLESWAP,
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: pause a single pool by its id
+	// ARRANGE: Pause a single pool by its id.
 	_, err = server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{1},
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: pool 1 is paused
+	// ASSERT: Pool 1 is paused.
 	res, err = queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64{1})
 
-	// ARRANGE: unpause pool by its id
+	// ARRANGE: Unpause pool by its id.
 	_, err = server.UnpauseByPoolIds(ctx, &types.MsgUnpauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{1},
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: all pools are active
+	// ASSERT: All pools are active.
 	res, err = queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64(nil))
 
-	// ARRANGE: pause multiple pools by its id
+	// ARRANGE: Pause multiple pools by its id.
 	_, err = server.PauseByPoolIds(ctx, &types.MsgPauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{1, 0},
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: the paused pools are not active
+	// ASSERT: The paused pools are not active.
 	res, err = queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64{0, 1})
 
-	// ARRANGE: unpause multiple pools by their ids
+	// ARRANGE: Unpause multiple pools by their ids.
 	_, err = server.UnpauseByPoolIds(ctx, &types.MsgUnpauseByPoolIds{
 		Signer:  "authority",
 		PoolIds: []uint64{1, 0},
 	})
 	assert.NoError(t, err)
 
-	// ASSERT: the paused pools are active
+	// ASSERT: The paused pools are active.
 	res, err = queryServer.Paused(ctx, &types.QueryPaused{})
 	assert.Nil(t, err)
 	assert.Equal(t, res.PausedPools, []uint64(nil))
@@ -272,7 +274,7 @@ func TestPool(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
@@ -328,7 +330,7 @@ func TestPools(t *testing.T) {
 
 	user := utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create 2 pools.
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
 	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
@@ -357,10 +359,11 @@ func TestPools(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ACT: Attempt to query the pools with an invalid payload.
 	_, err = queryServer.Pools(ctx, nil)
 	assert.Error(t, err)
 
-	// ARRANGE: add a Pool with a different algorithm.
+	// ARRANGE: Add a Pool with a different algorithm.
 	err = k.SetPool(ctx, 2, types.Pool{
 		Id:        2,
 		Address:   "",
@@ -369,6 +372,7 @@ func TestPools(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ACT: Query Pools.
 	res, err := queryServer.Pools(ctx, &types.QueryPools{})
 	assert.NoError(t, err)
 	assert.Equal(t, 2, len(res.Pools))
@@ -389,7 +393,7 @@ func TestRate(t *testing.T) {
 
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(1000)))
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(1000)))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusde", math.NewInt(1000)))
@@ -406,6 +410,8 @@ func TestRate(t *testing.T) {
 		FutureA:  100,
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: bob.Address,
 		PoolId: 0,
@@ -438,7 +444,7 @@ func TestRate(t *testing.T) {
 		},
 	}, res)
 
-	// ARRANGE: Add a second Pool with liquidity.
+	// ARRANGE: Add a second Pool.
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusde",
@@ -451,6 +457,8 @@ func TestRate(t *testing.T) {
 		FutureA:  100,
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: alice.Address,
 		PoolId: 1,
@@ -460,6 +468,8 @@ func TestRate(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Perform a swap.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: alice.Address,
 		Amount: sdk.NewCoin("uusdn", math.NewInt(100)),
@@ -473,7 +483,7 @@ func TestRate(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ACT: Query the new rates
+	// ACT: Query the new rates.
 	res, err = queryServer.Rate(ctx, &types.QueryRate{
 		Denom:     "uusdc",
 		Algorithm: types.STABLESWAP,
@@ -491,7 +501,7 @@ func TestRate(t *testing.T) {
 		},
 	}, res)
 
-	// ARRANGE: add a Pool with a different algorithm.
+	// ARRANGE: Add a Pool with a different algorithm.
 	err = k.SetPool(ctx, 2, types.Pool{
 		Id:        2,
 		Address:   "",
@@ -500,11 +510,12 @@ func TestRate(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ACT: Expect the same response
+	// ACT: Query the rate.
 	res, err = queryServer.Rate(ctx, &types.QueryRate{
 		Denom:     "uusdc",
 		Algorithm: types.STABLESWAP,
 	})
+	// ASSERT: Expect the same response.
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(res.Rates))
 	assert.Equal(t, &types.QueryRateResponse{
@@ -518,12 +529,14 @@ func TestRate(t *testing.T) {
 		},
 	}, res)
 
-	// ACT: Expect the same response
+	// ACT: Query the rate.
 	res, err = queryServer.Rate(ctx, &types.QueryRate{
 		Denom:     "uusdc",
 		Algorithm: types.UNSPECIFIED,
 	})
 	assert.NoError(t, err)
+
+	// ASSERT: Expect the same response.
 	assert.Equal(t, 1, len(res.Rates))
 	assert.Equal(t, &types.QueryRateResponse{
 		Rates: []types.Rate{
@@ -552,7 +565,7 @@ func TestRates(t *testing.T) {
 
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 
-	// ARRANGE: create pools
+	// ARRANGE: Create a Pool.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusde", math.NewInt(1000)))
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(1000)))
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(1000)))
@@ -569,6 +582,8 @@ func TestRates(t *testing.T) {
 		FutureA:  100,
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: bob.Address,
 		PoolId: 0,
@@ -616,6 +631,8 @@ func TestRates(t *testing.T) {
 		FutureA:  100,
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: alice.Address,
 		PoolId: 1,
@@ -625,6 +642,8 @@ func TestRates(t *testing.T) {
 		),
 	})
 	assert.NoError(t, err)
+
+	// ARRANGE: Perform a swap.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: alice.Address,
 		Amount: sdk.NewCoin("uusdn", math.NewInt(100)),
@@ -638,7 +657,7 @@ func TestRates(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ACT: Query the new rates
+	// ACT: Query the new rates.
 	res, err = queryServer.Rates(ctx, &types.QueryRates{})
 	assert.NoError(t, err)
 	assert.Equal(t, 4, len(res.Rates))
@@ -671,7 +690,7 @@ func TestRates(t *testing.T) {
 		},
 	}, res)
 
-	// ARRANGE: add a Pool with a different algorithm.
+	// ARRANGE: Add a Pool with a different algorithm.
 	err = k.SetPool(ctx, 2, types.Pool{
 		Id:        2,
 		Address:   "",
@@ -680,7 +699,7 @@ func TestRates(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ACT: Expect the same response
+	// ACT: Expect the same response.
 	res, err = queryServer.Rates(ctx, &types.QueryRates{})
 	assert.NoError(t, err)
 	assert.Equal(t, 4, len(res.Rates))
@@ -713,7 +732,7 @@ func TestRates(t *testing.T) {
 		},
 	}, res)
 
-	// ACT: Query with a different requested algorithm and expect the same response
+	// ACT: Query with a different requested algorithm and expect the same response.
 	res, err = queryServer.Rates(ctx, &types.QueryRates{
 		Algorithm: types.STABLESWAP,
 	})

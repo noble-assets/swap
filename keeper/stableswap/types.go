@@ -6,6 +6,8 @@ import (
 	stableswaptypes "swap.noble.xyz/types/stableswap"
 )
 
+// BondedPosition Indexes
+
 type BondedPositionIndexes struct {
 	ByProvider        *indexes.Multi[string, collections.Triple[uint64, string, int64], stableswaptypes.BondedPosition]
 	ByPoolAndProvider *indexes.Multi[collections.Pair[uint64, string], collections.Triple[uint64, string, int64], stableswaptypes.BondedPosition]
@@ -41,7 +43,7 @@ func NewBondedPositionIndexes(builder *collections.SchemaBuilder) BondedPosition
 	}
 }
 
-// UnbondingPositions Indexes
+// UnbondingPosition Indexes
 
 type UnbondingPositionIndexes struct {
 	ByProvider *indexes.Multi[string, collections.Triple[int64, string, uint64], stableswaptypes.UnbondingPosition]

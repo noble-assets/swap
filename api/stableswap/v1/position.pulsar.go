@@ -1250,8 +1250,11 @@ type BondedPosition struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Balance            string                 `protobuf:"bytes,2,opt,name=balance,proto3" json:"balance,omitempty"`
-	Timestamp          *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	// Balance of bonded shares.
+	Balance string `protobuf:"bytes,2,opt,name=balance,proto3" json:"balance,omitempty"`
+	// Time when the liquidity was added.
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	// Time when the rewards were collected.
 	RewardsPeriodStart *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=rewards_period_start,json=rewardsPeriodStart,proto3" json:"rewards_period_start,omitempty"`
 }
 
@@ -1301,8 +1304,11 @@ type UnbondingPosition struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Shares  string                 `protobuf:"bytes,1,opt,name=shares,proto3" json:"shares,omitempty"`
-	Amount  []*v1beta1.Coin        `protobuf:"bytes,2,rep,name=amount,proto3" json:"amount,omitempty"`
+	// Amount of shares removed.
+	Shares string `protobuf:"bytes,1,opt,name=shares,proto3" json:"shares,omitempty"`
+	// Liquidity amount being removed.
+	Amount []*v1beta1.Coin `protobuf:"bytes,2,rep,name=amount,proto3" json:"amount,omitempty"`
+	// Time when the removed liquidity will be unlocked.
 	EndTime *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
 }
 

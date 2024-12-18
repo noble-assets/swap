@@ -15,7 +15,7 @@ import (
 	stableswaptypes "swap.noble.xyz/types/stableswap"
 )
 
-// Controller for `StableSwap` Pools.
+// Controller manages StableSwap pool operations and handles state updates.
 type Controller struct {
 	baseDenom  string
 	bankKeeper *types.BankKeeper
@@ -26,7 +26,7 @@ type Controller struct {
 	stableswapKeeper *Keeper
 }
 
-// NewController initializes and returns the appropriate controller for a `StableSwap` Pool.
+// NewController initializes a Controller for managing a StableSwap pool.
 func NewController(
 	bankKeeper *types.BankKeeper,
 	baseDenom string,
@@ -36,43 +36,47 @@ func NewController(
 	stableswapKeeper *Keeper,
 ) Controller {
 	return Controller{
-		baseDenom:        baseDenom,
 		bankKeeper:       bankKeeper,
-		stableswapPool:   stableswapPool,
-		paused:           paused,
+		baseDenom:        baseDenom,
 		pool:             pool,
+		paused:           paused,
+		stableswapPool:   stableswapPool,
 		stableswapKeeper: stableswapKeeper,
 	}
 }
 
+// GetId retrieves the unique identifier of the pool.
 func (c *Controller) GetId() uint64 {
 	return c.pool.Id
 }
 
-func (c *Controller) GetAlgorithm() types.Algorithm {
-	return c.pool.Algorithm
-}
-
-func (c *Controller) GetPair() string {
-	return c.pool.Pair
-}
-
+// GetAddress retrieves the address associated with the pool.
 func (c *Controller) GetAddress() string {
 	return c.pool.Address
 }
 
-// PoolDetails returns the underlying detailed information about the `StableSwap` Pool as an `Any` object.
+// GetAlgorithm retrieves the algorithm type used by the pool.
+func (c *Controller) GetAlgorithm() types.Algorithm {
+	return c.pool.Algorithm
+}
+
+// GetPair retrieves the token pair managed by the pool.
+func (c *Controller) GetPair() string {
+	return c.pool.Pair
+}
+
+// PoolDetails returns detailed information about the StableSwap pool as a serialized `Any` object.
 func (c *Controller) PoolDetails() *anyproto.Any {
 	details, _ := anyproto.NewAnyWithCacheWithValue(c.stableswapPool)
 	return details
 }
 
-// IsPaused returns true if the Pool is paused.
+// IsPaused checks if the pool is currently paused.
 func (c *Controller) IsPaused() bool {
 	return c.paused
 }
 
-// Swap computes a token swap within the Pool using the `StableSwap` algorithm, returning a commitment.
+// Swap performs a token swap using the StableSwap algorithm and returns the result with fees.
 func (c *Controller) Swap(
 	ctx context.Context,
 	currentTime int64,
@@ -100,7 +104,7 @@ func (c *Controller) Swap(
 		c.stableswapPool.FutureATime,
 	)
 
-	// Calculate new token balance after adding input amount
+	// Calculate the new token balance after adding input amount.
 	x := computeNewAdjustedBalance(
 		adjustedLiquidity.AmountOf(coin.Denom),
 		coin.Amount.ToLegacyDec(),
@@ -139,7 +143,7 @@ func (c *Controller) Swap(
 	}, nil
 }
 
-// AddLiquidity creates a new user bonded position, providing liquidity to the given `StableSwap` Pool, setting the state.
+// AddLiquidity adds liquidity to the StableSwap pool and creates a bonded position for the user.
 func (c *Controller) AddLiquidity(
 	ctx context.Context,
 	currentTime time.Time,
@@ -344,7 +348,7 @@ func (c *Controller) RemoveLiquidity(
 	}, nil
 }
 
-// GetLiquidity returns the total liquidity of the `StableSwap` Pool.
+// GetLiquidity retrieves the total liquidity in the StableSwap pool.
 func (c *Controller) GetLiquidity(ctx context.Context) sdk.Coins {
 	address, err := sdk.AccAddressFromBech32(c.GetAddress())
 	if err != nil {
@@ -358,7 +362,7 @@ func (c *Controller) GetLiquidity(ctx context.Context) sdk.Coins {
 	return liquidity
 }
 
-// GetRates computes the exchange rates of the tokens in the `StableSwap` Pool.
+// GetRates computes exchange rates for tokens in the pool based on liquidity.
 func (c *Controller) GetRates(ctx context.Context) []types.Rate {
 	liquidity := c.GetLiquidity(ctx)
 	amount := liquidity.AmountOf(c.GetPair()).ToLegacyDec()
@@ -386,6 +390,7 @@ func (c *Controller) GetRates(ctx context.Context) []types.Rate {
 	}
 }
 
+// GetRate computes the single exchange rate for the base token pair in the pool.
 func (c *Controller) GetRate(ctx context.Context) math.LegacyDec {
 	liquidity := c.GetLiquidity(ctx)
 	if liquidity.IsZero() {
@@ -400,7 +405,7 @@ func (c *Controller) GetRate(ctx context.Context) math.LegacyDec {
 	return vsAmount.Quo(amount)
 }
 
-// UpdatePool updates the StableSwap Pool params.
+// UpdatePool updates parameters of the StableSwap pool in the state.
 func (c *Controller) UpdatePool(
 	ctx context.Context,
 	protocolFeePercentage int64,
@@ -414,14 +419,14 @@ func (c *Controller) UpdatePool(
 ) error {
 	c.stableswapPool.ProtocolFeePercentage = protocolFeePercentage
 	c.stableswapPool.RewardsFee = rewardsFee
+	c.stableswapPool.MaxFee = maxFee
 	c.stableswapPool.InitialA = initialA
 	c.stableswapPool.InitialATime = initialATime
-	c.stableswapPool.MaxFee = maxFee
 	c.stableswapPool.FutureA = futureA
 	c.stableswapPool.FutureATime = futureATime
 	c.stableswapPool.RateMultipliers = rateMultipliers
 
-	// Update the `StableSwap` data on state.
+	// Update the `StableSwap` pool on state.
 	if err := c.stableswapKeeper.SetPool(ctx, c.GetId(), *c.stableswapPool); err != nil {
 		return sdkerrors.Wrapf(err, "unable to set stableswap pool")
 	}
@@ -429,12 +434,14 @@ func (c *Controller) UpdatePool(
 	return nil
 }
 
+// ProcessUnbondings handles pending unbonding requests, returns tokens to users after the unbonding period ends,
+// and claims user rewards associated with the pool.
 func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Time) error {
-	// iterate over unbonding entries and process those whose unbonding period has ended
+	// Iterate over unbonding entries and process those whose unbonding period has ended.
 	for _, entry := range c.stableswapKeeper.GetUnbondingPositionsUntil(ctx, currentTime.Unix()) {
-		// Check if the unbonding period has ended
+		// Check if the unbonding period has ended for the given position.
 		if currentTime.After(entry.UnbondingPosition.EndTime) {
-			// Send tokens back to the user
+			// Send the tokens back to the user.
 			if err := (*c.bankKeeper).SendCoins(
 				ctx,
 				sdk.MustAccAddressFromBech32(c.GetAddress()),
@@ -444,6 +451,7 @@ func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Tim
 				return err
 			}
 
+			// Process all the rewards associated to the given pool.
 			rewards, err := c.ProcessUserRewards(ctx, entry.Address, currentTime)
 			if err != nil {
 				return err
@@ -458,7 +466,7 @@ func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Tim
 			}
 
 			cumulativeUnbonded := math.LegacyZeroDec()
-			// Iterate through user's positions to unbond the specified amount
+			// Iterate through user's positions to unbond the specified amount.
 			for _, bondedEntry := range c.stableswapKeeper.GetBondedPositionsByProvider(ctx, entry.Address) {
 				if cumulativeUnbonded.Add(bondedEntry.BondedPosition.Balance).GT(entry.UnbondingPosition.Shares) {
 					remainingShares := entry.UnbondingPosition.Shares.Sub(cumulativeUnbonded)
@@ -473,7 +481,7 @@ func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Tim
 				}
 			}
 
-			// Final check to ensure the unbonded amount matches the target
+			// Final check to ensure the unbonded amount matches the target.
 			if cumulativeUnbonded.LT(entry.UnbondingPosition.Shares) {
 				return fmt.Errorf("%s is smaller then requested: %s", cumulativeUnbonded.String(), entry.UnbondingPosition.Shares.String())
 			}
@@ -520,14 +528,16 @@ func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Tim
 	return nil
 }
 
+// GetTotalPoolUserRewards calculates the total rewards for a user across their positions in the pool.
 func (c *Controller) GetTotalPoolUserRewards(ctx context.Context, address string, currentTime time.Time) ([]types.ReceiverMulti, error) {
 	// Get the total Pool rewards.
 	poolRewardsAddress := authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/rewards_fees", types.ModuleName, c.GetId()))
 	poolRewards := (*c.bankKeeper).GetAllBalances(ctx, poolRewardsAddress)
 
+	// Iterate over the user pool bonded positions.
 	var userRewards []types.ReceiverMulti
 	for _, entry := range c.stableswapKeeper.GetBondedPositionsByPoolAndProvider(ctx, c.GetId(), address) {
-		// Calculate the adjusted rewards for the given user bonded position.
+		// Calculate the adjusted rewards for the given position.
 		rewards, err := CalculatePositionRewards(currentTime, poolRewards, entry.BondedPosition, c.stableswapPool.TotalShares, c.stableswapPool.InitialRewardsTime)
 		if err != nil {
 			return nil, err
@@ -548,21 +558,21 @@ func (c *Controller) GetTotalPoolUserRewards(ctx context.Context, address string
 	return userRewards, nil
 }
 
+// ProcessUserRewards distributes rewards to a user and updates their reward periods.
 func (c *Controller) ProcessUserRewards(ctx context.Context, address string, currentTime time.Time) (sdk.Coins, error) {
-	// Get the expected amount of user rewards.
+	// Get the expected amount of user rewards for the user bonded positions.
 	userRewards, err := c.GetTotalPoolUserRewards(ctx, address, currentTime)
 	if err != nil {
 		return sdk.Coins{}, err
 	}
 
-	// If the user does not have any reward exit.
+	// If the user does not have any reward, exit.
 	if len(userRewards) <= 0 {
 		return sdk.Coins{}, nil
 	}
 
-	// Update the user rewards periods.
+	// Update the user RewardsPeriodStart periods with the current time.
 	for _, entry := range c.stableswapKeeper.GetBondedPositionsByPoolAndProvider(ctx, c.GetId(), address) {
-		// update the entry of the rewards period with the current time
 		entry.BondedPosition.RewardsPeriodStart = currentTime
 		err = c.stableswapKeeper.SetBondedPosition(ctx, entry.PoolId, entry.Address, entry.Timestamp, entry.BondedPosition)
 		if err != nil {
@@ -585,31 +595,41 @@ func (c *Controller) ProcessUserRewards(ctx context.Context, address string, cur
 	return finalRewards, nil
 }
 
+// GetProtocolFeesAddresses retrieves the addresses where protocol fees are collected.
 func (c *Controller) GetProtocolFeesAddresses() []sdk.AccAddress {
 	return []sdk.AccAddress{
 		authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/protocol_fees", types.ModuleName, c.GetId())),
 	}
 }
 
+// ComputeWeightedPoolUnbondingPeriod calculates the unbonding period based on the proportion of shares to total pool shares.
 func ComputeWeightedPoolUnbondingPeriod(totalShares math.LegacyDec, sharesToUnbond math.LegacyDec) (time.Duration, error) {
 	const (
-		thresholdLong   = 10.
+		// Default duration for unbonding requests with negligible impact on the pool.
+		baseDuration = 1 * time.Minute
+
+		// Duration for unbonding requests with small impact on the pool.
+		thresholdShort = 0.1
+		shortDuration  = 30 * time.Minute
+
+		// Duration for unbonding requests with medium impact on the pool.
 		thresholdMedium = 1.
-		thresholdShort  = 0.1
-		baseDuration    = 1 * time.Minute
-		shortDuration   = 30 * time.Minute
 		mediumDuration  = 12 * time.Hour
-		longDuration    = 24 * time.Hour
+
+		// Duration for unbonding requests with high impact on the pool.
+		thresholdLong = 10.
+		longDuration  = 24 * time.Hour
 	)
 
+	// Ensure that the unbonding amount is valid.
 	if !sharesToUnbond.IsPositive() || !totalShares.IsPositive() {
 		return baseDuration, fmt.Errorf("invalid zero values")
 	}
 
-	// Calculate the percentage of total shares that the amount represents
+	// Calculate the percentage of total shares that the amount represents.
 	percentage := sharesToUnbond.Quo(totalShares).MulInt64(100).MustFloat64()
 
-	// Determine the unbonding duration based on the percentage thresholds
+	// Determine the unbonding duration based on the percentage thresholds.
 	switch {
 	case percentage > thresholdLong:
 		return longDuration, nil
@@ -622,6 +642,7 @@ func ComputeWeightedPoolUnbondingPeriod(totalShares math.LegacyDec, sharesToUnbo
 	}
 }
 
+// CalculatePositionRewards computes rewards for a user's bonded position based on their share of the pool and duration.
 func CalculatePositionRewards(
 	currentTime time.Time,
 	poolRewards sdk.Coins,
@@ -629,14 +650,16 @@ func CalculatePositionRewards(
 	totalShares math.LegacyDec,
 	initialPoolRewardsTime time.Time,
 ) (sdk.Coins, error) {
+	// Get the relative duration.
 	duration := currentTime.Sub(position.RewardsPeriodStart)
 	poolDuration := currentTime.Sub(initialPoolRewardsTime)
 
-	// Ensure that the period is invalid
+	// Ensure that the period is valid.
 	if poolDuration.Seconds() == 0 || duration.Seconds() == 0 {
 		return nil, fmt.Errorf("period is too short")
 	}
 
+	// Compute the rewards amount.
 	var positionRewards sdk.Coins
 	for _, coinRewards := range poolRewards {
 		numerator := position.Balance.MulInt64(int64(duration.Seconds()))  // User's shares * position period

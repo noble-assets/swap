@@ -33,9 +33,12 @@ var _ = time.Kitchen
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type BondedPosition struct {
-	Balance            cosmossdk_io_math.LegacyDec `protobuf:"bytes,2,opt,name=balance,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"balance"`
-	Timestamp          time.Time                   `protobuf:"bytes,3,opt,name=timestamp,proto3,stdtime" json:"timestamp"`
-	RewardsPeriodStart time.Time                   `protobuf:"bytes,4,opt,name=rewards_period_start,json=rewardsPeriodStart,proto3,stdtime" json:"rewards_period_start"`
+	// Balance of bonded shares.
+	Balance cosmossdk_io_math.LegacyDec `protobuf:"bytes,2,opt,name=balance,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"balance"`
+	// Time when the liquidity was added.
+	Timestamp time.Time `protobuf:"bytes,3,opt,name=timestamp,proto3,stdtime" json:"timestamp"`
+	// Time when the rewards were collected.
+	RewardsPeriodStart time.Time `protobuf:"bytes,4,opt,name=rewards_period_start,json=rewardsPeriodStart,proto3,stdtime" json:"rewards_period_start"`
 }
 
 func (m *BondedPosition) Reset()         { *m = BondedPosition{} }
@@ -86,9 +89,12 @@ func (m *BondedPosition) GetRewardsPeriodStart() time.Time {
 }
 
 type UnbondingPosition struct {
-	Shares  cosmossdk_io_math.LegacyDec              `protobuf:"bytes,1,opt,name=shares,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"shares"`
-	Amount  github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,2,rep,name=amount,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"amount"`
-	EndTime time.Time                                `protobuf:"bytes,3,opt,name=end_time,json=endTime,proto3,stdtime" json:"end_time"`
+	// Amount of shares removed.
+	Shares cosmossdk_io_math.LegacyDec `protobuf:"bytes,1,opt,name=shares,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"shares"`
+	// Liquidity amount being removed.
+	Amount github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,2,rep,name=amount,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"amount"`
+	// Time when the removed liquidity will be unlocked.
+	EndTime time.Time `protobuf:"bytes,3,opt,name=end_time,json=endTime,proto3,stdtime" json:"end_time"`
 }
 
 func (m *UnbondingPosition) Reset()         { *m = UnbondingPosition{} }

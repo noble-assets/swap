@@ -15,9 +15,9 @@ It is updated by the following messages:
 
 ## BondedPositions
 
-The `BondedPositions` field is a collection (`collections.IndexedMap`) that maps the bonded liquidity of each user by a triple key `<pool_id, address, timestamp>` to the [`Position`](01_types.md#position) object, which stores the necessary state for a liquidity position.
+The `BondedPositions` field is a collection (`collections.IndexedMap`) that maps the bonded liquidity of each user by a triple key `<pool_id, address, timestamp>` to the [`Position`](01_types.md#position) object, which stores the necessary state for a bonded liquidity position.
 ```go
-const Positions = []byte("stableswap_positions")
+const Positions = []byte("stableswap_bonded_positions")
 ```
 
 It is updated by the following messages:

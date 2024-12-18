@@ -1688,10 +1688,14 @@ type Pool struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id        uint64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Address   string    `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	// ID of the Pool.
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Address of the Pool.
+	Address string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	// Algorithm of the pool.
 	Algorithm Algorithm `protobuf:"varint,3,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
-	Pair      string    `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
+	// Pair asset denom in the pool.
+	Pair string `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
 }
 
 func (x *Pool) Reset() {
@@ -1747,14 +1751,22 @@ type PoolDetails struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id           uint64          `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Address      string          `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
-	Algorithm    Algorithm       `protobuf:"varint,3,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
-	Pair         string          `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
-	Details      *anypb.Any      `protobuf:"bytes,5,opt,name=details,proto3" json:"details,omitempty"`
-	Liquidity    []*v1beta1.Coin `protobuf:"bytes,6,rep,name=liquidity,proto3" json:"liquidity,omitempty"`
+	// ID of the Pool.
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Address of the Pool.
+	Address string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	// Algorithm of the pool.
+	Algorithm Algorithm `protobuf:"varint,3,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	// Pair asset denom in the pool.
+	Pair string `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
+	// Details of the Underlying Pool with the specific custom attributes.
+	Details *anypb.Any `protobuf:"bytes,5,opt,name=details,proto3" json:"details,omitempty"`
+	// Amount of liquidity in the Pool.
+	Liquidity []*v1beta1.Coin `protobuf:"bytes,6,rep,name=liquidity,proto3" json:"liquidity,omitempty"`
+	// Amount of protocol fees currently collected.
 	ProtocolFees []*v1beta1.Coin `protobuf:"bytes,7,rep,name=protocol_fees,json=protocolFees,proto3" json:"protocol_fees,omitempty"`
-	RewardFees   []*v1beta1.Coin `protobuf:"bytes,8,rep,name=reward_fees,json=rewardFees,proto3" json:"reward_fees,omitempty"`
+	// Amount of rewards fees currently collected.
+	RewardFees []*v1beta1.Coin `protobuf:"bytes,8,rep,name=reward_fees,json=rewardFees,proto3" json:"reward_fees,omitempty"`
 }
 
 func (x *PoolDetails) Reset() {

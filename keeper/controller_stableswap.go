@@ -16,7 +16,7 @@ func GetStableSwapController(ctx context.Context, keeper *Keeper, poolId uint64)
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPool, "stableswap pool with Id %d does not exists", poolId)
 	}
 
-	// Retrieve the `StableSwap` pool with the given ID
+	// Retrieve the `StableSwap` pool with the given ID.
 	pool, err := keeper.GetPool(ctx, poolId)
 	if err != nil {
 		return nil, err
@@ -40,6 +40,7 @@ func GetStableSwapController(ctx context.Context, keeper *Keeper, poolId uint64)
 func GetStableSwapControllers(ctx context.Context, keeper *Keeper) map[uint64]*stableswap.Controller {
 	controllers := map[uint64]*stableswap.Controller{}
 
+	// Iterate through the StableSwap pools.
 	for _, pool := range keeper.GetPools(ctx) {
 		controller, err := GetStableSwapController(ctx, keeper, pool.Id)
 		if err != nil {

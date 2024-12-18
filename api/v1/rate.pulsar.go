@@ -629,9 +629,13 @@ type Rate struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Denom     string    `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
-	Vs        string    `protobuf:"bytes,2,opt,name=vs,proto3" json:"vs,omitempty"`
-	Price     string    `protobuf:"bytes,3,opt,name=price,proto3" json:"price,omitempty"`
+	// Denomination of the base currency.
+	Denom string `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
+	// Denomination of the counter currency.
+	Vs string `protobuf:"bytes,2,opt,name=vs,proto3" json:"vs,omitempty"`
+	// Exchange rate between the base and counter currency.
+	Price string `protobuf:"bytes,3,opt,name=price,proto3" json:"price,omitempty"`
+	// Algorithm of the underlying Pool used for the calculation.
 	Algorithm Algorithm `protobuf:"varint,4,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
 }
 

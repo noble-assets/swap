@@ -7353,7 +7353,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Message for withdrawing protocol fees from the protocol's fee pool.
 type MsgWithdrawProtocolFees struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7425,7 +7424,6 @@ func (*MsgWithdrawProtocolFeesResponse) Descriptor() ([]byte, []int) {
 	return file_swap_v1_tx_proto_rawDescGZIP(), []int{1}
 }
 
-// Message for withdrawing rewards accumulated by a user.
 type MsgWithdrawRewards struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7462,7 +7460,6 @@ func (x *MsgWithdrawRewards) GetSigner() string {
 	return ""
 }
 
-// Response message for MsgWithdrawRewards, which returns the withdrawn rewards.
 type MsgWithdrawRewardsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7499,7 +7496,6 @@ func (x *MsgWithdrawRewardsResponse) GetRewards() []*v1beta1.Coin {
 	return nil
 }
 
-// Message for swapping tokens from one type to another.
 type MsgSwap struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7563,7 +7559,6 @@ func (x *MsgSwap) GetMin() *v1beta1.Coin {
 	return nil
 }
 
-// Response message for MsgSwap, which includes the result of the swap and details of each individual swap.
 type MsgSwapResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7609,7 +7604,6 @@ func (x *MsgSwapResponse) GetSwaps() []*Swap {
 	return nil
 }
 
-// Message for pausing all pools that use a specific algorithm.
 type MsgPauseByAlgorithm struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7655,7 +7649,6 @@ func (x *MsgPauseByAlgorithm) GetAlgorithm() Algorithm {
 	return Algorithm_UNSPECIFIED
 }
 
-// Response message for MsgPauseByAlgorithm, containing the IDs of the paused pools.
 type MsgPauseByAlgorithmResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7692,7 +7685,6 @@ func (x *MsgPauseByAlgorithmResponse) GetPausedPools() []uint64 {
 	return nil
 }
 
-// Message for pausing specific pools identified by their pool IDs.
 type MsgPauseByPoolIds struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7738,7 +7730,6 @@ func (x *MsgPauseByPoolIds) GetPoolIds() []uint64 {
 	return nil
 }
 
-// Response message for MsgPauseByPoolIds, containing the IDs of the paused pools.
 type MsgPauseByPoolIdsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7775,7 +7766,6 @@ func (x *MsgPauseByPoolIdsResponse) GetPausedPools() []uint64 {
 	return nil
 }
 
-// Message for unpausing all pools that use a specific algorithm.
 type MsgUnpauseByAlgorithm struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7821,7 +7811,6 @@ func (x *MsgUnpauseByAlgorithm) GetAlgorithm() Algorithm {
 	return Algorithm_UNSPECIFIED
 }
 
-// Response message for MsgUnpauseByAlgorithm, containing the IDs of the unpaused pools.
 type MsgUnpauseByAlgorithmResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7858,7 +7847,6 @@ func (x *MsgUnpauseByAlgorithmResponse) GetUnpausedPools() []uint64 {
 	return nil
 }
 
-// Message for unpausing specific pools identified by their pool IDs.
 type MsgUnpauseByPoolIds struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7904,7 +7892,6 @@ func (x *MsgUnpauseByPoolIds) GetPoolIds() []uint64 {
 	return nil
 }
 
-// Response message for MsgUnpauseByPoolIds, containing the IDs of the unpaused pools.
 type MsgUnpauseByPoolIdsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

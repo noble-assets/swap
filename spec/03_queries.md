@@ -11,10 +11,7 @@ Retrieves detailed information about a specific liquidity pool by its ID.
     "id":"1",
     "address":"noble1pooladdress",
     "algorithm":"STABLESWAP",
-    "pairs":[
-      "uusdn",
-      "uusdc"
-    ],
+    "pair": "uusdc",
     "details":{
       "@type":"/swap.stableswap.v1.Pool",
       "protocol_fee_percentage":"2",
@@ -81,10 +78,7 @@ Fetches information about all existing liquidity pools.
       "id":"1",
       "address":"noble1pooladdress",
       "algorithm":"STABLESWAP",
-      "pairs":[
-        "uusdn",
-        "uusdc"
-      ],
+      "pair": "uusdc",
       "details":{
         "@type":"/swap.stableswap.v1.Pool",
         "protocol_fee_percentage":"2",

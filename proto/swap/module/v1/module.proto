@@ -14,10 +14,11 @@ message Module {
   // base_denom defines the base denom that is used as the standard pairing denomination for all liquidity pools.
   string base_denom = 2;
 
+  // stableswap contains the custom attributes and configurations required for the StableSwap module.
   StableSwap stableswap = 3;
 }
 
 message StableSwap {
-  // unbonding_block_delta represents the delta number of blocks between unbondings executions.
+  // unbonding_block_delta defines the number of blocks between unbonding BeginBlocker executions.
   int64 unbonding_block_delta = 1;
 }

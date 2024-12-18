@@ -3075,7 +3075,8 @@ type PoolsPaused struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PoolIds []uint64 `protobuf:"varint,1,rep,packed,name=pool_ids,json=poolIds,proto3" json:"pool_ids,omitempty"` // IDs of the pools paused
+	// IDs of the pools paused.
+	PoolIds []uint64 `protobuf:"varint,1,rep,packed,name=pool_ids,json=poolIds,proto3" json:"pool_ids,omitempty"`
 }
 
 func (x *PoolsPaused) Reset() {
@@ -3110,7 +3111,8 @@ type PoolsUnpaused struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PoolIds []uint64 `protobuf:"varint,1,rep,packed,name=pool_ids,json=poolIds,proto3" json:"pool_ids,omitempty"` // IDs of the pools unpaused
+	// IDs of the pools unpaused.
+	PoolIds []uint64 `protobuf:"varint,1,rep,packed,name=pool_ids,json=poolIds,proto3" json:"pool_ids,omitempty"`
 }
 
 func (x *PoolsUnpaused) Reset() {
@@ -3145,11 +3147,16 @@ type Swapped struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Signer string          `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"` // The address of the user initiating the swap
-	Input  *v1beta1.Coin   `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`   // Coin input by the user
-	Output *v1beta1.Coin   `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty"` // Final output coin from the swap
-	Routes []*Route        `protobuf:"bytes,4,rep,name=routes,proto3" json:"routes,omitempty"` // pools routing of the swap
-	Fees   []*v1beta1.Coin `protobuf:"bytes,5,rep,name=fees,proto3" json:"fees,omitempty"`     // Fees incurred during the swap
+	// Address of the user initiating the swap.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// Coin input by the user.
+	Input *v1beta1.Coin `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
+	// Final output coin from the swap.
+	Output *v1beta1.Coin `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty"`
+	// Routing outing of the swap.
+	Routes []*Route `protobuf:"bytes,4,rep,name=routes,proto3" json:"routes,omitempty"`
+	// Amount of fees incurred during the swap.
+	Fees []*v1beta1.Coin `protobuf:"bytes,5,rep,name=fees,proto3" json:"fees,omitempty"`
 }
 
 func (x *Swapped) Reset() {
@@ -3212,8 +3219,10 @@ type WithdrawnProtocolFees struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	To      string          `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`           // Address to which the fees are transferred
-	Rewards []*v1beta1.Coin `protobuf:"bytes,3,rep,name=rewards,proto3" json:"rewards,omitempty"` // List of reward coins withdrawn
+	// Address to which the fees are transferred
+	To string `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	// Amount of rewards withdrawn.
+	Rewards []*v1beta1.Coin `protobuf:"bytes,3,rep,name=rewards,proto3" json:"rewards,omitempty"`
 }
 
 func (x *WithdrawnProtocolFees) Reset() {
@@ -3255,8 +3264,10 @@ type WithdrawnRewards struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Signer  string          `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`   // The address of the user withdrawing rewards
-	Rewards []*v1beta1.Coin `protobuf:"bytes,2,rep,name=rewards,proto3" json:"rewards,omitempty"` // List of reward coins withdrawn
+	// Address of the user withdrawing rewards.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// Amount of rewards withdrawn.
+	Rewards []*v1beta1.Coin `protobuf:"bytes,2,rep,name=rewards,proto3" json:"rewards,omitempty"`
 }
 
 func (x *WithdrawnRewards) Reset() {

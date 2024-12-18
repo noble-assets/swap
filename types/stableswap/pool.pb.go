@@ -33,16 +33,26 @@ var _ = time.Kitchen
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Pool struct {
-	ProtocolFeePercentage int64                                    `protobuf:"varint,1,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
-	RewardsFee            int64                                    `protobuf:"varint,2,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
-	MaxFee                int64                                    `protobuf:"varint,3,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
-	InitialA              int64                                    `protobuf:"varint,4,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
-	FutureA               int64                                    `protobuf:"varint,5,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
-	InitialATime          int64                                    `protobuf:"varint,6,opt,name=initial_a_time,json=initialATime,proto3" json:"initial_a_time,omitempty"`
-	FutureATime           int64                                    `protobuf:"varint,7,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
-	RateMultipliers       github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,8,rep,name=rate_multipliers,json=rateMultipliers,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rate_multipliers"`
-	TotalShares           cosmossdk_io_math.LegacyDec              `protobuf:"bytes,9,opt,name=total_shares,json=totalShares,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"total_shares"`
-	InitialRewardsTime    time.Time                                `protobuf:"bytes,10,opt,name=initial_rewards_time,json=initialRewardsTime,proto3,stdtime" json:"initial_rewards_time"`
+	// Protocol fee percentage for the pool.
+	ProtocolFeePercentage int64 `protobuf:"varint,1,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// Rewards fee for the pool.
+	RewardsFee int64 `protobuf:"varint,2,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// Maximum fee allowed for the pool during a swap.
+	MaxFee int64 `protobuf:"varint,3,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// Initial amplification coefficient.
+	InitialA int64 `protobuf:"varint,4,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	// Future amplification coefficient.
+	FutureA int64 `protobuf:"varint,5,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// Time when the amplification starts taking effect.
+	InitialATime int64 `protobuf:"varint,6,opt,name=initial_a_time,json=initialATime,proto3" json:"initial_a_time,omitempty"`
+	// Time when the amplification change will take full effect.
+	FutureATime int64 `protobuf:"varint,7,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// Rate multipliers applied to the coins.
+	RateMultipliers github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,8,rep,name=rate_multipliers,json=rateMultipliers,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"rate_multipliers"`
+	// Total shares issued within the Pool.
+	TotalShares cosmossdk_io_math.LegacyDec `protobuf:"bytes,9,opt,name=total_shares,json=totalShares,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"total_shares"`
+	// Time when the first liquidity was added to start tracking rewards.
+	InitialRewardsTime time.Time `protobuf:"bytes,10,opt,name=initial_rewards_time,json=initialRewardsTime,proto3,stdtime" json:"initial_rewards_time"`
 }
 
 func (m *Pool) Reset()         { *m = Pool{} }

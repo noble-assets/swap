@@ -27,10 +27,14 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Rate struct {
-	Denom     string                      `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
-	Vs        string                      `protobuf:"bytes,2,opt,name=vs,proto3" json:"vs,omitempty"`
-	Price     cosmossdk_io_math.LegacyDec `protobuf:"bytes,3,opt,name=price,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"price"`
-	Algorithm Algorithm                   `protobuf:"varint,4,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	// Denomination of the base currency.
+	Denom string `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
+	// Denomination of the counter currency.
+	Vs string `protobuf:"bytes,2,opt,name=vs,proto3" json:"vs,omitempty"`
+	// Exchange rate between the base and counter currency.
+	Price cosmossdk_io_math.LegacyDec `protobuf:"bytes,3,opt,name=price,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"price"`
+	// Algorithm of the underlying Pool used for the calculation.
+	Algorithm Algorithm `protobuf:"varint,4,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
 }
 
 func (m *Rate) Reset()         { *m = Rate{} }

@@ -29,10 +29,14 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Pool struct {
-	Id        uint64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Address   string    `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	// ID of the Pool.
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Address of the Pool.
+	Address string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	// Algorithm of the pool.
 	Algorithm Algorithm `protobuf:"varint,3,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
-	Pair      string    `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
+	// Pair asset denom in the pool.
+	Pair string `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
 }
 
 func (m *Pool) Reset()         { *m = Pool{} }
@@ -97,14 +101,22 @@ func (m *Pool) GetPair() string {
 }
 
 type PoolDetails struct {
-	Id           uint64                                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Address      string                                   `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
-	Algorithm    Algorithm                                `protobuf:"varint,3,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
-	Pair         string                                   `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
-	Details      *any.Any                                 `protobuf:"bytes,5,opt,name=details,proto3" json:"details,omitempty"`
-	Liquidity    github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,6,rep,name=liquidity,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"liquidity"`
+	// ID of the Pool.
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Address of the Pool.
+	Address string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	// Algorithm of the pool.
+	Algorithm Algorithm `protobuf:"varint,3,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	// Pair asset denom in the pool.
+	Pair string `protobuf:"bytes,4,opt,name=pair,proto3" json:"pair,omitempty"`
+	// Details of the Underlying Pool with the specific custom attributes.
+	Details *any.Any `protobuf:"bytes,5,opt,name=details,proto3" json:"details,omitempty"`
+	// Amount of liquidity in the Pool.
+	Liquidity github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,6,rep,name=liquidity,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"liquidity"`
+	// Amount of protocol fees currently collected.
 	ProtocolFees github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,7,rep,name=protocol_fees,json=protocolFees,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"protocol_fees"`
-	RewardFees   github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,8,rep,name=reward_fees,json=rewardFees,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"reward_fees"`
+	// Amount of rewards fees currently collected.
+	RewardFees github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,8,rep,name=reward_fees,json=rewardFees,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"reward_fees"`
 }
 
 func (m *PoolDetails) Reset()         { *m = PoolDetails{} }

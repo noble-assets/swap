@@ -29,10 +29,16 @@ type Keeper struct {
 
 	Schema collections.Schema
 
+	// NextPoolID generates and keeps track of the next available unique pool ID for new pools.
 	NextPoolID collections.Sequence
-	Paused     collections.Map[uint64, bool]
-	Pools      collections.Map[uint64, types.Pool]
 
+	// Paused tracks the paused state of pools, mapped by their unique pool ID (uint64).
+	Paused collections.Map[uint64, bool]
+
+	// Pools stores the generic pools, mapped by their unique pool ID (uint64).
+	Pools collections.Map[uint64, types.Pool]
+
+	// Stableswap is the sub-keeper responsible for managing StableSwap-specific functionalities.
 	Stableswap *stableswap.Keeper
 
 	addressCodec  address.Codec
@@ -64,11 +70,10 @@ func NewKeeper(
 		headerService: headerService,
 		logger:        logger,
 
-		Paused:     collections.NewMap(builder, types.PausedPrefix, "paused", collections.Uint64Key, collections.BoolValue),
 		NextPoolID: collections.NewSequence(builder, types.NextPoolIDPrefix, "next_pool_id"),
+		Paused:     collections.NewMap(builder, types.PausedPrefix, "paused", collections.Uint64Key, collections.BoolValue),
 		Pools:      collections.NewMap(builder, types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](cdc)),
 
-		// StableSwap Keeper
 		Stableswap: stableswap.NewKeeper(cdc, storeService, eventService, headerService, logger),
 
 		addressCodec:  addressCodec,
@@ -90,7 +95,14 @@ func (k *Keeper) SetBankKeeper(bankKeeper types.BankKeeper) {
 	k.bankKeeper = bankKeeper
 }
 
+func (k *Keeper) Logger() log.Logger {
+	return k.logger.With("module", types.ModuleName)
+}
+
+// Swap processes a token swap request, validates the message, and executes the swap routes,
+// ensuring all conditions are met, including balances, slippage limits, and pool states.
 func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapResponse, error) {
+	// Ensure that the signer is valid.
 	userAddress, err := k.addressCodec.StringToBytes(msg.Signer)
 	if err != nil {
 		return nil, fmt.Errorf("unable to decode signer address: %s", msg.Signer)
@@ -101,7 +113,7 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 		return nil, err
 	}
 
-	// Check if the user has a balance >= than the requested swap amount
+	// Check if the user has a balance >= than the requested swap amount.
 	userBalance := k.bankKeeper.GetBalance(ctx, userAddress, msg.Amount.Denom)
 	if userBalance.Amount.LT(msg.Amount.Amount) {
 		return nil, sdkerrors.Wrapf(
@@ -111,19 +123,19 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 		)
 	}
 
-	// Prepare the swap plan in order to be executed, ensuring that the requested route pools are not paused
+	// Prepare the swap plan in order to be executed, ensuring that the requested route pools are not paused.
 	swapRoutesPlan, err := k.PrepareSwapPlan(ctx, msg, k.headerService.GetHeaderInfo(ctx).Time.Unix(), k)
 	if err != nil {
 		return nil, fmt.Errorf("error computing swap routes plan: %s", err.Error())
 	}
 
-	// Verify slippage.
+	// Verify slippage limits.
 	out := swapRoutesPlan.Swaps[len(swapRoutesPlan.Swaps)-1].Commitment.Out
 	if out.IsLT(msg.Min) {
 		return nil, fmt.Errorf("%s is less then min amount %s", out.String(), msg.Min.String())
 	}
 
-	// Commit the plan
+	// Commit the plan.
 	var executedSwaps []*types.Swap
 	for _, swap := range swapRoutesPlan.Swaps {
 		poolAddr := sdk.MustAccAddressFromBech32(swap.PoolAddress).Bytes()
@@ -155,15 +167,11 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	}, nil
 }
 
-func (k *Keeper) Logger() log.Logger {
-	return k.logger.With("module", types.ModuleName)
-}
-
 // PrepareSwapPlan prepares a swap route plan from the swap message, containing the details for its execution.
 func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timestamp int64, s *Keeper) (*types.PlanSwapRoutes, error) {
 	var swaps []types.PlanSwapRoute
 
-	swapIn := msg.Amount // initial swap amount
+	swapIn := msg.Amount // Initial swap amount.
 	for _, route := range msg.Routes {
 		// Retrieve the Pool StableswapController for the requested Pool.
 		controller, err := GetGenericController(ctx, s, route.PoolId)
@@ -171,6 +179,7 @@ func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timest
 			return nil, err
 		}
 
+		// Ensure that the Pool is not paused from execution.
 		if controller.IsPaused() {
 			return nil, sdkerrors.Wrapf(types.ErrPoolActivityPaused, "pool %d is paused", controller.GetId())
 		}
@@ -195,7 +204,7 @@ func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timest
 			Commitment:  swapRes,
 		})
 
-		// update the swap amount after each route
+		// Update the input swap amount after each route.
 		swapIn = sdk.NewCoin(swapRes.Out.Denom, swapRes.Out.Amount)
 	}
 	return &types.PlanSwapRoutes{

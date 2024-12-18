@@ -4508,21 +4508,29 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Message used to create a StableSwap pool.
 type MsgCreatePool struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Signer                string          `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`                                                               // The address of the entity creating the pool.
-	Pair                  string          `protobuf:"bytes,2,opt,name=pair,proto3" json:"pair,omitempty"`                                                                   // The asset pair that will be part of the pool.
-	ProtocolFeePercentage int64           `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"` // The protocol fee percentage.
-	RewardsFee            int64           `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`                                    // The rewards fee value.
-	MaxFee                int64           `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`                                                // The maximum allowed fee.
-	InitialA              int64           `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`                                          // The initial A parameter for the pool.
-	FutureA               int64           `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`                                             // The future A parameter for pool rebalancing.
-	FutureATime           int64           `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`                               // The time to reach the future A parameter.
-	RateMultipliers       []*v1beta1.Coin `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`                      // The coins rate multipliers.
+	// The address of the authority creating the pool.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// The asset pair that will be part of the pool.
+	Pair string `protobuf:"bytes,2,opt,name=pair,proto3" json:"pair,omitempty"`
+	// The protocol fee percentage.
+	ProtocolFeePercentage int64 `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// The rewards fee value.
+	RewardsFee int64 `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// The maximum allowed fee.
+	MaxFee int64 `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// The initial A parameter for the pool.
+	InitialA int64 `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	// The future A parameter for pool rebalancing.
+	FutureA int64 `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// The time to reach the future A parameter.
+	FutureATime int64 `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// The coins rate multipliers.
+	RateMultipliers []*v1beta1.Coin `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
 }
 
 func (x *MsgCreatePool) Reset() {
@@ -4634,21 +4642,29 @@ func (*MsgCreatePoolResponse) Descriptor() ([]byte, []int) {
 	return file_swap_stableswap_v1_tx_proto_rawDescGZIP(), []int{1}
 }
 
-// Message used to update an existing StableSwap pool.
 type MsgUpdatePool struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Signer                string          `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`                                                               // The address of the entity updating the pool.
-	PoolId                uint64          `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`                                                // The ID of the pool being updated.
-	ProtocolFeePercentage int64           `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"` // The new protocol fee percentage.
-	RewardsFee            int64           `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`                                    // The new rewards fee value.
-	MaxFee                int64           `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`                                                // The new maximum allowed fee.
-	InitialA              int64           `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`                                          // The new initial A parameter.
-	FutureA               int64           `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`                                             // The new future A parameter.
-	FutureATime           int64           `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`                               // The time to reach the future A parameter.
-	RateMultipliers       []*v1beta1.Coin `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`                      // The coins rate multipliers.
+	// Address of the authority updating the pool.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// ID of the pool being updated.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The new protocol fee percentage.
+	ProtocolFeePercentage int64 `protobuf:"varint,3,opt,name=protocol_fee_percentage,json=protocolFeePercentage,proto3" json:"protocol_fee_percentage,omitempty"`
+	// The new rewards fee value.
+	RewardsFee int64 `protobuf:"varint,4,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
+	// The new maximum allowed fee.
+	MaxFee int64 `protobuf:"varint,5,opt,name=max_fee,json=maxFee,proto3" json:"max_fee,omitempty"`
+	// The new initial A parameter.
+	InitialA int64 `protobuf:"varint,6,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	// The new future A parameter.
+	FutureA int64 `protobuf:"varint,7,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	// The time to reach the future A parameter.
+	FutureATime int64 `protobuf:"varint,8,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	// The coins rate multipliers.
+	RateMultipliers []*v1beta1.Coin `protobuf:"bytes,9,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
 }
 
 func (x *MsgUpdatePool) Reset() {
@@ -4760,15 +4776,17 @@ func (*MsgUpdatePoolResponse) Descriptor() ([]byte, []int) {
 	return file_swap_stableswap_v1_tx_proto_rawDescGZIP(), []int{3}
 }
 
-// Message used to add liquidity to a StableSwap pool.
 type MsgAddLiquidity struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Signer string          `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`                // The address of the entity adding liquidity.
-	PoolId uint64          `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"` // The ID of the pool to which liquidity is being added.
-	Amount []*v1beta1.Coin `protobuf:"bytes,3,rep,name=amount,proto3" json:"amount,omitempty"`                // The coins amount to add to the pool.
+	// The address of the user adding liquidity.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// The ID of the pool to which liquidity is being added.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The coins amount to add to the pool.
+	Amount []*v1beta1.Coin `protobuf:"bytes,3,rep,name=amount,proto3" json:"amount,omitempty"`
 }
 
 func (x *MsgAddLiquidity) Reset() {
@@ -4817,7 +4835,8 @@ type MsgAddLiquidityResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MintedShares int64 `protobuf:"varint,1,opt,name=minted_shares,json=mintedShares,proto3" json:"minted_shares,omitempty"` // The amount of liquidity pool shares minted for the user.
+	// The amount of liquidity pool shares minted for the user.
+	MintedShares int64 `protobuf:"varint,1,opt,name=minted_shares,json=mintedShares,proto3" json:"minted_shares,omitempty"`
 }
 
 func (x *MsgAddLiquidityResponse) Reset() {
@@ -4847,15 +4866,17 @@ func (x *MsgAddLiquidityResponse) GetMintedShares() int64 {
 	return 0
 }
 
-// Message used to remove liquidity from a StableSwap pool.
 type MsgRemoveLiquidity struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Signer     string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`                // The address of the entity removing liquidity.
-	PoolId     uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"` // The ID of the pool from which liquidity is being removed.
-	Percentage string `protobuf:"bytes,3,opt,name=percentage,proto3" json:"percentage,omitempty"`        // The percentage of liquidity to remove.
+	// The address of the user removing liquidity.
+	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
+	// The ID of the pool from which liquidity is being removed.
+	PoolId uint64 `protobuf:"varint,2,opt,name=pool_id,json=poolId,proto3" json:"pool_id,omitempty"`
+	// The percentage of liquidity to remove.
+	Percentage string `protobuf:"bytes,3,opt,name=percentage,proto3" json:"percentage,omitempty"`
 }
 
 func (x *MsgRemoveLiquidity) Reset() {
@@ -4904,7 +4925,8 @@ type MsgRemoveLiquidityResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UnbondingShares string `protobuf:"bytes,1,opt,name=unbonding_shares,json=unbondingShares,proto3" json:"unbonding_shares,omitempty"` // The amount of shares that are unbonding.
+	// The amount of shares that are unbonding.
+	UnbondingShares string `protobuf:"bytes,1,opt,name=unbonding_shares,json=unbondingShares,proto3" json:"unbonding_shares,omitempty"`
 }
 
 func (x *MsgRemoveLiquidityResponse) Reset() {

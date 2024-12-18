@@ -9,7 +9,10 @@ import "gogoproto/gogo.proto";
 option go_package = "swap.noble.xyz/types";
 
 message Route {
+  // ID of the Pool.
   uint64 pool_id = 1;
+
+  // Destination denom after the Swap in the Pool.
   string denom_to = 2;
 }
 
