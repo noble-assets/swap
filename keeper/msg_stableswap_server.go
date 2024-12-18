@@ -235,6 +235,12 @@ func (s stableswapMsgServer) UpdatePool(ctx context.Context, msg *stableswap.Msg
 
 // RemoveLiquidity allows a user to remove liquidity from a `StableSwap` liquidity pool.
 func (s stableswapMsgServer) RemoveLiquidity(ctx context.Context, msg *stableswap.MsgRemoveLiquidity) (*stableswap.MsgRemoveLiquidityResponse, error) {
+	// Check if the provider address is valid.
+	_, err := s.addressCodec.StringToBytes(msg.Signer)
+	if err != nil {
+		return nil, sdkerrors.Wrapf(err, "unable to decode provider address %s", msg.Signer)
+	}
+
 	// Check if the unbonding percentage is a valid number.
 	if msg.Percentage.LT(math.LegacyZeroDec()) || msg.Percentage.GT(math.LegacyNewDec(100)) {
 		return nil, types.ErrInvalidUnbondPercentage

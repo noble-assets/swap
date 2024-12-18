@@ -1317,6 +1317,14 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
+	// ACT: Attempt to remove liquidity with an invalid address.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Invalid,
+		PoolId:     1,
+		Percentage: math.LegacyNewDec(100),
+	})
+	assert.Error(t, err)
+
 	// ACT: Attempt to remove liquidity from an unsupported pool.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
