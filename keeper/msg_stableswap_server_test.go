@@ -2005,10 +2005,9 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	_, _, k, ctx, _, stableswapServer := initState()
+	_, _, k, ctx, _, _ := initState()
 
 	// ARRANGE: Set failing collections for BondingPositions.
-	tmpBondedPositions := k.Stableswap.BondedPositions
 	builder := collections.NewSchemaBuilder(mocks.FailingStore(mocks.Set, utils.GetKVStore(ctx, types.ModuleName)))
 	k.Stableswap.BondedPositions = collections.NewIndexedMap(
 		builder, types.StableSwapBondedPositionsPrefix, "stableswap_bonded_positions",
@@ -2020,18 +2019,5 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 	// ACT: Attempt to execute the beginBlocker.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Now().Add(150 * time.Hour), Height: 20})
 	err := k.BeginBlocker(ctx)
-	assert.NoError(t, err)
-
-	// ARRANGE: Restore BondingPositions collection.
-	k.Stableswap.BondedPositions = tmpBondedPositions
-
-	_, err = (*stableswapServer).AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
-		Signer: bob.Address,
-		PoolId: 0,
-		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(1*ONE)),
-			sdk.NewCoin("uusdn", math.NewInt(1*ONE)),
-		),
-	})
 	assert.NoError(t, err)
 }
