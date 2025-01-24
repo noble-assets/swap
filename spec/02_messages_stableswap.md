@@ -1,7 +1,7 @@
 ## Messages
 
 ### Create Pool
-`swap.stableswap.v1.MsgCreatePool`
+`noble.swap.stableswap.v1.MsgCreatePool`
 
 Creates a new StableSwap liquidity pool with specific AMM parameters.
 
@@ -10,7 +10,7 @@ Creates a new StableSwap liquidity pool with specific AMM parameters.
   "body": {
     "messages": [
       {
-        "@type": "/swap.stableswap.v1.MsgCreatePool",
+        "@type": "/noble.swap.stableswap.v1.MsgCreatePool",
         "signer": "noble1signer",
         "pair": "uusdc",
         "protocol_fee_percentage": 10,
@@ -65,7 +65,7 @@ Creates a new StableSwap liquidity pool with specific AMM parameters.
 - Initializes the Pool with specified parameters.
 
 ### Update Pool
-`swap.stableswap.v1.MsgUpdatePool`
+`noble.swap.stableswap.v1.MsgUpdatePool`
 
 Updates an existing StableSwap liquidity pool with specific AMM parameters.
 
@@ -74,7 +74,7 @@ Updates an existing StableSwap liquidity pool with specific AMM parameters.
   "body": {
     "messages": [
       {
-        "@type": "/swap.stableswap.v1.MsgUpdatePool",
+        "@type": "/noble.swap.stableswap.v1.MsgUpdatePool",
         "signer": "noble1signer",
         "id": 1,
         "protocol_fee_percentage": 10,
@@ -128,7 +128,7 @@ Updates an existing StableSwap liquidity pool with specific AMM parameters.
 - Initializes the Pool with specified parameters.
 
 ### Add Liquidity
-`swap.v1.MsgAddLiquidity`
+`noble.swap.v1.MsgAddLiquidity`
 
 Provides tokens to a specified liquidity pool, increasing its reserves and earning liquidity shares for the provider.
 
@@ -137,7 +137,7 @@ Provides tokens to a specified liquidity pool, increasing its reserves and earni
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgAddLiquidity",
+        "@type": "/noble.swap.v1.MsgAddLiquidity",
         "signer": "noble1signer",
         "pool_id": "1",
         "amount": [
@@ -178,7 +178,7 @@ Provides tokens to a specified liquidity pool, increasing its reserves and earni
 ---
 
 ### Remove Liquidity
-`swap.v1.MsgRemoveLiquidity`
+`noble.swap.v1.MsgRemoveLiquidity`
 
 Removes a user’s share in a pool by withdrawing a specified percentage of the provided liquidity and adjusting the pool's reserves accordingly. This message initiate automatically also a [MsgWithdrawRewards](02_messages.md#withdraw-rewards)
 
@@ -187,7 +187,7 @@ Removes a user’s share in a pool by withdrawing a specified percentage of the 
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgRemoveLiquidity",
+        "@type": "/noble.swap.v1.MsgRemoveLiquidity",
         "signer": "noble1signer",
         "pool_id": "1",
         "percentage": "0.5"

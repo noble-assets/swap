@@ -1,7 +1,7 @@
 ## State Types
 
 ### Algorithm
-`swap.v1.Algorithm`
+`noble.swap.v1.Algorithm`
 
 Defines the algorithm used by a pool for token exchange.
 
@@ -19,7 +19,7 @@ Defines the algorithm used by a pool for token exchange.
 ---
 
 ### Pool
-`swap.v1.Pool`
+`noble.swap.v1.Pool`
 
 Represents a liquidity pool within the state.
 
@@ -45,7 +45,7 @@ Represents a liquidity pool within the state.
 ---
 
 ### BondedPosition
-`swap.v1.BondedPosition`
+`noble.swap.v1.BondedPosition`
 
 Represents a liquidity bonded position in a pool.
 
@@ -65,7 +65,7 @@ Represents a liquidity bonded position in a pool.
 ---
 
 ### UnbondingPosition
-`swap.v1.UnbondingPosition`
+`noble.swap.v1.UnbondingPosition`
 
 Represents an unbonding position in a pool.
 
@@ -87,7 +87,7 @@ Represents an unbonding position in a pool.
 ---
 
 ### Route
-`swap.v1.Route`
+`noble.swap.v1.Route`
 
 Represents a step in a swap route.
 

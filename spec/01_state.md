@@ -9,10 +9,10 @@ const PausedPrefix = []byte("paused")
 
 It is updated by the following messages:
 
-- [`swap.v1.MsgPauseByAlgorithm`](./02_messages.md#pause-by-algorithm)
-- [`swap.v1.MsgPauseByPoolIds`](./02_messages.md#pause-by-pool-ids)
-- [`swap.v1.MsgUnpauseByAlgorithm`](./02_messages.md#unpause-by-algorithm)
-- [`swap.v1.MsgUnpauseByPoolIds`](./02_messages.md#unpause-by-pool-ids)
+- [`noble.swap.v1.MsgPauseByAlgorithm`](./02_messages.md#pause-by-algorithm)
+- [`noble.swap.v1.MsgPauseByPoolIds`](./02_messages.md#pause-by-pool-ids)
+- [`noble.swap.v1.MsgUnpauseByAlgorithm`](./02_messages.md#unpause-by-algorithm)
+- [`noble.swap.v1.MsgUnpauseByPoolIds`](./02_messages.md#unpause-by-pool-ids)
 
 
 ## NextPoolId
@@ -33,4 +33,4 @@ const Pools = []byte("pools_generic")
 ```
 
 It is updated by the following messages:
-- [`swap.stableswap.v1.MsgCreatePool`](./02_messages_stableswap.md#create-pool)
+- [`noble.swap.stableswap.v1.MsgCreatePool`](./02_messages_stableswap.md#create-pool)

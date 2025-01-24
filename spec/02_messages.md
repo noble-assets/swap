@@ -1,7 +1,7 @@
 ## Messages
 
 ### Swap
-`swap.v1.MsgSwap`
+`noble.swap.v1.MsgSwap`
 
 Executes a token exchange between pools based on a defined [route](01_types.md#route) and ensures a minimum output token amount is received.
 
@@ -10,7 +10,7 @@ Executes a token exchange between pools based on a defined [route](01_types.md#r
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgSwap",
+        "@type": "/noble.swap.v1.MsgSwap",
         "signer": "noble1signer",
         "amount": {
           "denom": "uusdc",
@@ -60,7 +60,7 @@ Executes a token exchange between pools based on a defined [route](01_types.md#r
 ---
 
 ### Withdraw Protocol Fees
-`swap.v1.MsgWithdrawProtocolFees`
+`noble.swap.v1.MsgWithdrawProtocolFees`
 
 Transfers accumulated protocol fees from the system to a specified destination address initiated by an authorized account.
 
@@ -69,7 +69,7 @@ Transfers accumulated protocol fees from the system to a specified destination a
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgWithdrawProtocolFees",
+        "@type": "/noble.swap.v1.MsgWithdrawProtocolFees",
         "signer": "noble1signer",
         "to": "noble1destination"
       }
@@ -102,7 +102,7 @@ Transfers accumulated protocol fees from the system to a specified destination a
 ---
 
 ### Withdraw Rewards
-`swap.v1.MsgWithdrawRewards`
+`noble.swap.v1.MsgWithdrawRewards`
 
 Collects accumulated rewards earned by a user, transferring them to the user’s account balance.
 
@@ -111,7 +111,7 @@ Collects accumulated rewards earned by a user, transferring them to the user’s
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgWithdrawRewards",
+        "@type": "/noble.swap.v1.MsgWithdrawRewards",
         "signer": "noble1signer"
       }
     ],
@@ -142,7 +142,7 @@ Collects accumulated rewards earned by a user, transferring them to the user’s
 ---
 
 ### Pause By Algorithm
-`swap.v1.MsgPauseByAlgorithm`
+`noble.swap.v1.MsgPauseByAlgorithm`
 
 Temporarily halts all operations within the pools with the given algorithm, preventing further transactions and interactions (swaps, liquidity, unbonding, etc.).
 
@@ -151,7 +151,7 @@ Temporarily halts all operations within the pools with the given algorithm, prev
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgPauseByAlgorithm",
+        "@type": "/noble.swap.v1.MsgPauseByAlgorithm",
         "signer": "noble1signer",
         "algorithm": "STABLESWAP"
       }
@@ -184,7 +184,7 @@ Temporarily halts all operations within the pools with the given algorithm, prev
 ---
 
 ### Pause By Pool Ids
-`swap.v1.MsgPauseByPoolIds`
+`noble.swap.v1.MsgPauseByPoolIds`
 
 Temporarily halts all operations of the provided pool ids, preventing further transactions and interactions (swaps, liquidity, unbonding, etc.).
 
@@ -193,7 +193,7 @@ Temporarily halts all operations of the provided pool ids, preventing further tr
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgPauseByPoolIds",
+        "@type": "/noble.swap.v1.MsgPauseByPoolIds",
         "signer": "noble1signer",
         "pool_ids": ["0", "2"]
       }
@@ -226,7 +226,7 @@ Temporarily halts all operations of the provided pool ids, preventing further tr
 ---
 
 ### Unpause By Algorithm
-`swap.v1.MsgUnpauseByAlgorithm`
+`noble.swap.v1.MsgUnpauseByAlgorithm`
 
 Unpauses all operations within the pools with the given algorithm, restoring transactions and interactions (swaps, liquidity, unbonding, etc.).
 
@@ -235,7 +235,7 @@ Unpauses all operations within the pools with the given algorithm, restoring tra
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgUnpauseByAlgorithm",
+        "@type": "/noble.swap.v1.MsgUnpauseByAlgorithm",
         "signer": "noble1signer",
         "algorithm": "STABLESWAP"
       }
@@ -268,7 +268,7 @@ Unpauses all operations within the pools with the given algorithm, restoring tra
 ---
 
 ### Unpause By Pool Ids
-`swap.v1.MsgUnpauseByPoolIds`
+`noble.swap.v1.MsgUnpauseByPoolIds`
 Unpauses all operations of the provided pool ids, restoring transactions and interactions (swaps, liquidity, unbonding, etc.).
 
 ```json
@@ -276,7 +276,7 @@ Unpauses all operations of the provided pool ids, restoring transactions and int
   "body": {
     "messages": [
       {
-        "@type": "/swap.v1.MsgUnpauseByPoolIds",
+        "@type": "/noble.swap.v1.MsgUnpauseByPoolIds",
         "signer": "noble1signer",
         "pool_ids": ["0", "2"]
       }
