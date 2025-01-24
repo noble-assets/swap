@@ -288,19 +288,6 @@ func (c *Controller) RemoveLiquidity(
 		coinsToReturn = coinsToReturn.Add(sdk.NewCoin(asset.Denom, amountToReturn))
 	}
 
-	// Calculate the proportional amount of each asset in the pool to return to the user.
-	coinsToReturn = sdk.NewCoins()
-	for _, asset := range liquidity {
-		// Determine the amount of tokens to return for this asset.
-		amountToReturn := asset.Amount.Mul(sharesToUnbond.TruncateInt()).Quo(c.stableswapPool.TotalShares.TruncateInt())
-		if !amountToReturn.IsPositive() {
-			continue
-		}
-
-		// Create the coin representation of the token to return.
-		coinsToReturn = coinsToReturn.Add(sdk.NewCoin(asset.Denom, amountToReturn))
-	}
-
 	// Compute the unbonding period weighted to the amount of tokens to unbond and the total pool liquidity.
 	unbondingPeriod, err := ComputeWeightedPoolUnbondingPeriod(c.stableswapPool.TotalShares, sharesToUnbond)
 	if err != nil {
