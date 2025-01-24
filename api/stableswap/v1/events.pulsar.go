@@ -84,8 +84,8 @@ var (
 )
 
 func init() {
-	file_swap_stableswap_v1_events_proto_init()
-	md_PoolCreated = File_swap_stableswap_v1_events_proto.Messages().ByName("PoolCreated")
+	file_noble_swap_stableswap_v1_events_proto_init()
+	md_PoolCreated = File_noble_swap_stableswap_v1_events_proto.Messages().ByName("PoolCreated")
 	fd_PoolCreated_pool_id = md_PoolCreated.Fields().ByName("pool_id")
 	fd_PoolCreated_algorithm = md_PoolCreated.Fields().ByName("algorithm")
 	fd_PoolCreated_pair = md_PoolCreated.Fields().ByName("pair")
@@ -108,7 +108,7 @@ func (x *PoolCreated) ProtoReflect() protoreflect.Message {
 }
 
 func (x *PoolCreated) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_stableswap_v1_events_proto_msgTypes[0]
+	mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -245,33 +245,33 @@ func (x *fastReflection_PoolCreated) Range(f func(protoreflect.FieldDescriptor, 
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_PoolCreated) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolCreated.pool_id":
+	case "noble.swap.stableswap.v1.PoolCreated.pool_id":
 		return x.PoolId != uint64(0)
-	case "swap.stableswap.v1.PoolCreated.algorithm":
+	case "noble.swap.stableswap.v1.PoolCreated.algorithm":
 		return x.Algorithm != ""
-	case "swap.stableswap.v1.PoolCreated.pair":
+	case "noble.swap.stableswap.v1.PoolCreated.pair":
 		return x.Pair != ""
-	case "swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
 		return x.ProtocolFeePercentage != int64(0)
-	case "swap.stableswap.v1.PoolCreated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.rewards_fee":
 		return x.RewardsFee != int64(0)
-	case "swap.stableswap.v1.PoolCreated.max_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.max_fee":
 		return x.MaxFee != int64(0)
-	case "swap.stableswap.v1.PoolCreated.initial_a":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a":
 		return x.InitialA != int64(0)
-	case "swap.stableswap.v1.PoolCreated.initial_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a_time":
 		return x.InitialATime != int64(0)
-	case "swap.stableswap.v1.PoolCreated.future_a":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a":
 		return x.FutureA != int64(0)
-	case "swap.stableswap.v1.PoolCreated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a_time":
 		return x.FutureATime != int64(0)
-	case "swap.stableswap.v1.PoolCreated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolCreated.rate_multipliers":
 		return len(x.RateMultipliers) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolCreated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolCreated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -283,33 +283,33 @@ func (x *fastReflection_PoolCreated) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_PoolCreated) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolCreated.pool_id":
+	case "noble.swap.stableswap.v1.PoolCreated.pool_id":
 		x.PoolId = uint64(0)
-	case "swap.stableswap.v1.PoolCreated.algorithm":
+	case "noble.swap.stableswap.v1.PoolCreated.algorithm":
 		x.Algorithm = ""
-	case "swap.stableswap.v1.PoolCreated.pair":
+	case "noble.swap.stableswap.v1.PoolCreated.pair":
 		x.Pair = ""
-	case "swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
 		x.ProtocolFeePercentage = int64(0)
-	case "swap.stableswap.v1.PoolCreated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.rewards_fee":
 		x.RewardsFee = int64(0)
-	case "swap.stableswap.v1.PoolCreated.max_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.max_fee":
 		x.MaxFee = int64(0)
-	case "swap.stableswap.v1.PoolCreated.initial_a":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a":
 		x.InitialA = int64(0)
-	case "swap.stableswap.v1.PoolCreated.initial_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a_time":
 		x.InitialATime = int64(0)
-	case "swap.stableswap.v1.PoolCreated.future_a":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a":
 		x.FutureA = int64(0)
-	case "swap.stableswap.v1.PoolCreated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a_time":
 		x.FutureATime = int64(0)
-	case "swap.stableswap.v1.PoolCreated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolCreated.rate_multipliers":
 		x.RateMultipliers = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolCreated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolCreated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -321,37 +321,37 @@ func (x *fastReflection_PoolCreated) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_PoolCreated) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.stableswap.v1.PoolCreated.pool_id":
+	case "noble.swap.stableswap.v1.PoolCreated.pool_id":
 		value := x.PoolId
 		return protoreflect.ValueOfUint64(value)
-	case "swap.stableswap.v1.PoolCreated.algorithm":
+	case "noble.swap.stableswap.v1.PoolCreated.algorithm":
 		value := x.Algorithm
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.PoolCreated.pair":
+	case "noble.swap.stableswap.v1.PoolCreated.pair":
 		value := x.Pair
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
 		value := x.ProtocolFeePercentage
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.rewards_fee":
 		value := x.RewardsFee
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.max_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.max_fee":
 		value := x.MaxFee
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.initial_a":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a":
 		value := x.InitialA
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.initial_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a_time":
 		value := x.InitialATime
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.future_a":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a":
 		value := x.FutureA
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a_time":
 		value := x.FutureATime
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolCreated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolCreated.rate_multipliers":
 		if len(x.RateMultipliers) == 0 {
 			return protoreflect.ValueOfList(&_PoolCreated_11_list{})
 		}
@@ -359,9 +359,9 @@ func (x *fastReflection_PoolCreated) Get(descriptor protoreflect.FieldDescriptor
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolCreated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolCreated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolCreated does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolCreated does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -377,35 +377,35 @@ func (x *fastReflection_PoolCreated) Get(descriptor protoreflect.FieldDescriptor
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_PoolCreated) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolCreated.pool_id":
+	case "noble.swap.stableswap.v1.PoolCreated.pool_id":
 		x.PoolId = value.Uint()
-	case "swap.stableswap.v1.PoolCreated.algorithm":
+	case "noble.swap.stableswap.v1.PoolCreated.algorithm":
 		x.Algorithm = value.Interface().(string)
-	case "swap.stableswap.v1.PoolCreated.pair":
+	case "noble.swap.stableswap.v1.PoolCreated.pair":
 		x.Pair = value.Interface().(string)
-	case "swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
 		x.ProtocolFeePercentage = value.Int()
-	case "swap.stableswap.v1.PoolCreated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.rewards_fee":
 		x.RewardsFee = value.Int()
-	case "swap.stableswap.v1.PoolCreated.max_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.max_fee":
 		x.MaxFee = value.Int()
-	case "swap.stableswap.v1.PoolCreated.initial_a":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a":
 		x.InitialA = value.Int()
-	case "swap.stableswap.v1.PoolCreated.initial_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a_time":
 		x.InitialATime = value.Int()
-	case "swap.stableswap.v1.PoolCreated.future_a":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a":
 		x.FutureA = value.Int()
-	case "swap.stableswap.v1.PoolCreated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a_time":
 		x.FutureATime = value.Int()
-	case "swap.stableswap.v1.PoolCreated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolCreated.rate_multipliers":
 		lv := value.List()
 		clv := lv.(*_PoolCreated_11_list)
 		x.RateMultipliers = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolCreated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolCreated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -421,37 +421,37 @@ func (x *fastReflection_PoolCreated) Set(fd protoreflect.FieldDescriptor, value 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_PoolCreated) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolCreated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolCreated.rate_multipliers":
 		if x.RateMultipliers == nil {
 			x.RateMultipliers = []*v1beta1.Coin{}
 		}
 		value := &_PoolCreated_11_list{list: &x.RateMultipliers}
 		return protoreflect.ValueOfList(value)
-	case "swap.stableswap.v1.PoolCreated.pool_id":
-		panic(fmt.Errorf("field pool_id of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.algorithm":
-		panic(fmt.Errorf("field algorithm of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.pair":
-		panic(fmt.Errorf("field pair of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
-		panic(fmt.Errorf("field protocol_fee_percentage of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.rewards_fee":
-		panic(fmt.Errorf("field rewards_fee of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.max_fee":
-		panic(fmt.Errorf("field max_fee of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.initial_a":
-		panic(fmt.Errorf("field initial_a of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.initial_a_time":
-		panic(fmt.Errorf("field initial_a_time of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.future_a":
-		panic(fmt.Errorf("field future_a of message swap.stableswap.v1.PoolCreated is not mutable"))
-	case "swap.stableswap.v1.PoolCreated.future_a_time":
-		panic(fmt.Errorf("field future_a_time of message swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.pool_id":
+		panic(fmt.Errorf("field pool_id of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.algorithm":
+		panic(fmt.Errorf("field algorithm of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.pair":
+		panic(fmt.Errorf("field pair of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
+		panic(fmt.Errorf("field protocol_fee_percentage of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.rewards_fee":
+		panic(fmt.Errorf("field rewards_fee of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.max_fee":
+		panic(fmt.Errorf("field max_fee of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a":
+		panic(fmt.Errorf("field initial_a of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a_time":
+		panic(fmt.Errorf("field initial_a_time of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.future_a":
+		panic(fmt.Errorf("field future_a of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolCreated.future_a_time":
+		panic(fmt.Errorf("field future_a_time of message noble.swap.stableswap.v1.PoolCreated is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolCreated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolCreated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -460,34 +460,34 @@ func (x *fastReflection_PoolCreated) Mutable(fd protoreflect.FieldDescriptor) pr
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_PoolCreated) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolCreated.pool_id":
+	case "noble.swap.stableswap.v1.PoolCreated.pool_id":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "swap.stableswap.v1.PoolCreated.algorithm":
+	case "noble.swap.stableswap.v1.PoolCreated.algorithm":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.PoolCreated.pair":
+	case "noble.swap.stableswap.v1.PoolCreated.pair":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolCreated.protocol_fee_percentage":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.rewards_fee":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.max_fee":
+	case "noble.swap.stableswap.v1.PoolCreated.max_fee":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.initial_a":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.initial_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.initial_a_time":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.future_a":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolCreated.future_a_time":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolCreated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolCreated.rate_multipliers":
 		list := []*v1beta1.Coin{}
 		return protoreflect.ValueOfList(&_PoolCreated_11_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolCreated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolCreated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolCreated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -497,7 +497,7 @@ func (x *fastReflection_PoolCreated) NewField(fd protoreflect.FieldDescriptor) p
 func (x *fastReflection_PoolCreated) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.stableswap.v1.PoolCreated", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.stableswap.v1.PoolCreated", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1086,8 +1086,8 @@ var (
 )
 
 func init() {
-	file_swap_stableswap_v1_events_proto_init()
-	md_PoolUpdated = File_swap_stableswap_v1_events_proto.Messages().ByName("PoolUpdated")
+	file_noble_swap_stableswap_v1_events_proto_init()
+	md_PoolUpdated = File_noble_swap_stableswap_v1_events_proto.Messages().ByName("PoolUpdated")
 	fd_PoolUpdated_pool_id = md_PoolUpdated.Fields().ByName("pool_id")
 	fd_PoolUpdated_protocol_fee_percentage = md_PoolUpdated.Fields().ByName("protocol_fee_percentage")
 	fd_PoolUpdated_rewards_fee = md_PoolUpdated.Fields().ByName("rewards_fee")
@@ -1106,7 +1106,7 @@ func (x *PoolUpdated) ProtoReflect() protoreflect.Message {
 }
 
 func (x *PoolUpdated) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_stableswap_v1_events_proto_msgTypes[1]
+	mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1219,25 +1219,25 @@ func (x *fastReflection_PoolUpdated) Range(f func(protoreflect.FieldDescriptor, 
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_PoolUpdated) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolUpdated.pool_id":
+	case "noble.swap.stableswap.v1.PoolUpdated.pool_id":
 		return x.PoolId != uint64(0)
-	case "swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
 		return x.ProtocolFeePercentage != int64(0)
-	case "swap.stableswap.v1.PoolUpdated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.rewards_fee":
 		return x.RewardsFee != int64(0)
-	case "swap.stableswap.v1.PoolUpdated.max_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.max_fee":
 		return x.MaxFee != int64(0)
-	case "swap.stableswap.v1.PoolUpdated.future_a":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a":
 		return x.FutureA != int64(0)
-	case "swap.stableswap.v1.PoolUpdated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a_time":
 		return x.FutureATime != int64(0)
-	case "swap.stableswap.v1.PoolUpdated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolUpdated.rate_multipliers":
 		return len(x.RateMultipliers) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolUpdated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolUpdated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1249,25 +1249,25 @@ func (x *fastReflection_PoolUpdated) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_PoolUpdated) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolUpdated.pool_id":
+	case "noble.swap.stableswap.v1.PoolUpdated.pool_id":
 		x.PoolId = uint64(0)
-	case "swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
 		x.ProtocolFeePercentage = int64(0)
-	case "swap.stableswap.v1.PoolUpdated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.rewards_fee":
 		x.RewardsFee = int64(0)
-	case "swap.stableswap.v1.PoolUpdated.max_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.max_fee":
 		x.MaxFee = int64(0)
-	case "swap.stableswap.v1.PoolUpdated.future_a":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a":
 		x.FutureA = int64(0)
-	case "swap.stableswap.v1.PoolUpdated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a_time":
 		x.FutureATime = int64(0)
-	case "swap.stableswap.v1.PoolUpdated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolUpdated.rate_multipliers":
 		x.RateMultipliers = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolUpdated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolUpdated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1279,25 +1279,25 @@ func (x *fastReflection_PoolUpdated) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_PoolUpdated) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.stableswap.v1.PoolUpdated.pool_id":
+	case "noble.swap.stableswap.v1.PoolUpdated.pool_id":
 		value := x.PoolId
 		return protoreflect.ValueOfUint64(value)
-	case "swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
 		value := x.ProtocolFeePercentage
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolUpdated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.rewards_fee":
 		value := x.RewardsFee
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolUpdated.max_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.max_fee":
 		value := x.MaxFee
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolUpdated.future_a":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a":
 		value := x.FutureA
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolUpdated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a_time":
 		value := x.FutureATime
 		return protoreflect.ValueOfInt64(value)
-	case "swap.stableswap.v1.PoolUpdated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolUpdated.rate_multipliers":
 		if len(x.RateMultipliers) == 0 {
 			return protoreflect.ValueOfList(&_PoolUpdated_7_list{})
 		}
@@ -1305,9 +1305,9 @@ func (x *fastReflection_PoolUpdated) Get(descriptor protoreflect.FieldDescriptor
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolUpdated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolUpdated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolUpdated does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolUpdated does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1323,27 +1323,27 @@ func (x *fastReflection_PoolUpdated) Get(descriptor protoreflect.FieldDescriptor
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_PoolUpdated) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolUpdated.pool_id":
+	case "noble.swap.stableswap.v1.PoolUpdated.pool_id":
 		x.PoolId = value.Uint()
-	case "swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
 		x.ProtocolFeePercentage = value.Int()
-	case "swap.stableswap.v1.PoolUpdated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.rewards_fee":
 		x.RewardsFee = value.Int()
-	case "swap.stableswap.v1.PoolUpdated.max_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.max_fee":
 		x.MaxFee = value.Int()
-	case "swap.stableswap.v1.PoolUpdated.future_a":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a":
 		x.FutureA = value.Int()
-	case "swap.stableswap.v1.PoolUpdated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a_time":
 		x.FutureATime = value.Int()
-	case "swap.stableswap.v1.PoolUpdated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolUpdated.rate_multipliers":
 		lv := value.List()
 		clv := lv.(*_PoolUpdated_7_list)
 		x.RateMultipliers = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolUpdated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolUpdated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1359,29 +1359,29 @@ func (x *fastReflection_PoolUpdated) Set(fd protoreflect.FieldDescriptor, value 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_PoolUpdated) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolUpdated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolUpdated.rate_multipliers":
 		if x.RateMultipliers == nil {
 			x.RateMultipliers = []*v1beta1.Coin{}
 		}
 		value := &_PoolUpdated_7_list{list: &x.RateMultipliers}
 		return protoreflect.ValueOfList(value)
-	case "swap.stableswap.v1.PoolUpdated.pool_id":
-		panic(fmt.Errorf("field pool_id of message swap.stableswap.v1.PoolUpdated is not mutable"))
-	case "swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
-		panic(fmt.Errorf("field protocol_fee_percentage of message swap.stableswap.v1.PoolUpdated is not mutable"))
-	case "swap.stableswap.v1.PoolUpdated.rewards_fee":
-		panic(fmt.Errorf("field rewards_fee of message swap.stableswap.v1.PoolUpdated is not mutable"))
-	case "swap.stableswap.v1.PoolUpdated.max_fee":
-		panic(fmt.Errorf("field max_fee of message swap.stableswap.v1.PoolUpdated is not mutable"))
-	case "swap.stableswap.v1.PoolUpdated.future_a":
-		panic(fmt.Errorf("field future_a of message swap.stableswap.v1.PoolUpdated is not mutable"))
-	case "swap.stableswap.v1.PoolUpdated.future_a_time":
-		panic(fmt.Errorf("field future_a_time of message swap.stableswap.v1.PoolUpdated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolUpdated.pool_id":
+		panic(fmt.Errorf("field pool_id of message noble.swap.stableswap.v1.PoolUpdated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
+		panic(fmt.Errorf("field protocol_fee_percentage of message noble.swap.stableswap.v1.PoolUpdated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolUpdated.rewards_fee":
+		panic(fmt.Errorf("field rewards_fee of message noble.swap.stableswap.v1.PoolUpdated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolUpdated.max_fee":
+		panic(fmt.Errorf("field max_fee of message noble.swap.stableswap.v1.PoolUpdated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a":
+		panic(fmt.Errorf("field future_a of message noble.swap.stableswap.v1.PoolUpdated is not mutable"))
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a_time":
+		panic(fmt.Errorf("field future_a_time of message noble.swap.stableswap.v1.PoolUpdated is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolUpdated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolUpdated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1390,26 +1390,26 @@ func (x *fastReflection_PoolUpdated) Mutable(fd protoreflect.FieldDescriptor) pr
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_PoolUpdated) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.PoolUpdated.pool_id":
+	case "noble.swap.stableswap.v1.PoolUpdated.pool_id":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
+	case "noble.swap.stableswap.v1.PoolUpdated.protocol_fee_percentage":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolUpdated.rewards_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.rewards_fee":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolUpdated.max_fee":
+	case "noble.swap.stableswap.v1.PoolUpdated.max_fee":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolUpdated.future_a":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolUpdated.future_a_time":
+	case "noble.swap.stableswap.v1.PoolUpdated.future_a_time":
 		return protoreflect.ValueOfInt64(int64(0))
-	case "swap.stableswap.v1.PoolUpdated.rate_multipliers":
+	case "noble.swap.stableswap.v1.PoolUpdated.rate_multipliers":
 		list := []*v1beta1.Coin{}
 		return protoreflect.ValueOfList(&_PoolUpdated_7_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.PoolUpdated"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.PoolUpdated"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.PoolUpdated does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1419,7 +1419,7 @@ func (x *fastReflection_PoolUpdated) NewField(fd protoreflect.FieldDescriptor) p
 func (x *fastReflection_PoolUpdated) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.stableswap.v1.PoolUpdated", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.stableswap.v1.PoolUpdated", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1865,8 +1865,8 @@ var (
 )
 
 func init() {
-	file_swap_stableswap_v1_events_proto_init()
-	md_LiquidityAdded = File_swap_stableswap_v1_events_proto.Messages().ByName("LiquidityAdded")
+	file_noble_swap_stableswap_v1_events_proto_init()
+	md_LiquidityAdded = File_noble_swap_stableswap_v1_events_proto.Messages().ByName("LiquidityAdded")
 	fd_LiquidityAdded_provider = md_LiquidityAdded.Fields().ByName("provider")
 	fd_LiquidityAdded_pool_id = md_LiquidityAdded.Fields().ByName("pool_id")
 	fd_LiquidityAdded_amount = md_LiquidityAdded.Fields().ByName("amount")
@@ -1882,7 +1882,7 @@ func (x *LiquidityAdded) ProtoReflect() protoreflect.Message {
 }
 
 func (x *LiquidityAdded) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_stableswap_v1_events_proto_msgTypes[2]
+	mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1977,19 +1977,19 @@ func (x *fastReflection_LiquidityAdded) Range(f func(protoreflect.FieldDescripto
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_LiquidityAdded) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityAdded.provider":
+	case "noble.swap.stableswap.v1.LiquidityAdded.provider":
 		return x.Provider != ""
-	case "swap.stableswap.v1.LiquidityAdded.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityAdded.pool_id":
 		return x.PoolId != uint64(0)
-	case "swap.stableswap.v1.LiquidityAdded.amount":
+	case "noble.swap.stableswap.v1.LiquidityAdded.amount":
 		return len(x.Amount) != 0
-	case "swap.stableswap.v1.LiquidityAdded.shares":
+	case "noble.swap.stableswap.v1.LiquidityAdded.shares":
 		return x.Shares != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityAdded"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityAdded"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2001,19 +2001,19 @@ func (x *fastReflection_LiquidityAdded) Has(fd protoreflect.FieldDescriptor) boo
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_LiquidityAdded) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityAdded.provider":
+	case "noble.swap.stableswap.v1.LiquidityAdded.provider":
 		x.Provider = ""
-	case "swap.stableswap.v1.LiquidityAdded.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityAdded.pool_id":
 		x.PoolId = uint64(0)
-	case "swap.stableswap.v1.LiquidityAdded.amount":
+	case "noble.swap.stableswap.v1.LiquidityAdded.amount":
 		x.Amount = nil
-	case "swap.stableswap.v1.LiquidityAdded.shares":
+	case "noble.swap.stableswap.v1.LiquidityAdded.shares":
 		x.Shares = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityAdded"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityAdded"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2025,26 +2025,26 @@ func (x *fastReflection_LiquidityAdded) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_LiquidityAdded) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.stableswap.v1.LiquidityAdded.provider":
+	case "noble.swap.stableswap.v1.LiquidityAdded.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.LiquidityAdded.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityAdded.pool_id":
 		value := x.PoolId
 		return protoreflect.ValueOfUint64(value)
-	case "swap.stableswap.v1.LiquidityAdded.amount":
+	case "noble.swap.stableswap.v1.LiquidityAdded.amount":
 		if len(x.Amount) == 0 {
 			return protoreflect.ValueOfList(&_LiquidityAdded_7_list{})
 		}
 		listValue := &_LiquidityAdded_7_list{list: &x.Amount}
 		return protoreflect.ValueOfList(listValue)
-	case "swap.stableswap.v1.LiquidityAdded.shares":
+	case "noble.swap.stableswap.v1.LiquidityAdded.shares":
 		value := x.Shares
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityAdded"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityAdded"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityAdded does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityAdded does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2060,21 +2060,21 @@ func (x *fastReflection_LiquidityAdded) Get(descriptor protoreflect.FieldDescrip
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_LiquidityAdded) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityAdded.provider":
+	case "noble.swap.stableswap.v1.LiquidityAdded.provider":
 		x.Provider = value.Interface().(string)
-	case "swap.stableswap.v1.LiquidityAdded.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityAdded.pool_id":
 		x.PoolId = value.Uint()
-	case "swap.stableswap.v1.LiquidityAdded.amount":
+	case "noble.swap.stableswap.v1.LiquidityAdded.amount":
 		lv := value.List()
 		clv := lv.(*_LiquidityAdded_7_list)
 		x.Amount = *clv.list
-	case "swap.stableswap.v1.LiquidityAdded.shares":
+	case "noble.swap.stableswap.v1.LiquidityAdded.shares":
 		x.Shares = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityAdded"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityAdded"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2090,23 +2090,23 @@ func (x *fastReflection_LiquidityAdded) Set(fd protoreflect.FieldDescriptor, val
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_LiquidityAdded) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityAdded.amount":
+	case "noble.swap.stableswap.v1.LiquidityAdded.amount":
 		if x.Amount == nil {
 			x.Amount = []*v1beta1.Coin{}
 		}
 		value := &_LiquidityAdded_7_list{list: &x.Amount}
 		return protoreflect.ValueOfList(value)
-	case "swap.stableswap.v1.LiquidityAdded.provider":
-		panic(fmt.Errorf("field provider of message swap.stableswap.v1.LiquidityAdded is not mutable"))
-	case "swap.stableswap.v1.LiquidityAdded.pool_id":
-		panic(fmt.Errorf("field pool_id of message swap.stableswap.v1.LiquidityAdded is not mutable"))
-	case "swap.stableswap.v1.LiquidityAdded.shares":
-		panic(fmt.Errorf("field shares of message swap.stableswap.v1.LiquidityAdded is not mutable"))
+	case "noble.swap.stableswap.v1.LiquidityAdded.provider":
+		panic(fmt.Errorf("field provider of message noble.swap.stableswap.v1.LiquidityAdded is not mutable"))
+	case "noble.swap.stableswap.v1.LiquidityAdded.pool_id":
+		panic(fmt.Errorf("field pool_id of message noble.swap.stableswap.v1.LiquidityAdded is not mutable"))
+	case "noble.swap.stableswap.v1.LiquidityAdded.shares":
+		panic(fmt.Errorf("field shares of message noble.swap.stableswap.v1.LiquidityAdded is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityAdded"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityAdded"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2115,20 +2115,20 @@ func (x *fastReflection_LiquidityAdded) Mutable(fd protoreflect.FieldDescriptor)
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_LiquidityAdded) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityAdded.provider":
+	case "noble.swap.stableswap.v1.LiquidityAdded.provider":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.LiquidityAdded.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityAdded.pool_id":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "swap.stableswap.v1.LiquidityAdded.amount":
+	case "noble.swap.stableswap.v1.LiquidityAdded.amount":
 		list := []*v1beta1.Coin{}
 		return protoreflect.ValueOfList(&_LiquidityAdded_7_list{list: &list})
-	case "swap.stableswap.v1.LiquidityAdded.shares":
+	case "noble.swap.stableswap.v1.LiquidityAdded.shares":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityAdded"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityAdded"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityAdded does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2138,7 +2138,7 @@ func (x *fastReflection_LiquidityAdded) NewField(fd protoreflect.FieldDescriptor
 func (x *fastReflection_LiquidityAdded) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.stableswap.v1.LiquidityAdded", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.stableswap.v1.LiquidityAdded", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2536,8 +2536,8 @@ var (
 )
 
 func init() {
-	file_swap_stableswap_v1_events_proto_init()
-	md_LiquidityRemoved = File_swap_stableswap_v1_events_proto.Messages().ByName("LiquidityRemoved")
+	file_noble_swap_stableswap_v1_events_proto_init()
+	md_LiquidityRemoved = File_noble_swap_stableswap_v1_events_proto.Messages().ByName("LiquidityRemoved")
 	fd_LiquidityRemoved_provider = md_LiquidityRemoved.Fields().ByName("provider")
 	fd_LiquidityRemoved_pool_id = md_LiquidityRemoved.Fields().ByName("pool_id")
 	fd_LiquidityRemoved_amount = md_LiquidityRemoved.Fields().ByName("amount")
@@ -2554,7 +2554,7 @@ func (x *LiquidityRemoved) ProtoReflect() protoreflect.Message {
 }
 
 func (x *LiquidityRemoved) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_stableswap_v1_events_proto_msgTypes[3]
+	mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2655,21 +2655,21 @@ func (x *fastReflection_LiquidityRemoved) Range(f func(protoreflect.FieldDescrip
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_LiquidityRemoved) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityRemoved.provider":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.provider":
 		return x.Provider != ""
-	case "swap.stableswap.v1.LiquidityRemoved.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.pool_id":
 		return x.PoolId != uint64(0)
-	case "swap.stableswap.v1.LiquidityRemoved.amount":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.amount":
 		return len(x.Amount) != 0
-	case "swap.stableswap.v1.LiquidityRemoved.shares":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.shares":
 		return x.Shares != ""
-	case "swap.stableswap.v1.LiquidityRemoved.unlock_time":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.unlock_time":
 		return x.UnlockTime != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityRemoved"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityRemoved"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2681,21 +2681,21 @@ func (x *fastReflection_LiquidityRemoved) Has(fd protoreflect.FieldDescriptor) b
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_LiquidityRemoved) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityRemoved.provider":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.provider":
 		x.Provider = ""
-	case "swap.stableswap.v1.LiquidityRemoved.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.pool_id":
 		x.PoolId = uint64(0)
-	case "swap.stableswap.v1.LiquidityRemoved.amount":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.amount":
 		x.Amount = nil
-	case "swap.stableswap.v1.LiquidityRemoved.shares":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.shares":
 		x.Shares = ""
-	case "swap.stableswap.v1.LiquidityRemoved.unlock_time":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.unlock_time":
 		x.UnlockTime = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityRemoved"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityRemoved"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2707,29 +2707,29 @@ func (x *fastReflection_LiquidityRemoved) Clear(fd protoreflect.FieldDescriptor)
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_LiquidityRemoved) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.stableswap.v1.LiquidityRemoved.provider":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.provider":
 		value := x.Provider
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.LiquidityRemoved.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.pool_id":
 		value := x.PoolId
 		return protoreflect.ValueOfUint64(value)
-	case "swap.stableswap.v1.LiquidityRemoved.amount":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.amount":
 		if len(x.Amount) == 0 {
 			return protoreflect.ValueOfList(&_LiquidityRemoved_7_list{})
 		}
 		listValue := &_LiquidityRemoved_7_list{list: &x.Amount}
 		return protoreflect.ValueOfList(listValue)
-	case "swap.stableswap.v1.LiquidityRemoved.shares":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.shares":
 		value := x.Shares
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.LiquidityRemoved.unlock_time":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.unlock_time":
 		value := x.UnlockTime
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityRemoved"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityRemoved"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityRemoved does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityRemoved does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2745,23 +2745,23 @@ func (x *fastReflection_LiquidityRemoved) Get(descriptor protoreflect.FieldDescr
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_LiquidityRemoved) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityRemoved.provider":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.provider":
 		x.Provider = value.Interface().(string)
-	case "swap.stableswap.v1.LiquidityRemoved.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.pool_id":
 		x.PoolId = value.Uint()
-	case "swap.stableswap.v1.LiquidityRemoved.amount":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.amount":
 		lv := value.List()
 		clv := lv.(*_LiquidityRemoved_7_list)
 		x.Amount = *clv.list
-	case "swap.stableswap.v1.LiquidityRemoved.shares":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.shares":
 		x.Shares = value.Interface().(string)
-	case "swap.stableswap.v1.LiquidityRemoved.unlock_time":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.unlock_time":
 		x.UnlockTime = value.Message().Interface().(*timestamppb.Timestamp)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityRemoved"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityRemoved"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2777,28 +2777,28 @@ func (x *fastReflection_LiquidityRemoved) Set(fd protoreflect.FieldDescriptor, v
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_LiquidityRemoved) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityRemoved.amount":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.amount":
 		if x.Amount == nil {
 			x.Amount = []*v1beta1.Coin{}
 		}
 		value := &_LiquidityRemoved_7_list{list: &x.Amount}
 		return protoreflect.ValueOfList(value)
-	case "swap.stableswap.v1.LiquidityRemoved.unlock_time":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.unlock_time":
 		if x.UnlockTime == nil {
 			x.UnlockTime = new(timestamppb.Timestamp)
 		}
 		return protoreflect.ValueOfMessage(x.UnlockTime.ProtoReflect())
-	case "swap.stableswap.v1.LiquidityRemoved.provider":
-		panic(fmt.Errorf("field provider of message swap.stableswap.v1.LiquidityRemoved is not mutable"))
-	case "swap.stableswap.v1.LiquidityRemoved.pool_id":
-		panic(fmt.Errorf("field pool_id of message swap.stableswap.v1.LiquidityRemoved is not mutable"))
-	case "swap.stableswap.v1.LiquidityRemoved.shares":
-		panic(fmt.Errorf("field shares of message swap.stableswap.v1.LiquidityRemoved is not mutable"))
+	case "noble.swap.stableswap.v1.LiquidityRemoved.provider":
+		panic(fmt.Errorf("field provider of message noble.swap.stableswap.v1.LiquidityRemoved is not mutable"))
+	case "noble.swap.stableswap.v1.LiquidityRemoved.pool_id":
+		panic(fmt.Errorf("field pool_id of message noble.swap.stableswap.v1.LiquidityRemoved is not mutable"))
+	case "noble.swap.stableswap.v1.LiquidityRemoved.shares":
+		panic(fmt.Errorf("field shares of message noble.swap.stableswap.v1.LiquidityRemoved is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityRemoved"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityRemoved"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2807,23 +2807,23 @@ func (x *fastReflection_LiquidityRemoved) Mutable(fd protoreflect.FieldDescripto
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_LiquidityRemoved) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.LiquidityRemoved.provider":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.provider":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.LiquidityRemoved.pool_id":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.pool_id":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "swap.stableswap.v1.LiquidityRemoved.amount":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.amount":
 		list := []*v1beta1.Coin{}
 		return protoreflect.ValueOfList(&_LiquidityRemoved_7_list{list: &list})
-	case "swap.stableswap.v1.LiquidityRemoved.shares":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.shares":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.LiquidityRemoved.unlock_time":
+	case "noble.swap.stableswap.v1.LiquidityRemoved.unlock_time":
 		m := new(timestamppb.Timestamp)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.LiquidityRemoved"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.LiquidityRemoved"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.LiquidityRemoved does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2833,7 +2833,7 @@ func (x *fastReflection_LiquidityRemoved) NewField(fd protoreflect.FieldDescript
 func (x *fastReflection_LiquidityRemoved) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.stableswap.v1.LiquidityRemoved", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.stableswap.v1.LiquidityRemoved", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3228,7 +3228,7 @@ func (x *fastReflection_LiquidityRemoved) ProtoMethods() *protoiface.Methods {
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: swap/stableswap/v1/events.proto
+// source: noble/swap/stableswap/v1/events.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -3269,7 +3269,7 @@ type PoolCreated struct {
 func (x *PoolCreated) Reset() {
 	*x = PoolCreated{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_stableswap_v1_events_proto_msgTypes[0]
+		mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3283,7 +3283,7 @@ func (*PoolCreated) ProtoMessage() {}
 
 // Deprecated: Use PoolCreated.ProtoReflect.Descriptor instead.
 func (*PoolCreated) Descriptor() ([]byte, []int) {
-	return file_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{0}
+	return file_noble_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PoolCreated) GetPoolId() uint64 {
@@ -3387,7 +3387,7 @@ type PoolUpdated struct {
 func (x *PoolUpdated) Reset() {
 	*x = PoolUpdated{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_stableswap_v1_events_proto_msgTypes[1]
+		mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3401,7 +3401,7 @@ func (*PoolUpdated) ProtoMessage() {}
 
 // Deprecated: Use PoolUpdated.ProtoReflect.Descriptor instead.
 func (*PoolUpdated) Descriptor() ([]byte, []int) {
-	return file_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{1}
+	return file_noble_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PoolUpdated) GetPoolId() uint64 {
@@ -3471,7 +3471,7 @@ type LiquidityAdded struct {
 func (x *LiquidityAdded) Reset() {
 	*x = LiquidityAdded{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_stableswap_v1_events_proto_msgTypes[2]
+		mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3485,7 +3485,7 @@ func (*LiquidityAdded) ProtoMessage() {}
 
 // Deprecated: Use LiquidityAdded.ProtoReflect.Descriptor instead.
 func (*LiquidityAdded) Descriptor() ([]byte, []int) {
-	return file_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{2}
+	return file_noble_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *LiquidityAdded) GetProvider() string {
@@ -3536,7 +3536,7 @@ type LiquidityRemoved struct {
 func (x *LiquidityRemoved) Reset() {
 	*x = LiquidityRemoved{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_stableswap_v1_events_proto_msgTypes[3]
+		mi := &file_noble_swap_stableswap_v1_events_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3550,7 +3550,7 @@ func (*LiquidityRemoved) ProtoMessage() {}
 
 // Deprecated: Use LiquidityRemoved.ProtoReflect.Descriptor instead.
 func (*LiquidityRemoved) Descriptor() ([]byte, []int) {
-	return file_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{3}
+	return file_noble_swap_stableswap_v1_events_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *LiquidityRemoved) GetProvider() string {
@@ -3588,154 +3588,157 @@ func (x *LiquidityRemoved) GetUnlockTime() *timestamppb.Timestamp {
 	return nil
 }
 
-var File_swap_stableswap_v1_events_proto protoreflect.FileDescriptor
+var File_noble_swap_stableswap_v1_events_proto protoreflect.FileDescriptor
 
-var file_swap_stableswap_v1_events_proto_rawDesc = []byte{
-	0x0a, 0x1f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61,
-	0x70, 0x2f, 0x76, 0x31, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x12, 0x12, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77,
-	0x61, 0x70, 0x2e, 0x76, 0x31, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69,
-	0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
-	0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f,
-	0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
-	0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67,
-	0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
-	0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73,
-	0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xdb, 0x03, 0x0a, 0x0b, 0x50,
-	0x6f, 0x6f, 0x6c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f,
-	0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f,
-	0x6c, 0x49, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68,
-	0x6d, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x69, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x04, 0x70, 0x61, 0x69, 0x72, 0x12, 0x36, 0x0a, 0x17, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f,
-	0x6c, 0x5f, 0x66, 0x65, 0x65, 0x5f, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65,
-	0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x15, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c,
-	0x46, 0x65, 0x65, 0x50, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a,
-	0x0b, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x05, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x0a, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x46, 0x65, 0x65, 0x12, 0x17,
-	0x0a, 0x07, 0x6d, 0x61, 0x78, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52,
-	0x06, 0x6d, 0x61, 0x78, 0x46, 0x65, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x69, 0x6e, 0x69, 0x74, 0x69,
-	0x61, 0x6c, 0x5f, 0x61, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x69, 0x6e, 0x69, 0x74,
-	0x69, 0x61, 0x6c, 0x41, 0x12, 0x24, 0x0a, 0x0e, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x5f,
-	0x61, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x69, 0x6e,
-	0x69, 0x74, 0x69, 0x61, 0x6c, 0x41, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x75,
-	0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x18, 0x09, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x66, 0x75,
-	0x74, 0x75, 0x72, 0x65, 0x41, 0x12, 0x22, 0x0a, 0x0d, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f,
-	0x61, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x66, 0x75,
-	0x74, 0x75, 0x72, 0x65, 0x41, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x8c, 0x01, 0x0a, 0x10, 0x72, 0x61,
-	0x74, 0x65, 0x5f, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x18, 0x0b,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61,
-	0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42,
-	0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f,
-	0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e,
-	0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69,
-	0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x0f, 0x72, 0x61, 0x74, 0x65, 0x4d, 0x75, 0x6c,
-	0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x22, 0xe6, 0x02, 0x0a, 0x0b, 0x50, 0x6f, 0x6f,
-	0x6c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c,
-	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49,
-	0x64, 0x12, 0x36, 0x0a, 0x17, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x5f, 0x66, 0x65,
-	0x65, 0x5f, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01,
+var file_noble_swap_stableswap_v1_events_proto_rawDesc = []byte{
+	0x0a, 0x25, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61,
+	0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74,
+	0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x18, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73,
+	0x77, 0x61, 0x70, 0x2e, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76,
+	0x31, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73,
+	0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x5f, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a,
+	0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xdb, 0x03, 0x0a, 0x0b, 0x50, 0x6f, 0x6f, 0x6c, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x12,
+	0x1c, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x12, 0x12, 0x0a,
+	0x04, 0x70, 0x61, 0x69, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x70, 0x61, 0x69,
+	0x72, 0x12, 0x36, 0x0a, 0x17, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x5f, 0x66, 0x65,
+	0x65, 0x5f, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x18, 0x04, 0x20, 0x01,
 	0x28, 0x03, 0x52, 0x15, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x50,
 	0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x65, 0x77,
-	0x61, 0x72, 0x64, 0x73, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a,
+	0x61, 0x72, 0x64, 0x73, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a,
 	0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x46, 0x65, 0x65, 0x12, 0x17, 0x0a, 0x07, 0x6d, 0x61,
-	0x78, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6d, 0x61, 0x78,
-	0x46, 0x65, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x41, 0x12, 0x22,
-	0x0a, 0x0d, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18,
-	0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x41, 0x54, 0x69,
-	0x6d, 0x65, 0x12, 0x8c, 0x01, 0x0a, 0x10, 0x72, 0x61, 0x74, 0x65, 0x5f, 0x6d, 0x75, 0x6c, 0x74,
-	0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e,
-	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65,
-	0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf,
-	0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73,
-	0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74,
-	0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c,
-	0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01,
-	0x52, 0x0f, 0x72, 0x61, 0x74, 0x65, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72,
-	0x73, 0x22, 0x90, 0x02, 0x0a, 0x0e, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69, 0x74, 0x79, 0x41,
-	0x64, 0x64, 0x65, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
-	0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x12, 0x79, 0x0a, 0x06, 0x61, 0x6d, 0x6f,
-	0x75, 0x6e, 0x74, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d,
+	0x78, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6d, 0x61, 0x78,
+	0x46, 0x65, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x5f, 0x61,
+	0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x41,
+	0x12, 0x24, 0x0a, 0x0e, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x5f, 0x61, 0x5f, 0x74, 0x69,
+	0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61,
+	0x6c, 0x41, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65,
+	0x5f, 0x61, 0x18, 0x09, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65,
+	0x41, 0x12, 0x22, 0x0a, 0x0d, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x5f, 0x74, 0x69,
+	0x6d, 0x65, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65,
+	0x41, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x8c, 0x01, 0x0a, 0x10, 0x72, 0x61, 0x74, 0x65, 0x5f, 0x6d,
+	0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x18, 0x0b, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76,
+	0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f,
+	0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64,
+	0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0,
+	0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7,
+	0xb0, 0x2a, 0x01, 0x52, 0x0f, 0x72, 0x61, 0x74, 0x65, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c,
+	0x69, 0x65, 0x72, 0x73, 0x22, 0xe6, 0x02, 0x0a, 0x0b, 0x50, 0x6f, 0x6f, 0x6c, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x12, 0x36, 0x0a,
+	0x17, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x5f, 0x66, 0x65, 0x65, 0x5f, 0x70, 0x65,
+	0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x15,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x50, 0x65, 0x72, 0x63, 0x65,
+	0x6e, 0x74, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0x5f, 0x66, 0x65, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x72, 0x65, 0x77, 0x61,
+	0x72, 0x64, 0x73, 0x46, 0x65, 0x65, 0x12, 0x17, 0x0a, 0x07, 0x6d, 0x61, 0x78, 0x5f, 0x66, 0x65,
+	0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6d, 0x61, 0x78, 0x46, 0x65, 0x65, 0x12,
+	0x19, 0x0a, 0x08, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x18, 0x05, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x07, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x41, 0x12, 0x22, 0x0a, 0x0d, 0x66, 0x75,
+	0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x0b, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x41, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x8c,
+	0x01, 0x0a, 0x10, 0x72, 0x61, 0x74, 0x65, 0x5f, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69,
+	0x65, 0x72, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d,
 	0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e,
 	0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69,
 	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f,
 	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73,
 	0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63,
-	0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x61, 0x6d,
-	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x4e, 0x0a, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x09, 0x42, 0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f,
-	0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e,
-	0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73,
-	0x6d, 0x6f, 0x73, 0x2e, 0x44, 0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x73, 0x68,
-	0x61, 0x72, 0x65, 0x73, 0x22, 0xd9, 0x02, 0x0a, 0x10, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69,
-	0x74, 0x79, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f,
-	0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f,
-	0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x12, 0x79,
-	0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19,
-	0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62,
-	0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa,
-	0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f,
-	0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f,
-	0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c,
-	0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a,
-	0x01, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x4e, 0x0a, 0x06, 0x73, 0x68, 0x61,
-	0x72, 0x65, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda,
-	0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f,
-	0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4,
-	0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x44, 0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a,
-	0x01, 0x52, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x12, 0x45, 0x0a, 0x0b, 0x75, 0x6e, 0x6c,
-	0x6f, 0x63, 0x6b, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
-	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
-	0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde, 0x1f, 0x00,
-	0x90, 0xdf, 0x1f, 0x01, 0x52, 0x0a, 0x75, 0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x54, 0x69, 0x6d, 0x65,
-	0x42, 0xc3, 0x01, 0x0a, 0x16, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x73, 0x74,
-	0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x0b, 0x45, 0x76, 0x65,
-	0x6e, 0x74, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x32, 0x73, 0x77, 0x61, 0x70,
-	0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73,
-	0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76,
-	0x31, 0x3b, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x76, 0x31, 0xa2, 0x02,
-	0x03, 0x53, 0x53, 0x58, 0xaa, 0x02, 0x12, 0x53, 0x77, 0x61, 0x70, 0x2e, 0x53, 0x74, 0x61, 0x62,
-	0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x12, 0x53, 0x77, 0x61, 0x70,
-	0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0xe2, 0x02,
-	0x1e, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70,
-	0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea,
-	0x02, 0x14, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77,
-	0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x0f, 0x72, 0x61,
+	0x74, 0x65, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x22, 0x90, 0x02,
+	0x0a, 0x0e, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69, 0x74, 0x79, 0x41, 0x64, 0x64, 0x65, 0x64,
+	0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x12, 0x17, 0x0a, 0x07,
+	0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70,
+	0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x12, 0x79, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18,
+	0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62,
+	0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e,
+	0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
+	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d,
+	0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69,
+	0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f,
+	0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74,
+	0x12, 0x4e, 0x0a, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
+	0x42, 0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
+	0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c, 0x65, 0x67, 0x61,
+	0x63, 0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
+	0x44, 0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73,
+	0x22, 0xd9, 0x02, 0x0a, 0x10, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69, 0x74, 0x79, 0x52, 0x65,
+	0x6d, 0x6f, 0x76, 0x65, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65,
+	0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65,
+	0x72, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x12, 0x79, 0x0a, 0x06, 0x61, 0x6d,
+	0x6f, 0x75, 0x6e, 0x74, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73,
+	0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31,
+	0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
+	0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65,
+	0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61,
+	0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x61,
+	0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x4e, 0x0a, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68,
+	0x2e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f,
+	0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x44, 0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x73,
+	0x68, 0x61, 0x72, 0x65, 0x73, 0x12, 0x45, 0x0a, 0x0b, 0x75, 0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x5f,
+	0x74, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde, 0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01,
+	0x52, 0x0a, 0x75, 0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x54, 0x69, 0x6d, 0x65, 0x42, 0xe8, 0x01, 0x0a,
+	0x1c, 0x63, 0x6f, 0x6d, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
+	0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x0b, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x38, 0x73, 0x77,
+	0x61, 0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70, 0x69,
+	0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61, 0x62,
+	0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65,
+	0x73, 0x77, 0x61, 0x70, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x4e, 0x53, 0x53, 0xaa, 0x02, 0x18, 0x4e,
+	0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x53, 0x77, 0x61, 0x70, 0x2e, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65,
+	0x73, 0x77, 0x61, 0x70, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x18, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x5c,
+	0x53, 0x77, 0x61, 0x70, 0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x5c,
+	0x56, 0x31, 0xe2, 0x02, 0x24, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x5c, 0x53, 0x77, 0x61, 0x70, 0x5c,
+	0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50,
+	0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x1b, 0x4e, 0x6f, 0x62, 0x6c,
+	0x65, 0x3a, 0x3a, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73,
+	0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_swap_stableswap_v1_events_proto_rawDescOnce sync.Once
-	file_swap_stableswap_v1_events_proto_rawDescData = file_swap_stableswap_v1_events_proto_rawDesc
+	file_noble_swap_stableswap_v1_events_proto_rawDescOnce sync.Once
+	file_noble_swap_stableswap_v1_events_proto_rawDescData = file_noble_swap_stableswap_v1_events_proto_rawDesc
 )
 
-func file_swap_stableswap_v1_events_proto_rawDescGZIP() []byte {
-	file_swap_stableswap_v1_events_proto_rawDescOnce.Do(func() {
-		file_swap_stableswap_v1_events_proto_rawDescData = protoimpl.X.CompressGZIP(file_swap_stableswap_v1_events_proto_rawDescData)
+func file_noble_swap_stableswap_v1_events_proto_rawDescGZIP() []byte {
+	file_noble_swap_stableswap_v1_events_proto_rawDescOnce.Do(func() {
+		file_noble_swap_stableswap_v1_events_proto_rawDescData = protoimpl.X.CompressGZIP(file_noble_swap_stableswap_v1_events_proto_rawDescData)
 	})
-	return file_swap_stableswap_v1_events_proto_rawDescData
+	return file_noble_swap_stableswap_v1_events_proto_rawDescData
 }
 
-var file_swap_stableswap_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_swap_stableswap_v1_events_proto_goTypes = []interface{}{
-	(*PoolCreated)(nil),           // 0: swap.stableswap.v1.PoolCreated
-	(*PoolUpdated)(nil),           // 1: swap.stableswap.v1.PoolUpdated
-	(*LiquidityAdded)(nil),        // 2: swap.stableswap.v1.LiquidityAdded
-	(*LiquidityRemoved)(nil),      // 3: swap.stableswap.v1.LiquidityRemoved
+var file_noble_swap_stableswap_v1_events_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_noble_swap_stableswap_v1_events_proto_goTypes = []interface{}{
+	(*PoolCreated)(nil),           // 0: noble.swap.stableswap.v1.PoolCreated
+	(*PoolUpdated)(nil),           // 1: noble.swap.stableswap.v1.PoolUpdated
+	(*LiquidityAdded)(nil),        // 2: noble.swap.stableswap.v1.LiquidityAdded
+	(*LiquidityRemoved)(nil),      // 3: noble.swap.stableswap.v1.LiquidityRemoved
 	(*v1beta1.Coin)(nil),          // 4: cosmos.base.v1beta1.Coin
 	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
 }
-var file_swap_stableswap_v1_events_proto_depIdxs = []int32{
-	4, // 0: swap.stableswap.v1.PoolCreated.rate_multipliers:type_name -> cosmos.base.v1beta1.Coin
-	4, // 1: swap.stableswap.v1.PoolUpdated.rate_multipliers:type_name -> cosmos.base.v1beta1.Coin
-	4, // 2: swap.stableswap.v1.LiquidityAdded.amount:type_name -> cosmos.base.v1beta1.Coin
-	4, // 3: swap.stableswap.v1.LiquidityRemoved.amount:type_name -> cosmos.base.v1beta1.Coin
-	5, // 4: swap.stableswap.v1.LiquidityRemoved.unlock_time:type_name -> google.protobuf.Timestamp
+var file_noble_swap_stableswap_v1_events_proto_depIdxs = []int32{
+	4, // 0: noble.swap.stableswap.v1.PoolCreated.rate_multipliers:type_name -> cosmos.base.v1beta1.Coin
+	4, // 1: noble.swap.stableswap.v1.PoolUpdated.rate_multipliers:type_name -> cosmos.base.v1beta1.Coin
+	4, // 2: noble.swap.stableswap.v1.LiquidityAdded.amount:type_name -> cosmos.base.v1beta1.Coin
+	4, // 3: noble.swap.stableswap.v1.LiquidityRemoved.amount:type_name -> cosmos.base.v1beta1.Coin
+	5, // 4: noble.swap.stableswap.v1.LiquidityRemoved.unlock_time:type_name -> google.protobuf.Timestamp
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name
@@ -3743,13 +3746,13 @@ var file_swap_stableswap_v1_events_proto_depIdxs = []int32{
 	0, // [0:5] is the sub-list for field type_name
 }
 
-func init() { file_swap_stableswap_v1_events_proto_init() }
-func file_swap_stableswap_v1_events_proto_init() {
-	if File_swap_stableswap_v1_events_proto != nil {
+func init() { file_noble_swap_stableswap_v1_events_proto_init() }
+func file_noble_swap_stableswap_v1_events_proto_init() {
+	if File_noble_swap_stableswap_v1_events_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_swap_stableswap_v1_events_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_stableswap_v1_events_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PoolCreated); i {
 			case 0:
 				return &v.state
@@ -3761,7 +3764,7 @@ func file_swap_stableswap_v1_events_proto_init() {
 				return nil
 			}
 		}
-		file_swap_stableswap_v1_events_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_stableswap_v1_events_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PoolUpdated); i {
 			case 0:
 				return &v.state
@@ -3773,7 +3776,7 @@ func file_swap_stableswap_v1_events_proto_init() {
 				return nil
 			}
 		}
-		file_swap_stableswap_v1_events_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_stableswap_v1_events_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LiquidityAdded); i {
 			case 0:
 				return &v.state
@@ -3785,7 +3788,7 @@ func file_swap_stableswap_v1_events_proto_init() {
 				return nil
 			}
 		}
-		file_swap_stableswap_v1_events_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_stableswap_v1_events_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LiquidityRemoved); i {
 			case 0:
 				return &v.state
@@ -3802,18 +3805,18 @@ func file_swap_stableswap_v1_events_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_swap_stableswap_v1_events_proto_rawDesc,
+			RawDescriptor: file_noble_swap_stableswap_v1_events_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_swap_stableswap_v1_events_proto_goTypes,
-		DependencyIndexes: file_swap_stableswap_v1_events_proto_depIdxs,
-		MessageInfos:      file_swap_stableswap_v1_events_proto_msgTypes,
+		GoTypes:           file_noble_swap_stableswap_v1_events_proto_goTypes,
+		DependencyIndexes: file_noble_swap_stableswap_v1_events_proto_depIdxs,
+		MessageInfos:      file_noble_swap_stableswap_v1_events_proto_msgTypes,
 	}.Build()
-	File_swap_stableswap_v1_events_proto = out.File
-	file_swap_stableswap_v1_events_proto_rawDesc = nil
-	file_swap_stableswap_v1_events_proto_goTypes = nil
-	file_swap_stableswap_v1_events_proto_depIdxs = nil
+	File_noble_swap_stableswap_v1_events_proto = out.File
+	file_noble_swap_stableswap_v1_events_proto_rawDesc = nil
+	file_noble_swap_stableswap_v1_events_proto_goTypes = nil
+	file_noble_swap_stableswap_v1_events_proto_depIdxs = nil
 }

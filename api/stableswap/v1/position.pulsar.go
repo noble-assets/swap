@@ -25,8 +25,8 @@ var (
 )
 
 func init() {
-	file_swap_stableswap_v1_position_proto_init()
-	md_BondedPosition = File_swap_stableswap_v1_position_proto.Messages().ByName("BondedPosition")
+	file_noble_swap_stableswap_v1_position_proto_init()
+	md_BondedPosition = File_noble_swap_stableswap_v1_position_proto.Messages().ByName("BondedPosition")
 	fd_BondedPosition_balance = md_BondedPosition.Fields().ByName("balance")
 	fd_BondedPosition_timestamp = md_BondedPosition.Fields().ByName("timestamp")
 	fd_BondedPosition_rewards_period_start = md_BondedPosition.Fields().ByName("rewards_period_start")
@@ -41,7 +41,7 @@ func (x *BondedPosition) ProtoReflect() protoreflect.Message {
 }
 
 func (x *BondedPosition) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_stableswap_v1_position_proto_msgTypes[0]
+	mi := &file_noble_swap_stableswap_v1_position_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -130,17 +130,17 @@ func (x *fastReflection_BondedPosition) Range(f func(protoreflect.FieldDescripto
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_BondedPosition) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.BondedPosition.balance":
+	case "noble.swap.stableswap.v1.BondedPosition.balance":
 		return x.Balance != ""
-	case "swap.stableswap.v1.BondedPosition.timestamp":
+	case "noble.swap.stableswap.v1.BondedPosition.timestamp":
 		return x.Timestamp != nil
-	case "swap.stableswap.v1.BondedPosition.rewards_period_start":
+	case "noble.swap.stableswap.v1.BondedPosition.rewards_period_start":
 		return x.RewardsPeriodStart != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.BondedPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.BondedPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -152,17 +152,17 @@ func (x *fastReflection_BondedPosition) Has(fd protoreflect.FieldDescriptor) boo
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_BondedPosition) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.BondedPosition.balance":
+	case "noble.swap.stableswap.v1.BondedPosition.balance":
 		x.Balance = ""
-	case "swap.stableswap.v1.BondedPosition.timestamp":
+	case "noble.swap.stableswap.v1.BondedPosition.timestamp":
 		x.Timestamp = nil
-	case "swap.stableswap.v1.BondedPosition.rewards_period_start":
+	case "noble.swap.stableswap.v1.BondedPosition.rewards_period_start":
 		x.RewardsPeriodStart = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.BondedPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.BondedPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -174,20 +174,20 @@ func (x *fastReflection_BondedPosition) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_BondedPosition) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.stableswap.v1.BondedPosition.balance":
+	case "noble.swap.stableswap.v1.BondedPosition.balance":
 		value := x.Balance
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.BondedPosition.timestamp":
+	case "noble.swap.stableswap.v1.BondedPosition.timestamp":
 		value := x.Timestamp
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
-	case "swap.stableswap.v1.BondedPosition.rewards_period_start":
+	case "noble.swap.stableswap.v1.BondedPosition.rewards_period_start":
 		value := x.RewardsPeriodStart
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.BondedPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.BondedPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.BondedPosition does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.BondedPosition does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -203,17 +203,17 @@ func (x *fastReflection_BondedPosition) Get(descriptor protoreflect.FieldDescrip
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_BondedPosition) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.BondedPosition.balance":
+	case "noble.swap.stableswap.v1.BondedPosition.balance":
 		x.Balance = value.Interface().(string)
-	case "swap.stableswap.v1.BondedPosition.timestamp":
+	case "noble.swap.stableswap.v1.BondedPosition.timestamp":
 		x.Timestamp = value.Message().Interface().(*timestamppb.Timestamp)
-	case "swap.stableswap.v1.BondedPosition.rewards_period_start":
+	case "noble.swap.stableswap.v1.BondedPosition.rewards_period_start":
 		x.RewardsPeriodStart = value.Message().Interface().(*timestamppb.Timestamp)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.BondedPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.BondedPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -229,23 +229,23 @@ func (x *fastReflection_BondedPosition) Set(fd protoreflect.FieldDescriptor, val
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_BondedPosition) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.BondedPosition.timestamp":
+	case "noble.swap.stableswap.v1.BondedPosition.timestamp":
 		if x.Timestamp == nil {
 			x.Timestamp = new(timestamppb.Timestamp)
 		}
 		return protoreflect.ValueOfMessage(x.Timestamp.ProtoReflect())
-	case "swap.stableswap.v1.BondedPosition.rewards_period_start":
+	case "noble.swap.stableswap.v1.BondedPosition.rewards_period_start":
 		if x.RewardsPeriodStart == nil {
 			x.RewardsPeriodStart = new(timestamppb.Timestamp)
 		}
 		return protoreflect.ValueOfMessage(x.RewardsPeriodStart.ProtoReflect())
-	case "swap.stableswap.v1.BondedPosition.balance":
-		panic(fmt.Errorf("field balance of message swap.stableswap.v1.BondedPosition is not mutable"))
+	case "noble.swap.stableswap.v1.BondedPosition.balance":
+		panic(fmt.Errorf("field balance of message noble.swap.stableswap.v1.BondedPosition is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.BondedPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.BondedPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -254,19 +254,19 @@ func (x *fastReflection_BondedPosition) Mutable(fd protoreflect.FieldDescriptor)
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_BondedPosition) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.BondedPosition.balance":
+	case "noble.swap.stableswap.v1.BondedPosition.balance":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.BondedPosition.timestamp":
+	case "noble.swap.stableswap.v1.BondedPosition.timestamp":
 		m := new(timestamppb.Timestamp)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
-	case "swap.stableswap.v1.BondedPosition.rewards_period_start":
+	case "noble.swap.stableswap.v1.BondedPosition.rewards_period_start":
 		m := new(timestamppb.Timestamp)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.BondedPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.BondedPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.BondedPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -276,7 +276,7 @@ func (x *fastReflection_BondedPosition) NewField(fd protoreflect.FieldDescriptor
 func (x *fastReflection_BondedPosition) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.stableswap.v1.BondedPosition", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.stableswap.v1.BondedPosition", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -654,8 +654,8 @@ var (
 )
 
 func init() {
-	file_swap_stableswap_v1_position_proto_init()
-	md_UnbondingPosition = File_swap_stableswap_v1_position_proto.Messages().ByName("UnbondingPosition")
+	file_noble_swap_stableswap_v1_position_proto_init()
+	md_UnbondingPosition = File_noble_swap_stableswap_v1_position_proto.Messages().ByName("UnbondingPosition")
 	fd_UnbondingPosition_shares = md_UnbondingPosition.Fields().ByName("shares")
 	fd_UnbondingPosition_amount = md_UnbondingPosition.Fields().ByName("amount")
 	fd_UnbondingPosition_end_time = md_UnbondingPosition.Fields().ByName("end_time")
@@ -670,7 +670,7 @@ func (x *UnbondingPosition) ProtoReflect() protoreflect.Message {
 }
 
 func (x *UnbondingPosition) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_stableswap_v1_position_proto_msgTypes[1]
+	mi := &file_noble_swap_stableswap_v1_position_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -759,17 +759,17 @@ func (x *fastReflection_UnbondingPosition) Range(f func(protoreflect.FieldDescri
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_UnbondingPosition) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.UnbondingPosition.shares":
+	case "noble.swap.stableswap.v1.UnbondingPosition.shares":
 		return x.Shares != ""
-	case "swap.stableswap.v1.UnbondingPosition.amount":
+	case "noble.swap.stableswap.v1.UnbondingPosition.amount":
 		return len(x.Amount) != 0
-	case "swap.stableswap.v1.UnbondingPosition.end_time":
+	case "noble.swap.stableswap.v1.UnbondingPosition.end_time":
 		return x.EndTime != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.UnbondingPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.UnbondingPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -781,17 +781,17 @@ func (x *fastReflection_UnbondingPosition) Has(fd protoreflect.FieldDescriptor) 
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_UnbondingPosition) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.UnbondingPosition.shares":
+	case "noble.swap.stableswap.v1.UnbondingPosition.shares":
 		x.Shares = ""
-	case "swap.stableswap.v1.UnbondingPosition.amount":
+	case "noble.swap.stableswap.v1.UnbondingPosition.amount":
 		x.Amount = nil
-	case "swap.stableswap.v1.UnbondingPosition.end_time":
+	case "noble.swap.stableswap.v1.UnbondingPosition.end_time":
 		x.EndTime = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.UnbondingPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.UnbondingPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -803,23 +803,23 @@ func (x *fastReflection_UnbondingPosition) Clear(fd protoreflect.FieldDescriptor
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_UnbondingPosition) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.stableswap.v1.UnbondingPosition.shares":
+	case "noble.swap.stableswap.v1.UnbondingPosition.shares":
 		value := x.Shares
 		return protoreflect.ValueOfString(value)
-	case "swap.stableswap.v1.UnbondingPosition.amount":
+	case "noble.swap.stableswap.v1.UnbondingPosition.amount":
 		if len(x.Amount) == 0 {
 			return protoreflect.ValueOfList(&_UnbondingPosition_2_list{})
 		}
 		listValue := &_UnbondingPosition_2_list{list: &x.Amount}
 		return protoreflect.ValueOfList(listValue)
-	case "swap.stableswap.v1.UnbondingPosition.end_time":
+	case "noble.swap.stableswap.v1.UnbondingPosition.end_time":
 		value := x.EndTime
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.UnbondingPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.UnbondingPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.UnbondingPosition does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.UnbondingPosition does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -835,19 +835,19 @@ func (x *fastReflection_UnbondingPosition) Get(descriptor protoreflect.FieldDesc
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_UnbondingPosition) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.UnbondingPosition.shares":
+	case "noble.swap.stableswap.v1.UnbondingPosition.shares":
 		x.Shares = value.Interface().(string)
-	case "swap.stableswap.v1.UnbondingPosition.amount":
+	case "noble.swap.stableswap.v1.UnbondingPosition.amount":
 		lv := value.List()
 		clv := lv.(*_UnbondingPosition_2_list)
 		x.Amount = *clv.list
-	case "swap.stableswap.v1.UnbondingPosition.end_time":
+	case "noble.swap.stableswap.v1.UnbondingPosition.end_time":
 		x.EndTime = value.Message().Interface().(*timestamppb.Timestamp)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.UnbondingPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.UnbondingPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -863,24 +863,24 @@ func (x *fastReflection_UnbondingPosition) Set(fd protoreflect.FieldDescriptor, 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_UnbondingPosition) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.UnbondingPosition.amount":
+	case "noble.swap.stableswap.v1.UnbondingPosition.amount":
 		if x.Amount == nil {
 			x.Amount = []*v1beta1.Coin{}
 		}
 		value := &_UnbondingPosition_2_list{list: &x.Amount}
 		return protoreflect.ValueOfList(value)
-	case "swap.stableswap.v1.UnbondingPosition.end_time":
+	case "noble.swap.stableswap.v1.UnbondingPosition.end_time":
 		if x.EndTime == nil {
 			x.EndTime = new(timestamppb.Timestamp)
 		}
 		return protoreflect.ValueOfMessage(x.EndTime.ProtoReflect())
-	case "swap.stableswap.v1.UnbondingPosition.shares":
-		panic(fmt.Errorf("field shares of message swap.stableswap.v1.UnbondingPosition is not mutable"))
+	case "noble.swap.stableswap.v1.UnbondingPosition.shares":
+		panic(fmt.Errorf("field shares of message noble.swap.stableswap.v1.UnbondingPosition is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.UnbondingPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.UnbondingPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -889,19 +889,19 @@ func (x *fastReflection_UnbondingPosition) Mutable(fd protoreflect.FieldDescript
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_UnbondingPosition) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.stableswap.v1.UnbondingPosition.shares":
+	case "noble.swap.stableswap.v1.UnbondingPosition.shares":
 		return protoreflect.ValueOfString("")
-	case "swap.stableswap.v1.UnbondingPosition.amount":
+	case "noble.swap.stableswap.v1.UnbondingPosition.amount":
 		list := []*v1beta1.Coin{}
 		return protoreflect.ValueOfList(&_UnbondingPosition_2_list{list: &list})
-	case "swap.stableswap.v1.UnbondingPosition.end_time":
+	case "noble.swap.stableswap.v1.UnbondingPosition.end_time":
 		m := new(timestamppb.Timestamp)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.stableswap.v1.UnbondingPosition"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.stableswap.v1.UnbondingPosition"))
 		}
-		panic(fmt.Errorf("message swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.stableswap.v1.UnbondingPosition does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -911,7 +911,7 @@ func (x *fastReflection_UnbondingPosition) NewField(fd protoreflect.FieldDescrip
 func (x *fastReflection_UnbondingPosition) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.stableswap.v1.UnbondingPosition", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.stableswap.v1.UnbondingPosition", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1236,7 +1236,7 @@ func (x *fastReflection_UnbondingPosition) ProtoMethods() *protoiface.Methods {
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: swap/stableswap/v1/position.proto
+// source: noble/swap/stableswap/v1/position.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -1261,7 +1261,7 @@ type BondedPosition struct {
 func (x *BondedPosition) Reset() {
 	*x = BondedPosition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_stableswap_v1_position_proto_msgTypes[0]
+		mi := &file_noble_swap_stableswap_v1_position_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1275,7 +1275,7 @@ func (*BondedPosition) ProtoMessage() {}
 
 // Deprecated: Use BondedPosition.ProtoReflect.Descriptor instead.
 func (*BondedPosition) Descriptor() ([]byte, []int) {
-	return file_swap_stableswap_v1_position_proto_rawDescGZIP(), []int{0}
+	return file_noble_swap_stableswap_v1_position_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *BondedPosition) GetBalance() string {
@@ -1315,7 +1315,7 @@ type UnbondingPosition struct {
 func (x *UnbondingPosition) Reset() {
 	*x = UnbondingPosition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_stableswap_v1_position_proto_msgTypes[1]
+		mi := &file_noble_swap_stableswap_v1_position_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1329,7 +1329,7 @@ func (*UnbondingPosition) ProtoMessage() {}
 
 // Deprecated: Use UnbondingPosition.ProtoReflect.Descriptor instead.
 func (*UnbondingPosition) Descriptor() ([]byte, []int) {
-	return file_swap_stableswap_v1_position_proto_rawDescGZIP(), []int{1}
+	return file_noble_swap_stableswap_v1_position_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UnbondingPosition) GetShares() string {
@@ -1353,94 +1353,97 @@ func (x *UnbondingPosition) GetEndTime() *timestamppb.Timestamp {
 	return nil
 }
 
-var File_swap_stableswap_v1_position_proto protoreflect.FileDescriptor
+var File_noble_swap_stableswap_v1_position_proto protoreflect.FileDescriptor
 
-var file_swap_stableswap_v1_position_proto_rawDesc = []byte{
-	0x0a, 0x21, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61,
-	0x70, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x12, 0x12, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65,
-	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61,
-	0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d,
-	0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f,
-	0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d,
-	0x6f, 0x73, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x67, 0x6f, 0x6f,
-	0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d,
-	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xfe, 0x01, 0x0a,
-	0x0e, 0x42, 0x6f, 0x6e, 0x64, 0x65, 0x64, 0x50, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12,
-	0x50, 0x0a, 0x07, 0x62, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x42, 0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
-	0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c, 0x65, 0x67, 0x61,
-	0x63, 0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
-	0x44, 0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x07, 0x62, 0x61, 0x6c, 0x61, 0x6e, 0x63,
-	0x65, 0x12, 0x42, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
-	0x42, 0x08, 0xc8, 0xde, 0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65,
-	0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x56, 0x0a, 0x14, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
-	0x5f, 0x70, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x72, 0x74, 0x18, 0x04, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42,
-	0x08, 0xc8, 0xde, 0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x12, 0x72, 0x65, 0x77, 0x61, 0x72,
-	0x64, 0x73, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x53, 0x74, 0x61, 0x72, 0x74, 0x22, 0x9f, 0x02,
-	0x0a, 0x11, 0x55, 0x6e, 0x62, 0x6f, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x50, 0x6f, 0x73, 0x69, 0x74,
-	0x69, 0x6f, 0x6e, 0x12, 0x4e, 0x0a, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x42, 0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73,
-	0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c,
-	0x65, 0x67, 0x61, 0x63, 0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d,
-	0x6f, 0x73, 0x2e, 0x44, 0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x73, 0x68, 0x61,
-	0x72, 0x65, 0x73, 0x12, 0x79, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73,
-	0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46,
-	0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
-	0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
-	0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73,
-	0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e,
-	0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x3f,
-	0x0a, 0x08, 0x65, 0x6e, 0x64, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
+var file_noble_swap_stableswap_v1_position_proto_rawDesc = []byte{
+	0x0a, 0x27, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61,
+	0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x6f, 0x73, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x18, 0x6e, 0x6f, 0x62, 0x6c, 0x65,
+	0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70,
+	0x2e, 0x76, 0x31, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69, 0x6e, 0x6f,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62,
+	0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x5f, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67,
+	0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xfe, 0x01, 0x0a, 0x0e, 0x42, 0x6f, 0x6e,
+	0x64, 0x65, 0x64, 0x50, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x50, 0x0a, 0x07, 0x62,
+	0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x36, 0xc8, 0xde,
+	0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e,
+	0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x44, 0x65,
+	0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x44, 0x65, 0x63, 0xa8,
+	0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x07, 0x62, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x42, 0x0a,
+	0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
 	0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde,
-	0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x42,
-	0xc5, 0x01, 0x0a, 0x16, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x73, 0x74, 0x61,
-	0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x0d, 0x50, 0x6f, 0x73, 0x69,
-	0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x32, 0x73, 0x77, 0x61,
-	0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2f,
-	0x76, 0x31, 0x3b, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x76, 0x31, 0xa2,
-	0x02, 0x03, 0x53, 0x53, 0x58, 0xaa, 0x02, 0x12, 0x53, 0x77, 0x61, 0x70, 0x2e, 0x53, 0x74, 0x61,
-	0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x12, 0x53, 0x77, 0x61,
-	0x70, 0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0xe2,
-	0x02, 0x1e, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61,
-	0x70, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0xea, 0x02, 0x14, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73,
-	0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
+	0x70, 0x12, 0x56, 0x0a, 0x14, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x5f, 0x70, 0x65, 0x72,
+	0x69, 0x6f, 0x64, 0x5f, 0x73, 0x74, 0x61, 0x72, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
+	0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde, 0x1f,
+	0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x12, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x50, 0x65,
+	0x72, 0x69, 0x6f, 0x64, 0x53, 0x74, 0x61, 0x72, 0x74, 0x22, 0x9f, 0x02, 0x0a, 0x11, 0x55, 0x6e,
+	0x62, 0x6f, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x50, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x4e, 0x0a, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42,
+	0x36, 0xc8, 0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73,
+	0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c, 0x65, 0x67, 0x61, 0x63,
+	0x79, 0x44, 0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x44,
+	0x65, 0x63, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x12,
+	0x79, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31,
+	0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00,
+	0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b,
+	0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a,
+	0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0,
+	0x2a, 0x01, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x3f, 0x0a, 0x08, 0x65, 0x6e,
+	0x64, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67,
+	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54,
+	0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde, 0x1f, 0x00, 0x90, 0xdf,
+	0x1f, 0x01, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x42, 0xea, 0x01, 0x0a, 0x1c,
+	0x63, 0x6f, 0x6d, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x73,
+	0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x0d, 0x50, 0x6f,
+	0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x38, 0x73,
+	0x77, 0x61, 0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70,
+	0x69, 0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x73, 0x74, 0x61,
+	0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x74, 0x61, 0x62, 0x6c,
+	0x65, 0x73, 0x77, 0x61, 0x70, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x4e, 0x53, 0x53, 0xaa, 0x02, 0x18,
+	0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x53, 0x77, 0x61, 0x70, 0x2e, 0x53, 0x74, 0x61, 0x62, 0x6c,
+	0x65, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x18, 0x4e, 0x6f, 0x62, 0x6c, 0x65,
+	0x5c, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70,
+	0x5c, 0x56, 0x31, 0xe2, 0x02, 0x24, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x5c, 0x53, 0x77, 0x61, 0x70,
+	0x5c, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0x5c, 0x47,
+	0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x1b, 0x4e, 0x6f, 0x62,
+	0x6c, 0x65, 0x3a, 0x3a, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x53, 0x74, 0x61, 0x62, 0x6c, 0x65,
+	0x73, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_swap_stableswap_v1_position_proto_rawDescOnce sync.Once
-	file_swap_stableswap_v1_position_proto_rawDescData = file_swap_stableswap_v1_position_proto_rawDesc
+	file_noble_swap_stableswap_v1_position_proto_rawDescOnce sync.Once
+	file_noble_swap_stableswap_v1_position_proto_rawDescData = file_noble_swap_stableswap_v1_position_proto_rawDesc
 )
 
-func file_swap_stableswap_v1_position_proto_rawDescGZIP() []byte {
-	file_swap_stableswap_v1_position_proto_rawDescOnce.Do(func() {
-		file_swap_stableswap_v1_position_proto_rawDescData = protoimpl.X.CompressGZIP(file_swap_stableswap_v1_position_proto_rawDescData)
+func file_noble_swap_stableswap_v1_position_proto_rawDescGZIP() []byte {
+	file_noble_swap_stableswap_v1_position_proto_rawDescOnce.Do(func() {
+		file_noble_swap_stableswap_v1_position_proto_rawDescData = protoimpl.X.CompressGZIP(file_noble_swap_stableswap_v1_position_proto_rawDescData)
 	})
-	return file_swap_stableswap_v1_position_proto_rawDescData
+	return file_noble_swap_stableswap_v1_position_proto_rawDescData
 }
 
-var file_swap_stableswap_v1_position_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_swap_stableswap_v1_position_proto_goTypes = []interface{}{
-	(*BondedPosition)(nil),        // 0: swap.stableswap.v1.BondedPosition
-	(*UnbondingPosition)(nil),     // 1: swap.stableswap.v1.UnbondingPosition
+var file_noble_swap_stableswap_v1_position_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_noble_swap_stableswap_v1_position_proto_goTypes = []interface{}{
+	(*BondedPosition)(nil),        // 0: noble.swap.stableswap.v1.BondedPosition
+	(*UnbondingPosition)(nil),     // 1: noble.swap.stableswap.v1.UnbondingPosition
 	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 	(*v1beta1.Coin)(nil),          // 3: cosmos.base.v1beta1.Coin
 }
-var file_swap_stableswap_v1_position_proto_depIdxs = []int32{
-	2, // 0: swap.stableswap.v1.BondedPosition.timestamp:type_name -> google.protobuf.Timestamp
-	2, // 1: swap.stableswap.v1.BondedPosition.rewards_period_start:type_name -> google.protobuf.Timestamp
-	3, // 2: swap.stableswap.v1.UnbondingPosition.amount:type_name -> cosmos.base.v1beta1.Coin
-	2, // 3: swap.stableswap.v1.UnbondingPosition.end_time:type_name -> google.protobuf.Timestamp
+var file_noble_swap_stableswap_v1_position_proto_depIdxs = []int32{
+	2, // 0: noble.swap.stableswap.v1.BondedPosition.timestamp:type_name -> google.protobuf.Timestamp
+	2, // 1: noble.swap.stableswap.v1.BondedPosition.rewards_period_start:type_name -> google.protobuf.Timestamp
+	3, // 2: noble.swap.stableswap.v1.UnbondingPosition.amount:type_name -> cosmos.base.v1beta1.Coin
+	2, // 3: noble.swap.stableswap.v1.UnbondingPosition.end_time:type_name -> google.protobuf.Timestamp
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name
@@ -1448,13 +1451,13 @@ var file_swap_stableswap_v1_position_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_swap_stableswap_v1_position_proto_init() }
-func file_swap_stableswap_v1_position_proto_init() {
-	if File_swap_stableswap_v1_position_proto != nil {
+func init() { file_noble_swap_stableswap_v1_position_proto_init() }
+func file_noble_swap_stableswap_v1_position_proto_init() {
+	if File_noble_swap_stableswap_v1_position_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_swap_stableswap_v1_position_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_stableswap_v1_position_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BondedPosition); i {
 			case 0:
 				return &v.state
@@ -1466,7 +1469,7 @@ func file_swap_stableswap_v1_position_proto_init() {
 				return nil
 			}
 		}
-		file_swap_stableswap_v1_position_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_stableswap_v1_position_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UnbondingPosition); i {
 			case 0:
 				return &v.state
@@ -1483,18 +1486,18 @@ func file_swap_stableswap_v1_position_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_swap_stableswap_v1_position_proto_rawDesc,
+			RawDescriptor: file_noble_swap_stableswap_v1_position_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_swap_stableswap_v1_position_proto_goTypes,
-		DependencyIndexes: file_swap_stableswap_v1_position_proto_depIdxs,
-		MessageInfos:      file_swap_stableswap_v1_position_proto_msgTypes,
+		GoTypes:           file_noble_swap_stableswap_v1_position_proto_goTypes,
+		DependencyIndexes: file_noble_swap_stableswap_v1_position_proto_depIdxs,
+		MessageInfos:      file_noble_swap_stableswap_v1_position_proto_msgTypes,
 	}.Build()
-	File_swap_stableswap_v1_position_proto = out.File
-	file_swap_stableswap_v1_position_proto_rawDesc = nil
-	file_swap_stableswap_v1_position_proto_goTypes = nil
-	file_swap_stableswap_v1_position_proto_depIdxs = nil
+	File_noble_swap_stableswap_v1_position_proto = out.File
+	file_noble_swap_stableswap_v1_position_proto_rawDesc = nil
+	file_noble_swap_stableswap_v1_position_proto_goTypes = nil
+	file_noble_swap_stableswap_v1_position_proto_depIdxs = nil
 }

@@ -24,8 +24,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgWithdrawProtocolFees = File_swap_v1_tx_proto.Messages().ByName("MsgWithdrawProtocolFees")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgWithdrawProtocolFees = File_noble_swap_v1_tx_proto.Messages().ByName("MsgWithdrawProtocolFees")
 	fd_MsgWithdrawProtocolFees_signer = md_MsgWithdrawProtocolFees.Fields().ByName("signer")
 	fd_MsgWithdrawProtocolFees_to = md_MsgWithdrawProtocolFees.Fields().ByName("to")
 }
@@ -39,7 +39,7 @@ func (x *MsgWithdrawProtocolFees) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgWithdrawProtocolFees) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[0]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -122,15 +122,15 @@ func (x *fastReflection_MsgWithdrawProtocolFees) Range(f func(protoreflect.Field
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgWithdrawProtocolFees) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawProtocolFees.signer":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.signer":
 		return x.Signer != ""
-	case "swap.v1.MsgWithdrawProtocolFees.to":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.to":
 		return x.To != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFees"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFees"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -142,15 +142,15 @@ func (x *fastReflection_MsgWithdrawProtocolFees) Has(fd protoreflect.FieldDescri
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawProtocolFees) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawProtocolFees.signer":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.signer":
 		x.Signer = ""
-	case "swap.v1.MsgWithdrawProtocolFees.to":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.to":
 		x.To = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFees"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFees"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -162,17 +162,17 @@ func (x *fastReflection_MsgWithdrawProtocolFees) Clear(fd protoreflect.FieldDesc
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgWithdrawProtocolFees) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgWithdrawProtocolFees.signer":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.MsgWithdrawProtocolFees.to":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.to":
 		value := x.To
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFees"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFees"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFees does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFees does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -188,15 +188,15 @@ func (x *fastReflection_MsgWithdrawProtocolFees) Get(descriptor protoreflect.Fie
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawProtocolFees) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawProtocolFees.signer":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.MsgWithdrawProtocolFees.to":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.to":
 		x.To = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFees"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFees"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -212,15 +212,15 @@ func (x *fastReflection_MsgWithdrawProtocolFees) Set(fd protoreflect.FieldDescri
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawProtocolFees) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawProtocolFees.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgWithdrawProtocolFees is not mutable"))
-	case "swap.v1.MsgWithdrawProtocolFees.to":
-		panic(fmt.Errorf("field to of message swap.v1.MsgWithdrawProtocolFees is not mutable"))
+	case "noble.swap.v1.MsgWithdrawProtocolFees.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgWithdrawProtocolFees is not mutable"))
+	case "noble.swap.v1.MsgWithdrawProtocolFees.to":
+		panic(fmt.Errorf("field to of message noble.swap.v1.MsgWithdrawProtocolFees is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFees"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFees"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -229,15 +229,15 @@ func (x *fastReflection_MsgWithdrawProtocolFees) Mutable(fd protoreflect.FieldDe
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgWithdrawProtocolFees) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawProtocolFees.signer":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.MsgWithdrawProtocolFees.to":
+	case "noble.swap.v1.MsgWithdrawProtocolFees.to":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFees"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFees"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFees does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -247,7 +247,7 @@ func (x *fastReflection_MsgWithdrawProtocolFees) NewField(fd protoreflect.FieldD
 func (x *fastReflection_MsgWithdrawProtocolFees) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgWithdrawProtocolFees", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgWithdrawProtocolFees", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -506,8 +506,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgWithdrawProtocolFeesResponse = File_swap_v1_tx_proto.Messages().ByName("MsgWithdrawProtocolFeesResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgWithdrawProtocolFeesResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgWithdrawProtocolFeesResponse")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgWithdrawProtocolFeesResponse)(nil)
@@ -519,7 +519,7 @@ func (x *MsgWithdrawProtocolFeesResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgWithdrawProtocolFeesResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[1]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -592,9 +592,9 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) Has(fd protoreflect.Fie
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFeesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFeesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -608,9 +608,9 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) Clear(fd protoreflect.F
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFeesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFeesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -624,9 +624,9 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) Get(descriptor protoref
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFeesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFeesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -644,9 +644,9 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) Set(fd protoreflect.Fie
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFeesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFeesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -664,9 +664,9 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) Mutable(fd protoreflect
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFeesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFeesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -677,9 +677,9 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) NewField(fd protoreflec
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawProtocolFeesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawProtocolFeesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawProtocolFeesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -689,7 +689,7 @@ func (x *fastReflection_MsgWithdrawProtocolFeesResponse) NewField(fd protoreflec
 func (x *fastReflection_MsgWithdrawProtocolFeesResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgWithdrawProtocolFeesResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgWithdrawProtocolFeesResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -863,8 +863,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgWithdrawRewards = File_swap_v1_tx_proto.Messages().ByName("MsgWithdrawRewards")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgWithdrawRewards = File_noble_swap_v1_tx_proto.Messages().ByName("MsgWithdrawRewards")
 	fd_MsgWithdrawRewards_signer = md_MsgWithdrawRewards.Fields().ByName("signer")
 }
 
@@ -877,7 +877,7 @@ func (x *MsgWithdrawRewards) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgWithdrawRewards) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[2]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -954,13 +954,13 @@ func (x *fastReflection_MsgWithdrawRewards) Range(f func(protoreflect.FieldDescr
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgWithdrawRewards) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewards.signer":
+	case "noble.swap.v1.MsgWithdrawRewards.signer":
 		return x.Signer != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewards"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewards"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -972,13 +972,13 @@ func (x *fastReflection_MsgWithdrawRewards) Has(fd protoreflect.FieldDescriptor)
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawRewards) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewards.signer":
+	case "noble.swap.v1.MsgWithdrawRewards.signer":
 		x.Signer = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewards"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewards"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -990,14 +990,14 @@ func (x *fastReflection_MsgWithdrawRewards) Clear(fd protoreflect.FieldDescripto
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgWithdrawRewards) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgWithdrawRewards.signer":
+	case "noble.swap.v1.MsgWithdrawRewards.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewards"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewards"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewards does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewards does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1013,13 +1013,13 @@ func (x *fastReflection_MsgWithdrawRewards) Get(descriptor protoreflect.FieldDes
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawRewards) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewards.signer":
+	case "noble.swap.v1.MsgWithdrawRewards.signer":
 		x.Signer = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewards"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewards"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1035,13 +1035,13 @@ func (x *fastReflection_MsgWithdrawRewards) Set(fd protoreflect.FieldDescriptor,
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawRewards) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewards.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgWithdrawRewards is not mutable"))
+	case "noble.swap.v1.MsgWithdrawRewards.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgWithdrawRewards is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewards"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewards"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1050,13 +1050,13 @@ func (x *fastReflection_MsgWithdrawRewards) Mutable(fd protoreflect.FieldDescrip
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgWithdrawRewards) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewards.signer":
+	case "noble.swap.v1.MsgWithdrawRewards.signer":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewards"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewards"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewards does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1066,7 +1066,7 @@ func (x *fastReflection_MsgWithdrawRewards) NewField(fd protoreflect.FieldDescri
 func (x *fastReflection_MsgWithdrawRewards) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgWithdrawRewards", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgWithdrawRewards", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1334,8 +1334,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgWithdrawRewardsResponse = File_swap_v1_tx_proto.Messages().ByName("MsgWithdrawRewardsResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgWithdrawRewardsResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgWithdrawRewardsResponse")
 	fd_MsgWithdrawRewardsResponse_rewards = md_MsgWithdrawRewardsResponse.Fields().ByName("rewards")
 }
 
@@ -1348,7 +1348,7 @@ func (x *MsgWithdrawRewardsResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgWithdrawRewardsResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[3]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1425,13 +1425,13 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Range(f func(protoreflect.Fi
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgWithdrawRewardsResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewardsResponse.rewards":
+	case "noble.swap.v1.MsgWithdrawRewardsResponse.rewards":
 		return len(x.Rewards) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewardsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewardsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1443,13 +1443,13 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Has(fd protoreflect.FieldDes
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawRewardsResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewardsResponse.rewards":
+	case "noble.swap.v1.MsgWithdrawRewardsResponse.rewards":
 		x.Rewards = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewardsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewardsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1461,7 +1461,7 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Clear(fd protoreflect.FieldD
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgWithdrawRewardsResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgWithdrawRewardsResponse.rewards":
+	case "noble.swap.v1.MsgWithdrawRewardsResponse.rewards":
 		if len(x.Rewards) == 0 {
 			return protoreflect.ValueOfList(&_MsgWithdrawRewardsResponse_1_list{})
 		}
@@ -1469,9 +1469,9 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Get(descriptor protoreflect.
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewardsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewardsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewardsResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewardsResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1487,15 +1487,15 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Get(descriptor protoreflect.
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawRewardsResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewardsResponse.rewards":
+	case "noble.swap.v1.MsgWithdrawRewardsResponse.rewards":
 		lv := value.List()
 		clv := lv.(*_MsgWithdrawRewardsResponse_1_list)
 		x.Rewards = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewardsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewardsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1511,7 +1511,7 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Set(fd protoreflect.FieldDes
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgWithdrawRewardsResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewardsResponse.rewards":
+	case "noble.swap.v1.MsgWithdrawRewardsResponse.rewards":
 		if x.Rewards == nil {
 			x.Rewards = []*v1beta1.Coin{}
 		}
@@ -1519,9 +1519,9 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Mutable(fd protoreflect.Fiel
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewardsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewardsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1530,14 +1530,14 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) Mutable(fd protoreflect.Fiel
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgWithdrawRewardsResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgWithdrawRewardsResponse.rewards":
+	case "noble.swap.v1.MsgWithdrawRewardsResponse.rewards":
 		list := []*v1beta1.Coin{}
 		return protoreflect.ValueOfList(&_MsgWithdrawRewardsResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgWithdrawRewardsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgWithdrawRewardsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgWithdrawRewardsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1547,7 +1547,7 @@ func (x *fastReflection_MsgWithdrawRewardsResponse) NewField(fd protoreflect.Fie
 func (x *fastReflection_MsgWithdrawRewardsResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgWithdrawRewardsResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgWithdrawRewardsResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1831,8 +1831,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgSwap = File_swap_v1_tx_proto.Messages().ByName("MsgSwap")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgSwap = File_noble_swap_v1_tx_proto.Messages().ByName("MsgSwap")
 	fd_MsgSwap_signer = md_MsgSwap.Fields().ByName("signer")
 	fd_MsgSwap_amount = md_MsgSwap.Fields().ByName("amount")
 	fd_MsgSwap_routes = md_MsgSwap.Fields().ByName("routes")
@@ -1848,7 +1848,7 @@ func (x *MsgSwap) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgSwap) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[4]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1943,19 +1943,19 @@ func (x *fastReflection_MsgSwap) Range(f func(protoreflect.FieldDescriptor, prot
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgSwap) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwap.signer":
+	case "noble.swap.v1.MsgSwap.signer":
 		return x.Signer != ""
-	case "swap.v1.MsgSwap.amount":
+	case "noble.swap.v1.MsgSwap.amount":
 		return x.Amount != nil
-	case "swap.v1.MsgSwap.routes":
+	case "noble.swap.v1.MsgSwap.routes":
 		return len(x.Routes) != 0
-	case "swap.v1.MsgSwap.min":
+	case "noble.swap.v1.MsgSwap.min":
 		return x.Min != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1967,19 +1967,19 @@ func (x *fastReflection_MsgSwap) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgSwap) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwap.signer":
+	case "noble.swap.v1.MsgSwap.signer":
 		x.Signer = ""
-	case "swap.v1.MsgSwap.amount":
+	case "noble.swap.v1.MsgSwap.amount":
 		x.Amount = nil
-	case "swap.v1.MsgSwap.routes":
+	case "noble.swap.v1.MsgSwap.routes":
 		x.Routes = nil
-	case "swap.v1.MsgSwap.min":
+	case "noble.swap.v1.MsgSwap.min":
 		x.Min = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1991,26 +1991,26 @@ func (x *fastReflection_MsgSwap) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgSwap) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgSwap.signer":
+	case "noble.swap.v1.MsgSwap.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.MsgSwap.amount":
+	case "noble.swap.v1.MsgSwap.amount":
 		value := x.Amount
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
-	case "swap.v1.MsgSwap.routes":
+	case "noble.swap.v1.MsgSwap.routes":
 		if len(x.Routes) == 0 {
 			return protoreflect.ValueOfList(&_MsgSwap_3_list{})
 		}
 		listValue := &_MsgSwap_3_list{list: &x.Routes}
 		return protoreflect.ValueOfList(listValue)
-	case "swap.v1.MsgSwap.min":
+	case "noble.swap.v1.MsgSwap.min":
 		value := x.Min
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwap does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwap does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2026,21 +2026,21 @@ func (x *fastReflection_MsgSwap) Get(descriptor protoreflect.FieldDescriptor) pr
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgSwap) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwap.signer":
+	case "noble.swap.v1.MsgSwap.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.MsgSwap.amount":
+	case "noble.swap.v1.MsgSwap.amount":
 		x.Amount = value.Message().Interface().(*v1beta1.Coin)
-	case "swap.v1.MsgSwap.routes":
+	case "noble.swap.v1.MsgSwap.routes":
 		lv := value.List()
 		clv := lv.(*_MsgSwap_3_list)
 		x.Routes = *clv.list
-	case "swap.v1.MsgSwap.min":
+	case "noble.swap.v1.MsgSwap.min":
 		x.Min = value.Message().Interface().(*v1beta1.Coin)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2056,29 +2056,29 @@ func (x *fastReflection_MsgSwap) Set(fd protoreflect.FieldDescriptor, value prot
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgSwap) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwap.amount":
+	case "noble.swap.v1.MsgSwap.amount":
 		if x.Amount == nil {
 			x.Amount = new(v1beta1.Coin)
 		}
 		return protoreflect.ValueOfMessage(x.Amount.ProtoReflect())
-	case "swap.v1.MsgSwap.routes":
+	case "noble.swap.v1.MsgSwap.routes":
 		if x.Routes == nil {
 			x.Routes = []*Route{}
 		}
 		value := &_MsgSwap_3_list{list: &x.Routes}
 		return protoreflect.ValueOfList(value)
-	case "swap.v1.MsgSwap.min":
+	case "noble.swap.v1.MsgSwap.min":
 		if x.Min == nil {
 			x.Min = new(v1beta1.Coin)
 		}
 		return protoreflect.ValueOfMessage(x.Min.ProtoReflect())
-	case "swap.v1.MsgSwap.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgSwap is not mutable"))
+	case "noble.swap.v1.MsgSwap.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgSwap is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2087,22 +2087,22 @@ func (x *fastReflection_MsgSwap) Mutable(fd protoreflect.FieldDescriptor) protor
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgSwap) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwap.signer":
+	case "noble.swap.v1.MsgSwap.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.MsgSwap.amount":
+	case "noble.swap.v1.MsgSwap.amount":
 		m := new(v1beta1.Coin)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
-	case "swap.v1.MsgSwap.routes":
+	case "noble.swap.v1.MsgSwap.routes":
 		list := []*Route{}
 		return protoreflect.ValueOfList(&_MsgSwap_3_list{list: &list})
-	case "swap.v1.MsgSwap.min":
+	case "noble.swap.v1.MsgSwap.min":
 		m := new(v1beta1.Coin)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2112,7 +2112,7 @@ func (x *fastReflection_MsgSwap) NewField(fd protoreflect.FieldDescriptor) proto
 func (x *fastReflection_MsgSwap) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgSwap", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgSwap", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2545,8 +2545,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgSwapResponse = File_swap_v1_tx_proto.Messages().ByName("MsgSwapResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgSwapResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgSwapResponse")
 	fd_MsgSwapResponse_result = md_MsgSwapResponse.Fields().ByName("result")
 	fd_MsgSwapResponse_swaps = md_MsgSwapResponse.Fields().ByName("swaps")
 }
@@ -2560,7 +2560,7 @@ func (x *MsgSwapResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgSwapResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[5]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2643,15 +2643,15 @@ func (x *fastReflection_MsgSwapResponse) Range(f func(protoreflect.FieldDescript
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgSwapResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwapResponse.result":
+	case "noble.swap.v1.MsgSwapResponse.result":
 		return x.Result != nil
-	case "swap.v1.MsgSwapResponse.swaps":
+	case "noble.swap.v1.MsgSwapResponse.swaps":
 		return len(x.Swaps) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwapResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwapResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2663,15 +2663,15 @@ func (x *fastReflection_MsgSwapResponse) Has(fd protoreflect.FieldDescriptor) bo
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgSwapResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwapResponse.result":
+	case "noble.swap.v1.MsgSwapResponse.result":
 		x.Result = nil
-	case "swap.v1.MsgSwapResponse.swaps":
+	case "noble.swap.v1.MsgSwapResponse.swaps":
 		x.Swaps = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwapResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwapResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2683,10 +2683,10 @@ func (x *fastReflection_MsgSwapResponse) Clear(fd protoreflect.FieldDescriptor) 
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgSwapResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgSwapResponse.result":
+	case "noble.swap.v1.MsgSwapResponse.result":
 		value := x.Result
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
-	case "swap.v1.MsgSwapResponse.swaps":
+	case "noble.swap.v1.MsgSwapResponse.swaps":
 		if len(x.Swaps) == 0 {
 			return protoreflect.ValueOfList(&_MsgSwapResponse_2_list{})
 		}
@@ -2694,9 +2694,9 @@ func (x *fastReflection_MsgSwapResponse) Get(descriptor protoreflect.FieldDescri
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwapResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwapResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwapResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwapResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2712,17 +2712,17 @@ func (x *fastReflection_MsgSwapResponse) Get(descriptor protoreflect.FieldDescri
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgSwapResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwapResponse.result":
+	case "noble.swap.v1.MsgSwapResponse.result":
 		x.Result = value.Message().Interface().(*v1beta1.Coin)
-	case "swap.v1.MsgSwapResponse.swaps":
+	case "noble.swap.v1.MsgSwapResponse.swaps":
 		lv := value.List()
 		clv := lv.(*_MsgSwapResponse_2_list)
 		x.Swaps = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwapResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwapResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2738,12 +2738,12 @@ func (x *fastReflection_MsgSwapResponse) Set(fd protoreflect.FieldDescriptor, va
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgSwapResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwapResponse.result":
+	case "noble.swap.v1.MsgSwapResponse.result":
 		if x.Result == nil {
 			x.Result = new(v1beta1.Coin)
 		}
 		return protoreflect.ValueOfMessage(x.Result.ProtoReflect())
-	case "swap.v1.MsgSwapResponse.swaps":
+	case "noble.swap.v1.MsgSwapResponse.swaps":
 		if x.Swaps == nil {
 			x.Swaps = []*Swap{}
 		}
@@ -2751,9 +2751,9 @@ func (x *fastReflection_MsgSwapResponse) Mutable(fd protoreflect.FieldDescriptor
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwapResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwapResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2762,17 +2762,17 @@ func (x *fastReflection_MsgSwapResponse) Mutable(fd protoreflect.FieldDescriptor
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgSwapResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgSwapResponse.result":
+	case "noble.swap.v1.MsgSwapResponse.result":
 		m := new(v1beta1.Coin)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
-	case "swap.v1.MsgSwapResponse.swaps":
+	case "noble.swap.v1.MsgSwapResponse.swaps":
 		list := []*Swap{}
 		return protoreflect.ValueOfList(&_MsgSwapResponse_2_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgSwapResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgSwapResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgSwapResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2782,7 +2782,7 @@ func (x *fastReflection_MsgSwapResponse) NewField(fd protoreflect.FieldDescripto
 func (x *fastReflection_MsgSwapResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgSwapResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgSwapResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3067,8 +3067,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgPauseByAlgorithm = File_swap_v1_tx_proto.Messages().ByName("MsgPauseByAlgorithm")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgPauseByAlgorithm = File_noble_swap_v1_tx_proto.Messages().ByName("MsgPauseByAlgorithm")
 	fd_MsgPauseByAlgorithm_signer = md_MsgPauseByAlgorithm.Fields().ByName("signer")
 	fd_MsgPauseByAlgorithm_algorithm = md_MsgPauseByAlgorithm.Fields().ByName("algorithm")
 }
@@ -3082,7 +3082,7 @@ func (x *MsgPauseByAlgorithm) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgPauseByAlgorithm) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[6]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3165,15 +3165,15 @@ func (x *fastReflection_MsgPauseByAlgorithm) Range(f func(protoreflect.FieldDesc
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgPauseByAlgorithm) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgPauseByAlgorithm.signer":
 		return x.Signer != ""
-	case "swap.v1.MsgPauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgPauseByAlgorithm.algorithm":
 		return x.Algorithm != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3185,15 +3185,15 @@ func (x *fastReflection_MsgPauseByAlgorithm) Has(fd protoreflect.FieldDescriptor
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByAlgorithm) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgPauseByAlgorithm.signer":
 		x.Signer = ""
-	case "swap.v1.MsgPauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgPauseByAlgorithm.algorithm":
 		x.Algorithm = 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3205,17 +3205,17 @@ func (x *fastReflection_MsgPauseByAlgorithm) Clear(fd protoreflect.FieldDescript
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgPauseByAlgorithm) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgPauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgPauseByAlgorithm.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.MsgPauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgPauseByAlgorithm.algorithm":
 		value := x.Algorithm
 		return protoreflect.ValueOfEnum((protoreflect.EnumNumber)(value))
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithm does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithm does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3231,15 +3231,15 @@ func (x *fastReflection_MsgPauseByAlgorithm) Get(descriptor protoreflect.FieldDe
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByAlgorithm) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgPauseByAlgorithm.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.MsgPauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgPauseByAlgorithm.algorithm":
 		x.Algorithm = (Algorithm)(value.Enum())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3255,15 +3255,15 @@ func (x *fastReflection_MsgPauseByAlgorithm) Set(fd protoreflect.FieldDescriptor
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByAlgorithm) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithm.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgPauseByAlgorithm is not mutable"))
-	case "swap.v1.MsgPauseByAlgorithm.algorithm":
-		panic(fmt.Errorf("field algorithm of message swap.v1.MsgPauseByAlgorithm is not mutable"))
+	case "noble.swap.v1.MsgPauseByAlgorithm.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgPauseByAlgorithm is not mutable"))
+	case "noble.swap.v1.MsgPauseByAlgorithm.algorithm":
+		panic(fmt.Errorf("field algorithm of message noble.swap.v1.MsgPauseByAlgorithm is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3272,15 +3272,15 @@ func (x *fastReflection_MsgPauseByAlgorithm) Mutable(fd protoreflect.FieldDescri
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgPauseByAlgorithm) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgPauseByAlgorithm.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.MsgPauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgPauseByAlgorithm.algorithm":
 		return protoreflect.ValueOfEnum(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3290,7 +3290,7 @@ func (x *fastReflection_MsgPauseByAlgorithm) NewField(fd protoreflect.FieldDescr
 func (x *fastReflection_MsgPauseByAlgorithm) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgPauseByAlgorithm", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgPauseByAlgorithm", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3580,8 +3580,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgPauseByAlgorithmResponse = File_swap_v1_tx_proto.Messages().ByName("MsgPauseByAlgorithmResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgPauseByAlgorithmResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgPauseByAlgorithmResponse")
 	fd_MsgPauseByAlgorithmResponse_paused_pools = md_MsgPauseByAlgorithmResponse.Fields().ByName("paused_pools")
 }
 
@@ -3594,7 +3594,7 @@ func (x *MsgPauseByAlgorithmResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgPauseByAlgorithmResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[7]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3671,13 +3671,13 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Range(f func(protoreflect.F
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgPauseByAlgorithmResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
 		return len(x.PausedPools) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3689,13 +3689,13 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Has(fd protoreflect.FieldDe
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByAlgorithmResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
 		x.PausedPools = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3707,7 +3707,7 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Clear(fd protoreflect.Field
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgPauseByAlgorithmResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
 		if len(x.PausedPools) == 0 {
 			return protoreflect.ValueOfList(&_MsgPauseByAlgorithmResponse_1_list{})
 		}
@@ -3715,9 +3715,9 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Get(descriptor protoreflect
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3733,15 +3733,15 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Get(descriptor protoreflect
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByAlgorithmResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
 		lv := value.List()
 		clv := lv.(*_MsgPauseByAlgorithmResponse_1_list)
 		x.PausedPools = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3757,7 +3757,7 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Set(fd protoreflect.FieldDe
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByAlgorithmResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
 		if x.PausedPools == nil {
 			x.PausedPools = []uint64{}
 		}
@@ -3765,9 +3765,9 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Mutable(fd protoreflect.Fie
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3776,14 +3776,14 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) Mutable(fd protoreflect.Fie
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgPauseByAlgorithmResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByAlgorithmResponse.paused_pools":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_MsgPauseByAlgorithmResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3793,7 +3793,7 @@ func (x *fastReflection_MsgPauseByAlgorithmResponse) NewField(fd protoreflect.Fi
 func (x *fastReflection_MsgPauseByAlgorithmResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgPauseByAlgorithmResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgPauseByAlgorithmResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -4117,8 +4117,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgPauseByPoolIds = File_swap_v1_tx_proto.Messages().ByName("MsgPauseByPoolIds")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgPauseByPoolIds = File_noble_swap_v1_tx_proto.Messages().ByName("MsgPauseByPoolIds")
 	fd_MsgPauseByPoolIds_signer = md_MsgPauseByPoolIds.Fields().ByName("signer")
 	fd_MsgPauseByPoolIds_pool_ids = md_MsgPauseByPoolIds.Fields().ByName("pool_ids")
 }
@@ -4132,7 +4132,7 @@ func (x *MsgPauseByPoolIds) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgPauseByPoolIds) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[8]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4215,15 +4215,15 @@ func (x *fastReflection_MsgPauseByPoolIds) Range(f func(protoreflect.FieldDescri
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgPauseByPoolIds) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIds.signer":
+	case "noble.swap.v1.MsgPauseByPoolIds.signer":
 		return x.Signer != ""
-	case "swap.v1.MsgPauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgPauseByPoolIds.pool_ids":
 		return len(x.PoolIds) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4235,15 +4235,15 @@ func (x *fastReflection_MsgPauseByPoolIds) Has(fd protoreflect.FieldDescriptor) 
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByPoolIds) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIds.signer":
+	case "noble.swap.v1.MsgPauseByPoolIds.signer":
 		x.Signer = ""
-	case "swap.v1.MsgPauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgPauseByPoolIds.pool_ids":
 		x.PoolIds = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4255,10 +4255,10 @@ func (x *fastReflection_MsgPauseByPoolIds) Clear(fd protoreflect.FieldDescriptor
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgPauseByPoolIds) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgPauseByPoolIds.signer":
+	case "noble.swap.v1.MsgPauseByPoolIds.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.MsgPauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgPauseByPoolIds.pool_ids":
 		if len(x.PoolIds) == 0 {
 			return protoreflect.ValueOfList(&_MsgPauseByPoolIds_2_list{})
 		}
@@ -4266,9 +4266,9 @@ func (x *fastReflection_MsgPauseByPoolIds) Get(descriptor protoreflect.FieldDesc
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIds does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIds does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -4284,17 +4284,17 @@ func (x *fastReflection_MsgPauseByPoolIds) Get(descriptor protoreflect.FieldDesc
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByPoolIds) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIds.signer":
+	case "noble.swap.v1.MsgPauseByPoolIds.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.MsgPauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgPauseByPoolIds.pool_ids":
 		lv := value.List()
 		clv := lv.(*_MsgPauseByPoolIds_2_list)
 		x.PoolIds = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4310,19 +4310,19 @@ func (x *fastReflection_MsgPauseByPoolIds) Set(fd protoreflect.FieldDescriptor, 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByPoolIds) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgPauseByPoolIds.pool_ids":
 		if x.PoolIds == nil {
 			x.PoolIds = []uint64{}
 		}
 		value := &_MsgPauseByPoolIds_2_list{list: &x.PoolIds}
 		return protoreflect.ValueOfList(value)
-	case "swap.v1.MsgPauseByPoolIds.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgPauseByPoolIds is not mutable"))
+	case "noble.swap.v1.MsgPauseByPoolIds.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgPauseByPoolIds is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4331,16 +4331,16 @@ func (x *fastReflection_MsgPauseByPoolIds) Mutable(fd protoreflect.FieldDescript
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgPauseByPoolIds) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIds.signer":
+	case "noble.swap.v1.MsgPauseByPoolIds.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.MsgPauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgPauseByPoolIds.pool_ids":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_MsgPauseByPoolIds_2_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4350,7 +4350,7 @@ func (x *fastReflection_MsgPauseByPoolIds) NewField(fd protoreflect.FieldDescrip
 func (x *fastReflection_MsgPauseByPoolIds) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgPauseByPoolIds", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgPauseByPoolIds", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -4716,8 +4716,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgPauseByPoolIdsResponse = File_swap_v1_tx_proto.Messages().ByName("MsgPauseByPoolIdsResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgPauseByPoolIdsResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgPauseByPoolIdsResponse")
 	fd_MsgPauseByPoolIdsResponse_paused_pools = md_MsgPauseByPoolIdsResponse.Fields().ByName("paused_pools")
 }
 
@@ -4730,7 +4730,7 @@ func (x *MsgPauseByPoolIdsResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgPauseByPoolIdsResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[9]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4807,13 +4807,13 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Range(f func(protoreflect.Fie
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgPauseByPoolIdsResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
 		return len(x.PausedPools) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4825,13 +4825,13 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Has(fd protoreflect.FieldDesc
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByPoolIdsResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
 		x.PausedPools = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4843,7 +4843,7 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Clear(fd protoreflect.FieldDe
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgPauseByPoolIdsResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
 		if len(x.PausedPools) == 0 {
 			return protoreflect.ValueOfList(&_MsgPauseByPoolIdsResponse_1_list{})
 		}
@@ -4851,9 +4851,9 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Get(descriptor protoreflect.F
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -4869,15 +4869,15 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Get(descriptor protoreflect.F
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByPoolIdsResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
 		lv := value.List()
 		clv := lv.(*_MsgPauseByPoolIdsResponse_1_list)
 		x.PausedPools = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4893,7 +4893,7 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Set(fd protoreflect.FieldDesc
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgPauseByPoolIdsResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
 		if x.PausedPools == nil {
 			x.PausedPools = []uint64{}
 		}
@@ -4901,9 +4901,9 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Mutable(fd protoreflect.Field
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4912,14 +4912,14 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) Mutable(fd protoreflect.Field
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgPauseByPoolIdsResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
+	case "noble.swap.v1.MsgPauseByPoolIdsResponse.paused_pools":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_MsgPauseByPoolIdsResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgPauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgPauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgPauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4929,7 +4929,7 @@ func (x *fastReflection_MsgPauseByPoolIdsResponse) NewField(fd protoreflect.Fiel
 func (x *fastReflection_MsgPauseByPoolIdsResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgPauseByPoolIdsResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgPauseByPoolIdsResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -5207,8 +5207,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgUnpauseByAlgorithm = File_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByAlgorithm")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgUnpauseByAlgorithm = File_noble_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByAlgorithm")
 	fd_MsgUnpauseByAlgorithm_signer = md_MsgUnpauseByAlgorithm.Fields().ByName("signer")
 	fd_MsgUnpauseByAlgorithm_algorithm = md_MsgUnpauseByAlgorithm.Fields().ByName("algorithm")
 }
@@ -5222,7 +5222,7 @@ func (x *MsgUnpauseByAlgorithm) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgUnpauseByAlgorithm) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[10]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5305,15 +5305,15 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) Range(f func(protoreflect.FieldDe
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgUnpauseByAlgorithm) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.signer":
 		return x.Signer != ""
-	case "swap.v1.MsgUnpauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.algorithm":
 		return x.Algorithm != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5325,15 +5325,15 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) Has(fd protoreflect.FieldDescript
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByAlgorithm) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.signer":
 		x.Signer = ""
-	case "swap.v1.MsgUnpauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.algorithm":
 		x.Algorithm = 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5345,17 +5345,17 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) Clear(fd protoreflect.FieldDescri
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgUnpauseByAlgorithm) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.MsgUnpauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.algorithm":
 		value := x.Algorithm
 		return protoreflect.ValueOfEnum((protoreflect.EnumNumber)(value))
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithm does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithm does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -5371,15 +5371,15 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) Get(descriptor protoreflect.Field
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByAlgorithm) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.MsgUnpauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.algorithm":
 		x.Algorithm = (Algorithm)(value.Enum())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5395,15 +5395,15 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) Set(fd protoreflect.FieldDescript
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByAlgorithm) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithm.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgUnpauseByAlgorithm is not mutable"))
-	case "swap.v1.MsgUnpauseByAlgorithm.algorithm":
-		panic(fmt.Errorf("field algorithm of message swap.v1.MsgUnpauseByAlgorithm is not mutable"))
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgUnpauseByAlgorithm is not mutable"))
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.algorithm":
+		panic(fmt.Errorf("field algorithm of message noble.swap.v1.MsgUnpauseByAlgorithm is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5412,15 +5412,15 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) Mutable(fd protoreflect.FieldDesc
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgUnpauseByAlgorithm) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithm.signer":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.MsgUnpauseByAlgorithm.algorithm":
+	case "noble.swap.v1.MsgUnpauseByAlgorithm.algorithm":
 		return protoreflect.ValueOfEnum(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithm"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithm"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithm does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5430,7 +5430,7 @@ func (x *fastReflection_MsgUnpauseByAlgorithm) NewField(fd protoreflect.FieldDes
 func (x *fastReflection_MsgUnpauseByAlgorithm) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgUnpauseByAlgorithm", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgUnpauseByAlgorithm", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -5720,8 +5720,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgUnpauseByAlgorithmResponse = File_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByAlgorithmResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgUnpauseByAlgorithmResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByAlgorithmResponse")
 	fd_MsgUnpauseByAlgorithmResponse_unpaused_pools = md_MsgUnpauseByAlgorithmResponse.Fields().ByName("unpaused_pools")
 }
 
@@ -5734,7 +5734,7 @@ func (x *MsgUnpauseByAlgorithmResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgUnpauseByAlgorithmResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[11]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5811,13 +5811,13 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Range(f func(protoreflect
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
 		return len(x.UnpausedPools) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5829,13 +5829,13 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Has(fd protoreflect.Field
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
 		x.UnpausedPools = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5847,7 +5847,7 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Clear(fd protoreflect.Fie
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
 		if len(x.UnpausedPools) == 0 {
 			return protoreflect.ValueOfList(&_MsgUnpauseByAlgorithmResponse_1_list{})
 		}
@@ -5855,9 +5855,9 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Get(descriptor protorefle
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -5873,15 +5873,15 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Get(descriptor protorefle
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
 		lv := value.List()
 		clv := lv.(*_MsgUnpauseByAlgorithmResponse_1_list)
 		x.UnpausedPools = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5897,7 +5897,7 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Set(fd protoreflect.Field
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
 		if x.UnpausedPools == nil {
 			x.UnpausedPools = []uint64{}
 		}
@@ -5905,9 +5905,9 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Mutable(fd protoreflect.F
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5916,14 +5916,14 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) Mutable(fd protoreflect.F
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByAlgorithmResponse.unpaused_pools":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_MsgUnpauseByAlgorithmResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByAlgorithmResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByAlgorithmResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByAlgorithmResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -5933,7 +5933,7 @@ func (x *fastReflection_MsgUnpauseByAlgorithmResponse) NewField(fd protoreflect.
 func (x *fastReflection_MsgUnpauseByAlgorithmResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgUnpauseByAlgorithmResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgUnpauseByAlgorithmResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -6257,8 +6257,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgUnpauseByPoolIds = File_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByPoolIds")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgUnpauseByPoolIds = File_noble_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByPoolIds")
 	fd_MsgUnpauseByPoolIds_signer = md_MsgUnpauseByPoolIds.Fields().ByName("signer")
 	fd_MsgUnpauseByPoolIds_pool_ids = md_MsgUnpauseByPoolIds.Fields().ByName("pool_ids")
 }
@@ -6272,7 +6272,7 @@ func (x *MsgUnpauseByPoolIds) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgUnpauseByPoolIds) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[12]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6355,15 +6355,15 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Range(f func(protoreflect.FieldDesc
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgUnpauseByPoolIds) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIds.signer":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.signer":
 		return x.Signer != ""
-	case "swap.v1.MsgUnpauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.pool_ids":
 		return len(x.PoolIds) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6375,15 +6375,15 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Has(fd protoreflect.FieldDescriptor
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByPoolIds) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIds.signer":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.signer":
 		x.Signer = ""
-	case "swap.v1.MsgUnpauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.pool_ids":
 		x.PoolIds = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6395,10 +6395,10 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Clear(fd protoreflect.FieldDescript
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgUnpauseByPoolIds) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIds.signer":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.MsgUnpauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.pool_ids":
 		if len(x.PoolIds) == 0 {
 			return protoreflect.ValueOfList(&_MsgUnpauseByPoolIds_2_list{})
 		}
@@ -6406,9 +6406,9 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Get(descriptor protoreflect.FieldDe
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIds does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIds does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -6424,17 +6424,17 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Get(descriptor protoreflect.FieldDe
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByPoolIds) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIds.signer":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.MsgUnpauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.pool_ids":
 		lv := value.List()
 		clv := lv.(*_MsgUnpauseByPoolIds_2_list)
 		x.PoolIds = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6450,19 +6450,19 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Set(fd protoreflect.FieldDescriptor
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByPoolIds) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.pool_ids":
 		if x.PoolIds == nil {
 			x.PoolIds = []uint64{}
 		}
 		value := &_MsgUnpauseByPoolIds_2_list{list: &x.PoolIds}
 		return protoreflect.ValueOfList(value)
-	case "swap.v1.MsgUnpauseByPoolIds.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.MsgUnpauseByPoolIds is not mutable"))
+	case "noble.swap.v1.MsgUnpauseByPoolIds.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.MsgUnpauseByPoolIds is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6471,16 +6471,16 @@ func (x *fastReflection_MsgUnpauseByPoolIds) Mutable(fd protoreflect.FieldDescri
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgUnpauseByPoolIds) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIds.signer":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.MsgUnpauseByPoolIds.pool_ids":
+	case "noble.swap.v1.MsgUnpauseByPoolIds.pool_ids":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_MsgUnpauseByPoolIds_2_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIds"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIds"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIds does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6490,7 +6490,7 @@ func (x *fastReflection_MsgUnpauseByPoolIds) NewField(fd protoreflect.FieldDescr
 func (x *fastReflection_MsgUnpauseByPoolIds) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgUnpauseByPoolIds", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgUnpauseByPoolIds", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -6856,8 +6856,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_tx_proto_init()
-	md_MsgUnpauseByPoolIdsResponse = File_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByPoolIdsResponse")
+	file_noble_swap_v1_tx_proto_init()
+	md_MsgUnpauseByPoolIdsResponse = File_noble_swap_v1_tx_proto.Messages().ByName("MsgUnpauseByPoolIdsResponse")
 	fd_MsgUnpauseByPoolIdsResponse_unpaused_pools = md_MsgUnpauseByPoolIdsResponse.Fields().ByName("unpaused_pools")
 }
 
@@ -6870,7 +6870,7 @@ func (x *MsgUnpauseByPoolIdsResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *MsgUnpauseByPoolIdsResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_tx_proto_msgTypes[13]
+	mi := &file_noble_swap_v1_tx_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6947,13 +6947,13 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Range(f func(protoreflect.F
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
 		return len(x.UnpausedPools) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6965,13 +6965,13 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Has(fd protoreflect.FieldDe
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
 		x.UnpausedPools = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -6983,7 +6983,7 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Clear(fd protoreflect.Field
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
 		if len(x.UnpausedPools) == 0 {
 			return protoreflect.ValueOfList(&_MsgUnpauseByPoolIdsResponse_1_list{})
 		}
@@ -6991,9 +6991,9 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Get(descriptor protoreflect
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -7009,15 +7009,15 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Get(descriptor protoreflect
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
 		lv := value.List()
 		clv := lv.(*_MsgUnpauseByPoolIdsResponse_1_list)
 		x.UnpausedPools = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -7033,7 +7033,7 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Set(fd protoreflect.FieldDe
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
 		if x.UnpausedPools == nil {
 			x.UnpausedPools = []uint64{}
 		}
@@ -7041,9 +7041,9 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Mutable(fd protoreflect.Fie
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -7052,14 +7052,14 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) Mutable(fd protoreflect.Fie
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
+	case "noble.swap.v1.MsgUnpauseByPoolIdsResponse.unpaused_pools":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_MsgUnpauseByPoolIdsResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.MsgUnpauseByPoolIdsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.MsgUnpauseByPoolIdsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.MsgUnpauseByPoolIdsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -7069,7 +7069,7 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) NewField(fd protoreflect.Fi
 func (x *fastReflection_MsgUnpauseByPoolIdsResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.MsgUnpauseByPoolIdsResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.MsgUnpauseByPoolIdsResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -7344,7 +7344,7 @@ func (x *fastReflection_MsgUnpauseByPoolIdsResponse) ProtoMethods() *protoiface.
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: swap/v1/tx.proto
+// source: noble/swap/v1/tx.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -7367,7 +7367,7 @@ type MsgWithdrawProtocolFees struct {
 func (x *MsgWithdrawProtocolFees) Reset() {
 	*x = MsgWithdrawProtocolFees{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[0]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7381,7 +7381,7 @@ func (*MsgWithdrawProtocolFees) ProtoMessage() {}
 
 // Deprecated: Use MsgWithdrawProtocolFees.ProtoReflect.Descriptor instead.
 func (*MsgWithdrawProtocolFees) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{0}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *MsgWithdrawProtocolFees) GetSigner() string {
@@ -7407,7 +7407,7 @@ type MsgWithdrawProtocolFeesResponse struct {
 func (x *MsgWithdrawProtocolFeesResponse) Reset() {
 	*x = MsgWithdrawProtocolFeesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[1]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7421,7 +7421,7 @@ func (*MsgWithdrawProtocolFeesResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgWithdrawProtocolFeesResponse.ProtoReflect.Descriptor instead.
 func (*MsgWithdrawProtocolFeesResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{1}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{1}
 }
 
 type MsgWithdrawRewards struct {
@@ -7436,7 +7436,7 @@ type MsgWithdrawRewards struct {
 func (x *MsgWithdrawRewards) Reset() {
 	*x = MsgWithdrawRewards{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[2]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7450,7 +7450,7 @@ func (*MsgWithdrawRewards) ProtoMessage() {}
 
 // Deprecated: Use MsgWithdrawRewards.ProtoReflect.Descriptor instead.
 func (*MsgWithdrawRewards) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{2}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *MsgWithdrawRewards) GetSigner() string {
@@ -7472,7 +7472,7 @@ type MsgWithdrawRewardsResponse struct {
 func (x *MsgWithdrawRewardsResponse) Reset() {
 	*x = MsgWithdrawRewardsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[3]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7486,7 +7486,7 @@ func (*MsgWithdrawRewardsResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgWithdrawRewardsResponse.ProtoReflect.Descriptor instead.
 func (*MsgWithdrawRewardsResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{3}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *MsgWithdrawRewardsResponse) GetRewards() []*v1beta1.Coin {
@@ -7514,7 +7514,7 @@ type MsgSwap struct {
 func (x *MsgSwap) Reset() {
 	*x = MsgSwap{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[4]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7528,7 +7528,7 @@ func (*MsgSwap) ProtoMessage() {}
 
 // Deprecated: Use MsgSwap.ProtoReflect.Descriptor instead.
 func (*MsgSwap) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{4}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MsgSwap) GetSigner() string {
@@ -7573,7 +7573,7 @@ type MsgSwapResponse struct {
 func (x *MsgSwapResponse) Reset() {
 	*x = MsgSwapResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[5]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7587,7 +7587,7 @@ func (*MsgSwapResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgSwapResponse.ProtoReflect.Descriptor instead.
 func (*MsgSwapResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{5}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *MsgSwapResponse) GetResult() *v1beta1.Coin {
@@ -7612,13 +7612,13 @@ type MsgPauseByAlgorithm struct {
 	// Address of the signer who is requesting to pause the pools.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
 	// The algorithm used by the pools to be paused.
-	Algorithm Algorithm `protobuf:"varint,2,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	Algorithm Algorithm `protobuf:"varint,2,opt,name=algorithm,proto3,enum=noble.swap.v1.Algorithm" json:"algorithm,omitempty"`
 }
 
 func (x *MsgPauseByAlgorithm) Reset() {
 	*x = MsgPauseByAlgorithm{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[6]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7632,7 +7632,7 @@ func (*MsgPauseByAlgorithm) ProtoMessage() {}
 
 // Deprecated: Use MsgPauseByAlgorithm.ProtoReflect.Descriptor instead.
 func (*MsgPauseByAlgorithm) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{6}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *MsgPauseByAlgorithm) GetSigner() string {
@@ -7661,7 +7661,7 @@ type MsgPauseByAlgorithmResponse struct {
 func (x *MsgPauseByAlgorithmResponse) Reset() {
 	*x = MsgPauseByAlgorithmResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[7]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7675,7 +7675,7 @@ func (*MsgPauseByAlgorithmResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgPauseByAlgorithmResponse.ProtoReflect.Descriptor instead.
 func (*MsgPauseByAlgorithmResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{7}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *MsgPauseByAlgorithmResponse) GetPausedPools() []uint64 {
@@ -7699,7 +7699,7 @@ type MsgPauseByPoolIds struct {
 func (x *MsgPauseByPoolIds) Reset() {
 	*x = MsgPauseByPoolIds{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[8]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7713,7 +7713,7 @@ func (*MsgPauseByPoolIds) ProtoMessage() {}
 
 // Deprecated: Use MsgPauseByPoolIds.ProtoReflect.Descriptor instead.
 func (*MsgPauseByPoolIds) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{8}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *MsgPauseByPoolIds) GetSigner() string {
@@ -7742,7 +7742,7 @@ type MsgPauseByPoolIdsResponse struct {
 func (x *MsgPauseByPoolIdsResponse) Reset() {
 	*x = MsgPauseByPoolIdsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[9]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7756,7 +7756,7 @@ func (*MsgPauseByPoolIdsResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgPauseByPoolIdsResponse.ProtoReflect.Descriptor instead.
 func (*MsgPauseByPoolIdsResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{9}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *MsgPauseByPoolIdsResponse) GetPausedPools() []uint64 {
@@ -7774,13 +7774,13 @@ type MsgUnpauseByAlgorithm struct {
 	// Address of the signer who is requesting to unpause the pools.
 	Signer string `protobuf:"bytes,1,opt,name=signer,proto3" json:"signer,omitempty"`
 	// The algorithm used by the pools to be unpaused.
-	Algorithm Algorithm `protobuf:"varint,2,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	Algorithm Algorithm `protobuf:"varint,2,opt,name=algorithm,proto3,enum=noble.swap.v1.Algorithm" json:"algorithm,omitempty"`
 }
 
 func (x *MsgUnpauseByAlgorithm) Reset() {
 	*x = MsgUnpauseByAlgorithm{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[10]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7794,7 +7794,7 @@ func (*MsgUnpauseByAlgorithm) ProtoMessage() {}
 
 // Deprecated: Use MsgUnpauseByAlgorithm.ProtoReflect.Descriptor instead.
 func (*MsgUnpauseByAlgorithm) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{10}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *MsgUnpauseByAlgorithm) GetSigner() string {
@@ -7823,7 +7823,7 @@ type MsgUnpauseByAlgorithmResponse struct {
 func (x *MsgUnpauseByAlgorithmResponse) Reset() {
 	*x = MsgUnpauseByAlgorithmResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[11]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7837,7 +7837,7 @@ func (*MsgUnpauseByAlgorithmResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgUnpauseByAlgorithmResponse.ProtoReflect.Descriptor instead.
 func (*MsgUnpauseByAlgorithmResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{11}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *MsgUnpauseByAlgorithmResponse) GetUnpausedPools() []uint64 {
@@ -7861,7 +7861,7 @@ type MsgUnpauseByPoolIds struct {
 func (x *MsgUnpauseByPoolIds) Reset() {
 	*x = MsgUnpauseByPoolIds{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[12]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7875,7 +7875,7 @@ func (*MsgUnpauseByPoolIds) ProtoMessage() {}
 
 // Deprecated: Use MsgUnpauseByPoolIds.ProtoReflect.Descriptor instead.
 func (*MsgUnpauseByPoolIds) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{12}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *MsgUnpauseByPoolIds) GetSigner() string {
@@ -7904,7 +7904,7 @@ type MsgUnpauseByPoolIdsResponse struct {
 func (x *MsgUnpauseByPoolIdsResponse) Reset() {
 	*x = MsgUnpauseByPoolIdsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_tx_proto_msgTypes[13]
+		mi := &file_noble_swap_v1_tx_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7918,7 +7918,7 @@ func (*MsgUnpauseByPoolIdsResponse) ProtoMessage() {}
 
 // Deprecated: Use MsgUnpauseByPoolIdsResponse.ProtoReflect.Descriptor instead.
 func (*MsgUnpauseByPoolIdsResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_tx_proto_rawDescGZIP(), []int{13}
+	return file_noble_swap_v1_tx_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *MsgUnpauseByPoolIdsResponse) GetUnpausedPools() []uint64 {
@@ -7928,108 +7928,111 @@ func (x *MsgUnpauseByPoolIdsResponse) GetUnpausedPools() []uint64 {
 	return nil
 }
 
-var File_swap_v1_tx_proto protoreflect.FileDescriptor
+var File_noble_swap_v1_tx_proto protoreflect.FileDescriptor
 
-var file_swap_v1_tx_proto_rawDesc = []byte{
-	0x0a, 0x10, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x74, 0x78, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x12, 0x07, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x1a, 0x11, 0x61, 0x6d, 0x69,
-	0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e,
-	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65,
-	0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17,
-	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x6d, 0x73, 0x67, 0x2f, 0x76, 0x31, 0x2f, 0x6d, 0x73,
-	0x67, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x5f,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f,
-	0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76,
-	0x31, 0x2f, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x1a, 0x12, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xa3, 0x01, 0x0a, 0x17, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74,
-	0x68, 0x64, 0x72, 0x61, 0x77, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65,
-	0x73, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64,
-	0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67,
-	0x6e, 0x65, 0x72, 0x12, 0x28, 0x0a, 0x02, 0x74, 0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42,
-	0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72,
-	0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x02, 0x74, 0x6f, 0x3a, 0x2c, 0x88,
-	0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00, 0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e,
-	0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x14, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x52, 0x65, 0x6d, 0x6f,
-	0x76, 0x65, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69, 0x74, 0x79, 0x22, 0x21, 0x0a, 0x1f, 0x4d,
-	0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63,
-	0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x74,
-	0x0a, 0x12, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x52, 0x65, 0x77,
-	0x61, 0x72, 0x64, 0x73, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
-	0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06,
-	0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x3a, 0x2c, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00,
-	0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x14,
-	0x73, 0x77, 0x61, 0x70, 0x2f, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4c, 0x69, 0x71, 0x75, 0x69,
-	0x64, 0x69, 0x74, 0x79, 0x22, 0x99, 0x01, 0x0a, 0x1a, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68,
-	0x64, 0x72, 0x61, 0x77, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x7b, 0x0a, 0x07, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61,
-	0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42,
-	0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f,
-	0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e,
-	0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69,
-	0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x07, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
-	0x22, 0xf8, 0x01, 0x0a, 0x07, 0x4d, 0x73, 0x67, 0x53, 0x77, 0x61, 0x70, 0x12, 0x30, 0x0a, 0x06,
+var file_noble_swap_v1_tx_proto_rawDesc = []byte{
+	0x0a, 0x16, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f,
+	0x74, 0x78, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0d, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e,
+	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61,
+	0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d,
+	0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f,
+	0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17, 0x63, 0x6f, 0x73, 0x6d,
+	0x6f, 0x73, 0x2f, 0x6d, 0x73, 0x67, 0x2f, 0x76, 0x31, 0x2f, 0x6d, 0x73, 0x67, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x5f, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14,
+	0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1d, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70,
+	0x2f, 0x76, 0x31, 0x2f, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x1a, 0x18, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f,
+	0x76, 0x31, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xa3, 0x01,
+	0x0a, 0x17, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x50, 0x72, 0x6f,
+	0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67,
+	0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72,
+	0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x28, 0x0a, 0x02, 0x74,
+	0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73,
+	0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e,
+	0x67, 0x52, 0x02, 0x74, 0x6f, 0x3a, 0x2c, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00, 0x82,
+	0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x14, 0x73,
+	0x77, 0x61, 0x70, 0x2f, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64,
+	0x69, 0x74, 0x79, 0x22, 0x21, 0x0a, 0x1f, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72,
+	0x61, 0x77, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x74, 0x0a, 0x12, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74,
+	0x68, 0x64, 0x72, 0x61, 0x77, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x30, 0x0a, 0x06,
 	0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4,
 	0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73,
-	0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x37,
-	0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19,
-	0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62,
-	0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52,
-	0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x2c, 0x0a, 0x06, 0x72, 0x6f, 0x75, 0x74, 0x65,
-	0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76,
-	0x31, 0x2e, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x72,
-	0x6f, 0x75, 0x74, 0x65, 0x73, 0x12, 0x31, 0x0a, 0x03, 0x6d, 0x69, 0x6e, 0x18, 0x04, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65,
-	0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8,
-	0xde, 0x1f, 0x00, 0x52, 0x03, 0x6d, 0x69, 0x6e, 0x3a, 0x21, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0,
-	0x1f, 0x00, 0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0,
-	0x2a, 0x09, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x53, 0x77, 0x61, 0x70, 0x22, 0x6f, 0x0a, 0x0f, 0x4d,
-	0x73, 0x67, 0x53, 0x77, 0x61, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37,
-	0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19,
-	0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62,
-	0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52,
-	0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x23, 0x0a, 0x05, 0x73, 0x77, 0x61, 0x70, 0x73,
-	0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31,
-	0x2e, 0x53, 0x77, 0x61, 0x70, 0x52, 0x05, 0x73, 0x77, 0x61, 0x70, 0x73, 0x22, 0xa8, 0x01, 0x0a,
-	0x13, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72,
-	0x69, 0x74, 0x68, 0x6d, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01,
+	0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x3a, 0x2c,
+	0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00, 0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67,
+	0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x14, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x52, 0x65, 0x6d,
+	0x6f, 0x76, 0x65, 0x4c, 0x69, 0x71, 0x75, 0x69, 0x64, 0x69, 0x74, 0x79, 0x22, 0x99, 0x01, 0x0a,
+	0x1a, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x52, 0x65, 0x77, 0x61,
+	0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x7b, 0x0a, 0x07, 0x72,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74,
+	0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f,
+	0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x73, 0x6d,
+	0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2d, 0x73, 0x64, 0x6b, 0x2f, 0x74, 0x79,
+	0x70, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x73, 0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65,
+	0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52,
+	0x07, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x22, 0xfe, 0x01, 0x0a, 0x07, 0x4d, 0x73, 0x67,
+	0x53, 0x77, 0x61, 0x70, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
 	0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06,
-	0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x30, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69,
-	0x74, 0x68, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x12, 0x2e, 0x73, 0x77, 0x61, 0x70,
-	0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x09, 0x61,
-	0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x3a, 0x2d, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0,
-	0x1f, 0x00, 0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0,
-	0x2a, 0x15, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c,
-	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x22, 0x40, 0x0a, 0x1b, 0x4d, 0x73, 0x67, 0x50, 0x61,
-	0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64,
-	0x5f, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x70, 0x61,
-	0x75, 0x73, 0x65, 0x64, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0x8d, 0x01, 0x0a, 0x11, 0x4d, 0x73,
-	0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x12,
-	0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42,
-	0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72,
-	0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65,
-	0x72, 0x12, 0x19, 0x0a, 0x08, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20,
-	0x03, 0x28, 0x04, 0x52, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x3a, 0x2b, 0x88, 0xa0,
-	0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00, 0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65,
-	0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x13, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x50, 0x61, 0x75, 0x73, 0x65,
-	0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x22, 0x3e, 0x0a, 0x19, 0x4d, 0x73, 0x67,
-	0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64,
-	0x5f, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x70, 0x61,
-	0x75, 0x73, 0x65, 0x64, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0xac, 0x01, 0x0a, 0x15, 0x4d, 0x73,
-	0x67, 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69,
-	0x74, 0x68, 0x6d, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
-	0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06, 0x73,
-	0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x30, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74,
-	0x68, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x12, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
+	0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x37, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
+	0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69,
+	0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12,
+	0x32, 0x0a, 0x06, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x14, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e,
+	0x52, 0x6f, 0x75, 0x74, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x72, 0x6f, 0x75,
+	0x74, 0x65, 0x73, 0x12, 0x31, 0x0a, 0x03, 0x6d, 0x69, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76,
+	0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f,
+	0x00, 0x52, 0x03, 0x6d, 0x69, 0x6e, 0x3a, 0x21, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00,
+	0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x09,
+	0x73, 0x77, 0x61, 0x70, 0x2f, 0x53, 0x77, 0x61, 0x70, 0x22, 0x75, 0x0a, 0x0f, 0x4d, 0x73, 0x67,
+	0x53, 0x77, 0x61, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x06,
+	0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74,
+	0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x72,
+	0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x29, 0x0a, 0x05, 0x73, 0x77, 0x61, 0x70, 0x73, 0x18, 0x02,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61,
+	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x77, 0x61, 0x70, 0x52, 0x05, 0x73, 0x77, 0x61, 0x70, 0x73,
+	0x22, 0xae, 0x01, 0x0a, 0x13, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41,
+	0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e,
+	0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f,
+	0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72, 0x69,
+	0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x36, 0x0a, 0x09, 0x61, 0x6c,
+	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e,
+	0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c,
+	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74,
+	0x68, 0x6d, 0x3a, 0x2d, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00, 0x82, 0xe7, 0xb0, 0x2a,
+	0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x15, 0x73, 0x77, 0x61, 0x70,
+	0x2f, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68,
+	0x6d, 0x22, 0x40, 0x0a, 0x1b, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41,
+	0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x5f, 0x70, 0x6f, 0x6f, 0x6c, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x50, 0x6f,
+	0x6f, 0x6c, 0x73, 0x22, 0x8d, 0x01, 0x0a, 0x11, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65,
+	0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x12, 0x30, 0x0a, 0x06, 0x73, 0x69, 0x67,
+	0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63,
+	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72,
+	0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x19, 0x0a, 0x08, 0x70,
+	0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x04, 0x52, 0x07, 0x70,
+	0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x3a, 0x2b, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f, 0x00,
+	0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a, 0x13,
+	0x73, 0x77, 0x61, 0x70, 0x2f, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c,
+	0x49, 0x64, 0x73, 0x22, 0x3e, 0x0a, 0x19, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42,
+	0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x5f, 0x70, 0x6f, 0x6f, 0x6c, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x50, 0x6f,
+	0x6f, 0x6c, 0x73, 0x22, 0xb2, 0x01, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70, 0x61, 0x75,
+	0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x12, 0x30, 0x0a,
+	0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2,
+	0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73,
+	0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12,
+	0x36, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x18, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
 	0x76, 0x31, 0x2e, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x09, 0x61, 0x6c,
 	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x3a, 0x2f, 0x88, 0xa0, 0x1f, 0x00, 0xe8, 0xa0, 0x1f,
 	0x00, 0x82, 0xe7, 0xb0, 0x2a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x8a, 0xe7, 0xb0, 0x2a,
@@ -8052,111 +8055,118 @@ var file_swap_v1_tx_proto_rawDesc = []byte{
 	0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x75, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x5f,
 	0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0d, 0x75, 0x6e, 0x70,
-	0x61, 0x75, 0x73, 0x65, 0x64, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x32, 0xd9, 0x04, 0x0a, 0x03, 0x4d,
-	0x73, 0x67, 0x12, 0x32, 0x0a, 0x04, 0x53, 0x77, 0x61, 0x70, 0x12, 0x10, 0x2e, 0x73, 0x77, 0x61,
-	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x77, 0x61, 0x70, 0x1a, 0x18, 0x2e, 0x73,
-	0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x77, 0x61, 0x70, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x62, 0x0a, 0x14, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72,
-	0x61, 0x77, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x12, 0x20,
-	0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68,
-	0x64, 0x72, 0x61, 0x77, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73,
-	0x1a, 0x28, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69,
+	0x61, 0x75, 0x73, 0x65, 0x64, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x32, 0xad, 0x05, 0x0a, 0x03, 0x4d,
+	0x73, 0x67, 0x12, 0x3e, 0x0a, 0x04, 0x53, 0x77, 0x61, 0x70, 0x12, 0x16, 0x2e, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x77,
+	0x61, 0x70, 0x1a, 0x1e, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
+	0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x77, 0x61, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x6e, 0x0a, 0x14, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x12, 0x26, 0x2e, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69,
 	0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65,
-	0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x53, 0x0a, 0x0f, 0x57, 0x69,
-	0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x1b, 0x2e,
-	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64,
-	0x72, 0x61, 0x77, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x1a, 0x23, 0x2e, 0x73, 0x77, 0x61,
-	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77,
-	0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x56, 0x0a, 0x10, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69,
-	0x74, 0x68, 0x6d, 0x12, 0x1c, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73,
-	0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68,
-	0x6d, 0x1a, 0x24, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x50,
+	0x65, 0x73, 0x1a, 0x2e, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
+	0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x5f, 0x0a, 0x0f, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x52, 0x65,
+	0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x21, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77,
+	0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61,
+	0x77, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x1a, 0x29, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65,
+	0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x57, 0x69, 0x74, 0x68,
+	0x64, 0x72, 0x61, 0x77, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x62, 0x0a, 0x10, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c,
+	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x12, 0x22, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e,
+	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65,
+	0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x1a, 0x2a, 0x2e, 0x6e, 0x6f,
+	0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x50,
 	0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x50, 0x0a, 0x0e, 0x50, 0x61, 0x75, 0x73, 0x65,
-	0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x12, 0x1a, 0x2e, 0x73, 0x77, 0x61, 0x70,
-	0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f,
-	0x6f, 0x6c, 0x49, 0x64, 0x73, 0x1a, 0x22, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e,
-	0x4d, 0x73, 0x67, 0x50, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64,
-	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5c, 0x0a, 0x12, 0x55, 0x6e, 0x70,
-	0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x12,
-	0x1e, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70,
-	0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x1a,
-	0x26, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70,
-	0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x10, 0x55, 0x6e, 0x70, 0x61, 0x75,
-	0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x12, 0x1c, 0x2e, 0x73, 0x77,
-	0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65,
-	0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x1a, 0x24, 0x2e, 0x73, 0x77, 0x61, 0x70,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5c, 0x0a, 0x0e, 0x50, 0x61, 0x75, 0x73, 0x65,
+	0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x12, 0x20, 0x2e, 0x6e, 0x6f, 0x62, 0x6c,
+	0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x50, 0x61, 0x75,
+	0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x1a, 0x28, 0x2e, 0x6e, 0x6f,
+	0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x50,
+	0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x68, 0x0a, 0x12, 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65,
+	0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x12, 0x24, 0x2e, 0x6e, 0x6f,
+	0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55,
+	0x6e, 0x70, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68,
+	0x6d, 0x1a, 0x2c, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76,
+	0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x41, 0x6c,
+	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x62, 0x0a, 0x10, 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c,
+	0x49, 0x64, 0x73, 0x12, 0x22, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70,
 	0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65, 0x42, 0x79,
-	0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a,
-	0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0x76, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x77,
-	0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01,
-	0x5a, 0x21, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a,
-	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x77, 0x61,
-	0x70, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x53, 0x58, 0x58, 0xaa, 0x02, 0x07, 0x53, 0x77, 0x61, 0x70,
-	0x2e, 0x56, 0x31, 0xca, 0x02, 0x07, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x13,
-	0x53, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x08, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x1a, 0x2a, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e,
+	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x6e, 0x70, 0x61, 0x75,
+	0x73, 0x65, 0x42, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0x9b, 0x01, 0x0a, 0x11, 0x63,
+	0x6f, 0x6d, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31,
+	0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x27, 0x73, 0x77, 0x61,
+	0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70, 0x69, 0x2f,
+	0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x77,
+	0x61, 0x70, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x4e, 0x53, 0x58, 0xaa, 0x02, 0x0d, 0x4e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x53, 0x77, 0x61, 0x70, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0d, 0x4e, 0x6f, 0x62,
+	0x6c, 0x65, 0x5c, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x19, 0x4e, 0x6f, 0x62,
+	0x6c, 0x65, 0x5c, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65,
+	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0f, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x3a, 0x3a,
+	0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_swap_v1_tx_proto_rawDescOnce sync.Once
-	file_swap_v1_tx_proto_rawDescData = file_swap_v1_tx_proto_rawDesc
+	file_noble_swap_v1_tx_proto_rawDescOnce sync.Once
+	file_noble_swap_v1_tx_proto_rawDescData = file_noble_swap_v1_tx_proto_rawDesc
 )
 
-func file_swap_v1_tx_proto_rawDescGZIP() []byte {
-	file_swap_v1_tx_proto_rawDescOnce.Do(func() {
-		file_swap_v1_tx_proto_rawDescData = protoimpl.X.CompressGZIP(file_swap_v1_tx_proto_rawDescData)
+func file_noble_swap_v1_tx_proto_rawDescGZIP() []byte {
+	file_noble_swap_v1_tx_proto_rawDescOnce.Do(func() {
+		file_noble_swap_v1_tx_proto_rawDescData = protoimpl.X.CompressGZIP(file_noble_swap_v1_tx_proto_rawDescData)
 	})
-	return file_swap_v1_tx_proto_rawDescData
+	return file_noble_swap_v1_tx_proto_rawDescData
 }
 
-var file_swap_v1_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-var file_swap_v1_tx_proto_goTypes = []interface{}{
-	(*MsgWithdrawProtocolFees)(nil),         // 0: swap.v1.MsgWithdrawProtocolFees
-	(*MsgWithdrawProtocolFeesResponse)(nil), // 1: swap.v1.MsgWithdrawProtocolFeesResponse
-	(*MsgWithdrawRewards)(nil),              // 2: swap.v1.MsgWithdrawRewards
-	(*MsgWithdrawRewardsResponse)(nil),      // 3: swap.v1.MsgWithdrawRewardsResponse
-	(*MsgSwap)(nil),                         // 4: swap.v1.MsgSwap
-	(*MsgSwapResponse)(nil),                 // 5: swap.v1.MsgSwapResponse
-	(*MsgPauseByAlgorithm)(nil),             // 6: swap.v1.MsgPauseByAlgorithm
-	(*MsgPauseByAlgorithmResponse)(nil),     // 7: swap.v1.MsgPauseByAlgorithmResponse
-	(*MsgPauseByPoolIds)(nil),               // 8: swap.v1.MsgPauseByPoolIds
-	(*MsgPauseByPoolIdsResponse)(nil),       // 9: swap.v1.MsgPauseByPoolIdsResponse
-	(*MsgUnpauseByAlgorithm)(nil),           // 10: swap.v1.MsgUnpauseByAlgorithm
-	(*MsgUnpauseByAlgorithmResponse)(nil),   // 11: swap.v1.MsgUnpauseByAlgorithmResponse
-	(*MsgUnpauseByPoolIds)(nil),             // 12: swap.v1.MsgUnpauseByPoolIds
-	(*MsgUnpauseByPoolIdsResponse)(nil),     // 13: swap.v1.MsgUnpauseByPoolIdsResponse
+var file_noble_swap_v1_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_noble_swap_v1_tx_proto_goTypes = []interface{}{
+	(*MsgWithdrawProtocolFees)(nil),         // 0: noble.swap.v1.MsgWithdrawProtocolFees
+	(*MsgWithdrawProtocolFeesResponse)(nil), // 1: noble.swap.v1.MsgWithdrawProtocolFeesResponse
+	(*MsgWithdrawRewards)(nil),              // 2: noble.swap.v1.MsgWithdrawRewards
+	(*MsgWithdrawRewardsResponse)(nil),      // 3: noble.swap.v1.MsgWithdrawRewardsResponse
+	(*MsgSwap)(nil),                         // 4: noble.swap.v1.MsgSwap
+	(*MsgSwapResponse)(nil),                 // 5: noble.swap.v1.MsgSwapResponse
+	(*MsgPauseByAlgorithm)(nil),             // 6: noble.swap.v1.MsgPauseByAlgorithm
+	(*MsgPauseByAlgorithmResponse)(nil),     // 7: noble.swap.v1.MsgPauseByAlgorithmResponse
+	(*MsgPauseByPoolIds)(nil),               // 8: noble.swap.v1.MsgPauseByPoolIds
+	(*MsgPauseByPoolIdsResponse)(nil),       // 9: noble.swap.v1.MsgPauseByPoolIdsResponse
+	(*MsgUnpauseByAlgorithm)(nil),           // 10: noble.swap.v1.MsgUnpauseByAlgorithm
+	(*MsgUnpauseByAlgorithmResponse)(nil),   // 11: noble.swap.v1.MsgUnpauseByAlgorithmResponse
+	(*MsgUnpauseByPoolIds)(nil),             // 12: noble.swap.v1.MsgUnpauseByPoolIds
+	(*MsgUnpauseByPoolIdsResponse)(nil),     // 13: noble.swap.v1.MsgUnpauseByPoolIdsResponse
 	(*v1beta1.Coin)(nil),                    // 14: cosmos.base.v1beta1.Coin
-	(*Route)(nil),                           // 15: swap.v1.Route
-	(*Swap)(nil),                            // 16: swap.v1.Swap
-	(Algorithm)(0),                          // 17: swap.v1.Algorithm
+	(*Route)(nil),                           // 15: noble.swap.v1.Route
+	(*Swap)(nil),                            // 16: noble.swap.v1.Swap
+	(Algorithm)(0),                          // 17: noble.swap.v1.Algorithm
 }
-var file_swap_v1_tx_proto_depIdxs = []int32{
-	14, // 0: swap.v1.MsgWithdrawRewardsResponse.rewards:type_name -> cosmos.base.v1beta1.Coin
-	14, // 1: swap.v1.MsgSwap.amount:type_name -> cosmos.base.v1beta1.Coin
-	15, // 2: swap.v1.MsgSwap.routes:type_name -> swap.v1.Route
-	14, // 3: swap.v1.MsgSwap.min:type_name -> cosmos.base.v1beta1.Coin
-	14, // 4: swap.v1.MsgSwapResponse.result:type_name -> cosmos.base.v1beta1.Coin
-	16, // 5: swap.v1.MsgSwapResponse.swaps:type_name -> swap.v1.Swap
-	17, // 6: swap.v1.MsgPauseByAlgorithm.algorithm:type_name -> swap.v1.Algorithm
-	17, // 7: swap.v1.MsgUnpauseByAlgorithm.algorithm:type_name -> swap.v1.Algorithm
-	4,  // 8: swap.v1.Msg.Swap:input_type -> swap.v1.MsgSwap
-	0,  // 9: swap.v1.Msg.WithdrawProtocolFees:input_type -> swap.v1.MsgWithdrawProtocolFees
-	2,  // 10: swap.v1.Msg.WithdrawRewards:input_type -> swap.v1.MsgWithdrawRewards
-	6,  // 11: swap.v1.Msg.PauseByAlgorithm:input_type -> swap.v1.MsgPauseByAlgorithm
-	8,  // 12: swap.v1.Msg.PauseByPoolIds:input_type -> swap.v1.MsgPauseByPoolIds
-	10, // 13: swap.v1.Msg.UnpauseByAlgorithm:input_type -> swap.v1.MsgUnpauseByAlgorithm
-	12, // 14: swap.v1.Msg.UnpauseByPoolIds:input_type -> swap.v1.MsgUnpauseByPoolIds
-	5,  // 15: swap.v1.Msg.Swap:output_type -> swap.v1.MsgSwapResponse
-	1,  // 16: swap.v1.Msg.WithdrawProtocolFees:output_type -> swap.v1.MsgWithdrawProtocolFeesResponse
-	3,  // 17: swap.v1.Msg.WithdrawRewards:output_type -> swap.v1.MsgWithdrawRewardsResponse
-	7,  // 18: swap.v1.Msg.PauseByAlgorithm:output_type -> swap.v1.MsgPauseByAlgorithmResponse
-	9,  // 19: swap.v1.Msg.PauseByPoolIds:output_type -> swap.v1.MsgPauseByPoolIdsResponse
-	11, // 20: swap.v1.Msg.UnpauseByAlgorithm:output_type -> swap.v1.MsgUnpauseByAlgorithmResponse
-	13, // 21: swap.v1.Msg.UnpauseByPoolIds:output_type -> swap.v1.MsgUnpauseByPoolIdsResponse
+var file_noble_swap_v1_tx_proto_depIdxs = []int32{
+	14, // 0: noble.swap.v1.MsgWithdrawRewardsResponse.rewards:type_name -> cosmos.base.v1beta1.Coin
+	14, // 1: noble.swap.v1.MsgSwap.amount:type_name -> cosmos.base.v1beta1.Coin
+	15, // 2: noble.swap.v1.MsgSwap.routes:type_name -> noble.swap.v1.Route
+	14, // 3: noble.swap.v1.MsgSwap.min:type_name -> cosmos.base.v1beta1.Coin
+	14, // 4: noble.swap.v1.MsgSwapResponse.result:type_name -> cosmos.base.v1beta1.Coin
+	16, // 5: noble.swap.v1.MsgSwapResponse.swaps:type_name -> noble.swap.v1.Swap
+	17, // 6: noble.swap.v1.MsgPauseByAlgorithm.algorithm:type_name -> noble.swap.v1.Algorithm
+	17, // 7: noble.swap.v1.MsgUnpauseByAlgorithm.algorithm:type_name -> noble.swap.v1.Algorithm
+	4,  // 8: noble.swap.v1.Msg.Swap:input_type -> noble.swap.v1.MsgSwap
+	0,  // 9: noble.swap.v1.Msg.WithdrawProtocolFees:input_type -> noble.swap.v1.MsgWithdrawProtocolFees
+	2,  // 10: noble.swap.v1.Msg.WithdrawRewards:input_type -> noble.swap.v1.MsgWithdrawRewards
+	6,  // 11: noble.swap.v1.Msg.PauseByAlgorithm:input_type -> noble.swap.v1.MsgPauseByAlgorithm
+	8,  // 12: noble.swap.v1.Msg.PauseByPoolIds:input_type -> noble.swap.v1.MsgPauseByPoolIds
+	10, // 13: noble.swap.v1.Msg.UnpauseByAlgorithm:input_type -> noble.swap.v1.MsgUnpauseByAlgorithm
+	12, // 14: noble.swap.v1.Msg.UnpauseByPoolIds:input_type -> noble.swap.v1.MsgUnpauseByPoolIds
+	5,  // 15: noble.swap.v1.Msg.Swap:output_type -> noble.swap.v1.MsgSwapResponse
+	1,  // 16: noble.swap.v1.Msg.WithdrawProtocolFees:output_type -> noble.swap.v1.MsgWithdrawProtocolFeesResponse
+	3,  // 17: noble.swap.v1.Msg.WithdrawRewards:output_type -> noble.swap.v1.MsgWithdrawRewardsResponse
+	7,  // 18: noble.swap.v1.Msg.PauseByAlgorithm:output_type -> noble.swap.v1.MsgPauseByAlgorithmResponse
+	9,  // 19: noble.swap.v1.Msg.PauseByPoolIds:output_type -> noble.swap.v1.MsgPauseByPoolIdsResponse
+	11, // 20: noble.swap.v1.Msg.UnpauseByAlgorithm:output_type -> noble.swap.v1.MsgUnpauseByAlgorithmResponse
+	13, // 21: noble.swap.v1.Msg.UnpauseByPoolIds:output_type -> noble.swap.v1.MsgUnpauseByPoolIdsResponse
 	15, // [15:22] is the sub-list for method output_type
 	8,  // [8:15] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -8164,15 +8174,15 @@ var file_swap_v1_tx_proto_depIdxs = []int32{
 	0,  // [0:8] is the sub-list for field type_name
 }
 
-func init() { file_swap_v1_tx_proto_init() }
-func file_swap_v1_tx_proto_init() {
-	if File_swap_v1_tx_proto != nil {
+func init() { file_noble_swap_v1_tx_proto_init() }
+func file_noble_swap_v1_tx_proto_init() {
+	if File_noble_swap_v1_tx_proto != nil {
 		return
 	}
-	file_swap_v1_algorithm_proto_init()
-	file_swap_v1_swap_proto_init()
+	file_noble_swap_v1_algorithm_proto_init()
+	file_noble_swap_v1_swap_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_swap_v1_tx_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgWithdrawProtocolFees); i {
 			case 0:
 				return &v.state
@@ -8184,7 +8194,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgWithdrawProtocolFeesResponse); i {
 			case 0:
 				return &v.state
@@ -8196,7 +8206,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgWithdrawRewards); i {
 			case 0:
 				return &v.state
@@ -8208,7 +8218,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgWithdrawRewardsResponse); i {
 			case 0:
 				return &v.state
@@ -8220,7 +8230,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgSwap); i {
 			case 0:
 				return &v.state
@@ -8232,7 +8242,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgSwapResponse); i {
 			case 0:
 				return &v.state
@@ -8244,7 +8254,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgPauseByAlgorithm); i {
 			case 0:
 				return &v.state
@@ -8256,7 +8266,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgPauseByAlgorithmResponse); i {
 			case 0:
 				return &v.state
@@ -8268,7 +8278,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgPauseByPoolIds); i {
 			case 0:
 				return &v.state
@@ -8280,7 +8290,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgPauseByPoolIdsResponse); i {
 			case 0:
 				return &v.state
@@ -8292,7 +8302,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUnpauseByAlgorithm); i {
 			case 0:
 				return &v.state
@@ -8304,7 +8314,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUnpauseByAlgorithmResponse); i {
 			case 0:
 				return &v.state
@@ -8316,7 +8326,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUnpauseByPoolIds); i {
 			case 0:
 				return &v.state
@@ -8328,7 +8338,7 @@ func file_swap_v1_tx_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_tx_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_tx_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUnpauseByPoolIdsResponse); i {
 			case 0:
 				return &v.state
@@ -8345,18 +8355,18 @@ func file_swap_v1_tx_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_swap_v1_tx_proto_rawDesc,
+			RawDescriptor: file_noble_swap_v1_tx_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_swap_v1_tx_proto_goTypes,
-		DependencyIndexes: file_swap_v1_tx_proto_depIdxs,
-		MessageInfos:      file_swap_v1_tx_proto_msgTypes,
+		GoTypes:           file_noble_swap_v1_tx_proto_goTypes,
+		DependencyIndexes: file_noble_swap_v1_tx_proto_depIdxs,
+		MessageInfos:      file_noble_swap_v1_tx_proto_msgTypes,
 	}.Build()
-	File_swap_v1_tx_proto = out.File
-	file_swap_v1_tx_proto_rawDesc = nil
-	file_swap_v1_tx_proto_goTypes = nil
-	file_swap_v1_tx_proto_depIdxs = nil
+	File_noble_swap_v1_tx_proto = out.File
+	file_noble_swap_v1_tx_proto_rawDesc = nil
+	file_noble_swap_v1_tx_proto_goTypes = nil
+	file_noble_swap_v1_tx_proto_depIdxs = nil
 }

@@ -9,8 +9,8 @@ cd ..
 
 cp -r swap.noble.xyz/* ./
 rm -rf swap.noble.xyz
-cp -r api/swap/* api/
-find api/ -type f -name "*.go" -exec sed -i 's|swap.noble.xyz/api/swap|swap.noble.xyz/api|g' {} +
+cp -r api/noble/swap/* api/
+find api/ -type f -name "*.go" -exec sed -i 's|swap.noble.xyz/api/noble/swap|swap.noble.xyz/api|g' {} +
 
-rm -rf api/swap
-rm -rf swap
+rm -rf api/noble
+rm -rf noble
