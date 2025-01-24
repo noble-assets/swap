@@ -10,7 +10,7 @@ var (
 	PausedPrefix     = []byte("paused")
 	PoolsPrefix      = []byte("pools_generic")
 
-	StableSwapPoolsPrefix                     = []byte("stableswap_pools")
+	StableSwapPoolsPrefix                     = []byte("pools_stableswap")
 	StableSwapUsersTotalBondedSharesPrefix    = []byte("stableswap_users_total_bonded_shares")
 	StableSwapUsersTotalUnbondingSharesPrefix = []byte("stableswap_users_total_unbonding_shares")
 	StableSwapPoolsTotalUnbondingSharesPrefix = []byte("stableswap_pools_total_unbonding_shares")

@@ -59,7 +59,7 @@ func NewKeeper(
 		headerService: headerService,
 		logger:        logger,
 
-		Pools:                     collections.NewMap(builder, types.StableSwapPoolsPrefix, "stableswap_pools", collections.Uint64Key, codec.CollValue[stableswaptypes.Pool](cdc)),
+		Pools:                     collections.NewMap(builder, types.StableSwapPoolsPrefix, "pools_stableswap", collections.Uint64Key, codec.CollValue[stableswaptypes.Pool](cdc)),
 		UsersTotalBondedShares:    collections.NewMap(builder, types.StableSwapUsersTotalBondedSharesPrefix, "stableswap_users_total_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue),
 		UsersTotalUnbondingShares: collections.NewMap(builder, types.StableSwapUsersTotalUnbondingSharesPrefix, "stableswap_users_total_unbonding_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue),
 		PoolsTotalUnbondingShares: collections.NewMap(builder, types.StableSwapPoolsTotalUnbondingSharesPrefix, "stableswap_pools_total_unbonding_shares", collections.Uint64Key, sdk.LegacyDecValue),
