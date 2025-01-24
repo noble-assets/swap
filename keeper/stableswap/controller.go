@@ -424,15 +424,26 @@ func (c *Controller) UpdatePool(
 // ProcessUnbondings handles pending unbonding requests, returns tokens to users after the unbonding period ends,
 // and claims user rewards associated with the pool.
 func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Time) error {
+	poolAddr, err := sdk.AccAddressFromBech32(c.GetAddress())
+	if err != nil {
+		return err
+	}
+
 	// Iterate over unbonding entries and process those whose unbonding period has ended.
 	for _, entry := range c.stableswapKeeper.GetUnbondingPositionsUntil(ctx, currentTime.Unix()) {
+		addr, err := sdk.AccAddressFromBech32(entry.Address)
+		if err != nil {
+			c.stableswapKeeper.logger.Error("unable to parse unbonding position address  : %s")
+			continue
+		}
+
 		// Check if the unbonding period has ended for the given position.
 		if currentTime.After(entry.UnbondingPosition.EndTime) {
 			// Send the tokens back to the user.
 			if err := (*c.bankKeeper).SendCoins(
 				ctx,
-				sdk.MustAccAddressFromBech32(c.GetAddress()),
-				sdk.MustAccAddressFromBech32(entry.Address),
+				poolAddr,
+				addr,
 				entry.UnbondingPosition.Amount,
 			); err != nil {
 				return err
@@ -547,6 +558,10 @@ func (c *Controller) GetTotalPoolUserRewards(ctx context.Context, address string
 
 // ProcessUserRewards distributes rewards to a user and updates their reward periods.
 func (c *Controller) ProcessUserRewards(ctx context.Context, address string, currentTime time.Time) (sdk.Coins, error) {
+	addr, err := sdk.AccAddressFromBech32(address)
+	if err != nil {
+		return nil, err
+	}
 	// Get the expected amount of user rewards for the user bonded positions.
 	userRewards, err := c.GetTotalPoolUserRewards(ctx, address, currentTime)
 	if err != nil {
@@ -573,7 +588,7 @@ func (c *Controller) ProcessUserRewards(ctx context.Context, address string, cur
 		for _, coin := range poolRewards.Amount {
 			finalRewards = finalRewards.Add(coin)
 		}
-		err = (*c.bankKeeper).SendCoins(ctx, poolRewards.Address, sdk.MustAccAddressFromBech32(address), poolRewards.Amount)
+		err = (*c.bankKeeper).SendCoins(ctx, poolRewards.Address, addr.Bytes(), poolRewards.Amount)
 		if err != nil {
 			return nil, err
 		}
