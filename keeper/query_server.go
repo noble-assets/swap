@@ -35,13 +35,14 @@ func (s queryServer) Pool(ctx context.Context, req *types.QueryPool) (*types.Que
 		return nil, err
 	}
 
+	liquidityPoolAddr, _ := s.addressCodec.StringToBytes(controller.GetAddress())
 	return &types.QueryPoolResponse{Pool: &types.PoolDetails{
 		Id:           controller.GetId(),
 		Address:      controller.GetAddress(),
 		Algorithm:    controller.GetAlgorithm(),
 		Pair:         controller.GetPair(),
 		Details:      controller.PoolDetails(),
-		Liquidity:    s.bankKeeper.GetAllBalances(ctx, sdk.MustAccAddressFromBech32(controller.GetAddress())),
+		Liquidity:    s.bankKeeper.GetAllBalances(ctx, liquidityPoolAddr),
 		ProtocolFees: s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/protocol_fees", types.ModuleName, controller.GetId()))),
 		RewardFees:   s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/rewards_fees", types.ModuleName, controller.GetId()))),
 	}}, err
@@ -62,13 +63,14 @@ func (s queryServer) Pools(ctx context.Context, req *types.QueryPools) (*types.Q
 			continue
 		}
 
+		liquidityPoolAddr, _ := s.addressCodec.StringToBytes(controller.GetAddress())
 		pools = append(pools, &types.PoolDetails{
 			Id:           pool.Id,
 			Address:      pool.Address,
 			Algorithm:    pool.Algorithm,
 			Pair:         pool.Pair,
 			Details:      controller.PoolDetails(),
-			Liquidity:    s.bankKeeper.GetAllBalances(ctx, sdk.MustAccAddressFromBech32(pool.Address)),
+			Liquidity:    s.bankKeeper.GetAllBalances(ctx, liquidityPoolAddr),
 			ProtocolFees: s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/protocol_fees", types.ModuleName, pool.Id))),
 			RewardFees:   s.bankKeeper.GetAllBalances(ctx, authtypes.NewModuleAddress(fmt.Sprintf("%s/pool/%d/rewards_fees", types.ModuleName, pool.Id))),
 		})

@@ -138,7 +138,7 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	// Commit the plan.
 	var executedSwaps []*types.Swap
 	for _, swap := range swapRoutesPlan.Swaps {
-		poolAddr, err := sdk.AccAddressFromBech32(swap.PoolAddress)
+		poolAddr, err := k.addressCodec.StringToBytes(swap.PoolAddress)
 		if err != nil {
 			return nil, err
 		}
