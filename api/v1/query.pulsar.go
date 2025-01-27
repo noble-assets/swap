@@ -22,8 +22,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryRates = File_swap_v1_query_proto.Messages().ByName("QueryRates")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryRates = File_noble_swap_v1_query_proto.Messages().ByName("QueryRates")
 	fd_QueryRates_algorithm = md_QueryRates.Fields().ByName("algorithm")
 }
 
@@ -36,7 +36,7 @@ func (x *QueryRates) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryRates) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[0]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -113,13 +113,13 @@ func (x *fastReflection_QueryRates) Range(f func(protoreflect.FieldDescriptor, p
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryRates) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryRates.algorithm":
+	case "noble.swap.v1.QueryRates.algorithm":
 		return x.Algorithm != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRates"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRates"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRates does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRates does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -131,13 +131,13 @@ func (x *fastReflection_QueryRates) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRates) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRates.algorithm":
+	case "noble.swap.v1.QueryRates.algorithm":
 		x.Algorithm = 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRates"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRates"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRates does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRates does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -149,14 +149,14 @@ func (x *fastReflection_QueryRates) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryRates) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryRates.algorithm":
+	case "noble.swap.v1.QueryRates.algorithm":
 		value := x.Algorithm
 		return protoreflect.ValueOfEnum((protoreflect.EnumNumber)(value))
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRates"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRates"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRates does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRates does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -172,13 +172,13 @@ func (x *fastReflection_QueryRates) Get(descriptor protoreflect.FieldDescriptor)
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRates) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRates.algorithm":
+	case "noble.swap.v1.QueryRates.algorithm":
 		x.Algorithm = (Algorithm)(value.Enum())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRates"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRates"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRates does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRates does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -194,13 +194,13 @@ func (x *fastReflection_QueryRates) Set(fd protoreflect.FieldDescriptor, value p
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRates) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRates.algorithm":
-		panic(fmt.Errorf("field algorithm of message swap.v1.QueryRates is not mutable"))
+	case "noble.swap.v1.QueryRates.algorithm":
+		panic(fmt.Errorf("field algorithm of message noble.swap.v1.QueryRates is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRates"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRates"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRates does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRates does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -209,13 +209,13 @@ func (x *fastReflection_QueryRates) Mutable(fd protoreflect.FieldDescriptor) pro
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryRates) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRates.algorithm":
+	case "noble.swap.v1.QueryRates.algorithm":
 		return protoreflect.ValueOfEnum(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRates"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRates"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRates does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRates does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -225,7 +225,7 @@ func (x *fastReflection_QueryRates) NewField(fd protoreflect.FieldDescriptor) pr
 func (x *fastReflection_QueryRates) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryRates", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryRates", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -477,8 +477,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryRatesResponse = File_swap_v1_query_proto.Messages().ByName("QueryRatesResponse")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryRatesResponse = File_noble_swap_v1_query_proto.Messages().ByName("QueryRatesResponse")
 	fd_QueryRatesResponse_rates = md_QueryRatesResponse.Fields().ByName("rates")
 }
 
@@ -491,7 +491,7 @@ func (x *QueryRatesResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryRatesResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[1]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -568,13 +568,13 @@ func (x *fastReflection_QueryRatesResponse) Range(f func(protoreflect.FieldDescr
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryRatesResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryRatesResponse.rates":
+	case "noble.swap.v1.QueryRatesResponse.rates":
 		return len(x.Rates) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRatesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRatesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -586,13 +586,13 @@ func (x *fastReflection_QueryRatesResponse) Has(fd protoreflect.FieldDescriptor)
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRatesResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRatesResponse.rates":
+	case "noble.swap.v1.QueryRatesResponse.rates":
 		x.Rates = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRatesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRatesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -604,7 +604,7 @@ func (x *fastReflection_QueryRatesResponse) Clear(fd protoreflect.FieldDescripto
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryRatesResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryRatesResponse.rates":
+	case "noble.swap.v1.QueryRatesResponse.rates":
 		if len(x.Rates) == 0 {
 			return protoreflect.ValueOfList(&_QueryRatesResponse_1_list{})
 		}
@@ -612,9 +612,9 @@ func (x *fastReflection_QueryRatesResponse) Get(descriptor protoreflect.FieldDes
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRatesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRatesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRatesResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRatesResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -630,15 +630,15 @@ func (x *fastReflection_QueryRatesResponse) Get(descriptor protoreflect.FieldDes
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRatesResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRatesResponse.rates":
+	case "noble.swap.v1.QueryRatesResponse.rates":
 		lv := value.List()
 		clv := lv.(*_QueryRatesResponse_1_list)
 		x.Rates = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRatesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRatesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -654,7 +654,7 @@ func (x *fastReflection_QueryRatesResponse) Set(fd protoreflect.FieldDescriptor,
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRatesResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRatesResponse.rates":
+	case "noble.swap.v1.QueryRatesResponse.rates":
 		if x.Rates == nil {
 			x.Rates = []*Rate{}
 		}
@@ -662,9 +662,9 @@ func (x *fastReflection_QueryRatesResponse) Mutable(fd protoreflect.FieldDescrip
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRatesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRatesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -673,14 +673,14 @@ func (x *fastReflection_QueryRatesResponse) Mutable(fd protoreflect.FieldDescrip
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryRatesResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRatesResponse.rates":
+	case "noble.swap.v1.QueryRatesResponse.rates":
 		list := []*Rate{}
 		return protoreflect.ValueOfList(&_QueryRatesResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRatesResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRatesResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRatesResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -690,7 +690,7 @@ func (x *fastReflection_QueryRatesResponse) NewField(fd protoreflect.FieldDescri
 func (x *fastReflection_QueryRatesResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryRatesResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryRatesResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -921,8 +921,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryRate = File_swap_v1_query_proto.Messages().ByName("QueryRate")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryRate = File_noble_swap_v1_query_proto.Messages().ByName("QueryRate")
 	fd_QueryRate_denom = md_QueryRate.Fields().ByName("denom")
 	fd_QueryRate_algorithm = md_QueryRate.Fields().ByName("algorithm")
 }
@@ -936,7 +936,7 @@ func (x *QueryRate) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryRate) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[2]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1019,15 +1019,15 @@ func (x *fastReflection_QueryRate) Range(f func(protoreflect.FieldDescriptor, pr
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryRate) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryRate.denom":
+	case "noble.swap.v1.QueryRate.denom":
 		return x.Denom != ""
-	case "swap.v1.QueryRate.algorithm":
+	case "noble.swap.v1.QueryRate.algorithm":
 		return x.Algorithm != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRate"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRate"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRate does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRate does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1039,15 +1039,15 @@ func (x *fastReflection_QueryRate) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRate) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRate.denom":
+	case "noble.swap.v1.QueryRate.denom":
 		x.Denom = ""
-	case "swap.v1.QueryRate.algorithm":
+	case "noble.swap.v1.QueryRate.algorithm":
 		x.Algorithm = 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRate"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRate"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRate does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRate does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1059,17 +1059,17 @@ func (x *fastReflection_QueryRate) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryRate) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryRate.denom":
+	case "noble.swap.v1.QueryRate.denom":
 		value := x.Denom
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.QueryRate.algorithm":
+	case "noble.swap.v1.QueryRate.algorithm":
 		value := x.Algorithm
 		return protoreflect.ValueOfEnum((protoreflect.EnumNumber)(value))
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRate"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRate"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRate does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRate does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1085,15 +1085,15 @@ func (x *fastReflection_QueryRate) Get(descriptor protoreflect.FieldDescriptor) 
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRate) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRate.denom":
+	case "noble.swap.v1.QueryRate.denom":
 		x.Denom = value.Interface().(string)
-	case "swap.v1.QueryRate.algorithm":
+	case "noble.swap.v1.QueryRate.algorithm":
 		x.Algorithm = (Algorithm)(value.Enum())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRate"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRate"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRate does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRate does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1109,15 +1109,15 @@ func (x *fastReflection_QueryRate) Set(fd protoreflect.FieldDescriptor, value pr
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRate) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRate.denom":
-		panic(fmt.Errorf("field denom of message swap.v1.QueryRate is not mutable"))
-	case "swap.v1.QueryRate.algorithm":
-		panic(fmt.Errorf("field algorithm of message swap.v1.QueryRate is not mutable"))
+	case "noble.swap.v1.QueryRate.denom":
+		panic(fmt.Errorf("field denom of message noble.swap.v1.QueryRate is not mutable"))
+	case "noble.swap.v1.QueryRate.algorithm":
+		panic(fmt.Errorf("field algorithm of message noble.swap.v1.QueryRate is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRate"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRate"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRate does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRate does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1126,15 +1126,15 @@ func (x *fastReflection_QueryRate) Mutable(fd protoreflect.FieldDescriptor) prot
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryRate) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRate.denom":
+	case "noble.swap.v1.QueryRate.denom":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.QueryRate.algorithm":
+	case "noble.swap.v1.QueryRate.algorithm":
 		return protoreflect.ValueOfEnum(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRate"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRate"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRate does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRate does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1144,7 +1144,7 @@ func (x *fastReflection_QueryRate) NewField(fd protoreflect.FieldDescriptor) pro
 func (x *fastReflection_QueryRate) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryRate", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryRate", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1439,8 +1439,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryRateResponse = File_swap_v1_query_proto.Messages().ByName("QueryRateResponse")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryRateResponse = File_noble_swap_v1_query_proto.Messages().ByName("QueryRateResponse")
 	fd_QueryRateResponse_rates = md_QueryRateResponse.Fields().ByName("rates")
 }
 
@@ -1453,7 +1453,7 @@ func (x *QueryRateResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryRateResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[3]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1530,13 +1530,13 @@ func (x *fastReflection_QueryRateResponse) Range(f func(protoreflect.FieldDescri
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryRateResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryRateResponse.rates":
+	case "noble.swap.v1.QueryRateResponse.rates":
 		return len(x.Rates) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRateResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRateResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1548,13 +1548,13 @@ func (x *fastReflection_QueryRateResponse) Has(fd protoreflect.FieldDescriptor) 
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRateResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRateResponse.rates":
+	case "noble.swap.v1.QueryRateResponse.rates":
 		x.Rates = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRateResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRateResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1566,7 +1566,7 @@ func (x *fastReflection_QueryRateResponse) Clear(fd protoreflect.FieldDescriptor
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryRateResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryRateResponse.rates":
+	case "noble.swap.v1.QueryRateResponse.rates":
 		if len(x.Rates) == 0 {
 			return protoreflect.ValueOfList(&_QueryRateResponse_1_list{})
 		}
@@ -1574,9 +1574,9 @@ func (x *fastReflection_QueryRateResponse) Get(descriptor protoreflect.FieldDesc
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRateResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRateResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRateResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRateResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -1592,15 +1592,15 @@ func (x *fastReflection_QueryRateResponse) Get(descriptor protoreflect.FieldDesc
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRateResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryRateResponse.rates":
+	case "noble.swap.v1.QueryRateResponse.rates":
 		lv := value.List()
 		clv := lv.(*_QueryRateResponse_1_list)
 		x.Rates = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRateResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRateResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1616,7 +1616,7 @@ func (x *fastReflection_QueryRateResponse) Set(fd protoreflect.FieldDescriptor, 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryRateResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRateResponse.rates":
+	case "noble.swap.v1.QueryRateResponse.rates":
 		if x.Rates == nil {
 			x.Rates = []*Rate{}
 		}
@@ -1624,9 +1624,9 @@ func (x *fastReflection_QueryRateResponse) Mutable(fd protoreflect.FieldDescript
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRateResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRateResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1635,14 +1635,14 @@ func (x *fastReflection_QueryRateResponse) Mutable(fd protoreflect.FieldDescript
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryRateResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryRateResponse.rates":
+	case "noble.swap.v1.QueryRateResponse.rates":
 		list := []*Rate{}
 		return protoreflect.ValueOfList(&_QueryRateResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryRateResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryRateResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryRateResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1652,7 +1652,7 @@ func (x *fastReflection_QueryRateResponse) NewField(fd protoreflect.FieldDescrip
 func (x *fastReflection_QueryRateResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryRateResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryRateResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1881,8 +1881,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryPaused = File_swap_v1_query_proto.Messages().ByName("QueryPaused")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryPaused = File_noble_swap_v1_query_proto.Messages().ByName("QueryPaused")
 }
 
 var _ protoreflect.Message = (*fastReflection_QueryPaused)(nil)
@@ -1894,7 +1894,7 @@ func (x *QueryPaused) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryPaused) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[4]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1967,9 +1967,9 @@ func (x *fastReflection_QueryPaused) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPaused"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPaused"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPaused does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPaused does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1983,9 +1983,9 @@ func (x *fastReflection_QueryPaused) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPaused"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPaused"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPaused does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPaused does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -1999,9 +1999,9 @@ func (x *fastReflection_QueryPaused) Get(descriptor protoreflect.FieldDescriptor
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPaused"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPaused"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPaused does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPaused does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2019,9 +2019,9 @@ func (x *fastReflection_QueryPaused) Set(fd protoreflect.FieldDescriptor, value 
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPaused"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPaused"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPaused does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPaused does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2039,9 +2039,9 @@ func (x *fastReflection_QueryPaused) Mutable(fd protoreflect.FieldDescriptor) pr
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPaused"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPaused"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPaused does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPaused does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2052,9 +2052,9 @@ func (x *fastReflection_QueryPaused) NewField(fd protoreflect.FieldDescriptor) p
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPaused"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPaused"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPaused does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPaused does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2064,7 +2064,7 @@ func (x *fastReflection_QueryPaused) NewField(fd protoreflect.FieldDescriptor) p
 func (x *fastReflection_QueryPaused) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryPaused", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryPaused", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2284,8 +2284,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryPausedResponse = File_swap_v1_query_proto.Messages().ByName("QueryPausedResponse")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryPausedResponse = File_noble_swap_v1_query_proto.Messages().ByName("QueryPausedResponse")
 	fd_QueryPausedResponse_paused_pools = md_QueryPausedResponse.Fields().ByName("paused_pools")
 }
 
@@ -2298,7 +2298,7 @@ func (x *QueryPausedResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryPausedResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[5]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2375,13 +2375,13 @@ func (x *fastReflection_QueryPausedResponse) Range(f func(protoreflect.FieldDesc
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryPausedResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryPausedResponse.paused_pools":
+	case "noble.swap.v1.QueryPausedResponse.paused_pools":
 		return len(x.PausedPools) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPausedResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPausedResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2393,13 +2393,13 @@ func (x *fastReflection_QueryPausedResponse) Has(fd protoreflect.FieldDescriptor
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPausedResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPausedResponse.paused_pools":
+	case "noble.swap.v1.QueryPausedResponse.paused_pools":
 		x.PausedPools = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPausedResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPausedResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2411,7 +2411,7 @@ func (x *fastReflection_QueryPausedResponse) Clear(fd protoreflect.FieldDescript
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryPausedResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryPausedResponse.paused_pools":
+	case "noble.swap.v1.QueryPausedResponse.paused_pools":
 		if len(x.PausedPools) == 0 {
 			return protoreflect.ValueOfList(&_QueryPausedResponse_1_list{})
 		}
@@ -2419,9 +2419,9 @@ func (x *fastReflection_QueryPausedResponse) Get(descriptor protoreflect.FieldDe
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPausedResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPausedResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPausedResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPausedResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2437,15 +2437,15 @@ func (x *fastReflection_QueryPausedResponse) Get(descriptor protoreflect.FieldDe
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPausedResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPausedResponse.paused_pools":
+	case "noble.swap.v1.QueryPausedResponse.paused_pools":
 		lv := value.List()
 		clv := lv.(*_QueryPausedResponse_1_list)
 		x.PausedPools = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPausedResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPausedResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2461,7 +2461,7 @@ func (x *fastReflection_QueryPausedResponse) Set(fd protoreflect.FieldDescriptor
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPausedResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPausedResponse.paused_pools":
+	case "noble.swap.v1.QueryPausedResponse.paused_pools":
 		if x.PausedPools == nil {
 			x.PausedPools = []uint64{}
 		}
@@ -2469,9 +2469,9 @@ func (x *fastReflection_QueryPausedResponse) Mutable(fd protoreflect.FieldDescri
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPausedResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPausedResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2480,14 +2480,14 @@ func (x *fastReflection_QueryPausedResponse) Mutable(fd protoreflect.FieldDescri
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryPausedResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPausedResponse.paused_pools":
+	case "noble.swap.v1.QueryPausedResponse.paused_pools":
 		list := []uint64{}
 		return protoreflect.ValueOfList(&_QueryPausedResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPausedResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPausedResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPausedResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2497,7 +2497,7 @@ func (x *fastReflection_QueryPausedResponse) NewField(fd protoreflect.FieldDescr
 func (x *fastReflection_QueryPausedResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryPausedResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryPausedResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2773,8 +2773,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryPools = File_swap_v1_query_proto.Messages().ByName("QueryPools")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryPools = File_noble_swap_v1_query_proto.Messages().ByName("QueryPools")
 }
 
 var _ protoreflect.Message = (*fastReflection_QueryPools)(nil)
@@ -2786,7 +2786,7 @@ func (x *QueryPools) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryPools) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[6]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2859,9 +2859,9 @@ func (x *fastReflection_QueryPools) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPools"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPools"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPools does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPools does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2875,9 +2875,9 @@ func (x *fastReflection_QueryPools) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPools"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPools"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPools does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPools does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2891,9 +2891,9 @@ func (x *fastReflection_QueryPools) Get(descriptor protoreflect.FieldDescriptor)
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPools"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPools"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPools does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPools does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2911,9 +2911,9 @@ func (x *fastReflection_QueryPools) Set(fd protoreflect.FieldDescriptor, value p
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPools"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPools"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPools does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPools does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2931,9 +2931,9 @@ func (x *fastReflection_QueryPools) Mutable(fd protoreflect.FieldDescriptor) pro
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPools"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPools"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPools does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPools does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2944,9 +2944,9 @@ func (x *fastReflection_QueryPools) NewField(fd protoreflect.FieldDescriptor) pr
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPools"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPools"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPools does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPools does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2956,7 +2956,7 @@ func (x *fastReflection_QueryPools) NewField(fd protoreflect.FieldDescriptor) pr
 func (x *fastReflection_QueryPools) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryPools", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryPools", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3181,8 +3181,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryPoolsResponse = File_swap_v1_query_proto.Messages().ByName("QueryPoolsResponse")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryPoolsResponse = File_noble_swap_v1_query_proto.Messages().ByName("QueryPoolsResponse")
 	fd_QueryPoolsResponse_pools = md_QueryPoolsResponse.Fields().ByName("pools")
 }
 
@@ -3195,7 +3195,7 @@ func (x *QueryPoolsResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryPoolsResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[7]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3272,13 +3272,13 @@ func (x *fastReflection_QueryPoolsResponse) Range(f func(protoreflect.FieldDescr
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryPoolsResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolsResponse.pools":
+	case "noble.swap.v1.QueryPoolsResponse.pools":
 		return len(x.Pools) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3290,13 +3290,13 @@ func (x *fastReflection_QueryPoolsResponse) Has(fd protoreflect.FieldDescriptor)
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPoolsResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolsResponse.pools":
+	case "noble.swap.v1.QueryPoolsResponse.pools":
 		x.Pools = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3308,7 +3308,7 @@ func (x *fastReflection_QueryPoolsResponse) Clear(fd protoreflect.FieldDescripto
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryPoolsResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryPoolsResponse.pools":
+	case "noble.swap.v1.QueryPoolsResponse.pools":
 		if len(x.Pools) == 0 {
 			return protoreflect.ValueOfList(&_QueryPoolsResponse_1_list{})
 		}
@@ -3316,9 +3316,9 @@ func (x *fastReflection_QueryPoolsResponse) Get(descriptor protoreflect.FieldDes
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolsResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolsResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3334,15 +3334,15 @@ func (x *fastReflection_QueryPoolsResponse) Get(descriptor protoreflect.FieldDes
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPoolsResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolsResponse.pools":
+	case "noble.swap.v1.QueryPoolsResponse.pools":
 		lv := value.List()
 		clv := lv.(*_QueryPoolsResponse_1_list)
 		x.Pools = *clv.list
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3358,7 +3358,7 @@ func (x *fastReflection_QueryPoolsResponse) Set(fd protoreflect.FieldDescriptor,
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPoolsResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolsResponse.pools":
+	case "noble.swap.v1.QueryPoolsResponse.pools":
 		if x.Pools == nil {
 			x.Pools = []*PoolDetails{}
 		}
@@ -3366,9 +3366,9 @@ func (x *fastReflection_QueryPoolsResponse) Mutable(fd protoreflect.FieldDescrip
 		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3377,14 +3377,14 @@ func (x *fastReflection_QueryPoolsResponse) Mutable(fd protoreflect.FieldDescrip
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryPoolsResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolsResponse.pools":
+	case "noble.swap.v1.QueryPoolsResponse.pools":
 		list := []*PoolDetails{}
 		return protoreflect.ValueOfList(&_QueryPoolsResponse_1_list{list: &list})
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolsResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolsResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolsResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3394,7 +3394,7 @@ func (x *fastReflection_QueryPoolsResponse) NewField(fd protoreflect.FieldDescri
 func (x *fastReflection_QueryPoolsResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryPoolsResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryPoolsResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3624,8 +3624,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryPool = File_swap_v1_query_proto.Messages().ByName("QueryPool")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryPool = File_noble_swap_v1_query_proto.Messages().ByName("QueryPool")
 	fd_QueryPool_pool_id = md_QueryPool.Fields().ByName("pool_id")
 }
 
@@ -3638,7 +3638,7 @@ func (x *QueryPool) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryPool) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[8]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3715,13 +3715,13 @@ func (x *fastReflection_QueryPool) Range(f func(protoreflect.FieldDescriptor, pr
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryPool) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryPool.pool_id":
+	case "noble.swap.v1.QueryPool.pool_id":
 		return x.PoolId != uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPool"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPool"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPool does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPool does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3733,13 +3733,13 @@ func (x *fastReflection_QueryPool) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPool) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPool.pool_id":
+	case "noble.swap.v1.QueryPool.pool_id":
 		x.PoolId = uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPool"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPool"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPool does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPool does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3751,14 +3751,14 @@ func (x *fastReflection_QueryPool) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryPool) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryPool.pool_id":
+	case "noble.swap.v1.QueryPool.pool_id":
 		value := x.PoolId
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPool"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPool"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPool does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPool does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3774,13 +3774,13 @@ func (x *fastReflection_QueryPool) Get(descriptor protoreflect.FieldDescriptor) 
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPool) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPool.pool_id":
+	case "noble.swap.v1.QueryPool.pool_id":
 		x.PoolId = value.Uint()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPool"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPool"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPool does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPool does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3796,13 +3796,13 @@ func (x *fastReflection_QueryPool) Set(fd protoreflect.FieldDescriptor, value pr
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPool) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPool.pool_id":
-		panic(fmt.Errorf("field pool_id of message swap.v1.QueryPool is not mutable"))
+	case "noble.swap.v1.QueryPool.pool_id":
+		panic(fmt.Errorf("field pool_id of message noble.swap.v1.QueryPool is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPool"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPool"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPool does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPool does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3811,13 +3811,13 @@ func (x *fastReflection_QueryPool) Mutable(fd protoreflect.FieldDescriptor) prot
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryPool) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPool.pool_id":
+	case "noble.swap.v1.QueryPool.pool_id":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPool"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPool"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPool does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPool does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3827,7 +3827,7 @@ func (x *fastReflection_QueryPool) NewField(fd protoreflect.FieldDescriptor) pro
 func (x *fastReflection_QueryPool) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryPool", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryPool", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -4028,8 +4028,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QueryPoolResponse = File_swap_v1_query_proto.Messages().ByName("QueryPoolResponse")
+	file_noble_swap_v1_query_proto_init()
+	md_QueryPoolResponse = File_noble_swap_v1_query_proto.Messages().ByName("QueryPoolResponse")
 	fd_QueryPoolResponse_pool = md_QueryPoolResponse.Fields().ByName("pool")
 }
 
@@ -4042,7 +4042,7 @@ func (x *QueryPoolResponse) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QueryPoolResponse) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[9]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4119,13 +4119,13 @@ func (x *fastReflection_QueryPoolResponse) Range(f func(protoreflect.FieldDescri
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryPoolResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolResponse.pool":
+	case "noble.swap.v1.QueryPoolResponse.pool":
 		return x.Pool != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4137,13 +4137,13 @@ func (x *fastReflection_QueryPoolResponse) Has(fd protoreflect.FieldDescriptor) 
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPoolResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolResponse.pool":
+	case "noble.swap.v1.QueryPoolResponse.pool":
 		x.Pool = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4155,14 +4155,14 @@ func (x *fastReflection_QueryPoolResponse) Clear(fd protoreflect.FieldDescriptor
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryPoolResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QueryPoolResponse.pool":
+	case "noble.swap.v1.QueryPoolResponse.pool":
 		value := x.Pool
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -4178,13 +4178,13 @@ func (x *fastReflection_QueryPoolResponse) Get(descriptor protoreflect.FieldDesc
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPoolResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolResponse.pool":
+	case "noble.swap.v1.QueryPoolResponse.pool":
 		x.Pool = value.Message().Interface().(*PoolDetails)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4200,16 +4200,16 @@ func (x *fastReflection_QueryPoolResponse) Set(fd protoreflect.FieldDescriptor, 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryPoolResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolResponse.pool":
+	case "noble.swap.v1.QueryPoolResponse.pool":
 		if x.Pool == nil {
 			x.Pool = new(PoolDetails)
 		}
 		return protoreflect.ValueOfMessage(x.Pool.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4218,14 +4218,14 @@ func (x *fastReflection_QueryPoolResponse) Mutable(fd protoreflect.FieldDescript
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryPoolResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QueryPoolResponse.pool":
+	case "noble.swap.v1.QueryPoolResponse.pool":
 		m := new(PoolDetails)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QueryPoolResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QueryPoolResponse"))
 		}
-		panic(fmt.Errorf("message swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QueryPoolResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4235,7 +4235,7 @@ func (x *fastReflection_QueryPoolResponse) NewField(fd protoreflect.FieldDescrip
 func (x *fastReflection_QueryPoolResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QueryPoolResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QueryPoolResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -4517,8 +4517,8 @@ var (
 )
 
 func init() {
-	file_swap_v1_query_proto_init()
-	md_QuerySimulateSwap = File_swap_v1_query_proto.Messages().ByName("QuerySimulateSwap")
+	file_noble_swap_v1_query_proto_init()
+	md_QuerySimulateSwap = File_noble_swap_v1_query_proto.Messages().ByName("QuerySimulateSwap")
 	fd_QuerySimulateSwap_signer = md_QuerySimulateSwap.Fields().ByName("signer")
 	fd_QuerySimulateSwap_amount = md_QuerySimulateSwap.Fields().ByName("amount")
 	fd_QuerySimulateSwap_routes = md_QuerySimulateSwap.Fields().ByName("routes")
@@ -4534,7 +4534,7 @@ func (x *QuerySimulateSwap) ProtoReflect() protoreflect.Message {
 }
 
 func (x *QuerySimulateSwap) slowProtoReflect() protoreflect.Message {
-	mi := &file_swap_v1_query_proto_msgTypes[10]
+	mi := &file_noble_swap_v1_query_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4629,19 +4629,19 @@ func (x *fastReflection_QuerySimulateSwap) Range(f func(protoreflect.FieldDescri
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QuerySimulateSwap) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "swap.v1.QuerySimulateSwap.signer":
+	case "noble.swap.v1.QuerySimulateSwap.signer":
 		return x.Signer != ""
-	case "swap.v1.QuerySimulateSwap.amount":
+	case "noble.swap.v1.QuerySimulateSwap.amount":
 		return x.Amount != nil
-	case "swap.v1.QuerySimulateSwap.routes":
+	case "noble.swap.v1.QuerySimulateSwap.routes":
 		return len(x.Routes) != 0
-	case "swap.v1.QuerySimulateSwap.min":
+	case "noble.swap.v1.QuerySimulateSwap.min":
 		return x.Min != nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QuerySimulateSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QuerySimulateSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4653,19 +4653,19 @@ func (x *fastReflection_QuerySimulateSwap) Has(fd protoreflect.FieldDescriptor) 
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QuerySimulateSwap) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "swap.v1.QuerySimulateSwap.signer":
+	case "noble.swap.v1.QuerySimulateSwap.signer":
 		x.Signer = ""
-	case "swap.v1.QuerySimulateSwap.amount":
+	case "noble.swap.v1.QuerySimulateSwap.amount":
 		x.Amount = nil
-	case "swap.v1.QuerySimulateSwap.routes":
+	case "noble.swap.v1.QuerySimulateSwap.routes":
 		x.Routes = nil
-	case "swap.v1.QuerySimulateSwap.min":
+	case "noble.swap.v1.QuerySimulateSwap.min":
 		x.Min = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QuerySimulateSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QuerySimulateSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4677,26 +4677,26 @@ func (x *fastReflection_QuerySimulateSwap) Clear(fd protoreflect.FieldDescriptor
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QuerySimulateSwap) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "swap.v1.QuerySimulateSwap.signer":
+	case "noble.swap.v1.QuerySimulateSwap.signer":
 		value := x.Signer
 		return protoreflect.ValueOfString(value)
-	case "swap.v1.QuerySimulateSwap.amount":
+	case "noble.swap.v1.QuerySimulateSwap.amount":
 		value := x.Amount
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
-	case "swap.v1.QuerySimulateSwap.routes":
+	case "noble.swap.v1.QuerySimulateSwap.routes":
 		if len(x.Routes) == 0 {
 			return protoreflect.ValueOfList(&_QuerySimulateSwap_3_list{})
 		}
 		listValue := &_QuerySimulateSwap_3_list{list: &x.Routes}
 		return protoreflect.ValueOfList(listValue)
-	case "swap.v1.QuerySimulateSwap.min":
+	case "noble.swap.v1.QuerySimulateSwap.min":
 		value := x.Min
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QuerySimulateSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QuerySimulateSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.QuerySimulateSwap does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QuerySimulateSwap does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -4712,21 +4712,21 @@ func (x *fastReflection_QuerySimulateSwap) Get(descriptor protoreflect.FieldDesc
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QuerySimulateSwap) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "swap.v1.QuerySimulateSwap.signer":
+	case "noble.swap.v1.QuerySimulateSwap.signer":
 		x.Signer = value.Interface().(string)
-	case "swap.v1.QuerySimulateSwap.amount":
+	case "noble.swap.v1.QuerySimulateSwap.amount":
 		x.Amount = value.Message().Interface().(*v1beta1.Coin)
-	case "swap.v1.QuerySimulateSwap.routes":
+	case "noble.swap.v1.QuerySimulateSwap.routes":
 		lv := value.List()
 		clv := lv.(*_QuerySimulateSwap_3_list)
 		x.Routes = *clv.list
-	case "swap.v1.QuerySimulateSwap.min":
+	case "noble.swap.v1.QuerySimulateSwap.min":
 		x.Min = value.Message().Interface().(*v1beta1.Coin)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QuerySimulateSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QuerySimulateSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4742,29 +4742,29 @@ func (x *fastReflection_QuerySimulateSwap) Set(fd protoreflect.FieldDescriptor, 
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QuerySimulateSwap) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QuerySimulateSwap.amount":
+	case "noble.swap.v1.QuerySimulateSwap.amount":
 		if x.Amount == nil {
 			x.Amount = new(v1beta1.Coin)
 		}
 		return protoreflect.ValueOfMessage(x.Amount.ProtoReflect())
-	case "swap.v1.QuerySimulateSwap.routes":
+	case "noble.swap.v1.QuerySimulateSwap.routes":
 		if x.Routes == nil {
 			x.Routes = []*Route{}
 		}
 		value := &_QuerySimulateSwap_3_list{list: &x.Routes}
 		return protoreflect.ValueOfList(value)
-	case "swap.v1.QuerySimulateSwap.min":
+	case "noble.swap.v1.QuerySimulateSwap.min":
 		if x.Min == nil {
 			x.Min = new(v1beta1.Coin)
 		}
 		return protoreflect.ValueOfMessage(x.Min.ProtoReflect())
-	case "swap.v1.QuerySimulateSwap.signer":
-		panic(fmt.Errorf("field signer of message swap.v1.QuerySimulateSwap is not mutable"))
+	case "noble.swap.v1.QuerySimulateSwap.signer":
+		panic(fmt.Errorf("field signer of message noble.swap.v1.QuerySimulateSwap is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QuerySimulateSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QuerySimulateSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4773,22 +4773,22 @@ func (x *fastReflection_QuerySimulateSwap) Mutable(fd protoreflect.FieldDescript
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QuerySimulateSwap) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "swap.v1.QuerySimulateSwap.signer":
+	case "noble.swap.v1.QuerySimulateSwap.signer":
 		return protoreflect.ValueOfString("")
-	case "swap.v1.QuerySimulateSwap.amount":
+	case "noble.swap.v1.QuerySimulateSwap.amount":
 		m := new(v1beta1.Coin)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
-	case "swap.v1.QuerySimulateSwap.routes":
+	case "noble.swap.v1.QuerySimulateSwap.routes":
 		list := []*Route{}
 		return protoreflect.ValueOfList(&_QuerySimulateSwap_3_list{list: &list})
-	case "swap.v1.QuerySimulateSwap.min":
+	case "noble.swap.v1.QuerySimulateSwap.min":
 		m := new(v1beta1.Coin)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: swap.v1.QuerySimulateSwap"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.QuerySimulateSwap"))
 		}
-		panic(fmt.Errorf("message swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message noble.swap.v1.QuerySimulateSwap does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -4798,7 +4798,7 @@ func (x *fastReflection_QuerySimulateSwap) NewField(fd protoreflect.FieldDescrip
 func (x *fastReflection_QuerySimulateSwap) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in swap.v1.QuerySimulateSwap", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in noble.swap.v1.QuerySimulateSwap", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -5177,7 +5177,7 @@ func (x *fastReflection_QuerySimulateSwap) ProtoMethods() *protoiface.Methods {
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: swap/v1/query.proto
+// source: noble/swap/v1/query.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -5191,13 +5191,13 @@ type QueryRates struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Algorithm Algorithm `protobuf:"varint,1,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	Algorithm Algorithm `protobuf:"varint,1,opt,name=algorithm,proto3,enum=noble.swap.v1.Algorithm" json:"algorithm,omitempty"`
 }
 
 func (x *QueryRates) Reset() {
 	*x = QueryRates{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[0]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5211,7 +5211,7 @@ func (*QueryRates) ProtoMessage() {}
 
 // Deprecated: Use QueryRates.ProtoReflect.Descriptor instead.
 func (*QueryRates) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{0}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *QueryRates) GetAlgorithm() Algorithm {
@@ -5232,7 +5232,7 @@ type QueryRatesResponse struct {
 func (x *QueryRatesResponse) Reset() {
 	*x = QueryRatesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[1]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5246,7 +5246,7 @@ func (*QueryRatesResponse) ProtoMessage() {}
 
 // Deprecated: Use QueryRatesResponse.ProtoReflect.Descriptor instead.
 func (*QueryRatesResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{1}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *QueryRatesResponse) GetRates() []*Rate {
@@ -5262,13 +5262,13 @@ type QueryRate struct {
 	unknownFields protoimpl.UnknownFields
 
 	Denom     string    `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty"`
-	Algorithm Algorithm `protobuf:"varint,2,opt,name=algorithm,proto3,enum=swap.v1.Algorithm" json:"algorithm,omitempty"`
+	Algorithm Algorithm `protobuf:"varint,2,opt,name=algorithm,proto3,enum=noble.swap.v1.Algorithm" json:"algorithm,omitempty"`
 }
 
 func (x *QueryRate) Reset() {
 	*x = QueryRate{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[2]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5282,7 +5282,7 @@ func (*QueryRate) ProtoMessage() {}
 
 // Deprecated: Use QueryRate.ProtoReflect.Descriptor instead.
 func (*QueryRate) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{2}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *QueryRate) GetDenom() string {
@@ -5310,7 +5310,7 @@ type QueryRateResponse struct {
 func (x *QueryRateResponse) Reset() {
 	*x = QueryRateResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[3]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5324,7 +5324,7 @@ func (*QueryRateResponse) ProtoMessage() {}
 
 // Deprecated: Use QueryRateResponse.ProtoReflect.Descriptor instead.
 func (*QueryRateResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{3}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *QueryRateResponse) GetRates() []*Rate {
@@ -5343,7 +5343,7 @@ type QueryPaused struct {
 func (x *QueryPaused) Reset() {
 	*x = QueryPaused{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[4]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5357,7 +5357,7 @@ func (*QueryPaused) ProtoMessage() {}
 
 // Deprecated: Use QueryPaused.ProtoReflect.Descriptor instead.
 func (*QueryPaused) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{4}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{4}
 }
 
 type QueryPausedResponse struct {
@@ -5371,7 +5371,7 @@ type QueryPausedResponse struct {
 func (x *QueryPausedResponse) Reset() {
 	*x = QueryPausedResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[5]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5385,7 +5385,7 @@ func (*QueryPausedResponse) ProtoMessage() {}
 
 // Deprecated: Use QueryPausedResponse.ProtoReflect.Descriptor instead.
 func (*QueryPausedResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{5}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *QueryPausedResponse) GetPausedPools() []uint64 {
@@ -5404,7 +5404,7 @@ type QueryPools struct {
 func (x *QueryPools) Reset() {
 	*x = QueryPools{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[6]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5418,7 +5418,7 @@ func (*QueryPools) ProtoMessage() {}
 
 // Deprecated: Use QueryPools.ProtoReflect.Descriptor instead.
 func (*QueryPools) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{6}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{6}
 }
 
 type QueryPoolsResponse struct {
@@ -5432,7 +5432,7 @@ type QueryPoolsResponse struct {
 func (x *QueryPoolsResponse) Reset() {
 	*x = QueryPoolsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[7]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5446,7 +5446,7 @@ func (*QueryPoolsResponse) ProtoMessage() {}
 
 // Deprecated: Use QueryPoolsResponse.ProtoReflect.Descriptor instead.
 func (*QueryPoolsResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{7}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *QueryPoolsResponse) GetPools() []*PoolDetails {
@@ -5467,7 +5467,7 @@ type QueryPool struct {
 func (x *QueryPool) Reset() {
 	*x = QueryPool{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[8]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5481,7 +5481,7 @@ func (*QueryPool) ProtoMessage() {}
 
 // Deprecated: Use QueryPool.ProtoReflect.Descriptor instead.
 func (*QueryPool) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{8}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *QueryPool) GetPoolId() uint64 {
@@ -5502,7 +5502,7 @@ type QueryPoolResponse struct {
 func (x *QueryPoolResponse) Reset() {
 	*x = QueryPoolResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[9]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5516,7 +5516,7 @@ func (*QueryPoolResponse) ProtoMessage() {}
 
 // Deprecated: Use QueryPoolResponse.ProtoReflect.Descriptor instead.
 func (*QueryPoolResponse) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{9}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *QueryPoolResponse) GetPool() *PoolDetails {
@@ -5540,7 +5540,7 @@ type QuerySimulateSwap struct {
 func (x *QuerySimulateSwap) Reset() {
 	*x = QuerySimulateSwap{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_swap_v1_query_proto_msgTypes[10]
+		mi := &file_noble_swap_v1_query_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5554,7 +5554,7 @@ func (*QuerySimulateSwap) ProtoMessage() {}
 
 // Deprecated: Use QuerySimulateSwap.ProtoReflect.Descriptor instead.
 func (*QuerySimulateSwap) Descriptor() ([]byte, []int) {
-	return file_swap_v1_query_proto_rawDescGZIP(), []int{10}
+	return file_noble_swap_v1_query_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *QuerySimulateSwap) GetSigner() string {
@@ -5585,171 +5585,185 @@ func (x *QuerySimulateSwap) GetMin() *v1beta1.Coin {
 	return nil
 }
 
-var File_swap_v1_query_proto protoreflect.FileDescriptor
+var File_noble_swap_v1_query_proto protoreflect.FileDescriptor
 
-var file_swap_v1_query_proto_rawDesc = []byte{
-	0x0a, 0x13, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x1a, 0x1e,
-	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65,
-	0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b,
-	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2f, 0x76, 0x31, 0x2f,
-	0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67,
-	0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e,
-	0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a,
-	0x17, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74,
-	0x68, 0x6d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x12, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76,
-	0x31, 0x2f, 0x70, 0x6f, 0x6f, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x12, 0x73, 0x77,
-	0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x1a, 0x12, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x10, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x74, 0x78,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3e, 0x0a, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52,
-	0x61, 0x74, 0x65, 0x73, 0x12, 0x30, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68,
-	0x6d, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x12, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76,
+var file_noble_swap_v1_query_proto_rawDesc = []byte{
+	0x0a, 0x19, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f,
+	0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0d, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d,
+	0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f,
+	0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b, 0x63, 0x6f, 0x73, 0x6d,
+	0x6f, 0x73, 0x2f, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2f, 0x76, 0x31, 0x2f, 0x71, 0x75, 0x65, 0x72,
+	0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1c, 0x67,
+	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1d, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x6c, 0x67, 0x6f, 0x72,
+	0x69, 0x74, 0x68, 0x6d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x18, 0x6e, 0x6f, 0x62, 0x6c,
+	0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x6f, 0x6f, 0x6c, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x18, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70,
+	0x2f, 0x76, 0x31, 0x2f, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x18,
+	0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x77,
+	0x61, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x16, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f,
+	0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x74, 0x78, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x22, 0x44, 0x0a, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x73, 0x12, 0x36,
+	0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0e, 0x32, 0x18, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76,
 	0x31, 0x2e, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x09, 0x61, 0x6c, 0x67,
-	0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x22, 0x3f, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52,
-	0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x29, 0x0a, 0x05,
-	0x72, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x73, 0x77,
-	0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x74, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00,
-	0x52, 0x05, 0x72, 0x61, 0x74, 0x65, 0x73, 0x22, 0x53, 0x0a, 0x09, 0x51, 0x75, 0x65, 0x72, 0x79,
-	0x52, 0x61, 0x74, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x64, 0x65, 0x6e, 0x6f, 0x6d, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x05, 0x64, 0x65, 0x6e, 0x6f, 0x6d, 0x12, 0x30, 0x0a, 0x09, 0x61, 0x6c,
-	0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x12, 0x2e,
-	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68,
-	0x6d, 0x52, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x22, 0x3e, 0x0a, 0x11,
-	0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x29, 0x0a, 0x05, 0x72, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
-	0x32, 0x0d, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x74, 0x65, 0x42,
-	0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x05, 0x72, 0x61, 0x74, 0x65, 0x73, 0x22, 0x0d, 0x0a, 0x0b,
-	0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x22, 0x38, 0x0a, 0x13, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x5f, 0x70, 0x6f, 0x6f,
-	0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64,
-	0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0x0c, 0x0a, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f,
-	0x6f, 0x6c, 0x73, 0x22, 0x40, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c,
-	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2a, 0x0a, 0x05, 0x70, 0x6f, 0x6f,
-	0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
-	0x76, 0x31, 0x2e, 0x50, 0x6f, 0x6f, 0x6c, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x05,
-	0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0x24, 0x0a, 0x09, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f,
-	0x6f, 0x6c, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f, 0x6c, 0x49, 0x64, 0x22, 0x3d, 0x0a, 0x11, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x28, 0x0a, 0x04, 0x70, 0x6f, 0x6f, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14,
-	0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6f, 0x6f, 0x6c, 0x44, 0x65, 0x74,
-	0x61, 0x69, 0x6c, 0x73, 0x52, 0x04, 0x70, 0x6f, 0x6f, 0x6c, 0x22, 0xc5, 0x01, 0x0a, 0x11, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x53, 0x69, 0x6d, 0x75, 0x6c, 0x61, 0x74, 0x65, 0x53, 0x77, 0x61, 0x70,
-	0x12, 0x16, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x37, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75,
-	0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f,
-	0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43,
-	0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e,
-	0x74, 0x12, 0x2c, 0x0a, 0x06, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28,
-	0x0b, 0x32, 0x0e, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x6f, 0x75, 0x74,
-	0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x73, 0x12,
-	0x31, 0x0a, 0x03, 0x6d, 0x69, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63,
-	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74,
-	0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x03, 0x6d,
-	0x69, 0x6e, 0x32, 0xba, 0x04, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x5a, 0x0a, 0x06,
-	0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x12, 0x14, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31,
-	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x1a, 0x1c, 0x2e, 0x73,
+	0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x22, 0x45, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52,
+	0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x05,
+	0x72, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x6e, 0x6f,
+	0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x74, 0x65,
+	0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x05, 0x72, 0x61, 0x74, 0x65, 0x73, 0x22, 0x59, 0x0a,
+	0x09, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x64, 0x65,
+	0x6e, 0x6f, 0x6d, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x64, 0x65, 0x6e, 0x6f, 0x6d,
+	0x12, 0x36, 0x0a, 0x09, 0x61, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70,
+	0x2e, 0x76, 0x31, 0x2e, 0x41, 0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x52, 0x09, 0x61,
+	0x6c, 0x67, 0x6f, 0x72, 0x69, 0x74, 0x68, 0x6d, 0x22, 0x44, 0x0a, 0x11, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x52, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a,
+	0x05, 0x72, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x6e,
+	0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x61, 0x74,
+	0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x05, 0x72, 0x61, 0x74, 0x65, 0x73, 0x22, 0x0d,
+	0x0a, 0x0b, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x22, 0x38, 0x0a,
+	0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x5f, 0x70,
+	0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x70, 0x61, 0x75, 0x73,
+	0x65, 0x64, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0x0c, 0x0a, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0x46, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f,
+	0x6f, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x30, 0x0a, 0x05, 0x70,
+	0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6f, 0x6f, 0x6c, 0x44,
+	0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x05, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x22, 0x24, 0x0a,
+	0x09, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f,
+	0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x70, 0x6f, 0x6f,
+	0x6c, 0x49, 0x64, 0x22, 0x43, 0x0a, 0x11, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x70, 0x6f, 0x6f, 0x6c,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73,
+	0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6f, 0x6f, 0x6c, 0x44, 0x65, 0x74, 0x61, 0x69,
+	0x6c, 0x73, 0x52, 0x04, 0x70, 0x6f, 0x6f, 0x6c, 0x22, 0xcb, 0x01, 0x0a, 0x11, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x53, 0x69, 0x6d, 0x75, 0x6c, 0x61, 0x74, 0x65, 0x53, 0x77, 0x61, 0x70, 0x12, 0x16,
+	0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x73, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x37, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
+	0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69,
+	0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12,
+	0x32, 0x0a, 0x06, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x14, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e,
+	0x52, 0x6f, 0x75, 0x74, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x72, 0x6f, 0x75,
+	0x74, 0x65, 0x73, 0x12, 0x31, 0x0a, 0x03, 0x6d, 0x69, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76,
+	0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f,
+	0x00, 0x52, 0x03, 0x6d, 0x69, 0x6e, 0x32, 0xa6, 0x05, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x12, 0x6c, 0x0a, 0x06, 0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x12, 0x1a, 0x2e, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x50, 0x61, 0x75, 0x73, 0x65, 0x64, 0x1a, 0x22, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73,
 	0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x75, 0x73,
-	0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1c, 0x88, 0xe7, 0xb0, 0x2a,
-	0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x11, 0x12, 0x0f, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76,
-	0x31, 0x2f, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x12, 0x56, 0x0a, 0x05, 0x50, 0x6f, 0x6f, 0x6c,
-	0x73, 0x12, 0x13, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72,
-	0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x1a, 0x1b, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31,
-	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x1b, 0x88, 0xe7, 0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x10,
-	0x12, 0x0e, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x6f, 0x6f, 0x6c, 0x73,
-	0x12, 0x5d, 0x0a, 0x04, 0x50, 0x6f, 0x6f, 0x6c, 0x12, 0x12, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
-	0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x1a, 0x1a, 0x2e, 0x73,
-	0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x25, 0x88, 0xe7, 0xb0, 0x2a, 0x01, 0x82,
-	0xd3, 0xe4, 0x93, 0x02, 0x1a, 0x12, 0x18, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f,
-	0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x2f, 0x7b, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x7d, 0x12,
-	0x69, 0x0a, 0x0c, 0x53, 0x69, 0x6d, 0x75, 0x6c, 0x61, 0x74, 0x65, 0x53, 0x77, 0x61, 0x70, 0x12,
-	0x1a, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53,
-	0x69, 0x6d, 0x75, 0x6c, 0x61, 0x74, 0x65, 0x53, 0x77, 0x61, 0x70, 0x1a, 0x18, 0x2e, 0x73, 0x77,
-	0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x77, 0x61, 0x70, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x23, 0x88, 0xe7, 0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93,
-	0x02, 0x18, 0x12, 0x16, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x69, 0x6d,
-	0x75, 0x6c, 0x61, 0x74, 0x65, 0x5f, 0x73, 0x77, 0x61, 0x70, 0x12, 0x56, 0x0a, 0x05, 0x52, 0x61,
-	0x74, 0x65, 0x73, 0x12, 0x13, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75,
-	0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x73, 0x1a, 0x1b, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
-	0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x88, 0xe7, 0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93,
-	0x02, 0x10, 0x12, 0x0e, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x72, 0x61, 0x74,
-	0x65, 0x73, 0x12, 0x5b, 0x0a, 0x04, 0x52, 0x61, 0x74, 0x65, 0x12, 0x12, 0x2e, 0x73, 0x77, 0x61,
-	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x1a, 0x1a,
+	0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x22, 0x88, 0xe7, 0xb0, 0x2a,
+	0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x17, 0x12, 0x15, 0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f,
+	0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x61, 0x75, 0x73, 0x65, 0x64, 0x12, 0x68,
+	0x0a, 0x05, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x12, 0x19, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e,
+	0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f,
+	0x6c, 0x73, 0x1a, 0x21, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
+	0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x21, 0x88, 0xe7, 0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x16, 0x12, 0x14, 0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f,
+	0x76, 0x31, 0x2f, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x12, 0x6f, 0x0a, 0x04, 0x50, 0x6f, 0x6f, 0x6c,
+	0x12, 0x18, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31,
+	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x6f, 0x6f, 0x6c, 0x1a, 0x20, 0x2e, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x50, 0x6f, 0x6f, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2b, 0x88, 0xe7,
+	0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x20, 0x12, 0x1e, 0x2f, 0x6e, 0x6f, 0x62, 0x6c,
+	0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x2f,
+	0x7b, 0x70, 0x6f, 0x6f, 0x6c, 0x5f, 0x69, 0x64, 0x7d, 0x12, 0x7b, 0x0a, 0x0c, 0x53, 0x69, 0x6d,
+	0x75, 0x6c, 0x61, 0x74, 0x65, 0x53, 0x77, 0x61, 0x70, 0x12, 0x20, 0x2e, 0x6e, 0x6f, 0x62, 0x6c,
+	0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53,
+	0x69, 0x6d, 0x75, 0x6c, 0x61, 0x74, 0x65, 0x53, 0x77, 0x61, 0x70, 0x1a, 0x1e, 0x2e, 0x6e, 0x6f,
+	0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x73, 0x67, 0x53,
+	0x77, 0x61, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x29, 0x88, 0xe7, 0xb0,
+	0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1e, 0x12, 0x1c, 0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65,
+	0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x69, 0x6d, 0x75, 0x6c, 0x61, 0x74,
+	0x65, 0x5f, 0x73, 0x77, 0x61, 0x70, 0x12, 0x68, 0x0a, 0x05, 0x52, 0x61, 0x74, 0x65, 0x73, 0x12,
+	0x19, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e,
+	0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x73, 0x1a, 0x21, 0x2e, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x52, 0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x21, 0x88,
+	0xe7, 0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x16, 0x12, 0x14, 0x2f, 0x6e, 0x6f, 0x62,
+	0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x72, 0x61, 0x74, 0x65, 0x73,
+	0x12, 0x6d, 0x0a, 0x04, 0x52, 0x61, 0x74, 0x65, 0x12, 0x18, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65,
 	0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61,
-	0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x23, 0x88, 0xe7, 0xb0, 0x2a,
-	0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x18, 0x12, 0x16, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76,
+	0x74, 0x65, 0x1a, 0x20, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e,
+	0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x29, 0x88, 0xe7, 0xb0, 0x2a, 0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02,
+	0x1e, 0x12, 0x1c, 0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76,
 	0x31, 0x2f, 0x72, 0x61, 0x74, 0x65, 0x73, 0x2f, 0x7b, 0x64, 0x65, 0x6e, 0x6f, 0x6d, 0x7d, 0x42,
-	0x79, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x0a,
-	0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x21, 0x73, 0x77,
-	0x61, 0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70, 0x69,
-	0x2f, 0x73, 0x77, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x77, 0x61, 0x70, 0x76, 0x31, 0xa2,
-	0x02, 0x03, 0x53, 0x58, 0x58, 0xaa, 0x02, 0x07, 0x53, 0x77, 0x61, 0x70, 0x2e, 0x56, 0x31, 0xca,
-	0x02, 0x07, 0x53, 0x77, 0x61, 0x70, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x13, 0x53, 0x77, 0x61, 0x70,
-	0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea,
-	0x02, 0x08, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x9e, 0x01, 0x0a, 0x11, 0x63, 0x6f, 0x6d, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x73, 0x77,
+	0x61, 0x70, 0x2e, 0x76, 0x31, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x50, 0x01, 0x5a, 0x27, 0x73, 0x77, 0x61, 0x70, 0x2e, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2e,
+	0x78, 0x79, 0x7a, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6e, 0x6f, 0x62, 0x6c, 0x65, 0x2f, 0x73, 0x77,
+	0x61, 0x70, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x77, 0x61, 0x70, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x4e,
+	0x53, 0x58, 0xaa, 0x02, 0x0d, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x2e, 0x53, 0x77, 0x61, 0x70, 0x2e,
+	0x56, 0x31, 0xca, 0x02, 0x0d, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x5c, 0x53, 0x77, 0x61, 0x70, 0x5c,
+	0x56, 0x31, 0xe2, 0x02, 0x19, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x5c, 0x53, 0x77, 0x61, 0x70, 0x5c,
+	0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02,
+	0x0f, 0x4e, 0x6f, 0x62, 0x6c, 0x65, 0x3a, 0x3a, 0x53, 0x77, 0x61, 0x70, 0x3a, 0x3a, 0x56, 0x31,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_swap_v1_query_proto_rawDescOnce sync.Once
-	file_swap_v1_query_proto_rawDescData = file_swap_v1_query_proto_rawDesc
+	file_noble_swap_v1_query_proto_rawDescOnce sync.Once
+	file_noble_swap_v1_query_proto_rawDescData = file_noble_swap_v1_query_proto_rawDesc
 )
 
-func file_swap_v1_query_proto_rawDescGZIP() []byte {
-	file_swap_v1_query_proto_rawDescOnce.Do(func() {
-		file_swap_v1_query_proto_rawDescData = protoimpl.X.CompressGZIP(file_swap_v1_query_proto_rawDescData)
+func file_noble_swap_v1_query_proto_rawDescGZIP() []byte {
+	file_noble_swap_v1_query_proto_rawDescOnce.Do(func() {
+		file_noble_swap_v1_query_proto_rawDescData = protoimpl.X.CompressGZIP(file_noble_swap_v1_query_proto_rawDescData)
 	})
-	return file_swap_v1_query_proto_rawDescData
+	return file_noble_swap_v1_query_proto_rawDescData
 }
 
-var file_swap_v1_query_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_swap_v1_query_proto_goTypes = []interface{}{
-	(*QueryRates)(nil),          // 0: swap.v1.QueryRates
-	(*QueryRatesResponse)(nil),  // 1: swap.v1.QueryRatesResponse
-	(*QueryRate)(nil),           // 2: swap.v1.QueryRate
-	(*QueryRateResponse)(nil),   // 3: swap.v1.QueryRateResponse
-	(*QueryPaused)(nil),         // 4: swap.v1.QueryPaused
-	(*QueryPausedResponse)(nil), // 5: swap.v1.QueryPausedResponse
-	(*QueryPools)(nil),          // 6: swap.v1.QueryPools
-	(*QueryPoolsResponse)(nil),  // 7: swap.v1.QueryPoolsResponse
-	(*QueryPool)(nil),           // 8: swap.v1.QueryPool
-	(*QueryPoolResponse)(nil),   // 9: swap.v1.QueryPoolResponse
-	(*QuerySimulateSwap)(nil),   // 10: swap.v1.QuerySimulateSwap
-	(Algorithm)(0),              // 11: swap.v1.Algorithm
-	(*Rate)(nil),                // 12: swap.v1.Rate
-	(*PoolDetails)(nil),         // 13: swap.v1.PoolDetails
+var file_noble_swap_v1_query_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_noble_swap_v1_query_proto_goTypes = []interface{}{
+	(*QueryRates)(nil),          // 0: noble.swap.v1.QueryRates
+	(*QueryRatesResponse)(nil),  // 1: noble.swap.v1.QueryRatesResponse
+	(*QueryRate)(nil),           // 2: noble.swap.v1.QueryRate
+	(*QueryRateResponse)(nil),   // 3: noble.swap.v1.QueryRateResponse
+	(*QueryPaused)(nil),         // 4: noble.swap.v1.QueryPaused
+	(*QueryPausedResponse)(nil), // 5: noble.swap.v1.QueryPausedResponse
+	(*QueryPools)(nil),          // 6: noble.swap.v1.QueryPools
+	(*QueryPoolsResponse)(nil),  // 7: noble.swap.v1.QueryPoolsResponse
+	(*QueryPool)(nil),           // 8: noble.swap.v1.QueryPool
+	(*QueryPoolResponse)(nil),   // 9: noble.swap.v1.QueryPoolResponse
+	(*QuerySimulateSwap)(nil),   // 10: noble.swap.v1.QuerySimulateSwap
+	(Algorithm)(0),              // 11: noble.swap.v1.Algorithm
+	(*Rate)(nil),                // 12: noble.swap.v1.Rate
+	(*PoolDetails)(nil),         // 13: noble.swap.v1.PoolDetails
 	(*v1beta1.Coin)(nil),        // 14: cosmos.base.v1beta1.Coin
-	(*Route)(nil),               // 15: swap.v1.Route
-	(*MsgSwapResponse)(nil),     // 16: swap.v1.MsgSwapResponse
+	(*Route)(nil),               // 15: noble.swap.v1.Route
+	(*MsgSwapResponse)(nil),     // 16: noble.swap.v1.MsgSwapResponse
 }
-var file_swap_v1_query_proto_depIdxs = []int32{
-	11, // 0: swap.v1.QueryRates.algorithm:type_name -> swap.v1.Algorithm
-	12, // 1: swap.v1.QueryRatesResponse.rates:type_name -> swap.v1.Rate
-	11, // 2: swap.v1.QueryRate.algorithm:type_name -> swap.v1.Algorithm
-	12, // 3: swap.v1.QueryRateResponse.rates:type_name -> swap.v1.Rate
-	13, // 4: swap.v1.QueryPoolsResponse.pools:type_name -> swap.v1.PoolDetails
-	13, // 5: swap.v1.QueryPoolResponse.pool:type_name -> swap.v1.PoolDetails
-	14, // 6: swap.v1.QuerySimulateSwap.amount:type_name -> cosmos.base.v1beta1.Coin
-	15, // 7: swap.v1.QuerySimulateSwap.routes:type_name -> swap.v1.Route
-	14, // 8: swap.v1.QuerySimulateSwap.min:type_name -> cosmos.base.v1beta1.Coin
-	4,  // 9: swap.v1.Query.Paused:input_type -> swap.v1.QueryPaused
-	6,  // 10: swap.v1.Query.Pools:input_type -> swap.v1.QueryPools
-	8,  // 11: swap.v1.Query.Pool:input_type -> swap.v1.QueryPool
-	10, // 12: swap.v1.Query.SimulateSwap:input_type -> swap.v1.QuerySimulateSwap
-	0,  // 13: swap.v1.Query.Rates:input_type -> swap.v1.QueryRates
-	2,  // 14: swap.v1.Query.Rate:input_type -> swap.v1.QueryRate
-	5,  // 15: swap.v1.Query.Paused:output_type -> swap.v1.QueryPausedResponse
-	7,  // 16: swap.v1.Query.Pools:output_type -> swap.v1.QueryPoolsResponse
-	9,  // 17: swap.v1.Query.Pool:output_type -> swap.v1.QueryPoolResponse
-	16, // 18: swap.v1.Query.SimulateSwap:output_type -> swap.v1.MsgSwapResponse
-	1,  // 19: swap.v1.Query.Rates:output_type -> swap.v1.QueryRatesResponse
-	3,  // 20: swap.v1.Query.Rate:output_type -> swap.v1.QueryRateResponse
+var file_noble_swap_v1_query_proto_depIdxs = []int32{
+	11, // 0: noble.swap.v1.QueryRates.algorithm:type_name -> noble.swap.v1.Algorithm
+	12, // 1: noble.swap.v1.QueryRatesResponse.rates:type_name -> noble.swap.v1.Rate
+	11, // 2: noble.swap.v1.QueryRate.algorithm:type_name -> noble.swap.v1.Algorithm
+	12, // 3: noble.swap.v1.QueryRateResponse.rates:type_name -> noble.swap.v1.Rate
+	13, // 4: noble.swap.v1.QueryPoolsResponse.pools:type_name -> noble.swap.v1.PoolDetails
+	13, // 5: noble.swap.v1.QueryPoolResponse.pool:type_name -> noble.swap.v1.PoolDetails
+	14, // 6: noble.swap.v1.QuerySimulateSwap.amount:type_name -> cosmos.base.v1beta1.Coin
+	15, // 7: noble.swap.v1.QuerySimulateSwap.routes:type_name -> noble.swap.v1.Route
+	14, // 8: noble.swap.v1.QuerySimulateSwap.min:type_name -> cosmos.base.v1beta1.Coin
+	4,  // 9: noble.swap.v1.Query.Paused:input_type -> noble.swap.v1.QueryPaused
+	6,  // 10: noble.swap.v1.Query.Pools:input_type -> noble.swap.v1.QueryPools
+	8,  // 11: noble.swap.v1.Query.Pool:input_type -> noble.swap.v1.QueryPool
+	10, // 12: noble.swap.v1.Query.SimulateSwap:input_type -> noble.swap.v1.QuerySimulateSwap
+	0,  // 13: noble.swap.v1.Query.Rates:input_type -> noble.swap.v1.QueryRates
+	2,  // 14: noble.swap.v1.Query.Rate:input_type -> noble.swap.v1.QueryRate
+	5,  // 15: noble.swap.v1.Query.Paused:output_type -> noble.swap.v1.QueryPausedResponse
+	7,  // 16: noble.swap.v1.Query.Pools:output_type -> noble.swap.v1.QueryPoolsResponse
+	9,  // 17: noble.swap.v1.Query.Pool:output_type -> noble.swap.v1.QueryPoolResponse
+	16, // 18: noble.swap.v1.Query.SimulateSwap:output_type -> noble.swap.v1.MsgSwapResponse
+	1,  // 19: noble.swap.v1.Query.Rates:output_type -> noble.swap.v1.QueryRatesResponse
+	3,  // 20: noble.swap.v1.Query.Rate:output_type -> noble.swap.v1.QueryRateResponse
 	15, // [15:21] is the sub-list for method output_type
 	9,  // [9:15] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
@@ -5757,18 +5771,18 @@ var file_swap_v1_query_proto_depIdxs = []int32{
 	0,  // [0:9] is the sub-list for field type_name
 }
 
-func init() { file_swap_v1_query_proto_init() }
-func file_swap_v1_query_proto_init() {
-	if File_swap_v1_query_proto != nil {
+func init() { file_noble_swap_v1_query_proto_init() }
+func file_noble_swap_v1_query_proto_init() {
+	if File_noble_swap_v1_query_proto != nil {
 		return
 	}
-	file_swap_v1_algorithm_proto_init()
-	file_swap_v1_pool_proto_init()
-	file_swap_v1_rate_proto_init()
-	file_swap_v1_swap_proto_init()
-	file_swap_v1_tx_proto_init()
+	file_noble_swap_v1_algorithm_proto_init()
+	file_noble_swap_v1_pool_proto_init()
+	file_noble_swap_v1_rate_proto_init()
+	file_noble_swap_v1_swap_proto_init()
+	file_noble_swap_v1_tx_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_swap_v1_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryRates); i {
 			case 0:
 				return &v.state
@@ -5780,7 +5794,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryRatesResponse); i {
 			case 0:
 				return &v.state
@@ -5792,7 +5806,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryRate); i {
 			case 0:
 				return &v.state
@@ -5804,7 +5818,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryRateResponse); i {
 			case 0:
 				return &v.state
@@ -5816,7 +5830,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryPaused); i {
 			case 0:
 				return &v.state
@@ -5828,7 +5842,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryPausedResponse); i {
 			case 0:
 				return &v.state
@@ -5840,7 +5854,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryPools); i {
 			case 0:
 				return &v.state
@@ -5852,7 +5866,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryPoolsResponse); i {
 			case 0:
 				return &v.state
@@ -5864,7 +5878,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryPool); i {
 			case 0:
 				return &v.state
@@ -5876,7 +5890,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryPoolResponse); i {
 			case 0:
 				return &v.state
@@ -5888,7 +5902,7 @@ func file_swap_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_swap_v1_query_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_noble_swap_v1_query_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QuerySimulateSwap); i {
 			case 0:
 				return &v.state
@@ -5905,18 +5919,18 @@ func file_swap_v1_query_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_swap_v1_query_proto_rawDesc,
+			RawDescriptor: file_noble_swap_v1_query_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_swap_v1_query_proto_goTypes,
-		DependencyIndexes: file_swap_v1_query_proto_depIdxs,
-		MessageInfos:      file_swap_v1_query_proto_msgTypes,
+		GoTypes:           file_noble_swap_v1_query_proto_goTypes,
+		DependencyIndexes: file_noble_swap_v1_query_proto_depIdxs,
+		MessageInfos:      file_noble_swap_v1_query_proto_msgTypes,
 	}.Build()
-	File_swap_v1_query_proto = out.File
-	file_swap_v1_query_proto_rawDesc = nil
-	file_swap_v1_query_proto_goTypes = nil
-	file_swap_v1_query_proto_depIdxs = nil
+	File_noble_swap_v1_query_proto = out.File
+	file_noble_swap_v1_query_proto_rawDesc = nil
+	file_noble_swap_v1_query_proto_goTypes = nil
+	file_noble_swap_v1_query_proto_depIdxs = nil
 }

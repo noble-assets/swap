@@ -8,8 +8,8 @@ const StableSwapPools = []byte("stableswap_pools")
 ```
 
 It is updated by the following messages:
-- [`swap.stableswap.v1.MsgCreatePool`](./02_messages_stableswap.md#create-pool)
-- [`swap.stableswap.v1.MsgUpdatePool`](./02_messages_stableswap.md#update-pool)
+- [`noble.swap.stableswap.v1.MsgCreatePool`](./02_messages_stableswap.md#create-pool)
+- [`noble.swap.stableswap.v1.MsgUpdatePool`](./02_messages_stableswap.md#update-pool)
 
 ---
 
@@ -21,8 +21,8 @@ const Positions = []byte("stableswap_bonded_positions")
 ```
 
 It is updated by the following messages:
-- [`swap.stableswap.v1.MsgAddLiquidity`](./02_messages.md#addliquidity)
-- [`swap.stableswap.v1.MsgRemoveLiquidity`](./02_messages.md#removeliquidity)
+- [`noble.swap.stableswap.v1.MsgAddLiquidity`](./02_messages.md#addliquidity)
+- [`noble.swap.stableswap.v1.MsgRemoveLiquidity`](./02_messages.md#removeliquidity)
 
 ## UnbondingPositions
 
@@ -32,7 +32,7 @@ const UnbondingPositions = []byte("stableswap_unbonding_positions")
 ```
 
 It is updated by the following messages:
-- [`swap.stableswap.v1.MsgRemoveLiquidity`](./02_messages.md#removeliquidity)
+- [`noble.swap.stableswap.v1.MsgRemoveLiquidity`](./02_messages.md#removeliquidity)
 
 
 ## StableSwapPoolTotalUnbondingShares
@@ -43,7 +43,7 @@ const StableSwapPoolTotalUnbondingShares = []byte("stableswap_pool_total_unbondi
 ```
 
 It is updated by the following messages:
-- [`swap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
+- [`noble.swap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
 
 ---
 
@@ -55,8 +55,8 @@ const StableSwapUsersTotalBondedShares = []byte("stableswap_users_total_bonded_s
 ```
 
 It is updated by the following messages:
-- [`swap.v1.MsgAddLiquidity`](./02_messages.md#add-liquidity)
-- [`swap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
+- [`noble.swap.v1.MsgAddLiquidity`](./02_messages.md#add-liquidity)
+- [`noble.swap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
 
 ---
 
@@ -68,5 +68,5 @@ const StableSwapUsersTotalUnbondingShares = []byte("stableswap_users_total_unbon
 ```
 
 It is updated by the following messages:
-- [`swap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
+- [`noble.swap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
 

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: swap/v1/query.proto
+// source: noble/swap/v1/query.proto
 
 package swapv1
 
@@ -19,12 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Query_Paused_FullMethodName       = "/swap.v1.Query/Paused"
-	Query_Pools_FullMethodName        = "/swap.v1.Query/Pools"
-	Query_Pool_FullMethodName         = "/swap.v1.Query/Pool"
-	Query_SimulateSwap_FullMethodName = "/swap.v1.Query/SimulateSwap"
-	Query_Rates_FullMethodName        = "/swap.v1.Query/Rates"
-	Query_Rate_FullMethodName         = "/swap.v1.Query/Rate"
+	Query_Paused_FullMethodName       = "/noble.swap.v1.Query/Paused"
+	Query_Pools_FullMethodName        = "/noble.swap.v1.Query/Pools"
+	Query_Pool_FullMethodName         = "/noble.swap.v1.Query/Pool"
+	Query_SimulateSwap_FullMethodName = "/noble.swap.v1.Query/SimulateSwap"
+	Query_Rates_FullMethodName        = "/noble.swap.v1.Query/Rates"
+	Query_Rate_FullMethodName         = "/noble.swap.v1.Query/Rate"
 )
 
 // QueryClient is the client API for Query service.
@@ -290,7 +290,7 @@ func _Query_Rate_Handler(srv interface{}, ctx context.Context, dec func(interfac
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Query_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "swap.v1.Query",
+	ServiceName: "noble.swap.v1.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -319,5 +319,5 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "swap/v1/query.proto",
+	Metadata: "noble/swap/v1/query.proto",
 }

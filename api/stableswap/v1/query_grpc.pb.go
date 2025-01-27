@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: swap/stableswap/v1/query.proto
+// source: noble/swap/stableswap/v1/query.proto
 
 package stableswapv1
 
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Query_PositionsByProvider_FullMethodName          = "/swap.stableswap.v1.Query/PositionsByProvider"
-	Query_BondedPositionsByProvider_FullMethodName    = "/swap.stableswap.v1.Query/BondedPositionsByProvider"
-	Query_UnbondingPositionsByProvider_FullMethodName = "/swap.stableswap.v1.Query/UnbondingPositionsByProvider"
-	Query_RewardsByProvider_FullMethodName            = "/swap.stableswap.v1.Query/RewardsByProvider"
+	Query_PositionsByProvider_FullMethodName          = "/noble.swap.stableswap.v1.Query/PositionsByProvider"
+	Query_BondedPositionsByProvider_FullMethodName    = "/noble.swap.stableswap.v1.Query/BondedPositionsByProvider"
+	Query_UnbondingPositionsByProvider_FullMethodName = "/noble.swap.stableswap.v1.Query/UnbondingPositionsByProvider"
+	Query_RewardsByProvider_FullMethodName            = "/noble.swap.stableswap.v1.Query/RewardsByProvider"
 )
 
 // QueryClient is the client API for Query service.
@@ -218,7 +218,7 @@ func _Query_RewardsByProvider_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Query_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "swap.stableswap.v1.Query",
+	ServiceName: "noble.swap.stableswap.v1.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -239,5 +239,5 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "swap/stableswap/v1/query.proto",
+	Metadata: "noble/swap/stableswap/v1/query.proto",
 }

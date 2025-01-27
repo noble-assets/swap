@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: swap/stableswap/v1/tx.proto
+// source: noble/swap/stableswap/v1/tx.proto
 
 package stableswapv1
 
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Msg_CreatePool_FullMethodName      = "/swap.stableswap.v1.Msg/CreatePool"
-	Msg_UpdatePool_FullMethodName      = "/swap.stableswap.v1.Msg/UpdatePool"
-	Msg_AddLiquidity_FullMethodName    = "/swap.stableswap.v1.Msg/AddLiquidity"
-	Msg_RemoveLiquidity_FullMethodName = "/swap.stableswap.v1.Msg/RemoveLiquidity"
+	Msg_CreatePool_FullMethodName      = "/noble.swap.stableswap.v1.Msg/CreatePool"
+	Msg_UpdatePool_FullMethodName      = "/noble.swap.stableswap.v1.Msg/UpdatePool"
+	Msg_AddLiquidity_FullMethodName    = "/noble.swap.stableswap.v1.Msg/AddLiquidity"
+	Msg_RemoveLiquidity_FullMethodName = "/noble.swap.stableswap.v1.Msg/RemoveLiquidity"
 )
 
 // MsgClient is the client API for Msg service.
@@ -218,7 +218,7 @@ func _Msg_RemoveLiquidity_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Msg_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "swap.stableswap.v1.Msg",
+	ServiceName: "noble.swap.stableswap.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -239,5 +239,5 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "swap/stableswap/v1/tx.proto",
+	Metadata: "noble/swap/stableswap/v1/tx.proto",
 }

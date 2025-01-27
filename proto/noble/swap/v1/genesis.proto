@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package swap.v1;
+package noble.swap.v1;
 
 import "gogoproto/gogo.proto";
-import "swap/stableswap/v1/genesis.proto";
-import "swap/v1/pool.proto";
+import "noble/swap/stableswap/v1/genesis.proto";
+import "noble/swap/v1/pool.proto";
 
 option go_package = "swap.noble.xyz/types";
 

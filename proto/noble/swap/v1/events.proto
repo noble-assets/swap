@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package swap.v1;
+package noble.swap.v1;
 
 import "amino/amino.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
-import "swap/v1/swap.proto";
+import "noble/swap/v1/swap.proto";
 
 option go_package = "swap.noble.xyz/types";
 

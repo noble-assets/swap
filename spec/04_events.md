@@ -4,7 +4,7 @@ This event is emitted whenever a set of pools are paused in the Swap module.
 
 ```json
 {
-  "type": "swap.v1.PoolsPaused",
+  "type": "noble.swap.v1.PoolsPaused",
   "attributes": [
     {
       "key": "pool_ids",
@@ -16,8 +16,8 @@ This event is emitted whenever a set of pools are paused in the Swap module.
 
 This event is emitted by the following transactions:
 
-- [`swap.v1.MsgPauseByPoolIds`](./02_messages.md#pause-by-pool-ids)
-- [`swap.v1.MsgPauseByAlgorithm`](./02_messages.md#pause-by-algorithm)
+- [`noble.swap.v1.MsgPauseByPoolIds`](./02_messages.md#pause-by-pool-ids)
+- [`noble.swap.v1.MsgPauseByAlgorithm`](./02_messages.md#pause-by-algorithm)
 
 ## PoolsUnpaused
 
@@ -25,7 +25,7 @@ This event is emitted whenever a set of pools are unpaused in the Swap module.
 
 ```json
 {
-  "type": "swap.v1.PoolsUnpaused",
+  "type": "noble.swap.v1.PoolsUnpaused",
   "attributes": [
     {
       "key": "pool_ids",
@@ -37,8 +37,8 @@ This event is emitted whenever a set of pools are unpaused in the Swap module.
 
 This event is emitted by the following transactions:
 
-- [`swap.v1.MsgUnpauseByPoolIds`](./02_messages.md#unpause-by-pool-ids)
-- [`swap.v1.MsgUnpauseByAlgorithm`](./02_messages.md#unpause-by-algorithm)
+- [`noble.swap.v1.MsgUnpauseByPoolIds`](./02_messages.md#unpause-by-pool-ids)
+- [`noble.swap.v1.MsgUnpauseByAlgorithm`](./02_messages.md#unpause-by-algorithm)
 
 ## Swap
 
@@ -46,7 +46,7 @@ This event is emitted whenever a swap operation is completed successfully.
 
 ```json
 {
-  "type": "swap.v1.Swap",
+  "type": "noble.swap.v1.Swap",
   "attributes": [
     {
       "key": "signer",
@@ -74,7 +74,7 @@ This event is emitted whenever a swap operation is completed successfully.
 
 This event is emitted by the following transactions:
 
-- [`swap.v1.MsgSwap`](./02_messages.md#swap)
+- [`noble.swap.v1.MsgSwap`](./02_messages.md#swap)
 
 ## WithdrawnProtocolFees
 
@@ -82,7 +82,7 @@ This event is emitted whenever protocol fees are withdrawn from a pool.
 
 ```json
 {
-  "type": "swap.v1.WithdrawnProtocolFees",
+  "type": "noble.swap.v1.WithdrawnProtocolFees",
   "attributes": [
     {
       "key": "to",
@@ -98,7 +98,7 @@ This event is emitted whenever protocol fees are withdrawn from a pool.
 
 This event is emitted by the following transactions:
 
-- [`swap.v1.MsgWithdrawProtocolFees`](./02_messages.md#withdraw-protocol-fees)
+- [`noble.swap.v1.MsgWithdrawProtocolFees`](./02_messages.md#withdraw-protocol-fees)
 
 ## WithdrawnRewards
 
@@ -106,7 +106,7 @@ This event is emitted whenever a user withdraws their rewards from a pool.
 
 ```json
 {
-  "type": "swap.v1.WithdrawnRewards",
+  "type": "noble.swap.v1.WithdrawnRewards",
   "attributes": [
     {
       "key": "signer",
@@ -122,4 +122,4 @@ This event is emitted whenever a user withdraws their rewards from a pool.
 
 This event is emitted by the following transactions:
 
-- [`swap.v1.MsgWithdrawRewards`](./02_messages.md#withdraw-rewards)
+- [`noble.swap.v1.MsgWithdrawRewards`](./02_messages.md#withdraw-rewards)

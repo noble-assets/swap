@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package swap.v1;
+package noble.swap.v1;
 
 import "cosmos/base/v1beta1/coin.proto";
 import "cosmos/query/v1/query.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "swap/v1/algorithm.proto";
-import "swap/v1/pool.proto";
-import "swap/v1/rate.proto";
-import "swap/v1/swap.proto";
-import "swap/v1/tx.proto";
+import "noble/swap/v1/algorithm.proto";
+import "noble/swap/v1/pool.proto";
+import "noble/swap/v1/rate.proto";
+import "noble/swap/v1/swap.proto";
+import "noble/swap/v1/tx.proto";
 
 option go_package = "swap.noble.xyz/types";
 
@@ -18,37 +18,37 @@ service Query {
   // Retrieves a list of the currently paused Pools.
   rpc Paused(QueryPaused) returns (QueryPausedResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/swap/v1/paused";
+    option (google.api.http).get = "/noble/swap/v1/paused";
   }
 
   // Retrieves the details of all Pools.
   rpc Pools(QueryPools) returns (QueryPoolsResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/swap/v1/pools";
+    option (google.api.http).get = "/noble/swap/v1/pools";
   }
 
   // Retrieves details of a specific Pool.
   rpc Pool(QueryPool) returns (QueryPoolResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/swap/v1/pools/{pool_id}";
+    option (google.api.http).get = "/noble/swap/v1/pools/{pool_id}";
   }
 
   // Simulates a token swap simulation.
   rpc SimulateSwap(QuerySimulateSwap) returns (MsgSwapResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/swap/v1/simulate_swap";
+    option (google.api.http).get = "/noble/swap/v1/simulate_swap";
   }
 
   // Retrieves exchange rates for all tokens, with the optionality of filtering by algorithm.
   rpc Rates(QueryRates) returns (QueryRatesResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/swap/v1/rates";
+    option (google.api.http).get = "/noble/swap/v1/rates";
   }
 
   // Retrieves exchange rates for a specific token, with the optionality of filtering by algorithm.
   rpc Rate(QueryRate) returns (QueryRateResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/swap/v1/rates/{denom}";
+    option (google.api.http).get = "/noble/swap/v1/rates/{denom}";
   }
 }
 

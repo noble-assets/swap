@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: swap/v1/tx.proto
+// source: noble/swap/v1/tx.proto
 
 package swapv1
 
@@ -19,13 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Msg_Swap_FullMethodName                 = "/swap.v1.Msg/Swap"
-	Msg_WithdrawProtocolFees_FullMethodName = "/swap.v1.Msg/WithdrawProtocolFees"
-	Msg_WithdrawRewards_FullMethodName      = "/swap.v1.Msg/WithdrawRewards"
-	Msg_PauseByAlgorithm_FullMethodName     = "/swap.v1.Msg/PauseByAlgorithm"
-	Msg_PauseByPoolIds_FullMethodName       = "/swap.v1.Msg/PauseByPoolIds"
-	Msg_UnpauseByAlgorithm_FullMethodName   = "/swap.v1.Msg/UnpauseByAlgorithm"
-	Msg_UnpauseByPoolIds_FullMethodName     = "/swap.v1.Msg/UnpauseByPoolIds"
+	Msg_Swap_FullMethodName                 = "/noble.swap.v1.Msg/Swap"
+	Msg_WithdrawProtocolFees_FullMethodName = "/noble.swap.v1.Msg/WithdrawProtocolFees"
+	Msg_WithdrawRewards_FullMethodName      = "/noble.swap.v1.Msg/WithdrawRewards"
+	Msg_PauseByAlgorithm_FullMethodName     = "/noble.swap.v1.Msg/PauseByAlgorithm"
+	Msg_PauseByPoolIds_FullMethodName       = "/noble.swap.v1.Msg/PauseByPoolIds"
+	Msg_UnpauseByAlgorithm_FullMethodName   = "/noble.swap.v1.Msg/UnpauseByAlgorithm"
+	Msg_UnpauseByPoolIds_FullMethodName     = "/noble.swap.v1.Msg/UnpauseByPoolIds"
 )
 
 // MsgClient is the client API for Msg service.
@@ -326,7 +326,7 @@ func _Msg_UnpauseByPoolIds_Handler(srv interface{}, ctx context.Context, dec fun
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Msg_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "swap.v1.Msg",
+	ServiceName: "noble.swap.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -359,5 +359,5 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "swap/v1/tx.proto",
+	Metadata: "noble/swap/v1/tx.proto",
 }

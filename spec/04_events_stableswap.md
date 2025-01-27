@@ -5,7 +5,7 @@ This event is emitted whenever a new stable swap pool is created.
 
 ```json
 {
-  "type": "swap.stableswap.v1.PoolCreated",
+  "type": "noble.swap.stableswap.v1.PoolCreated",
   "attributes": [
     {
       "key": "pool_id",
@@ -30,7 +30,7 @@ This event is emitted whenever a new stable swap pool is created.
 
 This event is emitted by the following transactions:
 
-- [`swap.stableswap.v1.MsgCreatePool`](./02_messages.md#create-pool)
+- [`noble.swap.stableswap.v1.MsgCreatePool`](./02_messages.md#create-pool)
 
 ## PoolUpdated
 
@@ -38,7 +38,7 @@ This event is emitted whenever an existing pool's parameters are updated.
 
 ```json
 {
-  "type": "swap.stableswap.v1.PoolUpdated",
+  "type": "noble.swap.stableswap.v1.PoolUpdated",
   "attributes": [
     {
       "key": "pool_id",
@@ -55,7 +55,7 @@ This event is emitted whenever an existing pool's parameters are updated.
 
 This event is emitted by the following transactions:
 
-- [`swap.stableswap.v1.MsgUpdatePool`](./02_messages.md#update-pool)
+- [`noble.swap.stableswap.v1.MsgUpdatePool`](./02_messages.md#update-pool)
 
 ## LiquidityAdded
 
@@ -63,7 +63,7 @@ This event is emitted whenever liquidity is added to a pool.
 
 ```json
 {
-  "type": "swap.stableswap.v1.LiquidityAdded",
+  "type": "noble.swap.stableswap.v1.LiquidityAdded",
   "attributes": [
     {
       "key": "provider",
@@ -87,7 +87,7 @@ This event is emitted whenever liquidity is added to a pool.
 
 This event is emitted by the following transactions:
 
-- [`swap.stableswap.v1.MsgAddLiquidity`](./02_messages.md#add-liquidity)
+- [`noble.swap.stableswap.v1.MsgAddLiquidity`](./02_messages.md#add-liquidity)
 
 ## LiquidityRemoved
 
@@ -95,7 +95,7 @@ This event is emitted whenever liquidity is removed from a pool.
 
 ```json
 {
-  "type": "swap.stableswap.v1.LiquidityRemoved",
+  "type": "noble.swap.stableswap.v1.LiquidityRemoved",
   "attributes": [
     {
       "key": "provider",
@@ -123,5 +123,5 @@ This event is emitted whenever liquidity is removed from a pool.
 
 This event is emitted by the following transactions:
 
-- [`swap.stableswap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
+- [`noble.swap.stableswap.v1.MsgRemoveLiquidity`](./02_messages.md#remove-liquidity)
 
