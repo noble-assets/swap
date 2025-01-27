@@ -1012,7 +1012,7 @@ func TestAddLiquidity(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
 	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
-	poolAddress, err := sdk.AccAddressFromBech32(pool.Address)
+	poolAddress, err := account.AddressCodec().StringToBytes(pool.Address)
 	assert.Nil(t, err)
 	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
 	assert.Equal(t, 10*ONE, poolLiquidity.AmountOf("uusdn").Int64())
@@ -1243,7 +1243,7 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	})
 
 	pool, _ := k.Pools.Get(ctx, 0)
-	poolAddress, _ := sdk.AccAddressFromBech32(pool.Address)
+	poolAddress, _ := account.AddressCodec().StringToBytes(pool.Address)
 	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
 	assert.Equal(t, len(poolLiquidity), 0)
 
