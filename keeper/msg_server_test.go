@@ -55,7 +55,7 @@ func TestRewardsSingleUser(t *testing.T) {
 
 	// ASSERT: Empty liquidity.
 	pool, _ := k.Pools.Get(ctx, 0)
-	poolAddress, _ := sdk.AccAddressFromBech32(pool.Address)
+	poolAddress, _ := account.AddressCodec().StringToBytes(pool.Address)
 	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
 	assert.Equal(t, len(poolLiquidity), 0)
 
@@ -1195,9 +1195,8 @@ func TestSwap(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, response.Result, sdk.NewCoin("uusdn", math.NewInt(99999997)))
 	pool, _ := k.Pools.Get(ctx, 0)
-	poolAddress, _ := sdk.AccAddressFromBech32(pool.Address)
-	assert.Equal(t, bank.Balances[poolAddress.String()].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdn").Int64()))
-	assert.Equal(t, bank.Balances[poolAddress.String()].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Result.Amount.Int64()))
+	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdn").Int64()))
+	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Result.Amount.Int64()))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdc"), math.NewInt((1_000-100)*ONE))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdn"), response.Result.Amount)
 
@@ -1318,9 +1317,8 @@ func TestMultiPoolSwap(t *testing.T) {
 	// ASSERT: Expect matching values in state.
 	assert.Equal(t, response.Result, sdk.NewCoin("uusde", math.NewInt(99999996)))
 	pool0, _ := k.Pools.Get(ctx, 0)
-	pool0Address, _ := sdk.AccAddressFromBech32(pool0.Address)
-	assert.Equal(t, bank.Balances[pool0Address.String()].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdn").Int64()))
-	assert.Equal(t, bank.Balances[pool0Address.String()].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Swaps[0].Out.Amount.Int64()))
+	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdn").Int64()))
+	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Swaps[0].Out.Amount.Int64()))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdc"), math.NewInt((1_000-100)*ONE))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdn"), math.ZeroInt())
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusde"), response.Swaps[len(response.Swaps)-1].Out.Amount)

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"cosmossdk.io/core/address"
 	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -17,11 +18,12 @@ import (
 
 // Controller manages StableSwap pool operations and handles state updates.
 type Controller struct {
-	baseDenom  string
-	bankKeeper *types.BankKeeper
-	pool       *types.Pool
-	paused     bool
+	bankKeeper   *types.BankKeeper
+	addressCodec *address.Codec
 
+	baseDenom        string
+	pool             *types.Pool
+	paused           bool
 	stableswapPool   *stableswap.Pool
 	stableswapKeeper *Keeper
 }
@@ -29,6 +31,7 @@ type Controller struct {
 // NewController initializes a Controller for managing a StableSwap pool.
 func NewController(
 	bankKeeper *types.BankKeeper,
+	addressCodec *address.Codec,
 	baseDenom string,
 	pool *types.Pool,
 	paused bool,
@@ -37,6 +40,7 @@ func NewController(
 ) Controller {
 	return Controller{
 		bankKeeper:       bankKeeper,
+		addressCodec:     addressCodec,
 		baseDenom:        baseDenom,
 		pool:             pool,
 		paused:           paused,
@@ -288,19 +292,6 @@ func (c *Controller) RemoveLiquidity(
 		coinsToReturn = coinsToReturn.Add(sdk.NewCoin(asset.Denom, amountToReturn))
 	}
 
-	// Calculate the proportional amount of each asset in the pool to return to the user.
-	coinsToReturn = sdk.NewCoins()
-	for _, asset := range liquidity {
-		// Determine the amount of tokens to return for this asset.
-		amountToReturn := asset.Amount.Mul(sharesToUnbond.TruncateInt()).Quo(c.stableswapPool.TotalShares.TruncateInt())
-		if !amountToReturn.IsPositive() {
-			continue
-		}
-
-		// Create the coin representation of the token to return.
-		coinsToReturn = coinsToReturn.Add(sdk.NewCoin(asset.Denom, amountToReturn))
-	}
-
 	// Compute the unbonding period weighted to the amount of tokens to unbond and the total pool liquidity.
 	unbondingPeriod, err := ComputeWeightedPoolUnbondingPeriod(c.stableswapPool.TotalShares, sharesToUnbond)
 	if err != nil {
@@ -350,15 +341,15 @@ func (c *Controller) RemoveLiquidity(
 
 // GetLiquidity retrieves the total liquidity in the StableSwap pool.
 func (c *Controller) GetLiquidity(ctx context.Context) sdk.Coins {
-	address, err := sdk.AccAddressFromBech32(c.GetAddress())
+	poolAddress, err := (*c.addressCodec).StringToBytes(c.GetAddress())
 	if err != nil {
 		return sdk.Coins{}
 	}
 
 	// Get the liquidity of only the wanted tokens.
 	liquidity := sdk.Coins{}
-	liquidity = liquidity.Add((*c.bankKeeper).GetBalance(ctx, address, c.baseDenom))
-	liquidity = liquidity.Add((*c.bankKeeper).GetBalance(ctx, address, c.GetPair()))
+	liquidity = liquidity.Add((*c.bankKeeper).GetBalance(ctx, poolAddress, c.baseDenom))
+	liquidity = liquidity.Add((*c.bankKeeper).GetBalance(ctx, poolAddress, c.GetPair()))
 	return liquidity
 }
 
@@ -437,15 +428,26 @@ func (c *Controller) UpdatePool(
 // ProcessUnbondings handles pending unbonding requests, returns tokens to users after the unbonding period ends,
 // and claims user rewards associated with the pool.
 func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Time) error {
+	poolAddr, err := (*c.addressCodec).StringToBytes(c.GetAddress())
+	if err != nil {
+		return err
+	}
+
 	// Iterate over unbonding entries and process those whose unbonding period has ended.
 	for _, entry := range c.stableswapKeeper.GetUnbondingPositionsUntil(ctx, currentTime.Unix()) {
+		addr, err := (*c.addressCodec).StringToBytes(entry.Address)
+		if err != nil {
+			c.stableswapKeeper.logger.Error("unable to parse unbonding position address  : %s")
+			continue
+		}
+
 		// Check if the unbonding period has ended for the given position.
 		if currentTime.After(entry.UnbondingPosition.EndTime) {
 			// Send the tokens back to the user.
 			if err := (*c.bankKeeper).SendCoins(
 				ctx,
-				sdk.MustAccAddressFromBech32(c.GetAddress()),
-				sdk.MustAccAddressFromBech32(entry.Address),
+				poolAddr,
+				addr,
 				entry.UnbondingPosition.Amount,
 			); err != nil {
 				return err
@@ -560,6 +562,10 @@ func (c *Controller) GetTotalPoolUserRewards(ctx context.Context, address string
 
 // ProcessUserRewards distributes rewards to a user and updates their reward periods.
 func (c *Controller) ProcessUserRewards(ctx context.Context, address string, currentTime time.Time) (sdk.Coins, error) {
+	addr, err := (*c.addressCodec).StringToBytes(address)
+	if err != nil {
+		return nil, err
+	}
 	// Get the expected amount of user rewards for the user bonded positions.
 	userRewards, err := c.GetTotalPoolUserRewards(ctx, address, currentTime)
 	if err != nil {
@@ -586,7 +592,7 @@ func (c *Controller) ProcessUserRewards(ctx context.Context, address string, cur
 		for _, coin := range poolRewards.Amount {
 			finalRewards = finalRewards.Add(coin)
 		}
-		err = (*c.bankKeeper).SendCoins(ctx, poolRewards.Address, sdk.MustAccAddressFromBech32(address), poolRewards.Amount)
+		err = (*c.bankKeeper).SendCoins(ctx, poolRewards.Address, addr, poolRewards.Amount)
 		if err != nil {
 			return nil, err
 		}

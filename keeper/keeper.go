@@ -138,7 +138,10 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	// Commit the plan.
 	var executedSwaps []*types.Swap
 	for _, swap := range swapRoutesPlan.Swaps {
-		poolAddr := sdk.MustAccAddressFromBech32(swap.PoolAddress).Bytes()
+		poolAddr, err := k.addressCodec.StringToBytes(swap.PoolAddress)
+		if err != nil {
+			return nil, err
+		}
 		if err := k.bankKeeper.SendCoins(ctx, userAddress, poolAddr, sdk.NewCoins(swap.Commitment.In)); err != nil {
 			return nil, sdkerrors.Wrap(err, "unable to transfer from provider to pool")
 		}
