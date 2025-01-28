@@ -466,12 +466,15 @@ func (c *Controller) ProcessUnbondings(ctx context.Context, currentTime time.Tim
 			for _, bondedEntry := range c.stableswapKeeper.GetBondedPositionsByProvider(ctx, entry.Address) {
 				if cumulativeUnbonded.Add(bondedEntry.BondedPosition.Balance).GT(entry.UnbondingPosition.Shares) {
 					remainingShares := entry.UnbondingPosition.Shares.Sub(cumulativeUnbonded)
-					bondedEntry.BondedPosition.Balance = entry.UnbondingPosition.Shares.Sub(remainingShares)
+					bondedEntry.BondedPosition.Balance = bondedEntry.BondedPosition.Balance.Sub(remainingShares)
 					cumulativeUnbonded = entry.UnbondingPosition.Shares
 
+					if err = c.stableswapKeeper.SetBondedPosition(ctx, bondedEntry.PoolId, bondedEntry.Address, bondedEntry.Timestamp, bondedEntry.BondedPosition); err != nil {
+						return err
+					}
 				} else {
 					cumulativeUnbonded = cumulativeUnbonded.Add(bondedEntry.BondedPosition.Balance)
-					if err := c.stableswapKeeper.RemoveBondedPosition(ctx, bondedEntry.PoolId, bondedEntry.Address, bondedEntry.Timestamp); err != nil {
+					if err = c.stableswapKeeper.RemoveBondedPosition(ctx, bondedEntry.PoolId, bondedEntry.Address, bondedEntry.Timestamp); err != nil {
 						return err
 					}
 				}
