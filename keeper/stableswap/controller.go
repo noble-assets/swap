@@ -165,12 +165,6 @@ func (c *Controller) AddLiquidity(
 	// Retrieve the Pool liquidity.
 	liquidity := c.GetLiquidity(ctx)
 
-	// Compute the total coins amount.
-	totalSupply := math.LegacyZeroDec()
-	for _, coin := range liquidity {
-		totalSupply = totalSupply.Add(liquidity.AmountOf(coin.Denom).ToLegacyDec())
-	}
-
 	// Calculate pre-deposit invariant.
 	xp, err := calculateAdjustedBalancesInRates(c.stableswapPool.RateMultipliers, liquidity)
 	if err != nil {
@@ -201,8 +195,8 @@ func (c *Controller) AddLiquidity(
 
 	// Calculate how many LP tokens to mint.
 	newTotalMint := math.LegacyZeroDec()
-	if totalSupply.GT(math.LegacyZeroDec()) {
-		newTotalMint = totalSupply.Mul(D1.Sub(D0))
+	if c.stableswapPool.TotalShares.GT(math.LegacyZeroDec()) {
+		newTotalMint = c.stableswapPool.TotalShares.Mul(D1.Sub(D0))
 		newTotalMint = newTotalMint.Quo(D0)
 	} else {
 		// First liquidity provider mints tokens equal to D1.
