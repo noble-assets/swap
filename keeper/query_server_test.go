@@ -414,10 +414,10 @@ func TestRate(t *testing.T) {
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 
 	// ARRANGE: Create a Pool.
-	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(1000)))
-	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(1000)))
-	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusde", math.NewInt(1000)))
-	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(1000)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(1000*ONE)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(1000*ONE)))
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusde", math.NewInt(1000*ONE)))
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(1000*ONE)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -436,8 +436,8 @@ func TestRate(t *testing.T) {
 		Signer: bob.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(100)),
-			sdk.NewCoin("uusdc", math.NewInt(100)),
+			sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -483,8 +483,8 @@ func TestRate(t *testing.T) {
 		Signer: alice.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(800)),
-			sdk.NewCoin("uusde", math.NewInt(800)),
+			sdk.NewCoin("uusdn", math.NewInt(800*ONE)),
+			sdk.NewCoin("uusde", math.NewInt(800*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -492,14 +492,14 @@ func TestRate(t *testing.T) {
 	// ARRANGE: Perform a swap.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: alice.Address,
-		Amount: sdk.NewCoin("uusdn", math.NewInt(100)),
+		Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
 		Routes: []types.Route{
 			{
 				PoolId:  0,
 				DenomTo: "uusdc",
 			},
 		},
-		Min: sdk.NewCoin("uusdc", math.NewInt(1)),
+		Min: sdk.NewCoin("uusdc", math.NewInt(1*ONE)),
 	})
 	assert.NoError(t, err)
 
@@ -515,7 +515,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(200),
+				Price:     math.LegacyNewDec(20000),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -543,7 +543,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(200),
+				Price:     math.LegacyNewDec(20000),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -563,7 +563,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(200),
+				Price:     math.LegacyNewDec(20000),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -586,10 +586,10 @@ func TestRates(t *testing.T) {
 	bob, alice := utils.TestAccount(), utils.TestAccount()
 
 	// ARRANGE: Create a Pool.
-	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusde", math.NewInt(1000)))
-	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(1000)))
-	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(1000)))
-	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(1000)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusde", math.NewInt(1000*ONE)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(1000*ONE)))
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdc", math.NewInt(1000*ONE)))
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], sdk.NewCoin("uusdn", math.NewInt(1000*ONE)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusde",
@@ -608,8 +608,8 @@ func TestRates(t *testing.T) {
 		Signer: bob.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(100)),
-			sdk.NewCoin("uusde", math.NewInt(100)),
+			sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+			sdk.NewCoin("uusde", math.NewInt(100*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -657,8 +657,8 @@ func TestRates(t *testing.T) {
 		Signer: alice.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(800)),
-			sdk.NewCoin("uusdc", math.NewInt(800)),
+			sdk.NewCoin("uusdn", math.NewInt(800*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(800*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -666,14 +666,14 @@ func TestRates(t *testing.T) {
 	// ARRANGE: Perform a swap.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: alice.Address,
-		Amount: sdk.NewCoin("uusdn", math.NewInt(100)),
+		Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
 		Routes: []types.Route{
 			{
 				PoolId:  0,
 				DenomTo: "uusde",
 			},
 		},
-		Min: sdk.NewCoin("uusde", math.NewInt(1)),
+		Min: sdk.NewCoin("uusde", math.NewInt(1*ONE)),
 	})
 	assert.NoError(t, err)
 
@@ -692,7 +692,7 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(200),
+				Price:     math.LegacyNewDec(20000),
 				Algorithm: types.STABLESWAP,
 			},
 			{
@@ -704,7 +704,7 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyMustNewDecFromStr("0.005000000000000000"),
+				Price:     math.LegacyMustNewDecFromStr("0.000050000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -734,7 +734,7 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(200),
+				Price:     math.LegacyNewDec(20000),
 				Algorithm: types.STABLESWAP,
 			},
 			{
@@ -746,7 +746,7 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyMustNewDecFromStr("0.005000000000000000"),
+				Price:     math.LegacyMustNewDecFromStr("0.000050000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -769,7 +769,7 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(200),
+				Price:     math.LegacyNewDec(20000),
 				Algorithm: types.STABLESWAP,
 			},
 			{
@@ -781,7 +781,7 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyMustNewDecFromStr("0.005000000000000000"),
+				Price:     math.LegacyMustNewDecFromStr("0.000050000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 		},

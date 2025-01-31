@@ -351,6 +351,17 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 		)
 	}
 
+	// Ensure that deposit amount of the base token is at least 1 unit (1e6).
+	if baseAmount.LT(math.LegacyNewDec(1e6)) {
+		return nil, sdkerrors.Wrapf(
+			types.ErrInvalidAmount,
+			"must provide a minimum amount of 1000000%s but got: %s%s",
+			s.baseDenom,
+			baseAmount.TruncateInt().String(),
+			s.baseDenom,
+		)
+	}
+
 	// Create the new user BondedPosition.
 	newPosition, err := stableswapController.AddLiquidity(ctx, s.headerService.GetHeaderInfo(ctx).Time, msg)
 	if err != nil {

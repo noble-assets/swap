@@ -169,6 +169,9 @@ Provides tokens to a specified liquidity pool, increasing its reserves and earni
 - `pool_id` — ID of the pool.
 - `amount` — Amount of tokens to add.
 
+**Requirements**
+- `amount` — The base token (USDN) amount must be at least 1 unit (1000000).
+
 **State Changes**
 - Updates `Pool` reserves.
 - Mints liquidity shares to the signer.
