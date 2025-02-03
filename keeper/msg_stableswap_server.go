@@ -351,8 +351,8 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 		)
 	}
 
-	// Ensure that deposit amount of the base token is at least 1 unit (1e6).
-	if baseAmount.LT(math.LegacyNewDec(1e6)) {
+	// Ensure that deposit amount of the base token is not less than the `base_minimum_deposit`.
+	if baseAmount.LT(math.LegacyNewDec(s.baseMinimumDeposit)) {
 		return nil, sdkerrors.Wrapf(
 			types.ErrInvalidAmount,
 			"must provide a minimum amount of 1000000%s but got: %s%s",

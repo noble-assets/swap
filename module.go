@@ -413,6 +413,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		in.Logger,
 		authority.String(),
 		in.Config.BaseDenom,
+		in.Config.BaseMinimumDeposit,
 		in.Config.Stableswap,
 		in.AddressCodec,
 		in.AccountKeeper,
