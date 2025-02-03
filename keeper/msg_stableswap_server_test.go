@@ -926,8 +926,8 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("invalid_denom", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("invalid_denom", math.NewInt(10*ONE)),
 		),
 	})
 	assert.ErrorIs(t, err, types.ErrInvalidAmount)
@@ -937,8 +937,8 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(0)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(0*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
 		),
 	})
 	assert.ErrorIs(t, err, types.ErrInvalidAmount)
@@ -948,8 +948,8 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(0)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(0*ONE)),
 		),
 	})
 	assert.ErrorIs(t, err, types.ErrInvalidAmount)
@@ -959,9 +959,9 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusde", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusde", math.NewInt(10*ONE)),
 		),
 	})
 	assert.ErrorIs(t, err, types.ErrInvalidAmount)
@@ -971,8 +971,8 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(11)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(11*ONE)),
 		),
 	})
 	assert.ErrorIs(t, err, types.ErrInvalidAmount)
@@ -982,8 +982,19 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(11)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(11*ONE)),
+		),
+	})
+	assert.ErrorIs(t, err, types.ErrInvalidAmount)
+
+	// ACT: Attempt to add liquidity with a balanced but too low amount.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(1*ONE-1)),
+			sdk.NewCoin("uusdn", math.NewInt(1*ONE-1)),
 		),
 	})
 	assert.ErrorIs(t, err, types.ErrInvalidAmount)
@@ -1277,8 +1288,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 
 	// ARRANGE: Give the user 100usdc/100usdn.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
 
 	// 1) Test  liquidity remove with single bonded position.
 
@@ -1288,8 +1299,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(20)),
-			sdk.NewCoin("uusdn", math.NewInt(20)),
+			sdk.NewCoin("uusdc", math.NewInt(20*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(20*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -1299,8 +1310,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	stableswapPool, _ := k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec(resAdd.MintedShares), stableswapPool.TotalShares)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ARRANGE: Setup up failing collections on Pools.
 	tmpPools := k.Pools
@@ -1369,23 +1380,23 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Execute the BeginBlocker before the expected unbonding time.
 	err = k.BeginBlocker(ctx)
 	// ASSERT: Expect no changes in state.
 	assert.NoError(t, err)
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Execute the BeginBlocker after the expected unbonding time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 10, 1, 1, 1, 1, time.UTC)})
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
 	// ASSERT: User received back all the tokens.
-	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(100*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(100*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyZeroDec(), stableswapPool.TotalShares)
 
@@ -1396,8 +1407,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
 		),
 	})
 
@@ -1405,10 +1416,10 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.NoError(t, err)
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyNewDec(20), stableswapPool.TotalShares)
+	assert.Equal(t, math.LegacyNewDec(20*ONE), stableswapPool.TotalShares)
 	assert.Equal(t, userTotalShares, userTotalShares)
-	assert.Equal(t, math.NewInt(90), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(90), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(90*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ARRANGE: Add other liquidity for 20usdc/20usdn with a new position.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 2, 1, 1, 1, 1, 1, time.UTC)})
@@ -1416,18 +1427,18 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(20)),
-			sdk.NewCoin("uusdn", math.NewInt(20)),
+			sdk.NewCoin("uusdc", math.NewInt(20*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(20*ONE)),
 		),
 	})
 	// ASSERT: Expect matching values in state.
 	assert.NoError(t, err)
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyNewDec(60), stableswapPool.TotalShares)
+	assert.Equal(t, math.LegacyNewDec(60*ONE), stableswapPool.TotalShares)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(70*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(70*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Attempt to remove liquidity with an invalid percentage.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
@@ -1452,15 +1463,15 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(70*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(70*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Execute the BeginBlocker before the expected unbonding time.
 	err = k.BeginBlocker(ctx)
 	assert.NoError(t, err)
 	// ASSERT: No changes in state.
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(70), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(70*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(70*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ARRANGE: Increase time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 2, 10, 1, 1, 1, 1, time.UTC)})
@@ -1470,8 +1481,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.NoError(t, err)
 
 	// ASSERT: User received back all the tokens.
-	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(100), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(100*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(100*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyZeroDec(), stableswapPool.TotalShares)
 	totalUnbondingShares, err = k.Stableswap.PoolsTotalUnbondingShares.Get(ctx, pool.Id)
@@ -1486,8 +1497,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(20)),
-			sdk.NewCoin("uusdn", math.NewInt(20)),
+			sdk.NewCoin("uusdc", math.NewInt(20*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(20*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -1497,12 +1508,12 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec(resAdd.MintedShares), stableswapPool.TotalShares)
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: remove 40% liquidity.
 	expectedRemovedAmount := resAdd.MintedShares * 40 / 100
-	expectedRemovedTokens := int64(20 * 40 / 100)
+	expectedRemovedTokens := int64(20*40/100) * ONE
 	resRemove, err := stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
 		PoolId:     0,
@@ -1514,10 +1525,10 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	userTotalShares, _ = k.Stableswap.UsersTotalBondedShares.Get(ctx, collections.Join(pool.Id, user.Address))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec(expectedRemovedAmount), resRemove.UnbondingShares)
-	assert.Equal(t, math.LegacyNewDec(resAdd.MintedShares-expectedRemovedAmount), math.LegacyNewDec(24))
+	assert.Equal(t, math.LegacyNewDec(resAdd.MintedShares-expectedRemovedAmount), math.LegacyNewDec(24*ONE))
 	assert.Equal(t, userTotalShares, stableswapPool.TotalShares)
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Attempt to remove multiple positions within the same block.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
@@ -1532,8 +1543,8 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	err = k.BeginBlocker(ctx)
 	// ASSERT: No changes in state.
 	assert.NoError(t, err)
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(80*ONE), bank.Balances[user.Address].AmountOf("uusdn"))
 
 	// ACT: Execute the BeginBlocker after the expected unbonding time.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 4, 10, 1, 1, 1, 1, time.UTC)})
@@ -1541,11 +1552,11 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	assert.NoError(t, err)
 
 	// ASSERT: User received back 40% of all the tokens.
-	assert.Equal(t, math.NewInt(80+expectedRemovedTokens), bank.Balances[user.Address].AmountOf("uusdc"))
-	assert.Equal(t, math.NewInt(80+expectedRemovedTokens), bank.Balances[user.Address].AmountOf("uusdn"))
+	assert.Equal(t, math.NewInt((80*ONE)+expectedRemovedTokens), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt((80*ONE)+expectedRemovedTokens), bank.Balances[user.Address].AmountOf("uusdn"))
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
-	assert.Equal(t, math.LegacyNewDec(40-expectedRemovedAmount), k.Stableswap.GetUserTotalBondedShares(ctx, 0, user.Address))
-	assert.Equal(t, math.LegacyNewDec(40-expectedRemovedAmount), stableswapPool.TotalShares)
+	assert.Equal(t, math.LegacyNewDec((40*ONE)-expectedRemovedAmount), k.Stableswap.GetUserTotalBondedShares(ctx, 0, user.Address))
+	assert.Equal(t, math.LegacyNewDec((40*ONE)-expectedRemovedAmount), stableswapPool.TotalShares)
 }
 
 func TestRemoveLiquidityMultiUser(t *testing.T) {

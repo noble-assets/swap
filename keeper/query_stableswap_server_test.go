@@ -50,9 +50,9 @@ func TestBondedPositionsByProvider(t *testing.T) {
 	user := utils.TestAccount()
 
 	// ARRANGE: Create a Pool.
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -82,8 +82,8 @@ func TestBondedPositionsByProvider(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -114,8 +114,8 @@ func TestBondedPositionsByProvider(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusde", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusde", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -142,8 +142,8 @@ func TestUnbondingBondedPositionsByProvider(t *testing.T) {
 	user := utils.TestAccount()
 
 	// ARRANGE: Create a Pool.
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -173,8 +173,8 @@ func TestUnbondingBondedPositionsByProvider(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(10)),
-			sdk.NewCoin("uusdn", math.NewInt(10)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)

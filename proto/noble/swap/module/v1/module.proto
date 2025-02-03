@@ -14,8 +14,11 @@ message Module {
   // base_denom defines the base denom that is used as the standard pairing denomination for all liquidity pools.
   string base_denom = 2;
 
+  // base_minimum_deposit specifies the minimum amount of the base token required for depositing into liquidity pools.
+  int64 base_minimum_deposit = 3;
+
   // stableswap contains the custom attributes and configurations required for the StableSwap module.
-  StableSwap stableswap = 3;
+  StableSwap stableswap = 4;
 }
 
 message StableSwap {

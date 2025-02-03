@@ -70,6 +70,7 @@ func SwapKeeperWithKeepers(t testing.TB, account AccountKeeper, bank BankKeeper)
 		log.NewNopLogger(),
 		"authority",
 		"uusdn",
+		1e6,
 		&modulev1.StableSwap{
 			UnbondingBlockDelta: 10,
 		},

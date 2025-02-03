@@ -565,9 +565,9 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 	user := utils.TestAccount()
 
 	// ARRANGE: Create the initial pools and provide to the user the necessary liquidity.
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -708,8 +708,8 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -717,8 +717,8 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusde", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusde", math.NewInt(10*ONE)),
 		),
 	})
 	assert.Error(t, err, types.ErrPoolActivityPaused)
@@ -743,8 +743,8 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -752,8 +752,8 @@ func TestPausingAndUnpausingByPoolIds(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusde", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusde", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -774,9 +774,9 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 	user := utils.TestAccount()
 
 	// ARRANGE: Create 2 Pools.
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusde", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
 	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
 		Signer:                "authority",
 		Pair:                  "uusdc",
@@ -899,8 +899,8 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusdc", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -908,8 +908,8 @@ func TestPausingAndUnpausingByAlgorithm(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 1,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10)),
-			sdk.NewCoin("uusde", math.NewInt(10)),
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusde", math.NewInt(10*ONE)),
 		),
 	})
 	assert.NoError(t, err)
@@ -945,40 +945,40 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
-	bank.Balances[provider.Address] = append(bank.Balances[provider.Address], sdk.NewCoin("uusdc", math.NewInt(1_000_000_000)))
-	bank.Balances[provider.Address] = append(bank.Balances[provider.Address], sdk.NewCoin("uusdn", math.NewInt(1_000_000_000)))
+	bank.Balances[provider.Address] = append(bank.Balances[provider.Address], sdk.NewCoin("uusdc", math.NewInt(1100*ONE)))
+	bank.Balances[provider.Address] = append(bank.Balances[provider.Address], sdk.NewCoin("uusdn", math.NewInt(1100*ONE)))
 
 	// ARRANGE: Add liquidity.
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: provider.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(1000000000)),
-			sdk.NewCoin("uusdc", math.NewInt(1000000000)),
+			sdk.NewCoin("uusdn", math.NewInt(1000*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(1000*ONE)),
 		),
 	})
 	assert.NoError(t, err)
 
 	// ARRANGE: Create a liquidity position for the user.
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100)))
-	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
 	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(50)),
-			sdk.NewCoin("uusdc", math.NewInt(50)),
+			sdk.NewCoin("uusdn", math.NewInt(50*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(50*ONE)),
 		),
 	})
 	assert.NoError(t, err)
-	assert.Equal(t, math.NewInt(50), bank.Balances[user.Address].AmountOf("uusdc"))
+	assert.Equal(t, math.NewInt(50*ONE), bank.Balances[user.Address].AmountOf("uusdc"))
 
 	// ACT: Attempt to swap with not enough balance since bonded.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: user.Address,
-		Amount: sdk.NewCoin("uusdc", math.NewInt(51)),
+		Amount: sdk.NewCoin("uusdc", math.NewInt(51*ONE)),
 		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdn"}},
-		Min:    sdk.NewCoin("uusdn", math.NewInt(30)),
+		Min:    sdk.NewCoin("uusdn", math.NewInt(30*ONE)),
 	})
 	// ASSERT: The action should've failed due to bonded balance.
 	assert.ErrorIs(t, types.ErrInsufficientBalance, err)
@@ -996,9 +996,9 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 	assert.NoError(t, err)
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: user.Address,
-		Amount: sdk.NewCoin("uusdc", math.NewInt(51)),
+		Amount: sdk.NewCoin("uusdc", math.NewInt(51*ONE)),
 		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdn"}},
-		Min:    sdk.NewCoin("uusdn", math.NewInt(30)),
+		Min:    sdk.NewCoin("uusdn", math.NewInt(30*ONE)),
 	})
 	// ASSERT: The action should've failed due to low balance since unbonding time is not yet elapsed.
 	assert.ErrorIs(t, types.ErrInsufficientBalance, err)

@@ -48,6 +48,7 @@ func TestNewKeeper(t *testing.T) {
 			log.NewNopLogger(),
 			"authority",
 			"uusdn",
+			1e6,
 			&modulev1.StableSwap{},
 			address.NewBech32Codec("noble"),
 			mocks.AccountKeeper{},
