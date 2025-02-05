@@ -1051,7 +1051,7 @@ type Module struct {
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
 	// base_denom defines the base denom that is used as the standard pairing denomination for all liquidity pools.
 	BaseDenom string `protobuf:"bytes,2,opt,name=base_denom,json=baseDenom,proto3" json:"base_denom,omitempty"`
-	// base_minimum_deposit defines the minimum amount in order to deposit into liquidity pools.
+	// base_minimum_deposit specifies the minimum amount of the base token required for depositing into liquidity pools.
 	BaseMinimumDeposit int64 `protobuf:"varint,3,opt,name=base_minimum_deposit,json=baseMinimumDeposit,proto3" json:"base_minimum_deposit,omitempty"`
 	// stableswap contains the custom attributes and configurations required for the StableSwap module.
 	Stableswap *StableSwap `protobuf:"bytes,4,opt,name=stableswap,proto3" json:"stableswap,omitempty"`
