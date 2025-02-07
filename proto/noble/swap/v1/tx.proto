@@ -39,7 +39,7 @@ service Msg {
 
 message MsgWithdrawProtocolFees {
   option (cosmos.msg.v1.signer) = "signer";
-  option (amino.name) = "swap/RemoveLiquidity";
+  option (amino.name) = "swap/WithdrawProtocolFees";
 
   option (gogoproto.equal) = false;
   option (gogoproto.goproto_getters) = false;
@@ -53,7 +53,7 @@ message MsgWithdrawProtocolFeesResponse {}
 
 message MsgWithdrawRewards {
   option (cosmos.msg.v1.signer) = "signer";
-  option (amino.name) = "swap/RemoveLiquidity";
+  option (amino.name) = "swap/WithdrawRewards";
 
   option (gogoproto.equal) = false;
   option (gogoproto.goproto_getters) = false;
