@@ -36,6 +36,8 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgPauseByPoolIds{}, "swap/PauseByPoolIds", nil)
 	cdc.RegisterConcrete(&MsgUnpauseByAlgorithm{}, "swap/UnpauseByAlgorithm", nil)
 	cdc.RegisterConcrete(&MsgUnpauseByPoolIds{}, "swap/UnpauseByPoolIds", nil)
+	cdc.RegisterConcrete(&MsgWithdrawProtocolFees{}, "swap/WithdrawProtocolFees", nil)
+	cdc.RegisterConcrete(&MsgWithdrawRewards{}, "swap/WithdrawRewards", nil)
 }
 
 func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
@@ -46,6 +48,8 @@ func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil), &MsgPauseByPoolIds{})
 	registry.RegisterImplementations((*sdk.Msg)(nil), &MsgUnpauseByAlgorithm{})
 	registry.RegisterImplementations((*sdk.Msg)(nil), &MsgUnpauseByPoolIds{})
+	registry.RegisterImplementations((*sdk.Msg)(nil), &MsgWithdrawProtocolFees{})
+	registry.RegisterImplementations((*sdk.Msg)(nil), &MsgWithdrawRewards{})
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
