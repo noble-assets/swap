@@ -144,7 +144,6 @@ func (c *Controller) Swap(
 		denomTo,
 		c.stableswapPool.RewardsFee,
 		c.stableswapPool.ProtocolFeePercentage,
-		c.stableswapPool.MaxFee,
 		c.stableswapPool.RateMultipliers,
 	)
 	if err != nil {
@@ -415,7 +414,6 @@ func (c *Controller) UpdatePool(
 	ctx context.Context,
 	protocolFeePercentage int64,
 	rewardsFee int64,
-	maxFee int64,
 	initialA int64,
 	initialATime int64,
 	futureA int64,
@@ -424,7 +422,6 @@ func (c *Controller) UpdatePool(
 ) error {
 	c.stableswapPool.ProtocolFeePercentage = protocolFeePercentage
 	c.stableswapPool.RewardsFee = rewardsFee
-	c.stableswapPool.MaxFee = maxFee
 	c.stableswapPool.InitialA = initialA
 	c.stableswapPool.InitialATime = initialATime
 	c.stableswapPool.FutureA = futureA

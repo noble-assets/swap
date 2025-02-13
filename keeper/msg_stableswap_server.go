@@ -88,11 +88,6 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 	}
 
 	// If set ensure that the MaxFee is positive.
-	if msg.MaxFee < 0 {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "MaxFee cannot be negative")
-	}
-
-	// If set ensure that the MaxFee is positive.
 	if msg.RewardsFee < 0 {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "RewardsFee cannot be negative")
 	}
@@ -151,7 +146,6 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 	if err = s.Stableswap.SetPool(ctx, poolId, stableswap.Pool{
 		ProtocolFeePercentage: msg.ProtocolFeePercentage,
 		RewardsFee:            msg.RewardsFee,
-		MaxFee:                msg.MaxFee,
 		InitialA:              msg.InitialA,
 		FutureA:               msg.FutureA,
 		InitialATime:          s.headerService.GetHeaderInfo(ctx).Time.Unix(),
@@ -166,7 +160,6 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 		Algorithm:             algorithm.String(),
 		ProtocolFeePercentage: msg.ProtocolFeePercentage,
 		RewardsFee:            msg.RewardsFee,
-		MaxFee:                msg.MaxFee,
 		InitialA:              msg.InitialA,
 		FutureA:               msg.FutureA,
 		InitialATime:          s.headerService.GetHeaderInfo(ctx).Time.Unix(),
@@ -216,12 +209,7 @@ func (s stableswapMsgServer) UpdatePool(ctx context.Context, msg *stableswap.Msg
 		)
 	}
 
-	// If set ensure that the MaxFee is positive.
-	if msg.MaxFee < 0 {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "MaxFee cannot be negative")
-	}
-
-	// If set ensure that the MaxFee is positive.
+	// If set ensure that the RewardsFee is positive.
 	if msg.RewardsFee < 0 {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "RewardsFee cannot be negative")
 	}
@@ -235,7 +223,6 @@ func (s stableswapMsgServer) UpdatePool(ctx context.Context, msg *stableswap.Msg
 		ctx,
 		msg.ProtocolFeePercentage,
 		msg.RewardsFee,
-		msg.MaxFee,
 		msg.InitialA,
 		s.headerService.GetHeaderInfo(ctx).Time.Unix(),
 		msg.FutureA,
@@ -248,7 +235,6 @@ func (s stableswapMsgServer) UpdatePool(ctx context.Context, msg *stableswap.Msg
 	return &stableswap.MsgUpdatePoolResponse{}, s.eventService.EventManager(ctx).Emit(ctx, &stableswap.PoolUpdated{
 		ProtocolFeePercentage: msg.ProtocolFeePercentage,
 		RewardsFee:            msg.RewardsFee,
-		MaxFee:                msg.MaxFee,
 		FutureA:               msg.FutureA,
 		FutureATime:           msg.FutureATime,
 		RateMultipliers:       msg.RateMultipliers,

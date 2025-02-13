@@ -26,9 +26,6 @@ message PoolCreated {
   // Rewards fee for the pool.
   int64 rewards_fee = 5;
 
-  // Maximum fee allowed for the pool during a swap.
-  int64 max_fee = 6;
-
   // Initial amplification coefficient.
   int64 initial_a = 7;
 
@@ -59,9 +56,6 @@ message PoolUpdated {
 
   // Rewards fee for the pool.
   int64 rewards_fee = 3;
-
-  // Maximum fee allowed for the pool during a swap.
-  int64 max_fee = 4;
 
   // Future amplification coefficient.
   int64 future_a = 5;

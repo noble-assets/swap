@@ -19,9 +19,6 @@ message Pool {
   // Rewards fee for the pool.
   int64 rewards_fee = 2;
 
-  // Maximum fee allowed for the pool during a swap.
-  int64 max_fee = 3;
-
   // Initial amplification coefficient.
   int64 initial_a = 4;
 

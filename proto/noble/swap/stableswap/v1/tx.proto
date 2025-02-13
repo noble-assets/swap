@@ -45,9 +45,6 @@ message MsgCreatePool {
   // The rewards fee value.
   int64 rewards_fee = 4;
 
-  // The maximum allowed fee.
-  int64 max_fee = 5;
-
   // The initial A parameter for the pool.
   int64 initial_a = 6;
 
@@ -85,9 +82,6 @@ message MsgUpdatePool {
 
   // The new rewards fee value.
   int64 rewards_fee = 4;
-
-  // The new maximum allowed fee.
-  int64 max_fee = 5;
 
   // The new initial A parameter.
   int64 initial_a = 6;

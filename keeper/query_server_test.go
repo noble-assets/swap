@@ -56,7 +56,6 @@ func TestSimulateSwap(t *testing.T) {
 		Pair:                  "uusdc",
 		RewardsFee:            0,
 		ProtocolFeePercentage: 0,
-		MaxFee:                0,
 		InitialA:              100,
 		FutureA:               100,
 		RateMultipliers: sdk.NewCoins(
