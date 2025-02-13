@@ -87,7 +87,7 @@ func (s stableswapMsgServer) CreatePool(ctx context.Context, msg *stableswap.Msg
 		)
 	}
 
-	// If set ensure that the MaxFee is positive.
+	// If set ensure that the RewardsFee is positive.
 	if msg.RewardsFee < 0 {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidPoolParams, "RewardsFee cannot be negative")
 	}
