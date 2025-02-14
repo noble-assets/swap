@@ -1070,6 +1070,7 @@ func TestSwap(t *testing.T) {
 
 	// ARRANGE: Add funds to Bob.
 	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(1_000*ONE)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdx", math.NewInt(10*ONE)))
 
 	// ACT: Attempt to perform a Swap without Pool liquidity.
 	_, err = server.Swap(ctx, &types.MsgSwap{
@@ -1110,6 +1111,34 @@ func TestSwap(t *testing.T) {
 		Min: sdk.NewCoin("uusdn", math.NewInt(0)),
 	})
 	assert.ErrorIs(t, types.ErrInvalidSwapRoutingPlan, err)
+
+	// ACT: Attempt to perform a Swap with an invalid route.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+		Routes: []types.Route{
+			{
+				PoolId:  0,
+				DenomTo: "uusdc",
+			},
+		},
+		Min: sdk.NewCoin("uusdc", math.NewInt(0)),
+	})
+	assert.Equal(t, "error computing swap routes plan: cannot swap for the same denom uusdc: invalid swap routing plan", err.Error())
+
+	// ACT: Attempt to perform a Swap with an invalid route.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdx", math.NewInt(1*ONE)),
+		Routes: []types.Route{
+			{
+				PoolId:  0,
+				DenomTo: "uusdc",
+			},
+		},
+		Min: sdk.NewCoin("uusdc", math.NewInt(1)),
+	})
+	assert.Equal(t, "error computing swap routes plan: uusdx is not a paired asset in pool 0: invalid swap routing plan", err.Error())
 
 	// ARRANGE: Create a second pool without liquidity.
 	_, err = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{

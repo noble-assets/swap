@@ -210,6 +210,20 @@ func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timest
 			return nil, sdkerrors.Wrapf(types.ErrPoolActivityPaused, "pool %d is paused", controller.GetId())
 		}
 
+		// Early check that from/to denoms are different.
+		if swapIn.Denom == route.DenomTo {
+			return nil, sdkerrors.Wrapf(
+				types.ErrInvalidSwapRoutingPlan, "cannot swap for the same denom %s", msg.Amount.Denom,
+			)
+		}
+
+		// Early check that the Pool contains the requested `Amount`.
+		if swapIn.Denom != s.baseDenom && swapIn.Denom != controller.GetPair() {
+			return nil, sdkerrors.Wrapf(
+				types.ErrInvalidSwapRoutingPlan, "%s is not a paired asset in pool %d", msg.Amount.Denom, controller.GetId(),
+			)
+		}
+
 		// Ensure that the Pool contains the requested `DenomTo`.
 		if route.DenomTo != s.baseDenom && route.DenomTo != controller.GetPair() {
 			return nil, sdkerrors.Wrapf(
