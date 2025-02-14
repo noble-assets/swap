@@ -70,12 +70,12 @@ func TestConformance(t *testing.T) {
 				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
 			},
 			types.MsgSwapResponse{
-				Result: sdk.NewCoin("uusdc", math.NewInt(99962499)),
+				Result: sdk.NewCoin("uusdc", math.NewInt(99974999)),
 				Swaps: []*types.Swap{
 					{
 						PoolId: 0,
 						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
-						Out:    sdk.NewCoin("uusdc", math.NewInt(99962499)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(99974999)),
 						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(24998))),
 					},
 				},
@@ -99,12 +99,12 @@ func TestConformance(t *testing.T) {
 				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
 			},
 			types.MsgSwapResponse{
-				Result: sdk.NewCoin("uusdc", math.NewInt(99959338)),
+				Result: sdk.NewCoin("uusdc", math.NewInt(99971838)),
 				Swaps: []*types.Swap{
 					{
 						PoolId: 0,
 						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
-						Out:    sdk.NewCoin("uusdc", math.NewInt(99959338)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(99971838)),
 						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(24998))),
 					},
 				},
@@ -128,12 +128,12 @@ func TestConformance(t *testing.T) {
 				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
 			},
 			types.MsgSwapResponse{
-				Result: sdk.NewCoin("uusdc", math.NewInt(9996249)),
+				Result: sdk.NewCoin("uusdc", math.NewInt(9997499)),
 				Swaps: []*types.Swap{
 					{
 						PoolId: 0,
 						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
-						Out:    sdk.NewCoin("uusdc", math.NewInt(9996249)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(9997499)),
 						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(2498))),
 					},
 				},
