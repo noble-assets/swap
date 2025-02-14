@@ -92,7 +92,7 @@ message QueryUnbondingPositionResponseEntry {
     (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
     (gogoproto.nullable) = false
   ];
-  google.protobuf.Timestamp end_time = 4 [
+  google.protobuf.Timestamp end_time = 3 [
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];

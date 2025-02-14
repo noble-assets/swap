@@ -48,10 +48,10 @@ message Swapped {
 
 message WithdrawnProtocolFees {
   // Address to which the fees are transferred
-  string to = 2;
+  string to = 1;
 
   // Amount of rewards withdrawn.
-  repeated cosmos.base.v1beta1.Coin rewards = 3 [
+  repeated cosmos.base.v1beta1.Coin rewards = 2 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",

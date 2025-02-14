@@ -46,16 +46,16 @@ message MsgCreatePool {
   int64 rewards_fee = 4;
 
   // The initial A parameter for the pool.
-  int64 initial_a = 6;
+  int64 initial_a = 5;
 
   // The future A parameter for pool rebalancing.
-  int64 future_a = 7;
+  int64 future_a = 6;
 
   // The time to reach the future A parameter.
-  int64 future_a_time = 8;
+  int64 future_a_time = 7;
 
   // The coins rate multipliers.
-  repeated cosmos.base.v1beta1.Coin rate_multipliers = 9 [
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 8 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
@@ -84,16 +84,16 @@ message MsgUpdatePool {
   int64 rewards_fee = 4;
 
   // The new initial A parameter.
-  int64 initial_a = 6;
+  int64 initial_a = 5;
 
   // The new future A parameter.
-  int64 future_a = 7;
+  int64 future_a = 6;
 
   // The time to reach the future A parameter.
-  int64 future_a_time = 8;
+  int64 future_a_time = 7;
 
   // The coins rate multipliers.
-  repeated cosmos.base.v1beta1.Coin rate_multipliers = 9 [
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 8 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",

@@ -1941,54 +1941,54 @@ func (x *fastReflection_Swapped) ProtoMethods() *protoiface.Methods {
 	}
 }
 
-var _ protoreflect.List = (*_WithdrawnProtocolFees_3_list)(nil)
+var _ protoreflect.List = (*_WithdrawnProtocolFees_2_list)(nil)
 
-type _WithdrawnProtocolFees_3_list struct {
+type _WithdrawnProtocolFees_2_list struct {
 	list *[]*v1beta1.Coin
 }
 
-func (x *_WithdrawnProtocolFees_3_list) Len() int {
+func (x *_WithdrawnProtocolFees_2_list) Len() int {
 	if x.list == nil {
 		return 0
 	}
 	return len(*x.list)
 }
 
-func (x *_WithdrawnProtocolFees_3_list) Get(i int) protoreflect.Value {
+func (x *_WithdrawnProtocolFees_2_list) Get(i int) protoreflect.Value {
 	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
 }
 
-func (x *_WithdrawnProtocolFees_3_list) Set(i int, value protoreflect.Value) {
+func (x *_WithdrawnProtocolFees_2_list) Set(i int, value protoreflect.Value) {
 	valueUnwrapped := value.Message()
 	concreteValue := valueUnwrapped.Interface().(*v1beta1.Coin)
 	(*x.list)[i] = concreteValue
 }
 
-func (x *_WithdrawnProtocolFees_3_list) Append(value protoreflect.Value) {
+func (x *_WithdrawnProtocolFees_2_list) Append(value protoreflect.Value) {
 	valueUnwrapped := value.Message()
 	concreteValue := valueUnwrapped.Interface().(*v1beta1.Coin)
 	*x.list = append(*x.list, concreteValue)
 }
 
-func (x *_WithdrawnProtocolFees_3_list) AppendMutable() protoreflect.Value {
+func (x *_WithdrawnProtocolFees_2_list) AppendMutable() protoreflect.Value {
 	v := new(v1beta1.Coin)
 	*x.list = append(*x.list, v)
 	return protoreflect.ValueOfMessage(v.ProtoReflect())
 }
 
-func (x *_WithdrawnProtocolFees_3_list) Truncate(n int) {
+func (x *_WithdrawnProtocolFees_2_list) Truncate(n int) {
 	for i := n; i < len(*x.list); i++ {
 		(*x.list)[i] = nil
 	}
 	*x.list = (*x.list)[:n]
 }
 
-func (x *_WithdrawnProtocolFees_3_list) NewElement() protoreflect.Value {
+func (x *_WithdrawnProtocolFees_2_list) NewElement() protoreflect.Value {
 	v := new(v1beta1.Coin)
 	return protoreflect.ValueOfMessage(v.ProtoReflect())
 }
 
-func (x *_WithdrawnProtocolFees_3_list) IsValid() bool {
+func (x *_WithdrawnProtocolFees_2_list) IsValid() bool {
 	return x.list != nil
 }
 
@@ -2077,7 +2077,7 @@ func (x *fastReflection_WithdrawnProtocolFees) Range(f func(protoreflect.FieldDe
 		}
 	}
 	if len(x.Rewards) != 0 {
-		value := protoreflect.ValueOfList(&_WithdrawnProtocolFees_3_list{list: &x.Rewards})
+		value := protoreflect.ValueOfList(&_WithdrawnProtocolFees_2_list{list: &x.Rewards})
 		if !f(fd_WithdrawnProtocolFees_rewards, value) {
 			return
 		}
@@ -2142,9 +2142,9 @@ func (x *fastReflection_WithdrawnProtocolFees) Get(descriptor protoreflect.Field
 		return protoreflect.ValueOfString(value)
 	case "noble.swap.v1.WithdrawnProtocolFees.rewards":
 		if len(x.Rewards) == 0 {
-			return protoreflect.ValueOfList(&_WithdrawnProtocolFees_3_list{})
+			return protoreflect.ValueOfList(&_WithdrawnProtocolFees_2_list{})
 		}
-		listValue := &_WithdrawnProtocolFees_3_list{list: &x.Rewards}
+		listValue := &_WithdrawnProtocolFees_2_list{list: &x.Rewards}
 		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
@@ -2170,7 +2170,7 @@ func (x *fastReflection_WithdrawnProtocolFees) Set(fd protoreflect.FieldDescript
 		x.To = value.Interface().(string)
 	case "noble.swap.v1.WithdrawnProtocolFees.rewards":
 		lv := value.List()
-		clv := lv.(*_WithdrawnProtocolFees_3_list)
+		clv := lv.(*_WithdrawnProtocolFees_2_list)
 		x.Rewards = *clv.list
 	default:
 		if fd.IsExtension() {
@@ -2196,7 +2196,7 @@ func (x *fastReflection_WithdrawnProtocolFees) Mutable(fd protoreflect.FieldDesc
 		if x.Rewards == nil {
 			x.Rewards = []*v1beta1.Coin{}
 		}
-		value := &_WithdrawnProtocolFees_3_list{list: &x.Rewards}
+		value := &_WithdrawnProtocolFees_2_list{list: &x.Rewards}
 		return protoreflect.ValueOfList(value)
 	case "noble.swap.v1.WithdrawnProtocolFees.to":
 		panic(fmt.Errorf("field to of message noble.swap.v1.WithdrawnProtocolFees is not mutable"))
@@ -2217,7 +2217,7 @@ func (x *fastReflection_WithdrawnProtocolFees) NewField(fd protoreflect.FieldDes
 		return protoreflect.ValueOfString("")
 	case "noble.swap.v1.WithdrawnProtocolFees.rewards":
 		list := []*v1beta1.Coin{}
-		return protoreflect.ValueOfList(&_WithdrawnProtocolFees_3_list{list: &list})
+		return protoreflect.ValueOfList(&_WithdrawnProtocolFees_2_list{list: &list})
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: noble.swap.v1.WithdrawnProtocolFees"))
@@ -2339,7 +2339,7 @@ func (x *fastReflection_WithdrawnProtocolFees) ProtoMethods() *protoiface.Method
 				copy(dAtA[i:], encoded)
 				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 				i--
-				dAtA[i] = 0x1a
+				dAtA[i] = 0x12
 			}
 		}
 		if len(x.To) > 0 {
@@ -2347,7 +2347,7 @@ func (x *fastReflection_WithdrawnProtocolFees) ProtoMethods() *protoiface.Method
 			copy(dAtA[i:], x.To)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.To)))
 			i--
-			dAtA[i] = 0x12
+			dAtA[i] = 0xa
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -2398,7 +2398,7 @@ func (x *fastReflection_WithdrawnProtocolFees) ProtoMethods() *protoiface.Method
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: WithdrawnProtocolFees: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
-			case 2:
+			case 1:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field To", wireType)
 				}
@@ -2430,7 +2430,7 @@ func (x *fastReflection_WithdrawnProtocolFees) ProtoMethods() *protoiface.Method
 				}
 				x.To = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 3:
+			case 2:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Rewards", wireType)
 				}
@@ -3220,9 +3220,9 @@ type WithdrawnProtocolFees struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Address to which the fees are transferred
-	To string `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	To string `protobuf:"bytes,1,opt,name=to,proto3" json:"to,omitempty"`
 	// Amount of rewards withdrawn.
-	Rewards []*v1beta1.Coin `protobuf:"bytes,3,rep,name=rewards,proto3" json:"rewards,omitempty"`
+	Rewards []*v1beta1.Coin `protobuf:"bytes,2,rep,name=rewards,proto3" json:"rewards,omitempty"`
 }
 
 func (x *WithdrawnProtocolFees) Reset() {
@@ -3347,8 +3347,8 @@ var file_noble_swap_v1_events_proto_rawDesc = []byte{
 	0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e, 0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52,
 	0x04, 0x66, 0x65, 0x65, 0x73, 0x22, 0xa4, 0x01, 0x0a, 0x15, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72,
 	0x61, 0x77, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x46, 0x65, 0x65, 0x73, 0x12,
-	0x0e, 0x0a, 0x02, 0x74, 0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x74, 0x6f, 0x12,
-	0x7b, 0x0a, 0x07, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b,
+	0x0e, 0x0a, 0x02, 0x74, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x74, 0x6f, 0x12,
+	0x7b, 0x0a, 0x07, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b,
 	0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76,
 	0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46, 0xc8, 0xde, 0x1f,
 	0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,

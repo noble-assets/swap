@@ -17,54 +17,54 @@ import (
 	sync "sync"
 )
 
-var _ protoreflect.List = (*_Pool_8_list)(nil)
+var _ protoreflect.List = (*_Pool_7_list)(nil)
 
-type _Pool_8_list struct {
+type _Pool_7_list struct {
 	list *[]*v1beta1.Coin
 }
 
-func (x *_Pool_8_list) Len() int {
+func (x *_Pool_7_list) Len() int {
 	if x.list == nil {
 		return 0
 	}
 	return len(*x.list)
 }
 
-func (x *_Pool_8_list) Get(i int) protoreflect.Value {
+func (x *_Pool_7_list) Get(i int) protoreflect.Value {
 	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
 }
 
-func (x *_Pool_8_list) Set(i int, value protoreflect.Value) {
+func (x *_Pool_7_list) Set(i int, value protoreflect.Value) {
 	valueUnwrapped := value.Message()
 	concreteValue := valueUnwrapped.Interface().(*v1beta1.Coin)
 	(*x.list)[i] = concreteValue
 }
 
-func (x *_Pool_8_list) Append(value protoreflect.Value) {
+func (x *_Pool_7_list) Append(value protoreflect.Value) {
 	valueUnwrapped := value.Message()
 	concreteValue := valueUnwrapped.Interface().(*v1beta1.Coin)
 	*x.list = append(*x.list, concreteValue)
 }
 
-func (x *_Pool_8_list) AppendMutable() protoreflect.Value {
+func (x *_Pool_7_list) AppendMutable() protoreflect.Value {
 	v := new(v1beta1.Coin)
 	*x.list = append(*x.list, v)
 	return protoreflect.ValueOfMessage(v.ProtoReflect())
 }
 
-func (x *_Pool_8_list) Truncate(n int) {
+func (x *_Pool_7_list) Truncate(n int) {
 	for i := n; i < len(*x.list); i++ {
 		(*x.list)[i] = nil
 	}
 	*x.list = (*x.list)[:n]
 }
 
-func (x *_Pool_8_list) NewElement() protoreflect.Value {
+func (x *_Pool_7_list) NewElement() protoreflect.Value {
 	v := new(v1beta1.Coin)
 	return protoreflect.ValueOfMessage(v.ProtoReflect())
 }
 
-func (x *_Pool_8_list) IsValid() bool {
+func (x *_Pool_7_list) IsValid() bool {
 	return x.list != nil
 }
 
@@ -197,7 +197,7 @@ func (x *fastReflection_Pool) Range(f func(protoreflect.FieldDescriptor, protore
 		}
 	}
 	if len(x.RateMultipliers) != 0 {
-		value := protoreflect.ValueOfList(&_Pool_8_list{list: &x.RateMultipliers})
+		value := protoreflect.ValueOfList(&_Pool_7_list{list: &x.RateMultipliers})
 		if !f(fd_Pool_rate_multipliers, value) {
 			return
 		}
@@ -317,9 +317,9 @@ func (x *fastReflection_Pool) Get(descriptor protoreflect.FieldDescriptor) proto
 		return protoreflect.ValueOfInt64(value)
 	case "noble.swap.stableswap.v1.Pool.rate_multipliers":
 		if len(x.RateMultipliers) == 0 {
-			return protoreflect.ValueOfList(&_Pool_8_list{})
+			return protoreflect.ValueOfList(&_Pool_7_list{})
 		}
-		listValue := &_Pool_8_list{list: &x.RateMultipliers}
+		listValue := &_Pool_7_list{list: &x.RateMultipliers}
 		return protoreflect.ValueOfList(listValue)
 	case "noble.swap.stableswap.v1.Pool.total_shares":
 		value := x.TotalShares
@@ -361,7 +361,7 @@ func (x *fastReflection_Pool) Set(fd protoreflect.FieldDescriptor, value protore
 		x.FutureATime = value.Int()
 	case "noble.swap.stableswap.v1.Pool.rate_multipliers":
 		lv := value.List()
-		clv := lv.(*_Pool_8_list)
+		clv := lv.(*_Pool_7_list)
 		x.RateMultipliers = *clv.list
 	case "noble.swap.stableswap.v1.Pool.total_shares":
 		x.TotalShares = value.Interface().(string)
@@ -391,7 +391,7 @@ func (x *fastReflection_Pool) Mutable(fd protoreflect.FieldDescriptor) protorefl
 		if x.RateMultipliers == nil {
 			x.RateMultipliers = []*v1beta1.Coin{}
 		}
-		value := &_Pool_8_list{list: &x.RateMultipliers}
+		value := &_Pool_7_list{list: &x.RateMultipliers}
 		return protoreflect.ValueOfList(value)
 	case "noble.swap.stableswap.v1.Pool.initial_rewards_time":
 		if x.InitialRewardsTime == nil {
@@ -439,7 +439,7 @@ func (x *fastReflection_Pool) NewField(fd protoreflect.FieldDescriptor) protoref
 		return protoreflect.ValueOfInt64(int64(0))
 	case "noble.swap.stableswap.v1.Pool.rate_multipliers":
 		list := []*v1beta1.Coin{}
-		return protoreflect.ValueOfList(&_Pool_8_list{list: &list})
+		return protoreflect.ValueOfList(&_Pool_7_list{list: &list})
 	case "noble.swap.stableswap.v1.Pool.total_shares":
 		return protoreflect.ValueOfString("")
 	case "noble.swap.stableswap.v1.Pool.initial_rewards_time":
@@ -587,14 +587,14 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 			copy(dAtA[i:], encoded)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 			i--
-			dAtA[i] = 0x52
+			dAtA[i] = 0x4a
 		}
 		if len(x.TotalShares) > 0 {
 			i -= len(x.TotalShares)
 			copy(dAtA[i:], x.TotalShares)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.TotalShares)))
 			i--
-			dAtA[i] = 0x4a
+			dAtA[i] = 0x42
 		}
 		if len(x.RateMultipliers) > 0 {
 			for iNdEx := len(x.RateMultipliers) - 1; iNdEx >= 0; iNdEx-- {
@@ -609,28 +609,28 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 				copy(dAtA[i:], encoded)
 				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 				i--
-				dAtA[i] = 0x42
+				dAtA[i] = 0x3a
 			}
 		}
 		if x.FutureATime != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.FutureATime))
 			i--
-			dAtA[i] = 0x38
+			dAtA[i] = 0x30
 		}
 		if x.InitialATime != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.InitialATime))
 			i--
-			dAtA[i] = 0x30
+			dAtA[i] = 0x28
 		}
 		if x.FutureA != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.FutureA))
 			i--
-			dAtA[i] = 0x28
+			dAtA[i] = 0x20
 		}
 		if x.InitialA != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.InitialA))
 			i--
-			dAtA[i] = 0x20
+			dAtA[i] = 0x18
 		}
 		if x.RewardsFee != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.RewardsFee))
@@ -729,7 +729,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
-			case 4:
+			case 3:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field InitialA", wireType)
 				}
@@ -748,7 +748,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
-			case 5:
+			case 4:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field FutureA", wireType)
 				}
@@ -767,7 +767,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
-			case 6:
+			case 5:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field InitialATime", wireType)
 				}
@@ -786,7 +786,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
-			case 7:
+			case 6:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field FutureATime", wireType)
 				}
@@ -805,7 +805,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
-			case 8:
+			case 7:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field RateMultipliers", wireType)
 				}
@@ -839,7 +839,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				iNdEx = postIndex
-			case 9:
+			case 8:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field TotalShares", wireType)
 				}
@@ -871,7 +871,7 @@ func (x *fastReflection_Pool) ProtoMethods() *protoiface.Methods {
 				}
 				x.TotalShares = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
-			case 10:
+			case 9:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field InitialRewardsTime", wireType)
 				}
@@ -965,19 +965,19 @@ type Pool struct {
 	// Rewards fee for the pool.
 	RewardsFee int64 `protobuf:"varint,2,opt,name=rewards_fee,json=rewardsFee,proto3" json:"rewards_fee,omitempty"`
 	// Initial amplification coefficient.
-	InitialA int64 `protobuf:"varint,4,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
+	InitialA int64 `protobuf:"varint,3,opt,name=initial_a,json=initialA,proto3" json:"initial_a,omitempty"`
 	// Future amplification coefficient.
-	FutureA int64 `protobuf:"varint,5,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
+	FutureA int64 `protobuf:"varint,4,opt,name=future_a,json=futureA,proto3" json:"future_a,omitempty"`
 	// Time when the amplification starts taking effect.
-	InitialATime int64 `protobuf:"varint,6,opt,name=initial_a_time,json=initialATime,proto3" json:"initial_a_time,omitempty"`
+	InitialATime int64 `protobuf:"varint,5,opt,name=initial_a_time,json=initialATime,proto3" json:"initial_a_time,omitempty"`
 	// Time when the amplification change will take full effect.
-	FutureATime int64 `protobuf:"varint,7,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
+	FutureATime int64 `protobuf:"varint,6,opt,name=future_a_time,json=futureATime,proto3" json:"future_a_time,omitempty"`
 	// Rate multipliers applied to the coins.
-	RateMultipliers []*v1beta1.Coin `protobuf:"bytes,8,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
+	RateMultipliers []*v1beta1.Coin `protobuf:"bytes,7,rep,name=rate_multipliers,json=rateMultipliers,proto3" json:"rate_multipliers,omitempty"`
 	// Total shares issued within the Pool.
-	TotalShares string `protobuf:"bytes,9,opt,name=total_shares,json=totalShares,proto3" json:"total_shares,omitempty"`
+	TotalShares string `protobuf:"bytes,8,opt,name=total_shares,json=totalShares,proto3" json:"total_shares,omitempty"`
 	// Time when the first liquidity was added to start tracking rewards.
-	InitialRewardsTime *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=initial_rewards_time,json=initialRewardsTime,proto3" json:"initial_rewards_time,omitempty"`
+	InitialRewardsTime *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=initial_rewards_time,json=initialRewardsTime,proto3" json:"initial_rewards_time,omitempty"`
 }
 
 func (x *Pool) Reset() {
@@ -1085,15 +1085,15 @@ var file_noble_swap_stableswap_v1_pool_proto_rawDesc = []byte{
 	0x6e, 0x74, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
 	0x5f, 0x66, 0x65, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x72, 0x65, 0x77, 0x61,
 	0x72, 0x64, 0x73, 0x46, 0x65, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61,
-	0x6c, 0x5f, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x69, 0x6e, 0x69, 0x74, 0x69,
+	0x6c, 0x5f, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x69, 0x6e, 0x69, 0x74, 0x69,
 	0x61, 0x6c, 0x41, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f, 0x61, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x41, 0x12, 0x24,
+	0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x41, 0x12, 0x24,
 	0x0a, 0x0e, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x5f, 0x61, 0x5f, 0x74, 0x69, 0x6d, 0x65,
-	0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x41,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x41,
 	0x54, 0x69, 0x6d, 0x65, 0x12, 0x22, 0x0a, 0x0d, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65, 0x5f, 0x61,
-	0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x66, 0x75, 0x74,
+	0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x66, 0x75, 0x74,
 	0x75, 0x72, 0x65, 0x41, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x8c, 0x01, 0x0a, 0x10, 0x72, 0x61, 0x74,
-	0x65, 0x5f, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x18, 0x08, 0x20,
+	0x65, 0x5f, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x18, 0x07, 0x20,
 	0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73,
 	0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x46,
 	0xc8, 0xde, 0x1f, 0x00, 0xaa, 0xdf, 0x1f, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
@@ -1102,13 +1102,13 @@ var file_noble_swap_stableswap_v1_pool_proto_rawDesc = []byte{
 	0x9a, 0xe7, 0xb0, 0x2a, 0x0c, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x69, 0x6e,
 	0x73, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x0f, 0x72, 0x61, 0x74, 0x65, 0x4d, 0x75, 0x6c, 0x74,
 	0x69, 0x70, 0x6c, 0x69, 0x65, 0x72, 0x73, 0x12, 0x59, 0x0a, 0x0c, 0x74, 0x6f, 0x74, 0x61, 0x6c,
-	0x5f, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x42, 0x36, 0xc8,
+	0x5f, 0x73, 0x68, 0x61, 0x72, 0x65, 0x73, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x42, 0x36, 0xc8,
 	0xde, 0x1f, 0x00, 0xda, 0xde, 0x1f, 0x1b, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b,
 	0x2e, 0x69, 0x6f, 0x2f, 0x6d, 0x61, 0x74, 0x68, 0x2e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x44,
 	0x65, 0x63, 0xd2, 0xb4, 0x2d, 0x0a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x44, 0x65, 0x63,
 	0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x53, 0x68, 0x61, 0x72,
 	0x65, 0x73, 0x12, 0x56, 0x0a, 0x14, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x5f, 0x72, 0x65,
-	0x77, 0x61, 0x72, 0x64, 0x73, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x0b,
+	0x77, 0x61, 0x72, 0x64, 0x73, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
 	0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde,
 	0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x12, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x52,
