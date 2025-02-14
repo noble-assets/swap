@@ -150,6 +150,11 @@ func (c *Controller) Swap(
 		return nil, err
 	}
 
+	// Ensure that the swap result is positive.
+	if !swapResult.Dy.IsPositive() {
+		return nil, fmt.Errorf("swap result amount is not positive")
+	}
+
 	return &types.SwapCommitment{
 		In:  sdk.NewCoin(coin.Denom, coin.Amount),
 		Out: sdk.NewCoin(denomTo, swapResult.Dy.TruncateInt()),

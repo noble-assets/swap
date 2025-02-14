@@ -21,6 +21,7 @@
 package stableswap
 
 import (
+	"errors"
 	"fmt"
 
 	"cosmossdk.io/math"
@@ -169,6 +170,11 @@ func performSwap(x sdk.Coin, xp sdk.DecCoins, amp math.LegacyDec, denomTo string
 	// Calculate dy (amount to be received).
 	dy := xp.AmountOf(denomTo).Sub(y)
 
+	// Ensure that the dy amount is positive.
+	if !dy.IsPositive() {
+		return types.SwapResult{}, errors.New("not enough liquidity to complete the swap")
+	}
+
 	// Calculate the rewards from the swap (fee amount for the user).
 	rewards := dy.MulInt64(rewardsFee).Quo(math.LegacyNewDec(FeeDenominator))
 
@@ -180,6 +186,11 @@ func performSwap(x sdk.Coin, xp sdk.DecCoins, amp math.LegacyDec, denomTo string
 	// Subtract the fees (rewards+protocol) from dy.
 	dy = dy.Sub(rewards)
 	dy = dy.Sub(protocolFeeAmount)
+
+	// Ensure that the dy amount after fees deduction is positive.
+	if !dy.IsPositive() {
+		return types.SwapResult{}, errors.New("not enough liquidity to complete the swap plus fees")
+	}
 
 	// Convert dy back to the original units
 	dy = dy.Mul(math.LegacyNewDec(DecimalPrecision)).Quo(rateMultipliers.AmountOf(denomTo).ToLegacyDec())

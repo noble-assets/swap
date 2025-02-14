@@ -1384,6 +1384,69 @@ func TestSwap(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+func TestNegativeSwapResult(t *testing.T) {
+	bob := utils.TestAccount()
+	account := mocks.AccountKeeper{
+		Accounts: make(map[string]sdk.AccountI),
+	}
+	bank := mocks.BankKeeper{
+		Balances:    make(map[string]sdk.Coins),
+		Restriction: mocks.NoOpSendRestrictionFn,
+	}
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10000*ONE)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(10000*ONE)))
+	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+	server := keeper.NewMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
+
+	// ARRANGE: Create a Pool.
+	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+		Signer:                "authority",
+		Pair:                  "uusdc",
+		ProtocolFeePercentage: 50,
+		RewardsFee:            2_500_000,
+		InitialA:              1000,
+		FutureA:               1000,
+		FutureATime:           0,
+		RateMultipliers: sdk.NewCoins(
+			sdk.NewCoin("uusdn", math.NewInt(1e18)),
+			sdk.NewCoin("uusdc", math.NewInt(1e18)),
+		),
+	})
+	require.NoError(t, err)
+
+	// ARRANGE: Create a liquidity position for bob.
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: bob.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+		),
+	})
+	require.NoError(t, err)
+
+	// ARRANGE: make the pool unbalanced.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdn", math.NewInt(1000*ONE)),
+		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
+		Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
+	})
+	require.NoError(t, err)
+
+	// ACT: perform a swap without enough liquidity.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdn", math.NewInt(1000)),
+		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
+		Min:    sdk.NewCoin("uusdc", math.NewInt(1)),
+	})
+	require.Error(t, err)
+	// ASSERT: expect matching error.
+	require.Equal(t, "error computing swap routes plan: not enough liquidity to complete the swap", err.Error())
+}
+
 func TestMultiPoolSwap(t *testing.T) {
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),
