@@ -26,23 +26,20 @@ message PoolCreated {
   // Rewards fee for the pool.
   int64 rewards_fee = 5;
 
-  // Maximum fee allowed for the pool during a swap.
-  int64 max_fee = 6;
+  // Initial amplification coefficient.
+  int64 initial_a = 6;
 
   // Initial amplification coefficient.
-  int64 initial_a = 7;
-
-  // Initial amplification coefficient.
-  int64 initial_a_time = 8;
+  int64 initial_a_time = 7;
 
   // Future amplification coefficient.
-  int64 future_a = 9;
+  int64 future_a = 8;
 
   // Time when the amplification change will take full effect.
-  int64 future_a_time = 10;
+  int64 future_a_time = 9;
 
   // Rate multipliers applied to the coins.
-  repeated cosmos.base.v1beta1.Coin rate_multipliers = 11 [
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 10 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
@@ -60,17 +57,14 @@ message PoolUpdated {
   // Rewards fee for the pool.
   int64 rewards_fee = 3;
 
-  // Maximum fee allowed for the pool during a swap.
-  int64 max_fee = 4;
-
   // Future amplification coefficient.
-  int64 future_a = 5;
+  int64 future_a = 4;
 
   // Time when the amplification change will take full effect.
-  int64 future_a_time = 6;
+  int64 future_a_time = 5;
 
   // Rate multipliers applied to the coins.
-  repeated cosmos.base.v1beta1.Coin rate_multipliers = 7 [
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 6 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
@@ -86,7 +80,7 @@ message LiquidityAdded {
   uint64 pool_id = 2;
 
   // Liquidity amount being added.
-  repeated cosmos.base.v1beta1.Coin amount = 7 [
+  repeated cosmos.base.v1beta1.Coin amount = 3 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
@@ -110,7 +104,7 @@ message LiquidityRemoved {
   uint64 pool_id = 2;
 
   // Liquidity amount being removed.
-  repeated cosmos.base.v1beta1.Coin amount = 7 [
+  repeated cosmos.base.v1beta1.Coin amount = 3 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
@@ -126,7 +120,7 @@ message LiquidityRemoved {
   ];
 
   // Time when the removed liquidity will be unlocked.
-  google.protobuf.Timestamp unlock_time = 3 [
+  google.protobuf.Timestamp unlock_time = 5 [
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];

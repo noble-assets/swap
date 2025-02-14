@@ -53,7 +53,6 @@ func TestController(t *testing.T) {
 		Pair:                  "uusdc",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,

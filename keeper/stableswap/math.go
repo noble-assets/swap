@@ -152,7 +152,7 @@ func getY(x sdk.Coin, amp, D math.LegacyDec) (math.LegacyDec, error) {
 
 // performSwap executes the internal token swap and computes resulting balances and fees.
 func performSwap(x sdk.Coin, xp sdk.DecCoins, amp math.LegacyDec, denomTo string,
-	rewardsFee int64, protocolFeePercentage int64, maxFee int64, rateMultipliers sdk.Coins,
+	rewardsFee int64, protocolFeePercentage int64, rateMultipliers sdk.Coins,
 ) (types.SwapResult, error) {
 	// Calculate invariant D.
 	D, err := calculateInvariant(xp, amp)
@@ -171,11 +171,6 @@ func performSwap(x sdk.Coin, xp sdk.DecCoins, amp math.LegacyDec, denomTo string
 
 	// Calculate the rewards from the swap (fee amount for the user).
 	rewards := dy.MulInt64(rewardsFee).Quo(math.LegacyNewDec(FeeDenominator))
-
-	// If the rewards amount succeed the maxFee value, use that instead.
-	if rewards.GT(math.LegacyNewDec(maxFee)) {
-		rewards = math.LegacyNewDec(maxFee)
-	}
 
 	// Compute the protocol fee as a percentage of the total rewards.
 	protocolFeeAmount := rewards.MulInt64(protocolFeePercentage).Quo(math.LegacyNewDec(100))

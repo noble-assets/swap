@@ -19,23 +19,20 @@ message Pool {
   // Rewards fee for the pool.
   int64 rewards_fee = 2;
 
-  // Maximum fee allowed for the pool during a swap.
-  int64 max_fee = 3;
-
   // Initial amplification coefficient.
-  int64 initial_a = 4;
+  int64 initial_a = 3;
 
   // Future amplification coefficient.
-  int64 future_a = 5;
+  int64 future_a = 4;
 
   // Time when the amplification starts taking effect.
-  int64 initial_a_time = 6;
+  int64 initial_a_time = 5;
 
   // Time when the amplification change will take full effect.
-  int64 future_a_time = 7;
+  int64 future_a_time = 6;
 
   // Rate multipliers applied to the coins.
-  repeated cosmos.base.v1beta1.Coin rate_multipliers = 8 [
+  repeated cosmos.base.v1beta1.Coin rate_multipliers = 7 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
     (amino.encoding) = "legacy_coins",
@@ -43,7 +40,7 @@ message Pool {
   ];
 
   // Total shares issued within the Pool.
-  string total_shares = 9 [
+  string total_shares = 8 [
     (amino.dont_omitempty) = true,
     (cosmos_proto.scalar) = "cosmos.Dec",
     (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
@@ -51,7 +48,7 @@ message Pool {
   ];
 
   // Time when the first liquidity was added to start tracking rewards.
-  google.protobuf.Timestamp initial_rewards_time = 10 [
+  google.protobuf.Timestamp initial_rewards_time = 9 [
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];

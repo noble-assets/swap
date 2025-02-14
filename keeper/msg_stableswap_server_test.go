@@ -180,22 +180,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 			nil,
 		},
 		{
-			"Invalid MaxFee value",
-			&stableswap.MsgCreatePool{
-				Signer:   "authority",
-				Pair:     "uusdc",
-				InitialA: 100,
-				FutureA:  100,
-				RateMultipliers: sdk.NewCoins(
-					sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
-					sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
-				),
-				MaxFee: -1,
-			},
-			sdkerrors.Wrapf(types.ErrInvalidPoolParams, "MaxFee cannot be negative"),
-			nil,
-		},
-		{
 			"Invalid ProtocolFee value (<0)",
 			&stableswap.MsgCreatePool{
 				Signer:   "authority",
@@ -241,22 +225,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 				RewardsFee: -1,
 			},
 			sdkerrors.Wrapf(types.ErrInvalidPoolParams, "RewardsFee cannot be negative"),
-			nil,
-		},
-		{
-			"Invalid MaxFee value",
-			&stableswap.MsgCreatePool{
-				Signer:   "authority",
-				Pair:     "uusdc",
-				InitialA: 100,
-				FutureA:  100,
-				RateMultipliers: sdk.NewCoins(
-					sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
-					sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
-				),
-				MaxFee: -1,
-			},
-			sdkerrors.Wrapf(types.ErrInvalidPoolParams, "MaxFee cannot be negative"),
 			nil,
 		},
 		{
@@ -385,7 +353,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 		InitialA:              100,
 		FutureA:               200,
 		FutureATime:           10000000,
-		MaxFee:                10000,
 		RewardsFee:            10,
 		ProtocolFeePercentage: 1,
 	})
@@ -414,7 +381,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 	assert.Equal(t, stableswap.Pool{
 		ProtocolFeePercentage: 1,
 		RewardsFee:            10,
-		MaxFee:                10000,
 		InitialA:              100,
 		FutureA:               200,
 		InitialATime:          time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC).Unix(),
@@ -437,7 +403,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 		Pair:                  "ueure",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           10000000,
@@ -480,7 +445,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 			InitialATime:          time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC).Unix(),
 			FutureA:               200,
 			FutureATime:           10000000,
-			MaxFee:                10000,
 			RewardsFee:            10,
 			ProtocolFeePercentage: 1,
 			TotalShares:           math.LegacyZeroDec(),
@@ -493,7 +457,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 			InitialATime:          time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC).Unix(),
 			RewardsFee:            4e3,
 			ProtocolFeePercentage: 1,
-			MaxFee:                1,
 			InitialA:              100,
 			FutureA:               100,
 			FutureATime:           10000000,
@@ -506,7 +469,6 @@ func TestCreateStableSwapPool(t *testing.T) {
 		Pair:                  "ueure",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           10000000,
@@ -628,22 +590,6 @@ func TestUpdateStableSwapPool(t *testing.T) {
 			nil,
 		},
 		{
-			"Invalid MaxFee value",
-			&stableswap.MsgUpdatePool{
-				Signer:   "authority",
-				PoolId:   0,
-				InitialA: 100,
-				FutureA:  100,
-				RateMultipliers: sdk.NewCoins(
-					sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
-					sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
-				),
-				MaxFee: -1,
-			},
-			sdkerrors.Wrapf(types.ErrInvalidPoolParams, "MaxFee cannot be negative"),
-			nil,
-		},
-		{
 			"Invalid ProtocolFee value (<0)",
 			&stableswap.MsgUpdatePool{
 				Signer:   "authority",
@@ -689,22 +635,6 @@ func TestUpdateStableSwapPool(t *testing.T) {
 				RewardsFee: -1,
 			},
 			sdkerrors.Wrapf(types.ErrInvalidPoolParams, "RewardsFee cannot be negative"),
-			nil,
-		},
-		{
-			"Invalid MaxFee value",
-			&stableswap.MsgUpdatePool{
-				Signer:   "authority",
-				PoolId:   0,
-				InitialA: 100,
-				FutureA:  100,
-				RateMultipliers: sdk.NewCoins(
-					sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
-					sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
-				),
-				MaxFee: -1,
-			},
-			sdkerrors.Wrapf(types.ErrInvalidPoolParams, "MaxFee cannot be negative"),
 			nil,
 		},
 		{
@@ -772,7 +702,6 @@ func TestUpdateStableSwapPool(t *testing.T) {
 			InitialA:              100,
 			FutureA:               200,
 			FutureATime:           10000000,
-			MaxFee:                10000,
 			RewardsFee:            10,
 			ProtocolFeePercentage: 1,
 		})
@@ -787,7 +716,6 @@ func TestUpdateStableSwapPool(t *testing.T) {
 			InitialA:              300,
 			FutureA:               400,
 			FutureATime:           10000001,
-			MaxFee:                10001,
 			RewardsFee:            11,
 			ProtocolFeePercentage: 2,
 		})
@@ -839,7 +767,6 @@ func TestUpdateStableSwapPool(t *testing.T) {
 			InitialATime:          time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC).Unix(),
 			FutureA:               200,
 			FutureATime:           10000000,
-			MaxFee:                10000,
 			RewardsFee:            10,
 			ProtocolFeePercentage: 1,
 			TotalShares:           math.LegacyZeroDec(),
@@ -853,7 +780,6 @@ func TestUpdateStableSwapPool(t *testing.T) {
 			InitialA:              101,
 			FutureA:               101,
 			FutureATime:           10000002,
-			MaxFee:                0,
 			RewardsFee:            11,
 			ProtocolFeePercentage: 2,
 			TotalShares:           math.LegacyZeroDec(),
@@ -1208,7 +1134,6 @@ func TestAddLiquidityFailingCollections(t *testing.T) {
 			Pair:                  "uusdc",
 			RewardsFee:            10 * ONE,
 			ProtocolFeePercentage: 1,
-			MaxFee:                1000 * ONE,
 			InitialA:              100,
 			FutureA:               100,
 			FutureATime:           100,
@@ -1697,7 +1622,6 @@ func TestRemoveLiquidityFailingCollections(t *testing.T) {
 			Pair:                  "uusdc",
 			RewardsFee:            10 * ONE,
 			ProtocolFeePercentage: 1,
-			MaxFee:                1000 * ONE,
 			InitialA:              100,
 			FutureA:               100,
 			FutureATime:           100,
@@ -1765,7 +1689,6 @@ func TestUnbondings(t *testing.T) {
 		Pair:                  "uusdc",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1974,7 +1897,6 @@ func TestUnbondingPositionsFailingCollections(t *testing.T) {
 			Pair:                  "uusdc",
 			RewardsFee:            10 * ONE,
 			ProtocolFeePercentage: 1,
-			MaxFee:                1000 * ONE,
 			InitialA:              100,
 			FutureA:               100,
 			FutureATime:           100,

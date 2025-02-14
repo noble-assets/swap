@@ -12,7 +12,7 @@ option go_package = "swap.noble.xyz/types/stableswap";
 
 message BondedPosition {
   // Balance of bonded shares.
-  string balance = 2 [
+  string balance = 1 [
     (amino.dont_omitempty) = true,
     (cosmos_proto.scalar) = "cosmos.Dec",
     (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
@@ -20,13 +20,13 @@ message BondedPosition {
   ];
 
   // Time when the liquidity was added.
-  google.protobuf.Timestamp timestamp = 3 [
+  google.protobuf.Timestamp timestamp = 2 [
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];
 
   // Time when the rewards were collected.
-  google.protobuf.Timestamp rewards_period_start = 4 [
+  google.protobuf.Timestamp rewards_period_start = 3 [
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];

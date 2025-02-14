@@ -43,6 +43,151 @@ import (
 
 const ONE = int64(1e6)
 
+func TestConformance(t *testing.T) {
+	bob := utils.TestAccount()
+
+	tests := []struct {
+		name           string
+		msgAdLiquidity *stableswap.MsgAddLiquidity
+		msgSwap        *types.MsgSwap
+		swapResponse   types.MsgSwapResponse
+		error          error
+	}{
+		{
+			"Swap 1",
+			&stableswap.MsgAddLiquidity{
+				Signer: bob.Address,
+				PoolId: 0,
+				Amount: sdk.NewCoins(
+					sdk.NewCoin("uusdn", math.NewInt(1000*ONE)),
+					sdk.NewCoin("uusdc", math.NewInt(1000*ONE)),
+				),
+			},
+			&types.MsgSwap{
+				Signer: bob.Address,
+				Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+				Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
+				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
+			},
+			types.MsgSwapResponse{
+				Result: sdk.NewCoin("uusdc", math.NewInt(99962499)),
+				Swaps: []*types.Swap{
+					{
+						PoolId: 0,
+						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(99962499)),
+						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(24998))),
+					},
+				},
+			},
+			nil,
+		},
+		{
+			"Swap 2",
+			&stableswap.MsgAddLiquidity{
+				Signer: bob.Address,
+				PoolId: 0,
+				Amount: sdk.NewCoins(
+					sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+					sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+				),
+			},
+			&types.MsgSwap{
+				Signer: bob.Address,
+				Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+				Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
+				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
+			},
+			types.MsgSwapResponse{
+				Result: sdk.NewCoin("uusdc", math.NewInt(99959338)),
+				Swaps: []*types.Swap{
+					{
+						PoolId: 0,
+						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(99959338)),
+						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(24998))),
+					},
+				},
+			},
+			nil,
+		},
+		{
+			"Swap 3",
+			&stableswap.MsgAddLiquidity{
+				Signer: bob.Address,
+				PoolId: 0,
+				Amount: sdk.NewCoins(
+					sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
+					sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
+				),
+			},
+			&types.MsgSwap{
+				Signer: bob.Address,
+				Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+				Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
+				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
+			},
+			types.MsgSwapResponse{
+				Result: sdk.NewCoin("uusdc", math.NewInt(9996249)),
+				Swaps: []*types.Swap{
+					{
+						PoolId: 0,
+						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(9996249)),
+						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(2498))),
+					},
+				},
+			},
+			nil,
+		},
+	}
+	// ASSERT: Execute each test case and expect the related error and swap results.
+	for _, tt := range tests {
+		account := mocks.AccountKeeper{
+			Accounts: make(map[string]sdk.AccountI),
+		}
+		bank := mocks.BankKeeper{
+			Balances:    make(map[string]sdk.Coins),
+			Restriction: mocks.NoOpSendRestrictionFn,
+		}
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10000*ONE)))
+		bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(10000*ONE)))
+		k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+		server := keeper.NewMsgServer(k)
+		stableswapServer := keeper.NewStableSwapMsgServer(k)
+
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+				Signer:                "authority",
+				Pair:                  "uusdc",
+				ProtocolFeePercentage: 50,
+				RewardsFee:            2_500_000,
+				InitialA:              1000,
+				FutureA:               1000,
+				FutureATime:           0,
+				RateMultipliers: sdk.NewCoins(
+					sdk.NewCoin("uusdn", math.NewInt(1e18)),
+					sdk.NewCoin("uusdc", math.NewInt(1e18)),
+				),
+			})
+			require.NoError(t, err)
+
+			_, err = stableswapServer.AddLiquidity(ctx, tt.msgAdLiquidity)
+			require.NoError(t, err)
+
+			res, err := server.Swap(ctx, tt.msgSwap)
+			require.NoError(t, err)
+
+			assert.Nil(t, err)
+			if err != nil {
+				require.Equal(t, tt.error.Error(), err.Error())
+			}
+
+			assert.Equal(t, tt.swapResponse, *res)
+		})
+	}
+}
+
 func TestRewardsSingleUser(t *testing.T) {
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),
@@ -63,7 +208,6 @@ func TestRewardsSingleUser(t *testing.T) {
 		Pair:                  "uusdc",
 		ProtocolFeePercentage: 1,
 		RewardsFee:            1_000_000,
-		MaxFee:                1_000_000_000,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           0,
@@ -201,7 +345,6 @@ func TestRewardsMultiUser(t *testing.T) {
 		Pair:                  "uusdc",
 		ProtocolFeePercentage: 1,
 		RewardsFee:            1_000_000,
-		MaxFee:                1_000_000_000,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           0,
@@ -313,7 +456,6 @@ func TestWithdrawRewards(t *testing.T) {
 		Pair:                  "uusdc",
 		ProtocolFeePercentage: 1,
 		RewardsFee:            1_000_000,
-		MaxFee:                1_000_000_000,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           0,
@@ -441,7 +583,6 @@ func TestWithdrawProtocolFees(t *testing.T) {
 		Pair:                  "uusdc",
 		ProtocolFeePercentage: 50,
 		RewardsFee:            1_000_000,
-		MaxFee:                1_000_000_000,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           0,
@@ -939,7 +1080,6 @@ func TestSwapAgainstBondedLiquidity(t *testing.T) {
 			sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
 		),
 		RewardsFee: 4e3,
-		MaxFee:     0,
 		InitialA:   100,
 		FutureA:    100,
 	})
@@ -1037,7 +1177,6 @@ func TestSwap(t *testing.T) {
 		Pair:                  "uusdc",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1117,7 +1256,6 @@ func TestSwap(t *testing.T) {
 		Pair:                  "uusde",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1213,9 +1351,9 @@ func TestSwap(t *testing.T) {
 	})
 	// ACT: Expect a successful swap and validate all the resulting amounts.
 	assert.Nil(t, err)
-	assert.Equal(t, response.Result, sdk.NewCoin("uusdn", math.NewInt(99999997)))
+	assert.Equal(t, response.Result, sdk.NewCoin("uusdn", math.NewInt(99999958)))
 	pool, _ := k.Pools.Get(ctx, 0)
-	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdn").Int64()))
+	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdc").Int64()))
 	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Result.Amount.Int64()))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdc"), math.NewInt((1_000-100)*ONE))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdn"), response.Result.Amount)
@@ -1226,7 +1364,6 @@ func TestSwap(t *testing.T) {
 		PoolId:                0,
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                1,
 		InitialA:              1,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1266,7 +1403,6 @@ func TestMultiPoolSwap(t *testing.T) {
 		Pair:                  "uusdc",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                0,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1281,7 +1417,6 @@ func TestMultiPoolSwap(t *testing.T) {
 		Pair:                  "uusde",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                0,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1335,9 +1470,9 @@ func TestMultiPoolSwap(t *testing.T) {
 	assert.Nil(t, err)
 
 	// ASSERT: Expect matching values in state.
-	assert.Equal(t, response.Result, sdk.NewCoin("uusde", math.NewInt(99999996)))
+	assert.Equal(t, response.Result, sdk.NewCoin("uusde", math.NewInt(99999916)))
 	pool0, _ := k.Pools.Get(ctx, 0)
-	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdn").Int64()))
+	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdc").Int64()))
 	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Swaps[0].Out.Amount.Int64()))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdc"), math.NewInt((1_000-100)*ONE))
 	assert.Equal(t, bank.Balances[bob.Address].AmountOf("uusdn"), math.ZeroInt())
@@ -1364,7 +1499,6 @@ func BenchmarkSwap(b *testing.B) {
 		Pair:                  "uusdc",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                0,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1427,7 +1561,6 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 		Pair:                  "uusdc",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                0,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,
@@ -1442,7 +1575,6 @@ func BenchmarkMultiPoolSwap(b *testing.B) {
 		Pair:                  "uusde",
 		RewardsFee:            4e3,
 		ProtocolFeePercentage: 1,
-		MaxFee:                0,
 		InitialA:              100,
 		FutureA:               100,
 		FutureATime:           1893452400,

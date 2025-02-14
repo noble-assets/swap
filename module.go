@@ -223,14 +223,13 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 						{
 							RpcMethod: "CreatePool",
-							Use:       "create-pool [pair] [rewards_fee] [protocol_fee] [max_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
+							Use:       "create-pool [pair] [rewards_fee] [protocol_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
 							Short:     "Create a new stable swap pool",
 							Long:      "Creates a stable swap pool with specified parameters, including the `pair` coin, `fees`, amplification factors (`initial_a` and `future_a`), and `rate_multipliers` for dynamic rates.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 								{ProtoField: "pair"},
 								{ProtoField: "protocol_fee_percentage"},
 								{ProtoField: "rewards_fee"},
-								{ProtoField: "max_fee"},
 								{ProtoField: "initial_a"},
 								{ProtoField: "future_a"},
 								{ProtoField: "future_a_time"},
@@ -239,14 +238,13 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						},
 						{
 							RpcMethod: "UpdatePool",
-							Use:       "update-pool [pair] [rewards_fee] [protocol_fee] [max_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
+							Use:       "update-pool [pair] [rewards_fee] [protocol_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
 							Short:     "Updates a stable swap pool",
 							Long:      "Update a stable swap pool with specified parameters, including the `fees`, amplification factors (`future_a_time` and `future_a`), and `rate_multipliers` for dynamic rates.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 								{ProtoField: "pool_id"},
 								{ProtoField: "protocol_fee_percentage"},
 								{ProtoField: "rewards_fee"},
-								{ProtoField: "max_fee"},
 								{ProtoField: "initial_a"},
 								{ProtoField: "future_a"},
 								{ProtoField: "future_a_time"},
