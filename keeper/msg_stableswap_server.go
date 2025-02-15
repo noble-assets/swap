@@ -322,17 +322,36 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 		return nil, sdkerrors.Wrapf(err, "unable to decode pool address, got %s", stableswapController.GetAddress())
 	}
 
-	// Validate the liquidity amount.
-	baseRate := stableswapController.GetRate(ctx)
+	// Calculate the base ratio given the current pool liquidity.
+	// If the pool is empty, the initial ratio is 1:1.
+	baseRatio := math.LegacyOneDec()
+	liquidity := stableswapController.GetLiquidity(ctx)
+	if !liquidity.IsZero() {
+		baseRatio = liquidity.AmountOf(s.baseDenom).ToLegacyDec().Quo(liquidity.AmountOf(stableswapController.GetPair()).ToLegacyDec())
+	}
+
+	// Retrieve the base and pair amounts that the user wants to deposit.
 	baseAmount := amount.AmountOf(s.baseDenom).ToLegacyDec()
 	pairAmount := amount.AmountOf(stableswapController.GetPair()).ToLegacyDec()
-	if !pairAmount.TruncateInt().Equal(baseAmount.Mul(baseRate).TruncateInt()) {
+
+	// Calculate the expected pair amount based on the pool's balance ratio.
+	expectedPairAmount := baseAmount.Mul(baseRatio)
+
+	// Compute the acceptable range (lower and upper bounds) within slippage tolerance.
+	slippageTolerance, _ := math.LegacyNewDecFromStr("0.005") // 0.5% slippage
+	lowerBound := expectedPairAmount.Mul(math.LegacyOneDec().Sub(slippageTolerance))
+	upperBound := expectedPairAmount.Mul(math.LegacyOneDec().Add(slippageTolerance))
+
+	// Validate if the provided pair amount is within the acceptable slippage range.
+	if pairAmount.TruncateInt().LT(lowerBound.TruncateInt()) || pairAmount.TruncateInt().GT(upperBound.TruncateInt()) {
 		return nil, sdkerrors.Wrapf(
 			types.ErrInvalidAmount,
-			"must provide balanced amount of %s%s and %s%s",
+			"must provide balanced amount of %s%s and between %s%s - %s%s within slippage tolerance",
 			baseAmount.TruncateInt().String(),
 			s.baseDenom,
-			baseRate.Mul(pairAmount).TruncateInt().String(),
+			lowerBound.TruncateInt().String(),
+			stableswapController.GetPair(),
+			upperBound.TruncateInt().String(),
 			stableswapController.GetPair(),
 		)
 	}
