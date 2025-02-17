@@ -136,6 +136,7 @@ Provides tokens to a specified liquidity pool, increasing its reserves and earni
         "@type": "/noble.swap.v1.MsgAddLiquidity",
         "signer": "noble1signer",
         "pool_id": "1",
+        "slippage_percentage": "5000",
         "amount": [
           { "denom": "uusdc", "amount": "1000000" },
           { "denom": "uusdn", "amount": "1000000" }
@@ -163,10 +164,12 @@ Provides tokens to a specified liquidity pool, increasing its reserves and earni
 **Arguments**
 - `signer` — The Noble address of the account providing liquidity.
 - `pool_id` — ID of the pool.
+- `slippage_percentage` — The maximum acceptable slippage percentage.
 - `amount` — Amount of tokens to add.
 
 **Requirements**
 - `amount` — The base token (USDN) amount must be at least 1 unit (1000000).
+- `slippage_percentage` — The percentage must be lower than the `max_add_liquidity_slippage_percentage` value.
 
 **State Changes**
 - Updates `Pool` reserves.

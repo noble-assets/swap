@@ -316,6 +316,16 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 		return nil, sdkerrors.Wrapf(types.ErrInvalidAmount, "coins should be 2, got %d", msg.Amount.Len())
 	}
 
+	// Validate the provided slippage percentage.
+	if msg.SlippagePercentage < 0 || msg.SlippagePercentage > s.maxAddLiquiditySlippagePercentage {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidSlippage, "percentage must be > 0 and <= %s%% (%d) , got %s%% (%d)",
+			math.LegacyNewDec(s.maxAddLiquiditySlippagePercentage).QuoInt64(1e4),
+			s.maxAddLiquiditySlippagePercentage,
+			math.LegacyNewDec(msg.SlippagePercentage).QuoInt64(1e4),
+			msg.SlippagePercentage,
+		)
+	}
+
 	// Get the Pool Address.
 	poolAddress, err := s.addressCodec.StringToBytes(stableswapController.GetAddress())
 	if err != nil {
@@ -338,7 +348,7 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 	expectedPairAmount := baseAmount.Mul(baseRatio)
 
 	// Compute the acceptable range (lower and upper bounds) within slippage tolerance.
-	slippageTolerance := math.LegacyNewDec(s.maxAddLiquiditySlippagePercentage).QuoInt64(1e6)
+	slippageTolerance := math.LegacyNewDec(msg.SlippagePercentage).QuoInt64(1e6)
 	lowerBound := expectedPairAmount.Mul(math.LegacyOneDec().Sub(slippageTolerance))
 	upperBound := expectedPairAmount.Mul(math.LegacyOneDec().Add(slippageTolerance))
 
@@ -346,13 +356,14 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 	if pairAmount.TruncateInt().LT(lowerBound.TruncateInt()) || pairAmount.TruncateInt().GT(upperBound.TruncateInt()) {
 		return nil, sdkerrors.Wrapf(
 			types.ErrInvalidAmount,
-			"must provide balanced amount of %s%s and between %s%s - %s%s within slippage tolerance",
+			"must provide balanced amount of %s%s and [%s%s - %s%s] (%s%% slippage)",
 			baseAmount.TruncateInt().String(),
 			s.baseDenom,
 			lowerBound.TruncateInt().String(),
 			stableswapController.GetPair(),
 			upperBound.TruncateInt().String(),
 			stableswapController.GetPair(),
+			slippageTolerance.String(),
 		)
 	}
 

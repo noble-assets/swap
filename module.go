@@ -253,11 +253,12 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						},
 						{
 							RpcMethod: "AddLiquidity",
-							Use:       "add-liquidity [pool_id] [coins]",
+							Use:       "add-liquidity [pool_id] [slippage_percentage] [coins]",
 							Short:     "Add liquidity to a specified `StableSwap` pool",
 							Long:      "Adds a specified amount of liquidity to the pool identified by `pool_id`.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 								{ProtoField: "pool_id"},
+								{ProtoField: "slippage_percentage"},
 								{ProtoField: "amount", Varargs: true},
 							},
 						},

@@ -122,6 +122,9 @@ message MsgAddLiquidity {
     (amino.encoding) = "legacy_coins",
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
+
+  // Maximum acceptable slippage percentage.
+  int64 slippage_percentage = 4;
 }
 message MsgAddLiquidityResponse {
   // The amount of liquidity pool shares minted for the user.
