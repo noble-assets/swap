@@ -184,7 +184,7 @@ func performSwap(x sdk.Coin, xp sdk.DecCoins, amp math.LegacyDec, denomTo string
 	rewardsFeeAmount := rewards.Sub(protocolFeeAmount)
 
 	// Subtract the fees (rewards+protocol) from dy.
-	dy = dy.Sub(rewards)
+	dy = dy.Sub(rewardsFeeAmount)
 	dy = dy.Sub(protocolFeeAmount)
 
 	// Ensure that the dy amount after fees deduction is positive.
