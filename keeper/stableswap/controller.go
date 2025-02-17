@@ -22,6 +22,7 @@ package stableswap
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -148,6 +149,11 @@ func (c *Controller) Swap(
 	)
 	if err != nil {
 		return nil, err
+	}
+
+	// Ensure that the swap result is positive.
+	if !swapResult.Dy.IsPositive() {
+		return nil, errors.New("swap result amount is not positive")
 	}
 
 	return &types.SwapCommitment{
