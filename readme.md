@@ -6,6 +6,17 @@ All tokens are paired with USDN to maintain non-fragmented liquidity, enabling m
 
 ![Liquidity Architecture Simple](spec/imgs/liquidity_architecture_simple.svg "Liquidity Architecture Simple")
 
+## Specification Overview
+
+- [01 — State](./spec/01_state.md)
+   - [01 — Stableswap State](./spec/01_state_stableswap.md)
+- [02 — Messages](./spec/02_messages.md)
+   - [02 — Stableswap Messages](./spec/02_messages_stableswap.md)
+- [03 — Queries](./spec/03_queries.md)
+   - [03 — Stableswap Queries](./spec/03_queries_stableswap.md)
+- [04 — Events](./spec/04_events.md)
+   - [03 — Stableswap Queries](./spec/04_events_stableswap.md)
+
 # Architecture Overview
 
 The `x/swap` module is designed with a modular architecture that includes several key components, each playing a specific role in the swapping process. At its core is the **Controller**, which orchestrates interactions between users, liquidity pools, and the underlying state.
