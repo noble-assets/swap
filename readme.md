@@ -2,9 +2,20 @@
 
 The `x/swap` module is designed to facilitate the efficient exchange of tokens within the Noble blockchain ecosystem. It ensures fair exchanges and optimal rates for users. Currently, the module employs the `StableSwap` algorithm, which specializes in minimizing slippage and maintaining consistent rates for tokens with stable pricing dynamics. This makes it particularly effective for low-volatility assets.
 
-All tokens are paired with USN to maintain non-fragmented liquidity, enabling maximum efficiency. This structure ensures that any exchange requires at most 2 swap routes, simplifying the routing and improving liquidity utilization.
+All tokens are paired with USDN to maintain non-fragmented liquidity, enabling maximum efficiency. This structure ensures that any exchange requires at most 2 swap routes, simplifying the routing and improving liquidity utilization.
 
 ![Liquidity Architecture Simple](spec/imgs/liquidity_architecture_simple.svg "Liquidity Architecture Simple")
+
+## Specification Overview
+
+- [01 — State](./spec/01_state.md)
+   - [01 — Stableswap State](./spec/01_state_stableswap.md)
+- [02 — Messages](./spec/02_messages.md)
+   - [02 — Stableswap Messages](./spec/02_messages_stableswap.md)
+- [03 — Queries](./spec/03_queries.md)
+   - [03 — Stableswap Queries](./spec/03_queries_stableswap.md)
+- [04 — Events](./spec/04_events.md)
+   - [03 — Stableswap Queries](./spec/04_events_stableswap.md)
 
 # Architecture Overview
 
@@ -13,7 +24,7 @@ The `x/swap` module is designed with a modular architecture that includes severa
 ### Controller
 
 The Controller is the central component responsible for managing swaps and liquidity operations. It abstracts pool-specific behaviors to provide a unified interface for managing interactions between users, liquidity pools, and the state. Its main functions include:
-1. **Swaps and Routing**: The Controller calculates and executes the optimal swap given the provided route, utilizing the underlying pool algorithm. Given that all tokens are paired with USN, the Controller will always require at most two routes, maximizing efficiency.
+1. **Swaps and Routing**: The Controller calculates and executes the optimal swap given the provided route, utilizing the underlying pool algorithm. Given that all tokens are paired with USDN, the Controller will always require at most two routes, maximizing efficiency.
 
 2. **Liquidity Management**: It handles the addition and removal of liquidity to and from pools given the relative pool type. This includes verifying input tokens, calculating pool balances/shares, and updating pool states.
 
@@ -28,20 +39,20 @@ This architecture ensures the `x/swap` module is robust, scalable, and optimized
 
 Suppose a user wants to exchange Token A for Token Z on the Noble blockchain using the `x/swap` module:
 
-1. **Input and Routing**: The user specifies the desired amount of Token A to exchange for Token Z and the wanted routing: `Pool-0(usn:a), Pool-1(usn:z)`.
+1. **Input and Routing**: The user specifies the desired amount of Token A to exchange for Token Z and the wanted routing: `Pool-0(usdn:a), Pool-1(usdn:z)`.
 
-2. **First Swap (Token A -> USN)**:
-    - The Controller calculates the exchange rate for Token A to USN using the underlying pool algorithm.
+2. **First Swap (Token A -> USDN)**:
+    - The Controller calculates the exchange rate for Token A to USDN using the underlying pool algorithm.
     - The specified amount of Token A is deducted from the user’s account, and the equivalent amount is credited to the liquidity pool.
 
-3. **Second Swap (USN -> Token Z)**:
-    - The Controller calculates the exchange rate for USN to Token Z.
-    - The USN obtained from the first swap is deducted from the liquidity pool, and the corresponding amount of Token Z is credited to the user’s account.
+3. **Second Swap (USDN -> Token Z)**:
+    - The Controller calculates the exchange rate for USDN to Token Z.
+    - The USDN obtained from the first swap is deducted from the liquidity pool, and the corresponding amount of Token Z is credited to the user’s account.
 
 4. **Fees and Updates**:
     - Protocol and reward fees are applied during each swap and distributed to the pool rewards and protocol fees address.
 
-5. **Completion**: The user receives the desired amount of Token Z in their account. The process is efficient and involves minimal slippage due to the StableSwap algorithm and the structured pairing with USN.
+5. **Completion**: The user receives the desired amount of Token Z in their account. The process is efficient and involves minimal slippage due to the StableSwap algorithm and the structured pairing with USDN.
 
 ![Swap Example](spec/imgs/swap_example.svg "Swap Example")
 
