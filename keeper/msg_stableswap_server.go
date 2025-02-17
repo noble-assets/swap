@@ -338,7 +338,7 @@ func (s stableswapMsgServer) AddLiquidity(ctx context.Context, msg *stableswap.M
 	expectedPairAmount := baseAmount.Mul(baseRatio)
 
 	// Compute the acceptable range (lower and upper bounds) within slippage tolerance.
-	slippageTolerance, _ := math.LegacyNewDecFromStr("0.005") // 0.5% slippage
+	slippageTolerance := math.LegacyNewDec(s.maxAddLiquiditySlippagePercentage).QuoInt64(1e6)
 	lowerBound := expectedPairAmount.Mul(math.LegacyOneDec().Sub(slippageTolerance))
 	upperBound := expectedPairAmount.Mul(math.LegacyOneDec().Add(slippageTolerance))
 

@@ -39,10 +39,11 @@ import (
 )
 
 type Keeper struct {
-	authority          string
-	baseDenom          string
-	baseMinimumDeposit int64
-	stableswapConfig   *modulev1.StableSwap
+	authority                         string
+	baseDenom                         string
+	baseMinimumDeposit                int64
+	maxAddLiquiditySlippagePercentage int64
+	stableswapConfig                  *modulev1.StableSwap
 
 	eventService  event.Service
 	headerService header.Service
@@ -76,6 +77,7 @@ func NewKeeper(
 	authority string,
 	pairDenom string,
 	baseMinimumDeposit int64,
+	maxAddLiquiditySlippagePercentage int64,
 	stableswapConfig *modulev1.StableSwap,
 	addressCodec address.Codec,
 	accountKeeper types.AccountKeeper,
@@ -84,10 +86,11 @@ func NewKeeper(
 	builder := collections.NewSchemaBuilder(storeService)
 
 	keeper := &Keeper{
-		authority:          authority,
-		baseDenom:          pairDenom,
-		baseMinimumDeposit: baseMinimumDeposit,
-		stableswapConfig:   stableswapConfig,
+		authority:                         authority,
+		baseDenom:                         pairDenom,
+		baseMinimumDeposit:                baseMinimumDeposit,
+		maxAddLiquiditySlippagePercentage: maxAddLiquiditySlippagePercentage,
+		stableswapConfig:                  stableswapConfig,
 
 		eventService:  eventService,
 		headerService: headerService,

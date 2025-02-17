@@ -394,6 +394,10 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		panic("base_denom for x/swap module must be set")
 	}
 
+	if in.Config.MaxAddLiquiditySlippagePercentage <= 0 {
+		panic("max_add_liquidity_slippage_percentage for x/swap module must be set")
+	}
+
 	if in.Config.Stableswap == nil {
 		panic("stableswap config for x/swap/stableswap module must be set")
 	}
@@ -412,6 +416,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		authority.String(),
 		in.Config.BaseDenom,
 		in.Config.BaseMinimumDeposit,
+		in.Config.MaxAddLiquiditySlippagePercentage,
 		in.Config.Stableswap,
 		in.AddressCodec,
 		in.AccountKeeper,

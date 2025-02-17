@@ -71,6 +71,7 @@ func SwapKeeperWithKeepers(t testing.TB, account AccountKeeper, bank BankKeeper)
 		"authority",
 		"uusdn",
 		1e6,
+		0.5e4,
 		&modulev1.StableSwap{
 			UnbondingBlockDelta: 10,
 		},
