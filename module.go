@@ -253,11 +253,12 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						},
 						{
 							RpcMethod: "AddLiquidity",
-							Use:       "add-liquidity [pool_id] [coins]",
+							Use:       "add-liquidity [pool_id] [slippage_percentage] [coins]",
 							Short:     "Add liquidity to a specified `StableSwap` pool",
 							Long:      "Adds a specified amount of liquidity to the pool identified by `pool_id`.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
 								{ProtoField: "pool_id"},
+								{ProtoField: "slippage_percentage"},
 								{ProtoField: "amount", Varargs: true},
 							},
 						},
@@ -394,6 +395,10 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		panic("base_denom for x/swap module must be set")
 	}
 
+	if in.Config.MaxAddLiquiditySlippagePercentage <= 0 {
+		panic("max_add_liquidity_slippage_percentage for x/swap module must be set")
+	}
+
 	if in.Config.Stableswap == nil {
 		panic("stableswap config for x/swap/stableswap module must be set")
 	}
@@ -412,6 +417,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		authority.String(),
 		in.Config.BaseDenom,
 		in.Config.BaseMinimumDeposit,
+		in.Config.MaxAddLiquiditySlippagePercentage,
 		in.Config.Stableswap,
 		in.AddressCodec,
 		in.AccountKeeper,

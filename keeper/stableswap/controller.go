@@ -374,15 +374,16 @@ func (c *Controller) GetLiquidity(ctx context.Context) sdk.Coins {
 
 // GetRates computes exchange rates for tokens in the pool based on liquidity.
 func (c *Controller) GetRates(ctx context.Context) []types.Rate {
-	liquidity := c.GetLiquidity(ctx)
-	amount := liquidity.AmountOf(c.GetPair()).ToLegacyDec()
-	vsAmount := liquidity.AmountOf(c.baseDenom).ToLegacyDec()
-
 	price := math.LegacyZeroDec()
 	vsPrice := math.LegacyZeroDec()
-	if vsAmount.GT(math.LegacyZeroDec()) && amount.GT(math.LegacyZeroDec()) {
-		price = vsAmount.Quo(amount)
-		vsPrice = math.LegacyOneDec().Quo(price)
+
+	// Retrieve the exchange rate for the base denomination.
+	basePrice := c.GetRate(ctx)
+
+	// If the base price is greater than zero, compute the inverse price.
+	if basePrice.GT(math.LegacyZeroDec()) {
+		price = basePrice
+		vsPrice = math.LegacyOneDec().Quo(basePrice)
 	}
 
 	return []types.Rate{
@@ -404,15 +405,26 @@ func (c *Controller) GetRates(ctx context.Context) []types.Rate {
 func (c *Controller) GetRate(ctx context.Context) math.LegacyDec {
 	liquidity := c.GetLiquidity(ctx)
 	if liquidity.IsZero() {
-		return math.LegacyOneDec()
-	}
-	vsAmount := liquidity.AmountOf(c.GetPair()).ToLegacyDec()
-	amount := liquidity.AmountOf(c.baseDenom).ToLegacyDec()
-
-	if vsAmount.LTE(math.LegacyZeroDec()) || amount.LTE(math.LegacyZeroDec()) {
 		return math.LegacyZeroDec()
 	}
-	return vsAmount.Quo(amount)
+
+	// Perform a swap simulation and get the real rate using the cached context.
+	cacheCtx, _ := sdk.UnwrapSDKContext(ctx).CacheContext()
+	res, err := c.Swap(cacheCtx, time.Now().Unix(), sdk.NewCoin(c.baseDenom, math.NewInt(1_000_000)), c.GetPair())
+	if err != nil {
+		return math.LegacyZeroDec()
+	}
+
+	// Since the simulation takes the fees into account, add them back.
+	rate := res.Out.Amount
+	for _, fee := range res.Fees {
+		if fee.Amount.GetDenom() == c.baseDenom {
+			rate = rate.Add(fee.Amount.Amount)
+		}
+	}
+
+	// Returns the price divided by the unit exponent.
+	return math.LegacyNewDecFromInt(rate).QuoInt64(1e6)
 }
 
 // UpdatePool updates parameters of the StableSwap pool in the state.

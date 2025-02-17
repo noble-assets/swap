@@ -17,8 +17,11 @@ message Module {
   // base_minimum_deposit specifies the minimum amount of the base token required for depositing into liquidity pools.
   int64 base_minimum_deposit = 3;
 
+  // max_add_liquidity_slippage_percentage specifies the maximum slippage a user may encounter when adding liquidity.
+  int64 max_add_liquidity_slippage_percentage = 4;
+
   // stableswap contains the custom attributes and configurations required for the StableSwap module.
-  StableSwap stableswap = 4;
+  StableSwap stableswap = 5;
 }
 
 message StableSwap {

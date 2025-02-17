@@ -425,8 +425,9 @@ func TestRate(t *testing.T) {
 			sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
 			sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
 		),
-		InitialA: 100,
-		FutureA:  100,
+		InitialA:    1000,
+		FutureA:     1000,
+		FutureATime: 0,
 	})
 	assert.NoError(t, err)
 
@@ -457,7 +458,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdn",
 				Vs:        "uusdc",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("1.000001000001000001"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -472,8 +473,9 @@ func TestRate(t *testing.T) {
 			sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
 			sdk.NewCoin("uusde", math.NewInt(1000000000000000000)),
 		),
-		InitialA: 100,
-		FutureA:  100,
+		InitialA:    1000,
+		FutureA:     1000,
+		FutureATime: 0,
 	})
 	assert.NoError(t, err)
 
@@ -488,7 +490,7 @@ func TestRate(t *testing.T) {
 	})
 	assert.NoError(t, err)
 
-	// ARRANGE: Perform a swap.
+	// ARRANGE: Perform a swap removing almost all the liquidity in the Pool 0.
 	_, err = server.Swap(ctx, &types.MsgSwap{
 		Signer: alice.Address,
 		Amount: sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
@@ -514,7 +516,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(20000),
+				Price:     math.LegacyMustNewDecFromStr("0.003152000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -542,7 +544,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(20000),
+				Price:     math.LegacyMustNewDecFromStr("0.003152000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -562,7 +564,7 @@ func TestRate(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(20000),
+				Price:     math.LegacyMustNewDecFromStr("0.003152000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -626,12 +628,12 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("0.999999000000000000"),
 				Algorithm: types.STABLESWAP,
 			}, {
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("1.000001000001000001"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -685,25 +687,25 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("0.999999000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(20000),
+				Price:     math.LegacyMustNewDecFromStr("0.009899000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusdn",
 				Vs:        "uusdc",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("1.000001000001000001"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyMustNewDecFromStr("0.000050000000000000"),
+				Price:     math.LegacyMustNewDecFromStr("101.020305081321345590"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -727,25 +729,25 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("0.999999000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(20000),
+				Price:     math.LegacyMustNewDecFromStr("0.009899000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusdn",
 				Vs:        "uusdc",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("1.000001000001000001"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyMustNewDecFromStr("0.000050000000000000"),
+				Price:     math.LegacyMustNewDecFromStr("101.020305081321345590"),
 				Algorithm: types.STABLESWAP,
 			},
 		},
@@ -762,25 +764,25 @@ func TestRates(t *testing.T) {
 			{
 				Denom:     "uusdc",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("0.999999000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusde",
 				Vs:        "uusdn",
-				Price:     math.LegacyNewDec(20000),
+				Price:     math.LegacyMustNewDecFromStr("0.009899000000000000"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusdn",
 				Vs:        "uusdc",
-				Price:     math.LegacyNewDec(1),
+				Price:     math.LegacyMustNewDecFromStr("1.000001000001000001"),
 				Algorithm: types.STABLESWAP,
 			},
 			{
 				Denom:     "uusdn",
 				Vs:        "uusde",
-				Price:     math.LegacyMustNewDecFromStr("0.000050000000000000"),
+				Price:     math.LegacyMustNewDecFromStr("101.020305081321345590"),
 				Algorithm: types.STABLESWAP,
 			},
 		},

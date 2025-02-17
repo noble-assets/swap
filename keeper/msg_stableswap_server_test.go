@@ -1058,6 +1058,9 @@ func TestAddLiquidity(t *testing.T) {
 	})
 	assert.Error(t, err)
 	assert.ErrorIs(t, types.ErrInvalidAmount, err)
+	poolLiquidity = bank.GetAllBalances(ctx, poolAddress)
+	assert.Equal(t, int64(40000000), poolLiquidity.AmountOf("uusdc").Int64())
+	assert.Equal(t, int64(20000001), poolLiquidity.AmountOf("uusdn").Int64())
 
 	// ACT: Add liquidity with a balanced amount.
 	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 4, 1, 1, time.UTC)})
@@ -1065,7 +1068,7 @@ func TestAddLiquidity(t *testing.T) {
 		Signer: user.Address,
 		PoolId: 0,
 		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdc", math.NewInt(1999999)),
+			sdk.NewCoin("uusdc", math.NewInt(500000)),
 			sdk.NewCoin("uusdn", math.NewInt(1000000)),
 		),
 	})
