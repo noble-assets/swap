@@ -182,7 +182,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod: "PauseByAlgorithm",
-					Use:       "pause-by-algorithm",
+					Use:       "pause-by-algorithm [algorithm]",
 					Short:     "Pause all the pools operations with the provided algorithm",
 					Long:      "Pause all the pools whose operations are associated with the specified algorithm.",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
@@ -191,7 +191,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod: "PauseByPoolIds",
-					Use:       "pause-by-pool-ids",
+					Use:       "pause-by-pool-ids [pool_ids]",
 					Short:     "Pause all the pools identified by the provided pool IDs",
 					Long:      "Pause all the pools identified by the provided pool IDs.",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
@@ -200,7 +200,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod: "UnpauseByAlgorithm",
-					Use:       "unpause-by-algorithm",
+					Use:       "unpause-by-algorithm [algorithm]",
 					Short:     "Unpause all the pools operations with the provided algorithm",
 					Long:      "Unpause all the pools whose operations are associated with the specified algorithm.",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
@@ -223,7 +223,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 						{
 							RpcMethod: "CreatePool",
-							Use:       "create-pool [pair] [rewards_fee] [protocol_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
+							Use:       "create-pool [pair] [protocol_fee_percentage] [rewards_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
 							Short:     "Create a new stable swap pool",
 							Long:      "Creates a stable swap pool with specified parameters, including the `pair` coin, `fees`, amplification factors (`initial_a` and `future_a`), and `rate_multipliers` for dynamic rates.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
@@ -238,7 +238,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						},
 						{
 							RpcMethod: "UpdatePool",
-							Use:       "update-pool [pair] [rewards_fee] [protocol_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
+							Use:       "update-pool [pool_id] [protocol_fee_percentage] [rewards_fee] [initial_a] [future_a] [future_a_time] [rate_multipliers]",
 							Short:     "Updates a stable swap pool",
 							Long:      "Update a stable swap pool with specified parameters, including the `fees`, amplification factors (`future_a_time` and `future_a`), and `rate_multipliers` for dynamic rates.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
@@ -253,7 +253,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						},
 						{
 							RpcMethod: "AddLiquidity",
-							Use:       "add-liquidity [pool_id] [slippage_percentage] [coins]",
+							Use:       "add-liquidity [pool_id] [slippage_percentage] [amount]",
 							Short:     "Add liquidity to a specified `StableSwap` pool",
 							Long:      "Adds a specified amount of liquidity to the pool identified by `pool_id`.",
 							PositionalArgs: []*autocliv1.PositionalArgDescriptor{
@@ -282,7 +282,7 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
 					RpcMethod: "SimulateSwap",
-					Use:       "simulate",
+					Use:       "simulate [amount] [routes] [min]",
 					Short:     "Simulate a token swap transaction",
 					Long:      "Simulate the expected output of a token swap without broadcasting. Provide a signer's address, an amount to swap, routes to traverse, and a minimum expected amount to estimate fees, slippage, and final tokens.",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
