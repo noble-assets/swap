@@ -42,30 +42,48 @@ message QueryPositionsByProvider {
   string provider = 1;
 }
 message QueryPositionsByProviderResponse {
-  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
-  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 2 [(gogoproto.nullable) = false];
-  repeated QueryRewardsResponseEntry rewards = 3 [(gogoproto.nullable) = false];
+  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
+  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 2 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
+  repeated QueryRewardsResponseEntry rewards = 3 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryBondedPositionsByProvider {
   string provider = 1;
 }
 message QueryBondedPositionsByProviderResponse {
-  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
+  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryUnbondingPositionsByProvider {
   string provider = 1;
 }
 message QueryUnbondingPositionsByProviderResponse {
-  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 1 [(gogoproto.nullable) = false];
+  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryRewardsByProvider {
   string provider = 1;
 }
 message QueryRewardsByProviderResponse {
-  repeated QueryRewardsResponseEntry rewards = 1 [(gogoproto.nullable) = false];
+  repeated QueryRewardsResponseEntry rewards = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 //

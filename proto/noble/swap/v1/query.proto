@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package noble.swap.v1;
 
+import "amino/amino.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "cosmos/query/v1/query.proto";
 import "gogoproto/gogo.proto";
@@ -35,8 +36,10 @@ service Query {
 
   // Simulates a token swap simulation.
   rpc SimulateSwap(QuerySimulateSwap) returns (MsgSwapResponse) {
-    option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/noble/swap/v1/simulate_swap";
+    option (google.api.http) = {
+      post: "/noble/swap/v1/simulate_swap"
+      body: "*"
+    };
   }
 
   // Retrieves exchange rates for all tokens, with the optionality of filtering by algorithm.
@@ -56,7 +59,10 @@ message QueryRates {
   swap.v1.Algorithm algorithm = 1;
 }
 message QueryRatesResponse {
-  repeated Rate rates = 1 [(gogoproto.nullable) = false];
+  repeated Rate rates = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryRate {
@@ -64,24 +70,27 @@ message QueryRate {
   swap.v1.Algorithm algorithm = 2;
 }
 message QueryRateResponse {
-  repeated Rate rates = 1 [(gogoproto.nullable) = false];
+  repeated Rate rates = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryPaused {}
 message QueryPausedResponse {
-  repeated uint64 paused_pools = 1;
+  repeated uint64 paused_pools = 1 [(amino.dont_omitempty) = true];
 }
 
 message QueryPools {}
 message QueryPoolsResponse {
-  repeated PoolDetails pools = 1;
+  repeated PoolDetails pools = 1 [(amino.dont_omitempty) = true];
 }
 
 message QueryPool {
   uint64 pool_id = 1;
 }
 message QueryPoolResponse {
-  PoolDetails pool = 1;
+  PoolDetails pool = 1 [(amino.dont_omitempty) = true];
 }
 
 message QuerySimulateSwap {
