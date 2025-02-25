@@ -89,7 +89,7 @@ message QueryRewardsByProviderResponse {
 //
 
 message QueryBondedPositionResponseEntry {
-  uint64 pool_id = 1;
+  uint64 pool_id = 1 [(amino.dont_omitempty) = true];
   string shares = 2 [
     (amino.dont_omitempty) = true,
     (cosmos_proto.scalar) = "cosmos.Dec",
@@ -97,13 +97,14 @@ message QueryBondedPositionResponseEntry {
     (gogoproto.nullable) = false
   ];
   google.protobuf.Timestamp timestamp = 3 [
+    (amino.dont_omitempty) = true,
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];
 }
 
 message QueryUnbondingPositionResponseEntry {
-  uint64 pool_id = 1;
+  uint64 pool_id = 1 [(amino.dont_omitempty) = true];
   string unbonding_shares = 2 [
     (amino.dont_omitempty) = true,
     (cosmos_proto.scalar) = "cosmos.Dec",
@@ -111,13 +112,14 @@ message QueryUnbondingPositionResponseEntry {
     (gogoproto.nullable) = false
   ];
   google.protobuf.Timestamp end_time = 3 [
+    (amino.dont_omitempty) = true,
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];
 }
 
 message QueryRewardsResponseEntry {
-  uint64 pool_id = 1;
+  uint64 pool_id = 1 [(amino.dont_omitempty) = true];
   repeated cosmos.base.v1beta1.Coin amount = 2 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
