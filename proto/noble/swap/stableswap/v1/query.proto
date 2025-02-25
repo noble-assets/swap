@@ -42,36 +42,54 @@ message QueryPositionsByProvider {
   string provider = 1;
 }
 message QueryPositionsByProviderResponse {
-  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
-  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 2 [(gogoproto.nullable) = false];
-  repeated QueryRewardsResponseEntry rewards = 3 [(gogoproto.nullable) = false];
+  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
+  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 2 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
+  repeated QueryRewardsResponseEntry rewards = 3 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryBondedPositionsByProvider {
   string provider = 1;
 }
 message QueryBondedPositionsByProviderResponse {
-  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [(gogoproto.nullable) = false];
+  repeated QueryBondedPositionResponseEntry bonded_positions = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryUnbondingPositionsByProvider {
   string provider = 1;
 }
 message QueryUnbondingPositionsByProviderResponse {
-  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 1 [(gogoproto.nullable) = false];
+  repeated QueryUnbondingPositionResponseEntry unbonding_positions = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryRewardsByProvider {
   string provider = 1;
 }
 message QueryRewardsByProviderResponse {
-  repeated QueryRewardsResponseEntry rewards = 1 [(gogoproto.nullable) = false];
+  repeated QueryRewardsResponseEntry rewards = 1 [
+    (amino.dont_omitempty) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 //
 
 message QueryBondedPositionResponseEntry {
-  uint64 pool_id = 1;
+  uint64 pool_id = 1 [(amino.dont_omitempty) = true];
   string shares = 2 [
     (amino.dont_omitempty) = true,
     (cosmos_proto.scalar) = "cosmos.Dec",
@@ -79,13 +97,14 @@ message QueryBondedPositionResponseEntry {
     (gogoproto.nullable) = false
   ];
   google.protobuf.Timestamp timestamp = 3 [
+    (amino.dont_omitempty) = true,
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];
 }
 
 message QueryUnbondingPositionResponseEntry {
-  uint64 pool_id = 1;
+  uint64 pool_id = 1 [(amino.dont_omitempty) = true];
   string unbonding_shares = 2 [
     (amino.dont_omitempty) = true,
     (cosmos_proto.scalar) = "cosmos.Dec",
@@ -93,13 +112,14 @@ message QueryUnbondingPositionResponseEntry {
     (gogoproto.nullable) = false
   ];
   google.protobuf.Timestamp end_time = 3 [
+    (amino.dont_omitempty) = true,
     (gogoproto.nullable) = false,
     (gogoproto.stdtime) = true
   ];
 }
 
 message QueryRewardsResponseEntry {
-  uint64 pool_id = 1;
+  uint64 pool_id = 1 [(amino.dont_omitempty) = true];
   repeated cosmos.base.v1beta1.Coin amount = 2 [
     (gogoproto.nullable) = false,
     (amino.dont_omitempty) = true,
