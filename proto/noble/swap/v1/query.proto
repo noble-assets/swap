@@ -94,8 +94,7 @@ message QueryPoolResponse {
 }
 
 message QuerySimulateSwap {
-  string signer = 1;
-  cosmos.base.v1beta1.Coin amount = 2 [(gogoproto.nullable) = false];
-  repeated swap.v1.Route routes = 3 [(gogoproto.nullable) = false];
-  cosmos.base.v1beta1.Coin min = 4 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin amount = 1 [(gogoproto.nullable) = false];
+  repeated swap.v1.Route routes = 2 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin min = 3 [(gogoproto.nullable) = false];
 }

@@ -284,9 +284,8 @@ func (AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "SimulateSwap",
 					Use:       "simulate [amount] [routes] [min]",
 					Short:     "Simulate a token swap transaction",
-					Long:      "Simulate the expected output of a token swap without broadcasting. Provide a signer's address, an amount to swap, routes to traverse, and a minimum expected amount to estimate fees, slippage, and final tokens.",
+					Long:      "Simulate the expected output and associated fees for a token swap, without executing the transaction.",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-						{ProtoField: "signer"},
 						{ProtoField: "amount"},
 						{ProtoField: "routes"},
 						{ProtoField: "min"},

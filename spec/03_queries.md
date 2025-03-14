@@ -208,3 +208,47 @@ Fetches rates for a specific token.
 - Token denomination must be valid.
 
 ---
+
+### Simulate Swap
+`types.QuerySimulateSwap`
+
+Simulate the expected output and associated fees for a token swap and [route](01_types.md#route) without executing the transaction or requiring a valid account or balance.
+
+```json
+{
+  "result": {
+    "denom": "uusdc",
+    "amount": "999714654"
+  },
+  "swaps": [
+    {
+      "in": {
+        "denom": "uusdn",
+        "amount": "1000000000"
+      },
+      "out": {
+        "denom": "uusdc",
+        "amount": "999714654"
+      },
+      "fees": [
+        {
+          "denom": "uusdn",
+          "amount": "249991"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Arguments**
+- `amount` — Input token.
+- `routes` — Path of pools for the swap.
+- `min` — Minimum output token wanted.
+
+**Requirements**
+- Signer must have sufficient input tokens.
+- Token denominations must be correctly specified, and routing paths must be valid.
+- The minimum output token denom must match the output token denom in the final route.
+
+---
