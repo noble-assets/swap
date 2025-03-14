@@ -1,0 +1,1 @@
+- Improve `SimulateSwap` logic by removing signer and balance requirements ([#16](https://github.com/noble-assets/swap/pull/16))
