@@ -31,6 +31,7 @@ import (
 	"cosmossdk.io/core/store"
 	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/log"
+	"cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	modulev1 "swap.noble.xyz/api/module/v1"
@@ -132,6 +133,11 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	userAddress, err := k.addressCodec.StringToBytes(msg.Signer)
 	if err != nil {
 		return nil, fmt.Errorf("unable to decode signer address: %s", msg.Signer)
+	}
+
+	// Ensure that the swap amount is greater than the minimum.
+	if msg.Amount.Amount.LT(math.NewInt(1_000_000)) {
+		return nil, fmt.Errorf("amount must be greater than 1")
 	}
 
 	// Validate the Swap message.
