@@ -26,6 +26,7 @@ import (
 
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"swap.noble.xyz/types"
 )
 
@@ -121,23 +122,39 @@ func calculateAdjustedBalancesInRates(rates sdk.Coins, balances sdk.Coins) (sdk.
 	return balance, nil
 }
 
-// getY calculates the y value for the exchange (the amount of the output coin).
+// getY calculates the y value for the exchange. It represents the final balance of the output coin
+// in the pool after the swap.
 func getY(x sdk.Coin, amp, D math.LegacyDec) (math.LegacyDec, error) {
-	Ann := amp.Mul(math.LegacyNewDec(2))
-	// Last portion of c calculation: c = c * D / (Ann * N_COINS)
-	c := D.Mul(D).Quo(Ann.Mul(math.LegacyNewDec(2)))
+	// The number of tokens in the pool.
+	nTokens := math.LegacyNewDec(2)
 
+	// amp = A * n ^ (n - 1)
+	// Ann = amp * n = A * n ^ n
+	Ann := amp.Mul(nTokens)
+
+	// P_ = updated swap_in token balance in the pool
+	//
+	//        D ^ (n + 1)
+	// c = ------------------
+	//     (Ann * n ^ n * P_)
+	c := D.
+		Mul(D).Quo(Ann.Mul(nTokens)).
+		Mul(D).Quo(x.Amount.ToLegacyDec().Mul(nTokens))
+
+	// S_ = updated swap_in token balance in the pool
 	// b = S_ + D / Ann
 	b := x.Amount.ToLegacyDec().Add(D.Quo(Ann))
 
 	// Initialize y
 	y := D // Start with y = D
 
-	// Newton-Raphson iteration to find y
+	// Newton-Raphson iteration to find y numerically
 	for _i := 0; _i < 255; _i++ {
 		yPrev := y
 
-		// y = (y^2 + c) / (2y + b - D)
+		//        (y^2 + c)
+		// y = ----------------
+		//       (2y + b - D)
 		ySq := y.Mul(y)
 		numerator := ySq.Add(c)
 		denominator := y.MulInt64(2).Add(b.Sub(D))
