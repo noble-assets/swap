@@ -33,6 +33,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
 	"swap.noble.xyz/keeper"
 	stableswapkeeper "swap.noble.xyz/keeper/stableswap"
 	"swap.noble.xyz/types"
@@ -42,6 +43,207 @@ import (
 )
 
 const ONE = int64(1e6)
+
+func TestLowAmountSwapBalancedPool(t *testing.T) {
+	account := mocks.AccountKeeper{
+		Accounts: make(map[string]sdk.AccountI),
+	}
+	bank := mocks.BankKeeper{
+		Balances:    make(map[string]sdk.Coins),
+		Restriction: mocks.NoOpSendRestrictionFn,
+	}
+	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+	server := keeper.NewMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
+
+	alice, bob := utils.TestAccount(), utils.TestAccount()
+
+	// ARRANGE: Create the Pool.
+	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+		Signer:                "authority",
+		Pair:                  "uusdc",
+		RewardsFee:            0,
+		ProtocolFeePercentage: 100,
+		InitialA:              800,
+		FutureA:               800,
+		FutureATime:           0,
+		RateMultipliers: sdk.NewCoins(
+			sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
+			sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
+		),
+	})
+	assert.Nil(t, err)
+
+	// Add to pool the balance we have on mainnet
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(int64(1_000_000_000_000)))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(int64(1_000_000_000_000)))
+
+	// Add funds to user balances (doesn't matter how much)
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdnLiquidity)
+
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdcLiquidity)
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdnLiquidity)
+
+	routes := []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdn",
+		},
+	}
+
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: alice.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(usdcLiquidity, usdnLiquidity),
+	})
+	assert.NoError(t, err)
+
+	response, err := server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(1))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(1).String(), response.Result.Amount.String())
+
+	response, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(10))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(10).String(), response.Result.Amount.String())
+
+	response, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(100))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(99).String(), response.Result.Amount.String())
+
+	response, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(1_000))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(999).String(), response.Result.Amount.String())
+}
+
+func TestLowAmountSwapUnbalancedPool(t *testing.T) {
+	account := mocks.AccountKeeper{
+		Accounts: make(map[string]sdk.AccountI),
+	}
+	bank := mocks.BankKeeper{
+		Balances:    make(map[string]sdk.Coins),
+		Restriction: mocks.NoOpSendRestrictionFn,
+	}
+	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+	server := keeper.NewMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
+
+	alice, bob := utils.TestAccount(), utils.TestAccount()
+
+	// ARRANGE: Create the Pool.
+	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+		Signer:                "authority",
+		Pair:                  "uusdc",
+		RewardsFee:            0,
+		ProtocolFeePercentage: 100,
+		InitialA:              800,
+		FutureA:               800,
+		FutureATime:           0,
+		RateMultipliers: sdk.NewCoins(
+			sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
+			sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
+		),
+	})
+	assert.Nil(t, err)
+
+	// Add to pool the balance we have on mainnet
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(int64(1_000_000_000_000)))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(int64(1_000_000_000_000)))
+
+	// Add funds to user balances (doesn't matter how much)
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdnLiquidity)
+
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdcLiquidity)
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdnLiquidity)
+
+	routes := []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdc",
+		},
+	}
+
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: alice.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(usdcLiquidity, usdnLiquidity),
+	})
+	assert.NoError(t, err)
+
+	// Unbalance the pool towards uusdn
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdn", math.NewInt(int64(250_000_000_000))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdc", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+
+	routes = []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdn",
+		},
+	}
+
+	// ACT
+	response, err := server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(1))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(1).String(), response.Result.Amount.String())
+
+	response, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(10))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(10).String(), response.Result.Amount.String())
+
+	response, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(100))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(100).String(), response.Result.Amount.String())
+
+	response, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(int64(1_000))),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+	assert.Equal(t, math.NewInt(1000).String(), response.Result.Amount.String())
+}
 
 func TestConformance(t *testing.T) {
 	bob := utils.TestAccount()
