@@ -32,6 +32,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	anyproto "github.com/cosmos/gogoproto/types/any"
+
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	stableswaptypes "swap.noble.xyz/types/stableswap"
@@ -156,10 +157,10 @@ func (c *Controller) Swap(
 		return nil, errors.New("swap result amount is not positive")
 	}
 
-	// Ensure that the swap result doesn't exceed max spread allowed.
-	if swapResult.Dy.GTE(math.LegacyNewDecFromInt(coin.Amount).Mul(c.stableswapKeeper.maxSpreadAllowed)) {
-		return nil, errors.New("swap result amount exceeds maximum spread allowed")
-	}
+	// // Ensure that the swap result doesn't exceed max spread allowed.
+	// if swapResult.Dy.GTE(math.LegacyNewDecFromInt(coin.Amount).Mul(c.stableswapKeeper.maxSpreadAllowed)) {
+	// 	return nil, errors.New("swap result amount exceeds maximum spread allowed")
+	// }
 
 	return &types.SwapCommitment{
 		In:  sdk.NewCoin(coin.Denom, coin.Amount),

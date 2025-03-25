@@ -44,6 +44,126 @@ import (
 
 const ONE = int64(1e6)
 
+func TestUnbalanceAndRebalance(t *testing.T) {
+	account := mocks.AccountKeeper{
+		Accounts: make(map[string]sdk.AccountI),
+	}
+	bank := mocks.BankKeeper{
+		Balances:    make(map[string]sdk.Coins),
+		Restriction: mocks.NoOpSendRestrictionFn,
+	}
+	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+	server := keeper.NewMsgServer(k)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
+
+	alice, bob := utils.TestAccount(), utils.TestAccount()
+
+	// ARRANGE: Create the Pool.
+	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+		Signer:                "authority",
+		Pair:                  "uusdc",
+		RewardsFee:            10_000_000,
+		ProtocolFeePercentage: 100,
+		InitialA:              800,
+		FutureA:               800,
+		FutureATime:           0,
+		RateMultipliers: sdk.NewCoins(
+			sdk.NewCoin("uusdn", math.NewInt(1_000_000_000_000_000_000)),
+			sdk.NewCoin("uusdc", math.NewInt(1_000_000_000_000_000_000)),
+		),
+	})
+	assert.Nil(t, err)
+
+	// Add to pool the balance we have on mainnet
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(int64(1_000_000_000_000)))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(int64(1_000_000_000_000)))
+
+	// Add funds to user balances (doesn't matter how much)
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity.AddAmount(math.NewInt(1_000_000_000)))
+	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdnLiquidity.AddAmount(math.NewInt(1_000_000_000)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdcLiquidity.AddAmount(math.NewInt(1_000_000_000)))
+	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdnLiquidity.AddAmount(math.NewInt(1_000_000_000)))
+
+	routes := []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdn",
+		},
+	}
+
+	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: alice.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(usdcLiquidity, usdnLiquidity),
+	})
+	assert.NoError(t, err)
+
+	denomIn := int64(999_999_999_999)
+
+	println("UNBALANCING THE POOL")
+	// Unbalance the pool towards uusdn
+	resp, err := server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(denomIn)),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+
+	println("Amount in: ", resp.Swaps[0].In.Amount.String())
+	println("Amount out: ", resp.Swaps[0].Out.Amount.String())
+	println("Fees: ", resp.Swaps[0].Fees[0].Amount.String())
+	sum := resp.Swaps[0].Fees[0].Amount.Add(resp.Swaps[0].Out.Amount)
+	println("Sum : ", sum.String())
+
+	println("POSITIVE MICRO SWAP")
+	routes = []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdc",
+		},
+	}
+
+	denomIn = resp.Result.Amount.Int64()
+	// Unbalance the pool towards uusdn
+	resp, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdn", math.NewInt(1)),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdc", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+
+	println("Amount in: ", resp.Swaps[0].In.Amount.String())
+	println("Amount out: ", resp.Swaps[0].Out.Amount.String())
+	// println("Fees: ", resp.Swaps[0].Fees[0].Amount.String())
+	// sum = resp.Swaps[0].Fees[0].Amount.Add(resp.Swaps[0].Out.Amount)
+	// println("Sum : ", sum.String())
+
+	println("REBALANCING THE POOL")
+	routes = []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdc",
+		},
+	}
+
+	// Unbalance the pool towards uusdn
+	resp, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdn", math.NewInt(denomIn)),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdc", math.NewInt(0)),
+	})
+	require.Nil(t, err)
+
+	println("Amount in: ", resp.Swaps[0].In.Amount.String())
+	println("Amount out: ", resp.Swaps[0].Out.Amount.String())
+	println("Fees: ", resp.Swaps[0].Fees[0].Amount.String())
+	sum = resp.Swaps[0].Fees[0].Amount.Add(resp.Swaps[0].Out.Amount)
+	println("Sum : ", sum.String())
+}
+
 func TestLowAmountSwapBalancedPool(t *testing.T) {
 	account := mocks.AccountKeeper{
 		Accounts: make(map[string]sdk.AccountI),

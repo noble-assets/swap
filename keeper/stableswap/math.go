@@ -33,7 +33,7 @@ import (
 const (
 	FeeDenominator                    = 1e10
 	DecimalPrecision                  = 1e18
-	AmplificationCoefficientPrecision = 1_000_000
+	AmplificationCoefficientPrecision = 100
 )
 
 // getAmplificationCoefficient computes the amplification coefficient (A) based on the current time and ramp settings.
