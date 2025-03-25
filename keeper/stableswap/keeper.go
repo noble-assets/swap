@@ -41,6 +41,9 @@ type Keeper struct {
 	headerService header.Service
 	logger        log.Logger
 
+	// maxSpreadAllowed defines the maximum spread allowed when executing a swap action.
+	maxSpreadAllowed math.LegacyDec
+
 	// Pools stores the StableSwap pools in the state, mapped by their unique uint64 ID.
 	Pools collections.Map[uint64, stableswaptypes.Pool]
 
@@ -70,6 +73,7 @@ func NewKeeper(
 	eventService event.Service,
 	headerService header.Service,
 	logger log.Logger,
+	maxSpreadAllowed int64,
 ) *Keeper {
 	builder := collections.NewSchemaBuilder(storeService)
 
@@ -78,6 +82,8 @@ func NewKeeper(
 		eventService:  eventService,
 		headerService: headerService,
 		logger:        logger,
+
+		maxSpreadAllowed: math.LegacyNewDec(maxSpreadAllowed).QuoInt64(100),
 
 		Pools:                     collections.NewMap(builder, types.StableSwapPoolsPrefix, "pools_stableswap", collections.Uint64Key, codec.CollValue[stableswaptypes.Pool](cdc)),
 		UsersTotalBondedShares:    collections.NewMap(builder, types.StableSwapUsersTotalBondedSharesPrefix, "stableswap_users_total_bonded_shares", collections.PairKeyCodec(collections.Uint64Key, collections.StringKey), sdk.LegacyDecValue),

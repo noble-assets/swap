@@ -156,6 +156,11 @@ func (c *Controller) Swap(
 		return nil, errors.New("swap result amount is not positive")
 	}
 
+	// Ensure that the swap result doesn't exceed max spread allowed.
+	if swapResult.Dy.GTE(math.LegacyNewDecFromInt(coin.Amount).Mul(c.stableswapKeeper.maxSpreadAllowed)) {
+		return nil, errors.New("swap result amount exceeds maximum spread allowed")
+	}
+
 	return &types.SwapCommitment{
 		In:  sdk.NewCoin(coin.Denom, coin.Amount),
 		Out: sdk.NewCoin(denomTo, swapResult.Dy.TruncateInt()),

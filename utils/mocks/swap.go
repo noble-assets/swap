@@ -74,6 +74,7 @@ func SwapKeeperWithKeepers(t testing.TB, account AccountKeeper, bank BankKeeper)
 		0.5e4,
 		&modulev1.StableSwap{
 			UnbondingBlockDelta: 10,
+			MaxSpreadAllowed:    150, // 1.5% spread
 		},
 		address.NewBech32Codec("noble"),
 		account,

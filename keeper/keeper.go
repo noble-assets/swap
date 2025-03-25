@@ -100,7 +100,7 @@ func NewKeeper(
 		Paused:     collections.NewMap(builder, types.PausedPrefix, "paused", collections.Uint64Key, collections.BoolValue),
 		Pools:      collections.NewMap(builder, types.PoolsPrefix, "pools_generic", collections.Uint64Key, codec.CollValue[types.Pool](cdc)),
 
-		Stableswap: stableswap.NewKeeper(cdc, storeService, eventService, headerService, logger),
+		Stableswap: stableswap.NewKeeper(cdc, storeService, eventService, headerService, logger, stableswapConfig.MaxSpreadAllowed),
 
 		addressCodec:  addressCodec,
 		accountKeeper: accountKeeper,
