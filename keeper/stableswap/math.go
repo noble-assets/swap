@@ -126,6 +126,7 @@ func calculateAdjustedBalancesInRates(rates sdk.Coins, balances sdk.Coins) (sdk.
 // in the pool after the swap.
 func getY(x sdk.Coin, amp, D math.LegacyDec) (math.LegacyDec, error) {
 	// The number of tokens in the pool.
+	// Swap only supports 2 pools thus nToken is always 2.
 	nTokens := math.LegacyNewDec(2)
 
 	// amp = A * n ^ (n - 1)
