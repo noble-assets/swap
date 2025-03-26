@@ -14,6 +14,7 @@ build:
 ###                          Formatting & Linting                           ###
 ###############################################################################
 
+goimports_reviser=github.com/incu6us/goimports-reviser/v3
 gofumpt_cmd=mvdan.cc/gofumpt
 golangci_lint_cmd=github.com/golangci/golangci-lint/cmd/golangci-lint
 
@@ -23,6 +24,7 @@ license:
 
 format:
 	@echo "🤖 Running formatter..."
+	@go run $(goimports_reviser) -company-prefixes "github.com/cosmos,cosmossdk.io,github.com/cometbft,github.com/grpc-ecosystem" -excludes 'utils/tools.go' -rm-unused -set-alias ./...
 	@go run $(gofumpt_cmd) -l -w .
 	@echo "✅ Completed formatting!"
 

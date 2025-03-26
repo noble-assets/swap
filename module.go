@@ -40,6 +40,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+
 	modulev1 "swap.noble.xyz/api/module/v1"
 	stableswapv1 "swap.noble.xyz/api/stableswap/v1"
 	swapv1 "swap.noble.xyz/api/v1"

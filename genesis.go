@@ -23,11 +23,11 @@ package swap
 import (
 	"context"
 
-	stableswaptypes "swap.noble.xyz/types/stableswap"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"swap.noble.xyz/keeper"
 	"swap.noble.xyz/types"
+	stableswaptypes "swap.noble.xyz/types/stableswap"
 )
 
 func InitGenesis(ctx context.Context, k *keeper.Keeper, gen types.GenesisState) {

@@ -20,6 +20,7 @@ require (
 	github.com/golang/protobuf v1.5.4
 	github.com/golangci/golangci-lint v1.61.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/incu6us/goimports-reviser/v3 v3.8.2
 	github.com/stretchr/testify v1.9.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240827150818-7e3bb234dfed
 	google.golang.org/grpc v1.67.1

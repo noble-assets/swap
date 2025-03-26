@@ -23,10 +23,12 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/runtime"
-	"github.com/stretchr/testify/require"
+
 	modulev1 "swap.noble.xyz/api/module/v1"
 	"swap.noble.xyz/keeper"
 	"swap.noble.xyz/types"

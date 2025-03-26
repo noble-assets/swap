@@ -25,6 +25,7 @@ import (
 
 	"cosmossdk.io/collections"
 	"cosmossdk.io/math"
+
 	"swap.noble.xyz/types/stableswap"
 )
 

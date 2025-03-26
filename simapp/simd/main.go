@@ -6,6 +6,7 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"swap.noble.xyz/simapp"
 	"swap.noble.xyz/simapp/simd/cmd"
 )

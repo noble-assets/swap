@@ -25,10 +25,12 @@ import (
 	"fmt"
 	"sort"
 
+	"github.com/gogo/protobuf/sortkeys"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/gogo/protobuf/sortkeys"
+
 	"swap.noble.xyz/types"
 )
 
