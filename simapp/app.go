@@ -18,20 +18,20 @@ import (
 	"github.com/cosmos/cosmos-sdk/runtime"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	_ "github.com/cosmos/cosmos-sdk/x/auth" // import for side effects
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
+	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config" // import for side effects
+	_ "github.com/cosmos/cosmos-sdk/x/bank"           // import for side effects
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	_ "github.com/cosmos/cosmos-sdk/x/consensus" // import for side effects
 	consensuskeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
+	_ "github.com/cosmos/cosmos-sdk/x/staking" // import for side effects
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	swapkeeper "swap.noble.xyz/keeper"
 
-	_ "github.com/cosmos/cosmos-sdk/x/auth"           // import for side effects
-	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config" // import for side effects
-	_ "github.com/cosmos/cosmos-sdk/x/bank"           // import for side effects
-	_ "github.com/cosmos/cosmos-sdk/x/consensus"      // import for side effects
-	_ "github.com/cosmos/cosmos-sdk/x/staking"        // import for side effects
-	_ "swap.noble.xyz"                                // import for side effects
+	_ "swap.noble.xyz" // import for side effects
+	swapkeeper "swap.noble.xyz/keeper"
 )
 
 var DefaultNodeHome string

@@ -3,6 +3,8 @@ package cmd
 import (
 	"os"
 
+	"github.com/spf13/cobra"
+
 	"cosmossdk.io/client/v2/autocli"
 	clientv2keyring "cosmossdk.io/client/v2/autocli/keyring"
 	"cosmossdk.io/core/address"
@@ -21,7 +23,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
 	txmodule "github.com/cosmos/cosmos-sdk/x/auth/tx/config"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/spf13/cobra"
+
 	"swap.noble.xyz/simapp"
 )
 

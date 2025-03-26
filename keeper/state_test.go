@@ -24,6 +24,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
 	"swap.noble.xyz/utils/mocks"
 )
 
