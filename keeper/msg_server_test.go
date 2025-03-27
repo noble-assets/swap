@@ -192,7 +192,7 @@ func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
 
 			tC.setup(ctx, servers)
 
-			// Unbalance the pool towards uusdn
+			// ACT: Unbalance the pool towards uusdn.
 			resp, err := server.Swap(ctx, &types.MsgSwap{
 				Signer: bob.Address,
 				Amount: sdk.NewCoin("uusdc", tC.swapInAmt),
