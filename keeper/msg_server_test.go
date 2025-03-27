@@ -110,7 +110,7 @@ func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
 			swapInAmt: math.NewInt(100),
 			initialA:  800,
 			setup: func(ctx context.Context, servers Servers) {
-				// Unbalance the pool towards uusdn
+				// Unbalance the pool towards uusdn.
 				_, err := servers.swap.Swap(ctx, &types.MsgSwap{
 					Signer: bob.Address,
 					Amount: sdk.NewCoin("uusdc", usdcLiquidity.Amount.SubRaw(101)),
