@@ -32,6 +32,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	anyproto "github.com/cosmos/gogoproto/types/any"
+
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	stableswaptypes "swap.noble.xyz/types/stableswap"
@@ -381,7 +382,7 @@ func (c *Controller) GetRates(ctx context.Context) []types.Rate {
 	basePrice := c.GetRate(ctx)
 
 	// If the base price is greater than zero, compute the inverse price.
-	if basePrice.GT(math.LegacyZeroDec()) {
+	if basePrice.IsPositive() {
 		price = basePrice
 		vsPrice = math.LegacyOneDec().Quo(basePrice)
 	}
