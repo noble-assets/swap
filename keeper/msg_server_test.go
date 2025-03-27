@@ -238,8 +238,8 @@ func TestLowAmountSwapBalancedPool(t *testing.T) {
 	assert.Nil(t, err)
 
 	// Add to pool the balance we have on mainnet
-	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(int64(1_000_000*ONE)))
-	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(int64(1_000_000*ONE)))
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
 
 	// Add funds to user balances (doesn't matter how much)
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
