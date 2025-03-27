@@ -46,8 +46,8 @@ import (
 const ONE = int64(1e6)
 
 func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
-	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(int64(1_000_000*ONE)))
-	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(int64(1_000_000*ONE)))
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
 
 	routeToUsdn := []types.Route{
 		{
