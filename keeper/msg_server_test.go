@@ -80,7 +80,7 @@ func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
 		// in a short amount of time.
 		setup func(context.Context, Servers)
 		// swaps accepts the context, the total amount that has to be swapped in the function, and
-		// returns the total output from swaps performed: amount out + fees
+		// returns the total output from swaps performed: amount out + fees.
 		swaps func(context.Context, Servers, math.Int) math.Int
 	}{
 		{
