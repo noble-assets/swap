@@ -172,7 +172,7 @@ func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
 			})
 			require.Nil(t, err)
 
-			// Bob receives more funds to cover swap fees.
+			// ARRANGE: Bob receives more funds to cover swap fees.
 			bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
 			bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdnLiquidity)
 			bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdcLiquidity.AddAmount(math.NewInt(1_000)))
