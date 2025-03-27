@@ -144,7 +144,6 @@ func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
 
 	for _, tC := range testCases {
 		t.Run(tC.name, func(t *testing.T) {
-			// ARRANGE
 			account := mocks.AccountKeeper{
 				Accounts: make(map[string]sdk.AccountI),
 			}
