@@ -382,7 +382,7 @@ func (c *Controller) GetRates(ctx context.Context) []types.Rate {
 	basePrice := c.GetRate(ctx)
 
 	// If the base price is greater than zero, compute the inverse price.
-	if basePrice.GT(math.LegacyZeroDec()) {
+	if basePrice.IsPositive() {
 		price = basePrice
 		vsPrice = math.LegacyOneDec().Quo(basePrice)
 	}
