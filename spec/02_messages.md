@@ -52,7 +52,8 @@ Executes a token exchange between pools based on a defined [route](01_types.md#r
 
 **Requirements**
 - Signer must have sufficient input tokens.
-- Pools 
+- Token denominations must be correctly specified, and routing paths must be valid.
+- The minimum output token denom must match the output token denom in the final route.
 
 **State Changes**
 - Updates the pools liquidity and user balances.

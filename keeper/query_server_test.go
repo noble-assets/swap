@@ -107,7 +107,6 @@ func TestSimulateSwap(t *testing.T) {
 		Min:    sdk.NewCoin("uusdn", math.NewInt(90*ONE)),
 	}
 	responseSimulation, err := queryServer.SimulateSwap(ctx, &types.QuerySimulateSwap{
-		Signer: swapRequest.Signer,
 		Amount: swapRequest.Amount,
 		Routes: swapRequest.Routes,
 		Min:    swapRequest.Min,

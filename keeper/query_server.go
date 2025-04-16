@@ -116,13 +116,51 @@ func (s queryServer) SimulateSwap(ctx context.Context, req *types.QuerySimulateS
 	// simulate the swap operation without committing any state changes to the main
 	// store. By doing so, we can observe the potential effects of the swap without
 	// permanently altering the real state.
-	cacheCtx, _ := sdk.UnwrapSDKContext(ctx).CacheContext()
-	return s.Keeper.Swap(cacheCtx, &types.MsgSwap{
-		Signer: req.Signer,
+	cachedCtx, _ := sdk.UnwrapSDKContext(ctx).CacheContext()
+
+	// Create the Swap message based on the simulation request.
+	swapMsg := &types.MsgSwap{
+		Signer: "", // signer is not necessary
 		Amount: req.Amount,
 		Routes: req.Routes,
 		Min:    req.Min,
-	})
+	}
+
+	// Validate the Swap message.
+	if err := types.ValidateMsgSwap(swapMsg); err != nil {
+		return nil, err
+	}
+
+	// Prepare the swap plan in order to be executed, ensuring that the requested route pools are not paused.
+	swapRoutesPlan, err := s.PrepareSwapPlan(cachedCtx, swapMsg, s.headerService.GetHeaderInfo(cachedCtx).Time.Unix())
+	if err != nil {
+		return nil, fmt.Errorf("error computing swap routes plan: %s", err.Error())
+	}
+
+	// Verify slippage limits.
+	out := swapRoutesPlan.Swaps[len(swapRoutesPlan.Swaps)-1].Commitment.Out
+	if out.IsLT(swapMsg.Min) {
+		return nil, fmt.Errorf("%s is less then min amount %s", out.String(), swapMsg.Min.String())
+	}
+
+	var executedSwaps []*types.Swap
+	for _, swap := range swapRoutesPlan.Swaps {
+		totalFees := sdk.Coins{}
+		for _, fee := range swap.Commitment.Fees {
+			totalFees = totalFees.Add(fee.Amount)
+		}
+		executedSwaps = append(executedSwaps, &types.Swap{
+			PoolId: swap.PoolId,
+			In:     swap.Commitment.In,
+			Out:    swap.Commitment.Out,
+			Fees:   totalFees,
+		})
+	}
+
+	return &types.MsgSwapResponse{
+		Result: swapRoutesPlan.Swaps[len(swapRoutesPlan.Swaps)-1].Commitment.Out,
+		Swaps:  executedSwaps,
+	}, nil
 }
 
 // Paused retrieves a list of the currently paused Pools.
