@@ -1298,6 +1298,15 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	})
 	assert.ErrorIs(t, types.ErrInvalidPool, err)
 
+	// ACT: Attempt to remove liquidity with a too small amount.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		Signer:     user.Address,
+		PoolId:     0,
+		Percentage: math.LegacyMustNewDecFromStr("0.00001"),
+	})
+	assert.ErrorIs(t, types.ErrInvalidAmount, err)
+	assert.Equal(t, "must remove at least 1000000 or 100%, got 4 (0.000010000000000000%): invalid amount", err.Error())
+
 	// ACT: Remove 100% of the provided liquidity.
 	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
 		Signer:     user.Address,
@@ -1487,6 +1496,81 @@ func TestRemoveLiquiditySingleUser(t *testing.T) {
 	stableswapPool, _ = k.Stableswap.Pools.Get(ctx, 0)
 	assert.Equal(t, math.LegacyNewDec((40*ONE)-expectedRemovedAmount), k.Stableswap.GetUserTotalBondedShares(ctx, 0, user.Address))
 	assert.Equal(t, math.LegacyNewDec((40*ONE)-expectedRemovedAmount), stableswapPool.TotalShares)
+}
+
+func TestRemoveLiquidityMaxPositions(t *testing.T) {
+	account := mocks.AccountKeeper{
+		Accounts: make(map[string]sdk.AccountI),
+	}
+	bank := mocks.BankKeeper{
+		Balances:    make(map[string]sdk.Coins),
+		Restriction: mocks.NoOpSendRestrictionFn,
+	}
+	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+	stableswapServer := keeper.NewStableSwapMsgServer(k)
+	stableswapQueryServer := keeper.NewStableSwapQueryServer(k)
+	user := utils.TestAccount()
+
+	// ARRANGE: Create a Pool.
+	_, _ = stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+		Signer:                "authority",
+		Pair:                  "uusdc",
+		ProtocolFeePercentage: 1,
+		RateMultipliers: sdk.NewCoins(
+			sdk.NewCoin("uusdn", math.NewInt(1000000000000000000)),
+			sdk.NewCoin("uusdc", math.NewInt(1000000000000000000)),
+		),
+		InitialA: 100,
+		FutureA:  100,
+	})
+
+	pool, _ := k.Pools.Get(ctx, 0)
+	poolAddress, _ := account.AddressCodec().StringToBytes(pool.Address)
+	poolLiquidity := bank.GetAllBalances(ctx, poolAddress)
+	require.Equal(t, len(poolLiquidity), 0)
+
+	// ARRANGE: Give the user 100usdc/100usdn.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 1, 1, 1, 1, 1, 1, time.UTC)})
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdc", math.NewInt(100*ONE)))
+	bank.Balances[user.Address] = append(bank.Balances[user.Address], sdk.NewCoin("uusdn", math.NewInt(100*ONE)))
+
+	// ARRANGE: Add liquidity for 100usdc/usdn.
+	ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, 1, 1, 1, 1, 1, time.UTC)})
+	_, err := stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+		Signer: user.Address,
+		PoolId: 0,
+		Amount: sdk.NewCoins(
+			sdk.NewCoin("uusdc", math.NewInt(100*ONE)),
+			sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
+		),
+	})
+	require.NoError(t, err)
+
+	for i := 0; i < 5; i++ {
+		// ACT: Create the new 1% unbonding position.
+		_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+			PoolId:     0,
+			Signer:     user.Address,
+			Percentage: math.LegacyNewDec(1),
+		})
+		require.NoError(t, err)
+		ctx = ctx.WithHeaderInfo(header.Info{Time: time.Date(2020, 3, i+2, 1, 1, 1, 1, time.UTC)})
+	}
+	unbondingPositions, err := stableswapQueryServer.UnbondingPositionsByProvider(ctx, &stableswap.QueryUnbondingPositionsByProvider{
+		Provider: user.Address,
+	})
+	require.NoError(t, err)
+	require.Equal(t, len(unbondingPositions.UnbondingPositions), 5)
+
+	// ACT: Create the new 1% unbonding position.
+	_, err = stableswapServer.RemoveLiquidity(ctx, &stableswap.MsgRemoveLiquidity{
+		PoolId:     0,
+		Signer:     user.Address,
+		Percentage: math.LegacyNewDec(1),
+	})
+	// ASSERT: Should have failed due to the maxRemoveLiquidityPositions.
+	require.Error(t, err)
+	require.Equal(t, "max user unbonding positions", err.Error())
 }
 
 func TestRemoveLiquidityMultiUser(t *testing.T) {

@@ -53,7 +53,16 @@ func GetStableSwapController(ctx context.Context, keeper *Keeper, poolId uint64)
 	}
 
 	// Create and return the `StableSwap` StableswapController.
-	stableswapController := stableswap.NewController(&keeper.bankKeeper, &keeper.addressCodec, keeper.baseDenom, &pool, paused, &stableswapPool, keeper.Stableswap)
+	stableswapController := stableswap.NewController(
+		&keeper.bankKeeper,
+		&keeper.addressCodec,
+		keeper.baseDenom,
+		&pool, paused,
+		&stableswapPool,
+		keeper.Stableswap,
+		keeper.minRemoveLiquidityAmount,
+		keeper.maxRemoveLiquidityPositions,
+	)
 	return &stableswapController, nil
 }
 

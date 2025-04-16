@@ -36,7 +36,6 @@ modules:
   - name: tx
     config:
       "@type": cosmos.tx.config.v1.Config
-
   - name: swap
     config:
       "@type": noble.swap.module.v1.Module
@@ -45,6 +44,9 @@ modules:
       authority: noble1zw7vatnx0vla7gzxucgypz0kfr6965akpvzw69
       base_denom: uusdn
       base_minimum_deposit: 1e6
+      min_swap_amount: 1e3
       max_add_liquidity_slippage_percentage: 0.5e4 # 0.5% slippage
+      min_remove_liquidity_amount: 1e6
+      max_remove_liquidity_positions: 10
       stableswap:
         unbonding_block_delta: 1

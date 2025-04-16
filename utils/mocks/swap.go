@@ -71,8 +71,11 @@ func SwapKeeperWithKeepers(t testing.TB, account AccountKeeper, bank BankKeeper)
 		log.NewNopLogger(),
 		"authority",
 		"uusdn",
+		1,
 		1e6,
 		0.5e4,
+		1e6,
+		5,
 		&modulev1.StableSwap{
 			UnbondingBlockDelta: 10,
 		},
@@ -81,7 +84,6 @@ func SwapKeeperWithKeepers(t testing.TB, account AccountKeeper, bank BankKeeper)
 		bank,
 	)
 
-	// bank = bank.WithSendCoinsRestriction(fun)
 	k.SetBankKeeper(bank)
 
 	swap.InitGenesis(wrapper.Ctx, k, *types.DefaultGenesisState())

@@ -1674,6 +1674,18 @@ func TestSwap(t *testing.T) {
 	})
 	assert.ErrorIs(t, types.ErrInvalidSwapRoutingPlan, err)
 
+	// ARRANGE: Set a higher minSwapAmount.
+	k.SetMinSwapAmount(10)
+
+	// ACT: Attempt to perform a Swap without a too small amount.
+	_, err = server.Swap(ctx, &types.MsgSwap{
+		Signer: bob.Address,
+		Amount: sdk.NewCoin("uusdc", math.NewInt(1)),
+		Routes: routes,
+		Min:    sdk.NewCoin("uusdn", math.NewInt(1)),
+	})
+	require.Equal(t, "must swap at least 10 units, got 1: invalid amount", err.Error())
+
 	// ARRANGE: Pause the routed Pool.
 	_, err = server.PauseByAlgorithm(ctx, &types.MsgPauseByAlgorithm{Signer: "authority", Algorithm: types.STABLESWAP})
 	assert.NoError(t, err)
