@@ -247,7 +247,6 @@ Simulate the expected output and associated fees for a token swap and [route](01
 - `min` — Minimum output token wanted.
 
 **Requirements**
-- Signer must have sufficient input tokens.
 - Token denominations must be correctly specified, and routing paths must be valid.
 - The minimum output token denom must match the output token denom in the final route.
 
