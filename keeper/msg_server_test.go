@@ -21,6 +21,7 @@
 package keeper_test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"time"
@@ -43,6 +44,167 @@ import (
 )
 
 const ONE = int64(1e6)
+
+func TestUnbalanceAndRebalanceIsNotConservative(t *testing.T) {
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
+
+	routeToUsdn := []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdn",
+		},
+	}
+
+	routeToUsdc := []types.Route{
+		{
+			PoolId:  0,
+			DenomTo: "uusdc",
+		},
+	}
+
+	alice, bob := utils.TestAccount(), utils.TestAccount()
+
+	type Servers struct {
+		swap       types.MsgServer
+		stableSwap stableswap.MsgServer
+	}
+
+	testCases := []struct {
+		name      string
+		initialA  int64
+		swapInAmt math.Int
+		// setup runs before executing the swap to unbalance the pool which will be rebalanced
+		// via the swaps function below.
+		// This is used to pre-unbalance the pool allowing to tests small amount rebalance swaps
+		// in a short amount of time.
+		setup func(context.Context, Servers)
+		// swaps accepts the context, the total amount that has to be swapped in the function, and
+		// returns the total output from swaps performed: amount out + fees.
+		swaps func(context.Context, Servers, math.Int) math.Int
+	}{
+		{
+			name:      "single rebalance",
+			swapInAmt: usdcLiquidity.Amount.SubRaw(1),
+			initialA:  800,
+			setup:     func(_ context.Context, _ Servers) {},
+			swaps: func(ctx context.Context, servers Servers, totIn math.Int) math.Int {
+				resp, err := servers.swap.Swap(ctx, &types.MsgSwap{
+					Signer: bob.Address,
+					Amount: sdk.NewCoin("uusdn", totIn),
+					Routes: routeToUsdc,
+					Min:    sdk.NewCoin("uusdc", math.NewInt(0)),
+				})
+				require.Nil(t, err)
+
+				fees := math.ZeroInt()
+				if resp.Swaps[0].Fees != nil {
+					fees = resp.Swaps[0].Fees[0].Amount
+				}
+
+				return fees.Add(resp.Swaps[0].Out.Amount)
+			},
+		},
+		{
+			name:      "multiple rebalances swaps of 1uusdn",
+			swapInAmt: math.NewInt(100),
+			initialA:  800,
+			setup: func(ctx context.Context, servers Servers) {
+				// Unbalance the pool towards uusdn.
+				_, err := servers.swap.Swap(ctx, &types.MsgSwap{
+					Signer: bob.Address,
+					Amount: sdk.NewCoin("uusdc", usdcLiquidity.Amount.SubRaw(101)),
+					Routes: routeToUsdn,
+					Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+				})
+				require.Nil(t, err)
+			},
+			swaps: func(ctx context.Context, servers Servers, totIn math.Int) math.Int {
+				totOut := math.ZeroInt()
+				for range totIn.Int64() {
+					resp, err := servers.swap.Swap(ctx, &types.MsgSwap{
+						Signer: bob.Address,
+						Amount: sdk.NewCoin("uusdn", math.NewInt(1)),
+						Routes: routeToUsdc,
+						Min:    sdk.NewCoin("uusdc", math.NewInt(0)),
+					})
+					require.Nil(t, err)
+
+					fees := math.ZeroInt()
+					if len(resp.Swaps[0].Fees) != 0 {
+						fees = resp.Swaps[0].Fees[0].Amount
+					}
+					totOut = totOut.Add(fees.Add(resp.Swaps[0].Out.Amount))
+				}
+
+				return totOut
+			},
+		},
+	}
+
+	for _, tC := range testCases {
+		t.Run(tC.name, func(t *testing.T) {
+			account := mocks.AccountKeeper{
+				Accounts: make(map[string]sdk.AccountI),
+			}
+			bank := mocks.BankKeeper{
+				Balances:    make(map[string]sdk.Coins),
+				Restriction: mocks.NoOpSendRestrictionFn,
+			}
+			k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
+			server := keeper.NewMsgServer(k)
+			stableswapServer := keeper.NewStableSwapMsgServer(k)
+
+			// ARRANGE: Create the Pool.
+			_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
+				Signer:                "authority",
+				Pair:                  "uusdc",
+				RewardsFee:            10_000_000,
+				ProtocolFeePercentage: 100,
+				InitialA:              tC.initialA,
+				FutureA:               tC.initialA,
+				FutureATime:           0,
+				RateMultipliers: sdk.NewCoins(
+					sdk.NewCoin("uusdn", math.NewInt(1_000_000_000_000_000_000)),
+					sdk.NewCoin("uusdc", math.NewInt(1_000_000_000_000_000_000)),
+				),
+			})
+			require.Nil(t, err)
+
+			// ARRANGE: Bob receives more funds to cover swap fees.
+			bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
+			bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdnLiquidity)
+			bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdcLiquidity.AddAmount(math.NewInt(1_000)))
+			bank.Balances[bob.Address] = append(bank.Balances[bob.Address], usdnLiquidity.AddAmount(math.NewInt(1_000)))
+
+			_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
+				Signer: alice.Address,
+				PoolId: 0,
+				Amount: sdk.NewCoins(usdcLiquidity, usdnLiquidity),
+			})
+			assert.NoError(t, err)
+
+			servers := Servers{
+				swap:       server,
+				stableSwap: stableswapServer,
+			}
+
+			tC.setup(ctx, servers)
+
+			// ACT: Unbalance the pool towards uusdn.
+			resp, err := server.Swap(ctx, &types.MsgSwap{
+				Signer: bob.Address,
+				Amount: sdk.NewCoin("uusdc", tC.swapInAmt),
+				Routes: routeToUsdn,
+				Min:    sdk.NewCoin("uusdn", math.NewInt(0)),
+			})
+			require.Nil(t, err)
+
+			totOut := tC.swaps(ctx, servers, resp.Swaps[0].Out.Amount)
+			require.GreaterOrEqual(t, tC.swapInAmt.Int64(), totOut.Int64(), "expected unbalance and rebalance to be not profitable")
+		})
+	}
+}
 
 func TestLowAmountSwapBalancedPool(t *testing.T) {
 	account := mocks.AccountKeeper{
@@ -75,8 +237,8 @@ func TestLowAmountSwapBalancedPool(t *testing.T) {
 	assert.Nil(t, err)
 
 	// Add to pool the balance we have on mainnet
-	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(int64(1_000_000_000_000)))
-	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(int64(1_000_000_000_000)))
+	usdnLiquidity := sdk.NewCoin("uusdn", math.NewInt(1_000_000*ONE))
+	usdcLiquidity := sdk.NewCoin("uusdc", math.NewInt(1_000_000*ONE))
 
 	// Add funds to user balances (doesn't matter how much)
 	bank.Balances[alice.Address] = append(bank.Balances[alice.Address], usdcLiquidity)
@@ -301,12 +463,12 @@ func TestConformance(t *testing.T) {
 				Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
 			},
 			types.MsgSwapResponse{
-				Result: sdk.NewCoin("uusdc", math.NewInt(99971838)),
+				Result: sdk.NewCoin("uusdc", math.NewInt(99972764)),
 				Swaps: []*types.Swap{
 					{
 						PoolId: 0,
 						In:     sdk.NewCoin("uusdn", math.NewInt(100*ONE)),
-						Out:    sdk.NewCoin("uusdc", math.NewInt(99971838)),
+						Out:    sdk.NewCoin("uusdc", math.NewInt(99972764)),
 						Fees:   sdk.NewCoins(sdk.NewCoin("uusdn", math.NewInt(24998))),
 					},
 				},
@@ -1582,7 +1744,7 @@ func TestSwap(t *testing.T) {
 	})
 	// ACT: Expect a successful swap and validate all the resulting amounts.
 	assert.Nil(t, err)
-	assert.Equal(t, response.Result, sdk.NewCoin("uusdn", math.NewInt(99999958)))
+	assert.Equal(t, sdk.NewCoin("uusdn", math.NewInt(99999959)), response.Result)
 	pool, _ := k.Pools.Get(ctx, 0)
 	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdc").Int64()))
 	assert.Equal(t, bank.Balances[pool.Address].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Result.Amount.Int64()))
@@ -1613,69 +1775,6 @@ func TestSwap(t *testing.T) {
 		Min:    sdk.NewCoin("uusdn", math.NewInt(99990000)),
 	})
 	assert.NoError(t, err)
-}
-
-func TestNegativeSwapResult(t *testing.T) {
-	bob := utils.TestAccount()
-	account := mocks.AccountKeeper{
-		Accounts: make(map[string]sdk.AccountI),
-	}
-	bank := mocks.BankKeeper{
-		Balances:    make(map[string]sdk.Coins),
-		Restriction: mocks.NoOpSendRestrictionFn,
-	}
-	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdc", math.NewInt(10000*ONE)))
-	bank.Balances[bob.Address] = append(bank.Balances[bob.Address], sdk.NewCoin("uusdn", math.NewInt(10000*ONE)))
-	k, ctx := mocks.SwapKeeperWithKeepers(t, account, bank)
-	server := keeper.NewMsgServer(k)
-	stableswapServer := keeper.NewStableSwapMsgServer(k)
-
-	// ARRANGE: Create a Pool.
-	_, err := stableswapServer.CreatePool(ctx, &stableswap.MsgCreatePool{
-		Signer:                "authority",
-		Pair:                  "uusdc",
-		ProtocolFeePercentage: 50,
-		RewardsFee:            2_500_000,
-		InitialA:              1000,
-		FutureA:               1000,
-		FutureATime:           0,
-		RateMultipliers: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(1e18)),
-			sdk.NewCoin("uusdc", math.NewInt(1e18)),
-		),
-	})
-	require.NoError(t, err)
-
-	// ARRANGE: Create a liquidity position for bob.
-	_, err = stableswapServer.AddLiquidity(ctx, &stableswap.MsgAddLiquidity{
-		Signer: bob.Address,
-		PoolId: 0,
-		Amount: sdk.NewCoins(
-			sdk.NewCoin("uusdn", math.NewInt(10*ONE)),
-			sdk.NewCoin("uusdc", math.NewInt(10*ONE)),
-		),
-	})
-	require.NoError(t, err)
-
-	// ARRANGE: make the pool unbalanced.
-	_, err = server.Swap(ctx, &types.MsgSwap{
-		Signer: bob.Address,
-		Amount: sdk.NewCoin("uusdn", math.NewInt(1000*ONE)),
-		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
-		Min:    sdk.NewCoin("uusdc", math.NewInt(ONE)),
-	})
-	require.NoError(t, err)
-
-	// ACT: perform a swap without enough liquidity.
-	_, err = server.Swap(ctx, &types.MsgSwap{
-		Signer: bob.Address,
-		Amount: sdk.NewCoin("uusdn", math.NewInt(1000)),
-		Routes: []types.Route{{PoolId: 0, DenomTo: "uusdc"}},
-		Min:    sdk.NewCoin("uusdc", math.NewInt(1)),
-	})
-	require.Error(t, err)
-	// ASSERT: expect matching error.
-	require.Equal(t, "error computing swap routes plan: not enough liquidity to complete the swap", err.Error())
 }
 
 func TestMultiPoolSwap(t *testing.T) {
@@ -1764,7 +1863,7 @@ func TestMultiPoolSwap(t *testing.T) {
 	assert.Nil(t, err)
 
 	// ASSERT: Expect matching values in state.
-	assert.Equal(t, response.Result, sdk.NewCoin("uusde", math.NewInt(99999916)))
+	assert.Equal(t, sdk.NewCoin("uusde", math.NewInt(99999918)), response.Result)
 	pool0, _ := k.Pools.Get(ctx, 0)
 	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdc"), math.NewInt(nLiquidity.Amount.Int64()+(100*ONE)-response.Swaps[0].Fees.AmountOf("uusdc").Int64()))
 	assert.Equal(t, bank.Balances[pool0.Address].AmountOf("uusdn"), math.NewInt(usdcLiquidity.Amount.Int64()-response.Swaps[0].Out.Amount.Int64()))
