@@ -141,7 +141,6 @@ func (s queryServer) SimulateSwap(ctx context.Context, req *types.QuerySimulateS
 		return nil, fmt.Errorf("%s is less then min amount %s", out.String(), swapMsg.Min.String())
 	}
 
-	// Commit the plan.
 	var executedSwaps []*types.Swap
 	for _, swap := range swapRoutesPlan.Swaps {
 		totalFees := sdk.Coins{}
