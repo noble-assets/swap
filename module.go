@@ -396,8 +396,20 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		panic("base_denom for x/swap module must be set")
 	}
 
+	if in.Config.MinSwapAmount <= 0 {
+		panic("min_swap_amount for x/swap module must be set")
+	}
+
 	if in.Config.MaxAddLiquiditySlippagePercentage <= 0 {
 		panic("max_add_liquidity_slippage_percentage for x/swap module must be set")
+	}
+
+	if in.Config.MinRemoveLiquidityAmount <= 0 {
+		panic("min_remove_liquidity_amount for x/swap module must be set")
+	}
+
+	if in.Config.MaxRemoveLiquidityPositions <= 0 {
+		panic("max_remove_liquidity_positions for x/swap module must be set")
 	}
 
 	if in.Config.Stableswap == nil {
@@ -417,12 +429,16 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		in.Logger,
 		authority.String(),
 		in.Config.BaseDenom,
+		in.Config.MinSwapAmount,
 		in.Config.BaseMinimumDeposit,
 		in.Config.MaxAddLiquiditySlippagePercentage,
+		in.Config.MinRemoveLiquidityAmount,
+		in.Config.MaxRemoveLiquidityPositions,
 		in.Config.Stableswap,
 		in.AddressCodec,
 		in.AccountKeeper,
-		in.BankKeeper)
+		in.BankKeeper,
+	)
 	m := NewAppModule(k)
 
 	return ModuleOutputs{Keeper: k, Module: m}

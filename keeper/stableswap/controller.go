@@ -43,11 +43,13 @@ type Controller struct {
 	bankKeeper   *types.BankKeeper
 	addressCodec *address.Codec
 
-	baseDenom        string
-	pool             *types.Pool
-	paused           bool
-	stableswapPool   *stableswap.Pool
-	stableswapKeeper *Keeper
+	baseDenom                   string
+	pool                        *types.Pool
+	paused                      bool
+	stableswapPool              *stableswap.Pool
+	stableswapKeeper            *Keeper
+	minRemoveLiquidityAmount    int64
+	maxRemoveLiquidityPositions int64
 }
 
 // NewController initializes a Controller for managing a StableSwap pool.
@@ -59,15 +61,19 @@ func NewController(
 	paused bool,
 	stableswapPool *stableswap.Pool,
 	stableswapKeeper *Keeper,
+	minRemoveLiquidityAmount int64,
+	maxRemoveLiquidityPositions int64,
 ) Controller {
 	return Controller{
-		bankKeeper:       bankKeeper,
-		addressCodec:     addressCodec,
-		baseDenom:        baseDenom,
-		pool:             pool,
-		paused:           paused,
-		stableswapPool:   stableswapPool,
-		stableswapKeeper: stableswapKeeper,
+		bankKeeper:                  bankKeeper,
+		addressCodec:                addressCodec,
+		baseDenom:                   baseDenom,
+		pool:                        pool,
+		paused:                      paused,
+		stableswapPool:              stableswapPool,
+		stableswapKeeper:            stableswapKeeper,
+		minRemoveLiquidityAmount:    minRemoveLiquidityAmount,
+		maxRemoveLiquidityPositions: maxRemoveLiquidityPositions,
 	}
 }
 
@@ -296,11 +302,18 @@ func (c *Controller) RemoveLiquidity(
 		return nil, types.ErrInvalidUnbondAmount
 	}
 
+	// Ensure that the user does not create more unbonding positions than the max.
+	unbondingPositions := c.stableswapKeeper.GetUnbondingPositionsByProvider(ctx, msg.Signer)
+	if int64(len(unbondingPositions)) >= c.maxRemoveLiquidityPositions {
+		return nil, types.ErrMaxUserUnbondingPositions.Wrapf("reached unbonding limit of %d positions", c.maxRemoveLiquidityPositions)
+	}
+
 	// Get the Pool liquidity.
 	liquidity := c.GetLiquidity(ctx)
 
 	// Calculate the proportional amount of each asset in the pool to return to the user.
 	coinsToReturn := sdk.NewCoins()
+	totalRawAmountToReturn := math.ZeroInt()
 	for _, asset := range liquidity {
 		// Determine the amount of tokens to return for this asset.
 		amountToReturn := asset.Amount.Mul(sharesToUnbond.TruncateInt()).Quo(c.stableswapPool.TotalShares.TruncateInt())
@@ -310,6 +323,17 @@ func (c *Controller) RemoveLiquidity(
 
 		// Create the coin representation of the token to return.
 		coinsToReturn = coinsToReturn.Add(sdk.NewCoin(asset.Denom, amountToReturn))
+		totalRawAmountToReturn = totalRawAmountToReturn.Add(amountToReturn)
+	}
+
+	if msg.Percentage.LT(math.LegacyNewDec(100)) && totalRawAmountToReturn.LT(math.NewInt(c.minRemoveLiquidityAmount)) {
+		return nil, sdkerrors.Wrapf(
+			types.ErrInvalidAmount,
+			"must remove at least %d or 100%%, got %d (%s%%)",
+			c.minRemoveLiquidityAmount,
+			totalRawAmountToReturn.Int64(),
+			msg.Percentage.String(),
+		)
 	}
 
 	// Compute the unbonding period weighted to the amount of tokens to unbond and the total pool liquidity.

@@ -31,6 +31,7 @@ import (
 	"cosmossdk.io/core/store"
 	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/log"
+	"cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -42,8 +43,11 @@ import (
 type Keeper struct {
 	authority                         string
 	baseDenom                         string
+	minSwapAmount                     int64
 	baseMinimumDeposit                int64
 	maxAddLiquiditySlippagePercentage int64
+	minRemoveLiquidityAmount          int64
+	maxRemoveLiquidityPositions       int64
 	stableswapConfig                  *modulev1.StableSwap
 
 	eventService  event.Service
@@ -77,8 +81,11 @@ func NewKeeper(
 	logger log.Logger,
 	authority string,
 	pairDenom string,
+	minSwapAmount int64,
 	baseMinimumDeposit int64,
 	maxAddLiquiditySlippagePercentage int64,
+	minRemoveLiquidityAmount int64,
+	maxRemoveLiquidityPositions int64,
 	stableswapConfig *modulev1.StableSwap,
 	addressCodec address.Codec,
 	accountKeeper types.AccountKeeper,
@@ -89,8 +96,11 @@ func NewKeeper(
 	keeper := &Keeper{
 		authority:                         authority,
 		baseDenom:                         pairDenom,
+		minSwapAmount:                     minSwapAmount,
 		baseMinimumDeposit:                baseMinimumDeposit,
 		maxAddLiquiditySlippagePercentage: maxAddLiquiditySlippagePercentage,
+		minRemoveLiquidityAmount:          minRemoveLiquidityAmount,
+		maxRemoveLiquidityPositions:       maxRemoveLiquidityPositions,
 		stableswapConfig:                  stableswapConfig,
 
 		eventService:  eventService,
@@ -122,6 +132,11 @@ func (k *Keeper) SetBankKeeper(bankKeeper types.BankKeeper) {
 	k.bankKeeper = bankKeeper
 }
 
+// SetMinSwapAmount overwrites the minimum swap amount used in this module.
+func (k *Keeper) SetMinSwapAmount(minSwapAmount int64) {
+	k.minSwapAmount = minSwapAmount
+}
+
 func (k *Keeper) Logger() log.Logger {
 	return k.logger.With("module", types.ModuleName)
 }
@@ -133,6 +148,15 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	userAddress, err := k.addressCodec.StringToBytes(msg.Signer)
 	if err != nil {
 		return nil, fmt.Errorf("unable to decode signer address: %s", msg.Signer)
+	}
+
+	if msg.Amount.Amount.LT(math.NewInt(k.minSwapAmount)) {
+		return nil, sdkerrors.Wrapf(
+			types.ErrInvalidAmount,
+			"must swap at least %d units, got %d",
+			k.minSwapAmount,
+			msg.Amount.Amount.Int64(),
+		)
 	}
 
 	// Validate the Swap message.

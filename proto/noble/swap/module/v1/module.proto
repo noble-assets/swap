@@ -14,14 +14,24 @@ message Module {
   // base_denom defines the base denom that is used as the standard pairing denomination for all liquidity pools.
   string base_denom = 2;
 
+  // min_swap_amount specifies the minimum amount of the tokens required to execute a swap.
+  int64 min_swap_amount = 3;
+
   // base_minimum_deposit specifies the minimum amount of the base token required for depositing into liquidity pools.
-  int64 base_minimum_deposit = 3;
+  int64 base_minimum_deposit = 4;
 
   // max_add_liquidity_slippage_percentage specifies the maximum slippage a user may encounter when adding liquidity.
-  int64 max_add_liquidity_slippage_percentage = 4;
+  int64 max_add_liquidity_slippage_percentage = 5;
+
+  // min_remove_liquidity_amount defines the minimum number of tokens required to initiate the unbonding process,
+  // unless the entire amount (100%) is being removed.
+  int64 min_remove_liquidity_amount = 6;
+
+  // max_remove_liquidity_positions defines the maximum number of concurrent liquidity unbonding positions that a user can create.
+  int64 max_remove_liquidity_positions = 7;
 
   // stableswap contains the custom attributes and configurations required for the StableSwap module.
-  StableSwap stableswap = 5;
+  StableSwap stableswap = 8;
 }
 
 message StableSwap {
