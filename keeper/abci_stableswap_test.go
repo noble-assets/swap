@@ -24,11 +24,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"cosmossdk.io/collections"
 	"cosmossdk.io/core/header"
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/assert"
+
 	"swap.noble.xyz/types"
 	"swap.noble.xyz/types/stableswap"
 	"swap.noble.xyz/utils"

@@ -24,9 +24,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/gogo/protobuf/sortkeys"
+
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/gogo/protobuf/sortkeys"
+
 	"swap.noble.xyz/types"
 )
 

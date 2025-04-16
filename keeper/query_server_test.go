@@ -23,9 +23,10 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/assert"
 
 	"swap.noble.xyz/keeper"
 	"swap.noble.xyz/types"

@@ -22,9 +22,12 @@ package keeper_test
 
 import (
 	"fmt"
-	"math/rand/v2"
+	rand "math/rand/v2"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"cosmossdk.io/collections"
 	"cosmossdk.io/core/header"
@@ -33,8 +36,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 
 	"swap.noble.xyz/keeper"
 	stableswapkeeper "swap.noble.xyz/keeper/stableswap"

@@ -23,6 +23,7 @@ package stableswap
 import (
 	"cosmossdk.io/collections"
 	"cosmossdk.io/collections/indexes"
+
 	stableswaptypes "swap.noble.xyz/types/stableswap"
 )
 
