@@ -151,7 +151,7 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 	}
 
 	// Prepare the swap plan in order to be executed, ensuring that the requested route pools are not paused.
-	swapRoutesPlan, err := k.PrepareSwapPlan(ctx, msg, k.headerService.GetHeaderInfo(ctx).Time.Unix(), k)
+	swapRoutesPlan, err := k.PrepareSwapPlan(ctx, msg, k.headerService.GetHeaderInfo(ctx).Time.Unix())
 	if err != nil {
 		return nil, fmt.Errorf("error computing swap routes plan: %s", err.Error())
 	}
@@ -198,13 +198,13 @@ func (k *Keeper) Swap(ctx context.Context, msg *types.MsgSwap) (*types.MsgSwapRe
 }
 
 // PrepareSwapPlan prepares a swap route plan from the swap message, containing the details for its execution.
-func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timestamp int64, s *Keeper) (*types.PlanSwapRoutes, error) {
+func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timestamp int64) (*types.PlanSwapRoutes, error) {
 	var swaps []types.PlanSwapRoute
 
 	swapIn := msg.Amount // Initial swap amount.
 	for _, route := range msg.Routes {
 		// Retrieve the Pool StableswapController for the requested Pool.
-		controller, err := GetGenericController(ctx, s, route.PoolId)
+		controller, err := GetGenericController(ctx, k, route.PoolId)
 		if err != nil {
 			return nil, err
 		}
@@ -222,14 +222,14 @@ func (k *Keeper) PrepareSwapPlan(ctx context.Context, msg *types.MsgSwap, timest
 		}
 
 		// Early check that the Pool contains the requested `Amount`.
-		if swapIn.Denom != s.baseDenom && swapIn.Denom != controller.GetPair() {
+		if swapIn.Denom != k.baseDenom && swapIn.Denom != controller.GetPair() {
 			return nil, sdkerrors.Wrapf(
 				types.ErrInvalidSwapRoutingPlan, "%s is not a paired asset in pool %d", msg.Amount.Denom, controller.GetId(),
 			)
 		}
 
 		// Ensure that the Pool contains the requested `DenomTo`.
-		if route.DenomTo != s.baseDenom && route.DenomTo != controller.GetPair() {
+		if route.DenomTo != k.baseDenom && route.DenomTo != controller.GetPair() {
 			return nil, sdkerrors.Wrapf(
 				types.ErrInvalidSwapRoutingPlan, "pool %d doesn't contain denom %s", controller.GetId(), route.DenomTo,
 			)
