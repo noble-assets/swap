@@ -34,9 +34,6 @@ import (
 // is met, it processes all eligible unbonding positions across active stableswap pools.
 func (k *Keeper) StableSwapBeginBlocker(ctx context.Context) (executed bool) {
 	headerInfo := k.headerService.GetHeaderInfo(ctx)
-	if headerInfo.Height%k.stableswapConfig.UnbondingBlockDelta != 0 {
-		return false
-	}
 	k.Stableswap.Logger().Info("processing unbondings epoch")
 
 	// Get all the UnbondingPositions expiring at the current block time.
